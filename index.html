@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>dinnerquest v0.1</title>
+        <meta name="description" content="">
+            
+        <meta name="apple-touch-fullscreen" content="YES" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="HandheldFriendly" content="true" />
+        <meta http-equiv="x-rim-auto-match" content="none" />
+            
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, minimal-ui">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link href="css/ui-lightness/jquery-ui-1.10.4.css" rel="stylesheet">
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    </head>
+    <body>
+        
+        <div role="debug" hidden><p></p></div>
+
+        <div id="overlays">
+            <div id="stage">
+                <div class="fork"></div>
+                <div class="spoon"></div>
+                <div id="plates">
+                    <div id="plate"></div>
+                </div>
+                <div id="chart" hidden></div>
+                <div class="logo icon"></div>
+                <div class="info icon"></div>
+            </div>
+        </div>
+        
+        <!-- .menu-wrapper -->
+        <div class="menu-mask">
+            <div class="menu-wrapper">
+                <div class="menu-container">
+                    <div class="navi-container">
+                        <div data-foodcat="0" class="veggies active"></div>
+                        <div data-foodcat="1" class="sides"></div>
+                        <div data-foodcat="2" class="animals"></div>
+                    </div>
+                    <div class="food-container"></div>
+                </div>
+            </div><!-- /.menu-wrapper -->
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+        <script src="js/vendor/jquery-ui-1.10.4.min.js"></script>
+        <script src="js/vendor/jquery.ui.touch-punch.min.js"></script>
+        <script src="js/vendor/throttle-1.1.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>

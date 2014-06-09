@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" id="plate" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="800px" height="600px" viewBox="0 0 800 600" enable-background="new 0 0 800 600" xml:space="preserve">
+<g>
+	<g>
+		<g opacity="0.4">
+			<path d="M542.188,275.19c0,147.458-119.539,266.999-267,266.999c-147.457,0-267-119.541-267-266.999
+				c0-147.461,119.543-267.001,267-267.001C422.649,8.188,542.188,127.729,542.188,275.19z"/>
+		</g>
+		<g>
+			<path fill="#F2F2F0" d="M535,268.001C535,415.459,415.461,535,268,535C120.543,535,1,415.459,1,268.001
+				C1,120.541,120.543,1,268,1C415.461,1,535,120.541,535,268.001z"/>
+		</g>
+	</g>
+	<ellipse fill="#E8E8E8" cx="268.002" cy="268.001" rx="192.182" ry="192.176"/>
+</g>
+</svg>
