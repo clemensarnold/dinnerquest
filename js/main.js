@@ -162,7 +162,6 @@ var dq = (function($, window, undefined) {
         
         if (!configs.isTouch) refs.$plate.addClass('desktop');
         
-        
         refs.$plate.fadeIn();
     },
     
@@ -252,9 +251,7 @@ var dq = (function($, window, undefined) {
                 y = plate_y - food_y,
                 //dist = Math.round(Math.sqrt(x*x + y*y)),
                 dist = Math.round(x*x + y*y),
-                onPlate = false;
-         
-            if (dist < constants.PLATE_DISTANCE) onPlate = true;
+                onPlate = (dist < constants.PLATE_DISTANCE);
             
             dragfood.setDroppableStatus(onPlate);
             
