@@ -142,19 +142,32 @@ body {
     top: 50px; left: 248px;
 }
 
-#plate {
+.plate {
     border-radius: 50%;
     width: 540px;
     height: 540px;
     position: absolute;
     top: 0; left: 0;
-    /*transition: border 0.3s ease-out;*/
     background-image: url(./../img/svg/plate.svg);
     border: 2px solid rgba(243,40,44,0);
+    display: none;
 }
 
-#plate.drop {
+.plate.visible {
+    opacity: 1;
+}
+
+.plate.drop {
    border: 2px solid rgba(243,40,44,1);
+}
+
+.plate.desktop {
+    transition: border 0.3s ease-out;
+    border: 2px dotted rgba(243,40,44,0);
+}
+
+.plate.desktop.drop {
+    border: 2px dotted rgba(243,40,44,1);
 }
 
 .fork {
@@ -177,7 +190,7 @@ body {
     width: 139px;
     height: 106px;
     left: 5px;
-    top: 12px;
+    top: 22px;
     background-position: 2px 2px;
     z-index: 100;
 }
@@ -186,7 +199,7 @@ body {
     width: 55px;
     height: 49px;
     right: 35px; 
-    top: 26px;
+    top: 36px;
     background-position: -142px 2px;
     z-index: 101;
 }
@@ -224,6 +237,7 @@ body {
     display: inline-block;
     position: relative;
     opacity: 0;
+    z-index: 1000;
 }
 
 .navi-container {
@@ -282,7 +296,7 @@ body {
     height: 300px;
     background-image: url(./../img/svg/food-on-plate.svg);
     opacity: 1 !important;
-    background-position: 0 0 !important;
+    background-position: 0 0;
     /*border: 1px solid red;*/
 }
 
@@ -291,14 +305,16 @@ body {
     height: 300px;
     position: absolute;
     background-image: url(./../img/svg/food-on-plate.svg);
+    /*z-index: 1;*/
 }
 
 /* == debug ====================================================== */
 
 [role="debug"] {
     position: fixed;
-    top: 10px; left: 10px;
+    bottom: 250px; left: 10px;
     width: 150px;
+    min-height: 150px;
     padding: 0.5em;
     background: black;
     z-index: 1000;

@@ -29,7 +29,7 @@ var helper = {
             if (dq.constants.DEV) console.log(arg);
         };
         
-        $('[role="debug"]').removeAttr('hidden').addClass('transparent').
+        $('[role="debug"]').removeAttr('hidden').//addClass('transparent').
             click(function() { $(this).toggleClass('transparent'); });
     },
     

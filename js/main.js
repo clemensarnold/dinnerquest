@@ -1,10 +1,13 @@
 var dq = (function($, window, undefined) {
     
-    refs = {
+    "use strict";
+    
+    var refs = {
         $window: $(window),
         $document: $(document),
         $dragfood: undefined,
-        $plate: $('#plate')
+        $plates: $('#plates'),
+        $plate: undefined
     },
     configs = {
         isTouch: 'ontouchstart' in window
@@ -13,13 +16,15 @@ var dq = (function($, window, undefined) {
         constants: {
             CO2_MAX: 700,
             KCAL_MIN: 500,
-            FOODITEMS_VERTOFF: {veggies: 0, sides: -105, animals: -210},
-            FOOD_CATS: ['veggies', 'sides', 'animals']
+            FOODITEMS_VERTOFF: {veggies: 0, sides: -105, animals: -210},    // small icons
+            FOODITEMS_VERTOFF_BIG: {veggies: 0, sides: -300, animals: -600},    // big icons
+            FOOD_CATS: ['veggies', 'sides', 'animals'],
+            FOOD_BGVERT_OFF: {veggies: 0, sides: 1, animals: 2}
         },
         currentFoodCat: 'veggies',
         currentMeal: [],
         meals: [],
-        foodCounter: 0
+        foodCounter: NaN
     },
     app = {},
     dragfood = {},
@@ -42,6 +47,8 @@ var dq = (function($, window, undefined) {
         $.getJSON(constants.JSON_PATH, function(data) {
             app.json = data;
             app.initApp();
+            
+            game.startNewGame();
         });
     });
     
@@ -65,7 +72,8 @@ var dq = (function($, window, undefined) {
                 app.renderFoodMenu();
             });
             
-            $('.logo').on({click: app.reload});
+            //$('.logo').on({click: app.reload});
+            $('.logo').on({click: game.startNewGame});
             
             this.renderFoodMenu();
             $('.menu-container').fadeTo(constants.FADE_IN, 1);
@@ -88,6 +96,7 @@ var dq = (function($, window, undefined) {
                 
                 specs = app.json.avFood[foodCat][i];
                 specs.foodCat = game.currentFoodCat;
+                specs.bgHorPos = i;
                 
                 $(el).css({backgroundPosition: -i * $(el).width() + 'px ' + vertOff + 'px'}).
                     data('specs', specs).
@@ -105,9 +114,11 @@ var dq = (function($, window, undefined) {
                 start: function(e, ui) {
                     refs.$dragfood = ui.helper;
                     refs.$dragfood.addClass('dragged');
+                    
+                    dragfood.setBackgroundPosition(refs.$dragfood, $(this).data('specs'));
                 },
                 stop: dragfood.stopDragging,
-                drag: $.throttle(400, dragfood.calcDistance)
+                drag: $.throttle(300, dragfood.calcDistance)
             });
         },
         
@@ -117,15 +128,43 @@ var dq = (function($, window, undefined) {
         
         keyDownListener: function(e) {
             
+            log(e.keyCode);
+            
             switch(e.keyCode) {
                 case 67: // c
                     debug.printObject(game.calcMealVals(game.currentMeal));
+                    break;
+                
+                case 78:
+                    game.startNewGame();
                     break;
             }
         }
     }
     
     /********** Game **********/
+    
+    game.startNewGame = function() {
+        var html = '<div class="plate"></div>';
+            
+        //  temp
+        if (game.currentMeal.length > 0) {
+            game.meals.push(game.currentMeal);
+        }
+        
+        //  resets
+        game.currentMeal = [];
+        game.foodCounter = 0;
+        debug.printObject({});
+        
+        refs.$plates.append(html);
+        refs.$plate =  $(dq.refs.$plates.children()[dq.refs.$plates.children().length - 1]);
+        
+        if (!configs.isTouch) refs.$plate.addClass('desktop');
+        
+        
+        refs.$plate.fadeIn();
+    },
     
     game.addFood = function(specs) {
         game.currentMeal.push(specs);
@@ -141,6 +180,7 @@ var dq = (function($, window, undefined) {
         
         return {cals: cals, co2: co2};
     }
+
     
     /********** Dragfood **********/
     
@@ -151,19 +191,33 @@ var dq = (function($, window, undefined) {
         stopDragging: function() {
             
             var onPlate = dragfood.calcDistance(true),
-                foodID = 'food-' + game.foodCounter,
+                foodID = 'food-' + game.meals.length + '-' + game.foodCounter,
                 foodHTML = '<div class="food" id="' + foodID + '"></div>',
                 left = dq.refs.$dragfood.offset().left,
-                top = dq.refs.$dragfood.offset().top;
+                top = dq.refs.$dragfood.offset().top,
+                $newFood = undefined;
                 
             refs.$plate.append(foodHTML);
+            $newFood = $('#' + foodID);
+            
             game.foodCounter++;
-            $('#' + foodID).css({left: left - dq.refs.$plate.offset().left, top: top - dq.refs.$plate.offset().top});
+            $newFood.css({left: left - dq.refs.$plate.offset().left, top: top - dq.refs.$plate.offset().top});
+            
+            
+            dragfood.setBackgroundPosition($newFood, $(this).data('specs'));
         
             if (onPlate) {
                 game.addFood($(this).data('specs'));
+                
+                debug.printObject($(this).data('specs'));
+                debug.printObject(game.calcMealVals(game.currentMeal), true);
+                
+                $newFood.data('specs', $(this).data('specs')).on({click: function() {
+                    debug.printObject($(this).data('specs'));
+                }});
+                
             } else {
-                $('#' + foodID).fadeOut(constants.FADE_OUT, function() { $(this).remove(); });
+                $newFood.fadeOut(constants.FADE_OUT, function() { $(this).remove(); });
             }
             
             dragfood.setDroppableStatus(false);
@@ -206,14 +260,22 @@ var dq = (function($, window, undefined) {
             
             if (dropped) return onPlate;
             else return true;
+        },
+        
+        setBackgroundPosition: function($el, specs) {
+            var horPos = -300 * specs.bgHorPos,
+                vertPos = game.constants.FOODITEMS_VERTOFF_BIG[specs.foodCat],
+                backgroundPosition = horPos + 'px ' + vertPos + 'px';
+                    
+            $el.css({backgroundPosition: backgroundPosition});
         }
     }
     
     /********** Debug **********/
     
     debug = {
-        printObject: function(data) {
-            var html = '';
+        printObject: function(data, noClear) {
+            var html = noClear ? $('[role="debug"] p').html() : '';
             
             for (var key in data) {
                 html += key + ': ' + data[key] + '<br>'
@@ -237,6 +299,7 @@ var dq = (function($, window, undefined) {
 
 /*
  * todos
+ * new game function
  * throttle device based
  * transition: border 0.3s ease-out; device based
  * opacity: 0.8 !important; of dragged food device based
