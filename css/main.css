@@ -102,7 +102,7 @@ html, body, #overlays {
 }
 
 body {
-    background: url(./../img/svg/table-cloth.svg);
+    background: #cadbe5; /*url(./../img/svg/table-cloth.svg);*/
     overflow: hidden;
 }
 
@@ -225,7 +225,7 @@ body {
 }
 
 .menu-wrapper {
-    background: url(./../img/svg/food-menu.svg);
+    background: #fcecdf; /*url(./../img/svg/food-menu.svg);*/
     height: 106px;
     width: 100%;
     position: absolute;
@@ -296,6 +296,10 @@ body {
     opacity: 1 !important;
     background-position: 0 0 !important;
     /*border: 1px solid red;*/
+}
+
+.m-item.inactive {
+    cursor: default;
 }
 
 #plates .food {

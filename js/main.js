@@ -118,6 +118,11 @@ var dq = (function($, window, undefined) {
                 helper: 'clone',
                 cursorAt: {left: constants.FOOD_HOR, top: constants.FOOD_VERT},
                 start: function(e, ui) {
+                    
+                    if (app.json.rules.food_only_once) {
+                        $(this).addClass('inactive').draggable('disable');
+                    }
+                    
                     refs.$dragfood = ui.helper;
                     refs.$dragfood.addClass('dragged');
                     
@@ -153,9 +158,16 @@ var dq = (function($, window, undefined) {
     game.startNewGame = function() {
         var html = '<div class="plate"></div>';
             
-        //  temp
+        //  resets after first game
         if (game.currentMeal.length > 0) {
             game.meals.push(game.currentMeal);
+            
+            if (app.json.rules.food_only_once) {
+                $('.food-container .inactive').removeClass('inactive').draggable('enable');
+            }
+            
+            //dq.app.json.expressions['new-game'][0]
+            cutlery.setExpression('L01,G01');
         }
         
         //  resets
@@ -283,7 +295,7 @@ var dq = (function($, window, undefined) {
         setExpression: function(exp) {
             var spoonID = parseInt(exp.split(',')[0].substr(1)),
                 forkID = parseInt(exp.split(',')[1].substr(1)),
-                backgroundPosition = -game.constants.CUTLERY_HOROFF * (spoonID + 1) + 'px 0';
+                backgroundPosition = -game.constants.CUTLERY_HOROFF * (spoonID - 1) + 'px 0';
             
             refs.$spoon.css({backgroundPosition: backgroundPosition});
         }
