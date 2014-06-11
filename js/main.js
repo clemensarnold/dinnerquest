@@ -10,6 +10,8 @@ var dq = (function($, window, undefined) {
         $plate: undefined,
         $fork: $('.fork'),
         $spoon: $('.spoon'),
+        $menu: $('.menu-wrapper'),
+        $mealCheck: $('.meal-check')
     },
     configs = {
         isTouch: 'ontouchstart' in window
@@ -38,7 +40,7 @@ var dq = (function($, window, undefined) {
         DEV: true,
         URL_HOME: '',
         JSON_PATH: './json/data.json',
-        FADE_IN: 200, FADE_OUT: 400, FADE_DELAY: 150,
+        FADE_IN: 200, FADE_OUT: 400, FADE_DELAY: 50,
         FOOD_HOR: NaN, FOOD_VERT: NaN,
         PLATE_RAD: 270, PLATE_DISTANCE: 40000 // 200*200
     };
@@ -168,6 +170,9 @@ var dq = (function($, window, undefined) {
             
             //dq.app.json.expressions['new-game'][0]
             cutlery.setExpression('L01,G01');
+            
+            refs.$menu.fadeIn();
+            refs.$mealCheck.toggleClass('visible');
         }
         
         //  resets
@@ -197,7 +202,24 @@ var dq = (function($, window, undefined) {
         
         return {cals: cals, co2: co2};
     }
-
+    
+    game.checkMealVals = function() {
+        var vals = game.calcMealVals(game.currentMeal),
+            tooMuchC02 = (vals.co2 > game.constants.CO2_MAX),
+            enoughCalories = (vals.cals > game.constants.KCAL_MIN),
+            gameOver = tooMuchC02 || enoughCalories;
+        
+        
+        if (gameOver || true) {
+            refs.$menu.fadeOut();
+            refs.$mealCheck.toggleClass('visible');
+        }
+        
+        //if (tooMuchC02)
+        
+        log('tooMuchC02: ' + tooMuchC02);
+        log('enoughCalories: ' + enoughCalories);
+    }
     
     /********** Dragfood **********/
     
@@ -227,6 +249,7 @@ var dq = (function($, window, undefined) {
             if (onPlate) {
                 game.addFood(specs);
                 cutlery.setExpression(specs.exp);
+                game.checkMealVals();
                 
                 debug.printObject(specs);
                 debug.printObject(game.calcMealVals(game.currentMeal), true);
@@ -284,19 +307,15 @@ var dq = (function($, window, undefined) {
     /********** Cutlery **********/
     
     cutlery = {
-        spoon: {
-            
-        },
-        
-        fork: {
-            
-        },
         
         setExpression: function(exp) {
             var spoonID = parseInt(exp.split(',')[0].substr(1)),
                 forkID = parseInt(exp.split(',')[1].substr(1)),
-                backgroundPosition = -game.constants.CUTLERY_HOROFF * (spoonID - 1) + 'px 0';
+                backgroundPosition = -game.constants.CUTLERY_HOROFF * (forkID - 1) + 'px 0';
             
+            refs.$fork.css({backgroundPosition: backgroundPosition});
+            
+            backgroundPosition = -game.constants.CUTLERY_HOROFF * (spoonID - 1) + 'px 0';
             refs.$spoon.css({backgroundPosition: backgroundPosition});
         }
     }
