@@ -102,7 +102,7 @@ html, body, #overlays {
 }
 
 body {
-    background: #cadbe5;
+    background: url(./../img/svg/table-cloth.svg);
     overflow: hidden;
 }
 
@@ -225,7 +225,7 @@ body {
 }
 
 .menu-wrapper {
-    background: #fcecdf;
+    background: url(./../img/svg/food-menu.svg);
     height: 106px;
     width: 100%;
     position: absolute;
