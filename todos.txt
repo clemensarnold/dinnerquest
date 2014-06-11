@@ -1,7 +1,6 @@
 
 
 CLEMENS
-[ ] set dimensions of dragfood with variable
 [ ] basic setup of gameover screen: + / -, hide food menu, show new game button
 [ ] basic tooltip with food data next to food
 [ ] basic setup infoseite
