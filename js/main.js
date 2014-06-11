@@ -16,10 +16,11 @@ var dq = (function($, window, undefined) {
         constants: {
             CO2_MAX: 700,
             KCAL_MIN: 500,
-            FOODITEMS_VERTOFF: {veggies: 0, sides: -105, animals: -210},    // small icons
-            FOODITEMS_VERTOFF_BIG: {veggies: 0, sides: -300, animals: -600},    // big icons
+            FOODITEMS_VERTOFF: {veggies: 0, sides: -105, animals: -210},        // small icons
+            FOODITEMS_VERTOFF_BIG: {veggies: 0, sides: NaN, animals: NaN},      // big icons
             FOOD_CATS: ['veggies', 'sides', 'animals'],
-            FOOD_BGVERT_OFF: {veggies: 0, sides: 1, animals: 2}
+            FOOD_BGVERT_OFF: {veggies: 0, sides: 1, animals: 2},
+            FOOD_BIG_DIMS: 450
         },
         currentFoodCat: 'veggies',
         currentMeal: [],
@@ -34,10 +35,8 @@ var dq = (function($, window, undefined) {
         URL_HOME: '',
         JSON_PATH: './json/data.json',
         FADE_IN: 200, FADE_OUT: 400, FADE_DELAY: 150,
-        FOOD_HOR: 150,
-        FOOD_VERT: 150,
-        PLATE_RAD: 270,
-        PLATE_DISTANCE: 40000 // 200*200
+        FOOD_HOR: NaN, FOOD_VERT: NaN,
+        PLATE_RAD: 270, PLATE_DISTANCE: 40000 // 200*200
     };
     
     $(function() {
@@ -47,7 +46,6 @@ var dq = (function($, window, undefined) {
         $.getJSON(constants.JSON_PATH, function(data) {
             app.json = data;
             app.initApp();
-            
             game.startNewGame();
         });
     });
@@ -56,6 +54,10 @@ var dq = (function($, window, undefined) {
     app = {
         
         initApp: function() {
+            
+            game.constants.FOODITEMS_VERTOFF_BIG.sides = -game.constants.FOOD_BIG_DIMS;
+            game.constants.FOODITEMS_VERTOFF_BIG.animals = -2 * game.constants.FOOD_BIG_DIMS;
+            constants.FOOD_HOR = constants.FOOD_VERT = game.constants.FOOD_BIG_DIMS / 2;
             
             if (constants.DEV) {
                 refs.$window.on({keydown: this.keyDownListener});
@@ -110,12 +112,12 @@ var dq = (function($, window, undefined) {
             
             $('.m-item').draggable({
                 helper: 'clone',
-                cursorAt: {left: 150, top: 150},
+                cursorAt: {left: constants.FOOD_HOR, top: constants.FOOD_VERT},
                 start: function(e, ui) {
                     refs.$dragfood = ui.helper;
                     refs.$dragfood.addClass('dragged');
                     
-                    dragfood.setBackgroundPosition(refs.$dragfood, $(this).data('specs'));
+                    dragfood.setBackground(refs.$dragfood, $(this).data('specs'));
                 },
                 stop: dragfood.stopDragging,
                 drag: $.throttle(300, dragfood.calcDistance)
@@ -203,7 +205,7 @@ var dq = (function($, window, undefined) {
             $newFood.css({left: left - dq.refs.$plate.offset().left, top: top - dq.refs.$plate.offset().top});
             
             
-            dragfood.setBackgroundPosition($newFood, $(this).data('specs'));
+            dragfood.setBackground($newFood, $(this).data('specs'));
         
             if (onPlate) {
                 game.addFood($(this).data('specs'));
@@ -259,12 +261,9 @@ var dq = (function($, window, undefined) {
             else return true;
         },
         
-        setBackgroundPosition: function($el, specs) {
-            var horPos = -300 * specs.bgHorPos,
-                vertPos = game.constants.FOODITEMS_VERTOFF_BIG[specs.foodCat],
-                backgroundPosition = horPos + 'px ' + vertPos + 'px';
-                    
-            $el.css({backgroundPosition: backgroundPosition});
+        setBackground: function($el, specs) {
+            var backgroundImage = 'url(./img/svg/onplate/' + specs.foodCat + '/' + specs.bgHorPos + '.svg)';
+            $el.css({backgroundImage: backgroundImage});
         }
     }
     

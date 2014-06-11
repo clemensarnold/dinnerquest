@@ -292,20 +292,21 @@ body {
 }
 
 .m-item.dragged {
-    width: 300px;
-    height: 300px;
-    background-image: url(./../img/svg/food-on-plate.svg);
     opacity: 1 !important;
-    background-position: 0 0;
+    background-position: 0 0 !important;
     /*border: 1px solid red;*/
 }
 
 #plates .food {
-    width: 300px;
-    height: 300px;
     position: absolute;
-    background-image: url(./../img/svg/food-on-plate.svg);
     /*z-index: 1;*/
+}
+
+.m-item.dragged, #plates .food {
+    width: 450px;
+    height: 450px;
+    /*background-image: url(./../img/svg/food-on-plate.svg);*/
+    /*border: 1px solid lime;*/
 }
 
 /* == debug ====================================================== */
