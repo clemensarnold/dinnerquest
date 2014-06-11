@@ -18,3 +18,4 @@ BENJAMIN
 
 NOT ASSIGNED
 [ ] video-intro (chrome/safari)
+[ ] Bratwurst (Schwein)	L08	G10 in json einbauen
