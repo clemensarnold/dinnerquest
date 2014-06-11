@@ -29,7 +29,7 @@
             {"label": "Hähnchenflügel", "serving": 125, "kcal": 362.5, "c02": 260},
 			{"label": "Rind", "serving": 50, "kcal": 96.5, "c02": 1650},
 			{"label": "Joghurtdip/Creme Fraiche", "serving": 25, "kcal": 73, "c02": 120},
-			{"label": "Butter", "serving": 30, "kcal": 223.2, "c02": 260,
+			{"label": "Butter", "serving": 30, "kcal": 223.2, "c02": 260},
 			{"label": "Parmesan", "serving": 30, "kcal": 129.3, "c02": 300},
 			{"label": "Schafskaese", "serving": 50, "kcal": 132, "c02": 500}
         ]
