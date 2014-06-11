@@ -1,0 +1,20 @@
+
+
+CLEMENS
+[ ] set dimensions of dragfood with variable
+[ ] basic setup of gameover screen: + / -, hide food menu, show new game button
+[ ] basic tooltip with food data next to food
+[ ] basic setup infoseite
+[ ] basic logic for cutlery control
+
+
+BENJAMIN
+[ ] update food spritesheets (food-on-plate.svg, av-food.svg)
+[ ] add new food data to json (dinnerquest_zutaten_20140608.ods),
+    IMPORTANT: order needs to match with order in svg spritesheet!
+[ ] embed pattern for table-cloth
+[ ] embed pattern for food menu
+
+
+NOT ASSIGNED
+[ ] video-intro (chrome/safari)
