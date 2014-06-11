@@ -18,8 +18,16 @@
             {"label": "Schweinefleisch", "serving": 75, "kcal": 210, "c02": 430},
             {"label": "Hähnchenflügel", "serving": 125, "kcal": 362.5, "c02": 260}
         ]
-    },    
+    },        
     
+    "rules": {
+        "max_co2": 700,
+        "min_kcal": 1000,
+        "food_only_once": true,
+        "max_sides": 2,
+        "max_veggies": 3,
+        "max_animals": 2
+    },
     "questions": [
         {
             "question": "Sie kommen zu dieser Kreuzung und möchten geradeaus zur BAWAG P.S.K. Filiale fahren. Haben Sie Vorrang oder Wartepflicht?",

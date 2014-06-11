@@ -5,6 +5,7 @@ CLEMENS
 [ ] basic tooltip with food data next to food
 [ ] basic setup infoseite
 [ ] basic logic for cutlery control
+[ ] connect food items with cutlery frames
 
 
 BENJAMIN

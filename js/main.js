@@ -15,7 +15,7 @@ var dq = (function($, window, undefined) {
     game = {
         constants: {
             CO2_MAX: 700,
-            KCAL_MIN: 500,
+            KCAL_MIN: 1000,
             FOODITEMS_VERTOFF: {veggies: 0, sides: -105, animals: -210},        // small icons
             FOODITEMS_VERTOFF_BIG: {veggies: 0, sides: NaN, animals: NaN},      // big icons
             FOOD_CATS: ['veggies', 'sides', 'animals'],
@@ -30,6 +30,7 @@ var dq = (function($, window, undefined) {
     app = {},
     dragfood = {},
     debug = {},
+    cutlery = {},
     constants = {
         DEV: true,
         URL_HOME: '',
@@ -264,6 +265,18 @@ var dq = (function($, window, undefined) {
         setBackground: function($el, specs) {
             var backgroundImage = 'url(./img/svg/onplate/' + specs.foodCat + '/' + specs.bgHorPos + '.svg)';
             $el.css({backgroundImage: backgroundImage});
+        }
+    }
+    
+    /********** Cutlery **********/
+    
+    cutlery = {
+        spoon: {
+            
+        },
+        
+        fork: {
+            
         }
     }
     
