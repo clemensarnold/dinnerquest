@@ -7,7 +7,9 @@ var dq = (function($, window, undefined) {
         $document: $(document),
         $dragfood: undefined,
         $plates: $('#plates'),
-        $plate: undefined
+        $plate: undefined,
+        $fork: $('.fork'),
+        $spoon: $('.spoon'),
     },
     configs = {
         isTouch: 'ontouchstart' in window
@@ -20,7 +22,8 @@ var dq = (function($, window, undefined) {
             FOODITEMS_VERTOFF_BIG: {veggies: 0, sides: NaN, animals: NaN},      // big icons
             FOOD_CATS: ['veggies', 'sides', 'animals'],
             FOOD_BGVERT_OFF: {veggies: 0, sides: 1, animals: 2},
-            FOOD_BIG_DIMS: 450
+            FOOD_BIG_DIMS: 450,
+            CUTLERY_HOROFF: 120
         },
         currentFoodCat: 'veggies',
         currentMeal: [],
@@ -197,6 +200,7 @@ var dq = (function($, window, undefined) {
                 foodHTML = '<div class="food" id="' + foodID + '"></div>',
                 left = dq.refs.$dragfood.offset().left,
                 top = dq.refs.$dragfood.offset().top,
+                specs = $(this).data('specs'),
                 $newFood = undefined;
                 
             refs.$plate.append(foodHTML);
@@ -206,17 +210,14 @@ var dq = (function($, window, undefined) {
             $newFood.css({left: left - dq.refs.$plate.offset().left, top: top - dq.refs.$plate.offset().top});
             
             
-            dragfood.setBackground($newFood, $(this).data('specs'));
+            dragfood.setBackground($newFood, specs);
         
             if (onPlate) {
-                game.addFood($(this).data('specs'));
+                game.addFood(specs);
+                cutlery.setExpression(specs.exp);
                 
-                debug.printObject($(this).data('specs'));
+                debug.printObject(specs);
                 debug.printObject(game.calcMealVals(game.currentMeal), true);
-                
-                $newFood.data('specs', $(this).data('specs')).on({click: function() {
-                    debug.printObject($(this).data('specs'));
-                }});
                 
             } else {
                 $newFood.fadeOut(constants.FADE_OUT, function() { $(this).remove(); });
@@ -277,6 +278,14 @@ var dq = (function($, window, undefined) {
         
         fork: {
             
+        },
+        
+        setExpression: function(exp) {
+            var spoonID = parseInt(exp.split(',')[0].substr(1)),
+                forkID = parseInt(exp.split(',')[1].substr(1)),
+                backgroundPosition = -game.constants.CUTLERY_HOROFF * (spoonID + 1) + 'px 0';
+            
+            refs.$spoon.css({backgroundPosition: backgroundPosition});
         }
     }
     
@@ -291,7 +300,7 @@ var dq = (function($, window, undefined) {
             }
             
             $('[role="debug"] p').html(html);
-            log(data);
+            //log(data);
         }
     }
 

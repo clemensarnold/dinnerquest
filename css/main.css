@@ -183,7 +183,7 @@ body {
     top: 100px; 
     left: 814px;
     width: 106px; height: 400px;
-    border: 1px solid red;
+    /*border: 1px solid red;*/
     background-image: url(./../img/svg/spoons.svg);
 }
 
