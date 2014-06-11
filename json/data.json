@@ -25,9 +25,9 @@
         "animals": [
             {"label": "Lachsfilet", "serving": 50, "kcal": 71, "c02": 200, "exp": "L07,G09"},
             {"label": "Ei", "serving": 60, "kcal": 96.6, "c02": 150, "exp": "L05,G09"},
-            {"label": "Schweinefleisch", "serving": 75, "kcal": 210, "c02": 430, "exp": "L05,G07"},
+            {"label": "Rind", "serving": 50, "kcal": 96.5, "c02": 1650, "exp": "L09,G11"},
             {"label": "Hähnchenflügel", "serving": 125, "kcal": 362.5, "c02": 260, "exp": "L05,G09"},
-			{"label": "Rind", "serving": 50, "kcal": 96.5, "c02": 1650, "exp": "L09,G11"},
+			{"label": "Bratwurst (Schwein)", "serving": 75, "kcal": 210, "c02": 430, "exp": "L08,G10"},
 			{"label": "Joghurtdip/Creme Fraiche", "serving": 25, "kcal": 73, "c02": 120, "exp": "L09,G11"},
 			{"label": "Butter", "serving": 30, "kcal": 223.2, "c02": 260, "exp": "L08,G11"},
 			{"label": "Parmesan", "serving": 30, "kcal": 129.3, "c02": 300, "exp": "L08,G10"},
