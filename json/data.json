@@ -27,7 +27,7 @@
             {"label": "Ei", "serving": 60, "kcal": 96.6, "c02": 150, "exp": "L05,G09", "chart": "140, 140"},
             {"label": "Rind", "serving": 50, "kcal": 96.5, "c02": 1650, "exp": "L09,G11", "chart": "170, 150"},
             {"label": "Hähnchenflügel", "serving": 125, "kcal": 362.5, "c02": 260, "exp": "L05,G09", "chart": "150, 130"},
-            {"label": "Bratwurst (Schwein)", "serving": 75, "kcal": 210, "c02": 430, "exp": "L08,G10", "chart": "150, 30"},
+            {"label": "Bratwurst (Schwein)", "serving": 75, "kcal": 210, "c02": 430, "exp": "L08,G10", "chart": "150, 40"},
             {"label": "Joghurtdip/Creme Fraiche", "serving": 25, "kcal": 73, "c02": 120, "exp": "L09,G11", "chart": "160, 150"},
             {"label": "Butter", "serving": 30, "kcal": 223.2, "c02": 260, "exp": "L08,G11", "chart": "160, 150"},
             {"label": "Parmesan", "serving": 30, "kcal": 129.3, "c02": 300, "exp": "L08,G10", "chart": "190, 140"},
