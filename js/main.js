@@ -160,6 +160,10 @@ var dq = (function($, window, undefined) {
             dq.refs.$menu.hide();
         },
         
+        convertGrammToKG: function (gramm) {
+              return gramm / 1000;
+        },
+        
         generateChart: function() {
             var html = '',
                 specs = {},
@@ -168,11 +172,12 @@ var dq = (function($, window, undefined) {
             refs.$plate.find('.food').each(function(i, el) {
                 
                 specs = $(el).data('specs');
-                
-                html = '<div class="chart"><p>_SERVING_ g _LABEL_<br>_CO2_ KG CO2</p></div>';
+
+                html = '<div class="_CLASSES_"><p>_SERVING_ g _LABEL_<br>_CO2_ KG CO2</p></div>';
+                html = html.replace('_CLASSES_', specs.bigbg ? "chart big-chart" : "chart normal-chart");
                 html = html.replace('_SERVING_', specs.serving);
                 html = html.replace('_LABEL_', specs.label);
-                html = html.replace('_CO2_', specs.c02);
+                html = html.replace('_CO2_', app.convertGrammToKG(specs.c02));
                
                 $(el).append(html);
                

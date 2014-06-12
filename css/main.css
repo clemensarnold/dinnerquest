@@ -420,18 +420,30 @@ body {
     position: absolute;
     top: 170px;
     left: 150px;
-    width: 145px;
-    height: 81.25px;
+    color: #3d4c57;
     /*border: 1px solid grey;*/
     /*background: #f5f5f5;*/
-    background-size: 100% auto;
+    background-size: 100% 100%;
     background-image: url(./../img/svg/banneret.svg);
     z-index: 1;
 }
 
+.big-chart {
+    width: 250px;
+    height: 74px;
+}
+
+.normal-chart {
+    width: 132px;
+    height: 74px;
+}
+
 .chart p {
-    font-size: 18px;
-    margin: 2px 0 0 7px;
+    font-weight: normal;
+    font-size: 17px;
+    line-height: 20px;
+    margin: 5px 0 0 0px;
+    text-align: center;
 }
 
 /* == debug ====================================================== */
