@@ -154,7 +154,7 @@ body {
     z-index: 2;
     display: none;
     height: 670px;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
 }
 
 #infopage {
@@ -215,6 +215,32 @@ body {
     width: 106px; height: 400px;
     /*border: 1px solid red;*/
     background-image: url(./../img/svg/spoons.svg);
+}
+.bubble {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 150px;
+    z-index: 2000;
+    /*border: 1px solid;*/
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+    background-image: url(./../img/svg/newgame-bubbles.svg);
+}
+
+.bubble.visible {
+    opacity: 1;
+}
+
+.spoon .bubble {
+    top: -60px;
+    left: -150px;
+}
+
+.fork .bubble {
+    top: -50px;
+    left: -50px;
 }
 
 .logo {
