@@ -90,6 +90,7 @@ var dq = (function($, window, undefined) {
             $('.logo').on({click: game.startNewGame});
             
             refs.$chart.on({click: game.startNewGame});
+            refs.$mealCheck.on({click: game.startNewGame});
             
             refs.$infobtn.on({click: function() {
                 $(this).toggleClass('close');
@@ -100,7 +101,8 @@ var dq = (function($, window, undefined) {
         },
         
         renderFoodMenu: function() {
-            var foodHtml = '<div class="m-item"></div>',
+            var foodClass = configs.isTouch ? 'm-item touch' : 'm-item',
+                foodHtml = '<div class="' + foodClass + '"></div>',
                 html = '',
                 foodCat = game.currentFoodCat,
                 vertOff = game.constants.FOODITEMS_VERTOFF[foodCat],
