@@ -7,6 +7,7 @@ var dq = (function($, window, undefined) {
         $document: $(document),
         $dragfood: undefined,
         $plates: $('#plates'),
+        $chart: $('#chart'),
         $plate: undefined,
         $fork: $('.fork'),
         $spoon: $('.spoon'),
@@ -21,9 +22,9 @@ var dq = (function($, window, undefined) {
         clickEvent: ('ontouchstart' in window) ? 'touchstart' : 'mousedown'
     },
     game = {
+        co2_max: NaN,
+        kcal_min: NaN,
         constants: {
-            CO2_MAX: 700,
-            KCAL_MIN: 1000,
             FOODITEMS_VERTOFF: {veggies: 0, sides: -105, animals: -210},
             FOODITEMS_VERTOFF_BIG: {veggies: 0, sides: NaN, animals: NaN},
             FOOD_CATS: ['veggies', 'sides', 'animals'],
@@ -57,6 +58,10 @@ var dq = (function($, window, undefined) {
         $.getJSON(constants.JSON_PATH, function(data) {
             app.json = data;
             app.initApp();
+            
+            game.co2_max = app.json.rules.co2_max;
+            game.kcal_min = app.json.rules.kcal_min;
+            
             game.startNewGame();
         });
     });
@@ -84,8 +89,7 @@ var dq = (function($, window, undefined) {
             
             $('.logo').on({click: game.startNewGame});
             
-            //  sort out z-index issue
-            //refs.$plates.on({click: game.startNewGame});
+            refs.$chart.on({click: game.startNewGame});
             
             refs.$infobtn.on({click: function() {
                 $(this).toggleClass('close');
@@ -151,6 +155,35 @@ var dq = (function($, window, undefined) {
             dq.refs.$menu.hide();
         },
         
+        generateChart: function() {
+            var html = '',
+                specs = {},
+                tmpAry = [];
+            
+            refs.$plate.find('.food').each(function(i, el) {
+                
+                specs = $(el).data('specs');
+                
+                html = '<div class="chart"><p>_SERVING_ g _LABEL_<br>_CO2_ KG CO2</p></div>';
+                html = html.replace('_SERVING_', specs.serving);
+                html = html.replace('_LABEL_', specs.label);
+                html = html.replace('_CO2_', specs.c02);
+               
+                $(el).append(html);
+               
+                if (specs.chart.length > 0) {
+                    tmpAry = $(el).data('specs').chart.split(',');
+                    $(el).children().css({left: tmpAry[0] + 'px', top: tmpAry[1] + 'px'});
+               }
+            });
+            
+            refs.$chart.show();
+        },
+        
+        resetChart: function() {
+            refs.$chart.hide();
+        },
+        
         hideInfoPage: function() {
             $('html').removeClass('overflow');
             refs.$infopage.removeClass('visible');
@@ -198,7 +231,9 @@ var dq = (function($, window, undefined) {
             cutlery.setExpression('L01,G01');
             
             refs.$menu.fadeIn();
-            refs.$mealCheck.toggleClass('visible').removeClass('failed');
+            refs.$mealCheck.removeClass('visible failed');
+            
+            app.resetChart();
         }
         
         //  resets
@@ -237,17 +272,27 @@ var dq = (function($, window, undefined) {
     
     game.checkMealVals = function() {
         var vals = game.calcMealVals(game.currentMeal),
-            tooMuchC02 = (vals.co2 > game.constants.CO2_MAX),
-            enoughCalories = (vals.cals > game.constants.KCAL_MIN),
+            tooMuchC02 = (vals.co2 > game.co2_max),
+            enoughCalories = (vals.cals > game.kcal_min),
             gameOver = tooMuchC02 || enoughCalories;
-        
-        if (gameOver || true) {
-            refs.$menu.fadeOut();
-            refs.$mealCheck.toggleClass('visible');
             
-            if (tooMuchC02 || true) {
+        //app.generateChart();
+        
+        if (gameOver) {
+            
+            refs.$menu.fadeOut();
+            refs.$mealCheck.addClass('visible');
+            
+            if (tooMuchC02) {
+                // lost
                 refs.$mealCheck.addClass('failed');
+            } else {
+                // won
+                
             }
+            
+            //  show food facts
+            app.generateChart();
         }
     }
     
@@ -279,6 +324,7 @@ var dq = (function($, window, undefined) {
             if (onPlate) {
                 game.addFood(specs);
                 cutlery.setExpression(specs.exp);
+                $newFood.data('specs', specs);
                 game.checkMealVals();
                 
                 if (app.json.rules.food_only_once) {
