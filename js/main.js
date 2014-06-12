@@ -96,7 +96,7 @@ var dq = (function($, window, undefined) {
                 app.renderFoodMenu();
             });
             
-            $('.logo').on({click: game.startNewGame});
+            $('.logo').on({click: app.reload});
             
             refs.$chart.on({click: game.startNewGame});
             refs.$mealCheck.on({click: game.startNewGame});
@@ -436,7 +436,6 @@ var dq = (function($, window, undefined) {
                     break;
                 
                 case game.BUBBLES_FAILED:
-                    
                     if (game.platesCounter < 2) arrayID = game.platesCounter;
                     else if (game.platesCounter === 2) arrayID = 1;
                     else arrayID = 2;
