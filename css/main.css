@@ -142,11 +142,17 @@ body {
     margin-left: -512px;
 }
 
-#plates {
+#plates, #chart {
     width: 570px; height: 570px;
     /*border: 1px solid black;*/
     position: absolute;
     top: 50px; left: 248px;
+    z-index: 1;
+}
+
+#chart {
+    z-index: 2;
+    display: none;
 }
 
 #infopage {
@@ -246,6 +252,7 @@ body {
     right: 290px;
     opacity: 0;
     transition: opacity 0.4s ease-out 0.3s;
+    z-index: 2;
 }
 
 .meal-check.failed {
@@ -357,6 +364,22 @@ body {
     height: 450px;
     /*background-image: url(./../img/svg/food-on-plate.svg);*/
     /*border: 1px solid lime;*/
+}
+
+.chart {
+    position: absolute;
+    top: 170px;
+    left: 150px;
+    width: 150px;
+    height: 55px;
+    /*border: 1px solid grey;*/
+    background: #f5f5f5;
+    z-index: 1;
+}
+
+.chart p {
+    font-size: 11px;
+    margin: 10px 0 0 5px;
 }
 
 /* == debug ====================================================== */
