@@ -1,37 +1,37 @@
 {
     "avFood": {        
         "veggies": [
-            {"label": "Tomaten", "serving": 250, "kcal": 42.5, "c02": 350, "exp": "L02,G02", "chart": "160, 145", "bigbg" : false},
-            {"label": "Karotten", "serving": 200, "kcal": 72, "c02": 60, "exp": "L01,G01", "chart": "60,170", "bigbg" : false},
-            {"label": "Broccoli", "serving": 200, "kcal": 70, "c02": 60, "exp": "L01,G01", "chart": "165, 140", "bigbg" : false},
-            {"label": "Fisolen", "serving": 200, "kcal": 58, "c02": 260, "exp": "L02,G02", "chart": "165, 140", "bigbg" : false},
-            {"label": "Zucchini", "serving": 200, "kcal": 40, "c02": 280, "exp": "L03,G02", "chart": "150, 150", "bigbg" : false},
-            {"label": "Spinat", "serving": 200, "kcal": 46, "c02": 300, "exp": "L03,G02", "chart": "185, 150", "bigbg" : false},
+            {"label": "Tomaten", "serving": 250, "kcal": 42.5, "c02": 350, "exp": "L02,G02", "chart": "150, 140", "bigbg" : false},
+            {"label": "Karotten", "serving": 200, "kcal": 72, "c02": 60, "exp": "L01,G01", "chart": "70,160", "bigbg" : false},
+            {"label": "Broccoli", "serving": 200, "kcal": 70, "c02": 60, "exp": "L01,G01", "chart": "153, 130", "bigbg" : false},
+            {"label": "Fisolen", "serving": 200, "kcal": 58, "c02": 260, "exp": "L02,G02", "chart": "152, 130", "bigbg" : false},
+            {"label": "Zucchini", "serving": 200, "kcal": 40, "c02": 280, "exp": "L03,G02", "chart": "147, 137", "bigbg" : false},
+            {"label": "Spinat", "serving": 200, "kcal": 46, "c02": 300, "exp": "L03,G02", "chart": "160, 140", "bigbg" : false},
             {"label": "Kraut", "serving": 350, "kcal": 77, "c02": 490, "exp": "L02,G02", "chart": "150, 150", "bigbg" : false},
-            {"label": "Gurken", "serving": 200, "kcal": 30, "c02": 300, "exp": "L03,G02", "chart": "170, 160", "bigbg" : false},
+            {"label": "Gurken", "serving": 200, "kcal": 30, "c02": 300, "exp": "L03,G02", "chart": "163, 153", "bigbg" : false},
             {"label": "Oliven", "serving": 20, "kcal": 27.6, "c02": 70, "exp": "L04,G07", "chart": "150, 140", "bigbg" : false}
         ],
         "sides": [
-            {"label": "Fusili", "serving": 55, "kcal": 202, "c02": 160, "exp": "L02,G03", "chart": "50, 30", "bigbg" : false},
-            {"label": "Rosm. Kartoffeln", "serving": 100, "kcal": 93, "c02": 20, "exp": "L01,G01", "chart": "180, 130", "bigbg" : true},
-            {"label": "Linsen", "serving": 200, "kcal": 202, "c02": 160, "exp": "L01,G02", "chart": "160, 150", "bigbg" : false},
-            {"label": "Pommes", "serving": 70, "kcal": 203.7, "c02": 150, "exp": "L02,G03", "chart": "170, 140", "bigbg" : false},
-            {"label": "Couscous", "serving": 55, "kcal": 189.75, "c02": 70, "exp": "L03,G02", "chart": "170, 150", "bigbg" : false},
-            {"label": "Reis", "serving": 150, "kcal": 528, "c02": 360, "exp": "L05,G06", "chart": "150, 150", "bigbg" : false},
-            {"label": "Semmel", "serving": 80, "kcal": 204.8, "c02": 90, "exp": "L03,G02", "chart": "170, 140", "bigbg" : false},
-            {"label": "Tofu", "serving": 150, "kcal": 192, "c02": 330, "exp": "L03,G04", "chart": "150, 120", "bigbg" : false},
-            {"label": "Falafel", "serving": 60, "kcal": 192, "c02": 70, "exp": "L02,G02", "chart": "190, 130", "bigbg" : false}
+            {"label": "Fusili", "serving": 55, "kcal": 202, "c02": 160, "exp": "L02,G03", "chart": "80, 20", "bigbg" : false},
+            {"label": "Rosm. Kartoffeln", "serving": 100, "kcal": 93, "c02": 20, "exp": "L01,G01", "chart": "100, 110", "bigbg" : true},
+            {"label": "Linsen", "serving": 200, "kcal": 202, "c02": 160, "exp": "L01,G02", "chart": "158, 148", "bigbg" : false},
+            {"label": "Pommes", "serving": 70, "kcal": 203.7, "c02": 150, "exp": "L02,G03", "chart": "170, 135", "bigbg" : false},
+            {"label": "Couscous", "serving": 55, "kcal": 189.75, "c02": 70, "exp": "L03,G02", "chart": "160, 145", "bigbg" : false},
+            {"label": "Reis", "serving": 150, "kcal": 528, "c02": 360, "exp": "L05,G06", "chart": "140, 145", "bigbg" : false},
+            {"label": "Semmel", "serving": 80, "kcal": 204.8, "c02": 90, "exp": "L03,G02", "chart": "140, 125", "bigbg" : false},
+            {"label": "Tofu", "serving": 150, "kcal": 192, "c02": 330, "exp": "L03,G04", "chart": "150, 110", "bigbg" : false},
+            {"label": "Falafel", "serving": 60, "kcal": 192, "c02": 70, "exp": "L02,G02", "chart": "180, 110", "bigbg" : false}
         ],
         "animals": [
-            {"label": "Lachsfilet", "serving": 50, "kcal": 71, "c02": 200, "exp": "L07,G09", "chart": "180, 110", "bigbg" : false},
-            {"label": "Ei", "serving": 60, "kcal": 96.6, "c02": 150, "exp": "L05,G09", "chart": "140, 140", "bigbg" : false},
-            {"label": "Rind", "serving": 50, "kcal": 96.5, "c02": 1650, "exp": "L09,G11", "chart": "170, 150", "bigbg" : false},
-            {"label": "Hähnchenflügel", "serving": 125, "kcal": 362.5, "c02": 260, "exp": "L05,G09", "chart": "150, 130", "bigbg" : true},
-            {"label": "Bratwurst (Schwein)", "serving": 75, "kcal": 210, "c02": 430, "exp": "L08,G10", "chart": "150, 40", "bigbg" : true},
-            {"label": "Joghurtdip/Creme Fraiche", "serving": 25, "kcal": 73, "c02": 120, "exp": "L09,G11", "chart": "160, 150", "bigbg" : true},
-            {"label": "Butter", "serving": 30, "kcal": 223.2, "c02": 260, "exp": "L08,G11", "chart": "160, 150", "bigbg" : false},
-            {"label": "Parmesan", "serving": 30, "kcal": 129.3, "c02": 300, "exp": "L08,G10", "chart": "190, 140", "bigbg" : false},
-            {"label": "Schafskäse", "serving": 50, "kcal": 132, "c02": 500, "exp": "L09,G10", "chart": "180, 140", "bigbg" : false}
+            {"label": "Lachsfilet", "serving": 50, "kcal": 71, "c02": 200, "exp": "L07,G09", "chart": "183, 110", "bigbg" : false},
+            {"label": "Ei", "serving": 60, "kcal": 96.6, "c02": 150, "exp": "L05,G09", "chart": "125, 130", "bigbg" : false},
+            {"label": "Rind", "serving": 50, "kcal": 96.5, "c02": 1650, "exp": "L09,G11", "chart": "160, 130", "bigbg" : false},
+            {"label": "Hähnchenflügel", "serving": 125, "kcal": 362.5, "c02": 260, "exp": "L05,G09", "chart": "80, 115", "bigbg" : true},
+            {"label": "Bratwurst (Schwein)", "serving": 75, "kcal": 210, "c02": 430, "exp": "L08,G10", "chart": "45, 40", "bigbg" : true},
+            {"label": "Joghurtdip/Creme Fraiche", "serving": 25, "kcal": 73, "c02": 120, "exp": "L09,G11", "chart": "65, 140", "bigbg" : true},
+            {"label": "Butter", "serving": 30, "kcal": 223.2, "c02": 260, "exp": "L08,G11", "chart": "160, 130", "bigbg" : false},
+            {"label": "Parmesan", "serving": 30, "kcal": 129.3, "c02": 300, "exp": "L08,G10", "chart": "185, 130", "bigbg" : false},
+            {"label": "Schafskäse", "serving": 50, "kcal": 132, "c02": 500, "exp": "L09,G10", "chart": "175, 135", "bigbg" : false}
         ]
     },        
     
