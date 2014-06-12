@@ -11,19 +11,24 @@ var dq = (function($, window, undefined) {
         $fork: $('.fork'),
         $spoon: $('.spoon'),
         $menu: $('.menu-wrapper'),
-        $mealCheck: $('.meal-check')
+        $foodCont: $('.food-container'),
+        $mealCheck: $('.meal-check'),
+        $infopage: $('#infopage'),
+        $infobtn: $('.info')
     },
     configs = {
-        isTouch: 'ontouchstart' in window
+        isTouch: 'ontouchstart' in window,
+        clickEvent: ('ontouchstart' in window) ? 'touchstart' : 'mousedown'
     },
     game = {
         constants: {
             CO2_MAX: 700,
             KCAL_MIN: 1000,
-            FOODITEMS_VERTOFF: {veggies: 0, sides: -105, animals: -210},        // small icons
-            FOODITEMS_VERTOFF_BIG: {veggies: 0, sides: NaN, animals: NaN},      // big icons
+            FOODITEMS_VERTOFF: {veggies: 0, sides: -105, animals: -210},
+            FOODITEMS_VERTOFF_BIG: {veggies: 0, sides: NaN, animals: NaN},
             FOOD_CATS: ['veggies', 'sides', 'animals'],
             FOOD_BGVERT_OFF: {veggies: 0, sides: 1, animals: 2},
+            DEFAULT_TAB: 'veggies',
             FOOD_BIG_DIMS: 450,
             CUTLERY_HOROFF: 120
         },
@@ -69,21 +74,24 @@ var dq = (function($, window, undefined) {
                 refs.$window.on({keydown: this.keyDownListener});
             }
             
-            var clickEvent = (configs.isTouch ? 'touchstart' : 'mousedown');
-            
-            $('.navi-container > div').on(clickEvent, function() {
+            $('.navi-container > div').on(configs.clickEvent, function() {
                 game.currentFoodCat = game.constants.FOOD_CATS[$(this).data('foodcat')];
                 
-                $('.navi-container > div').removeClass('active');
+                $('.navi-container > div.active').removeClass('active');
                 $(this).addClass('active');
-                
                 app.renderFoodMenu();
             });
             
-            //$('.logo').on({click: app.reload});
             $('.logo').on({click: game.startNewGame});
             
-            this.renderFoodMenu();
+            //  sort out z-index issue
+            //refs.$plates.on({click: game.startNewGame});
+            
+            refs.$infobtn.on({click: function() {
+                $(this).toggleClass('close');
+                refs.$infopage.hasClass('visible') ? app.hideInfoPage() : app.showInfoPage();
+            }});
+            
             $('.menu-container').fadeTo(constants.FADE_IN, 1);
         },
         
@@ -98,7 +106,7 @@ var dq = (function($, window, undefined) {
                 html += foodHtml;
             }
             
-            $('.food-container').empty().append(html);
+            refs.$foodCont.empty().append(html);
             
             $('.m-item').each(function(i, el) {
                 
@@ -120,11 +128,6 @@ var dq = (function($, window, undefined) {
                 helper: 'clone',
                 cursorAt: {left: constants.FOOD_HOR, top: constants.FOOD_VERT},
                 start: function(e, ui) {
-                    
-                    if (app.json.rules.food_only_once) {
-                        $(this).addClass('inactive').draggable('disable');
-                    }
-                    
                     refs.$dragfood = ui.helper;
                     refs.$dragfood.addClass('dragged');
                     
@@ -135,13 +138,36 @@ var dq = (function($, window, undefined) {
             });
         },
         
+        switchTab: function(foodCat) {
+            $('.navi-container .' + foodCat).trigger(configs.clickEvent);
+        },
+        
+        showInfoPage: function() {
+            $('html').addClass('overflow');
+            refs.$infopage.addClass('visible');
+            dq.refs.$plates.hide();
+            dq.refs.$fork.hide();
+            dq.refs.$spoon.hide();
+            dq.refs.$menu.hide();
+        },
+        
+        hideInfoPage: function() {
+            $('html').removeClass('overflow');
+            refs.$infopage.removeClass('visible');
+            
+            dq.refs.$plates.show();
+            dq.refs.$fork.show();
+            dq.refs.$spoon.show();
+            dq.refs.$menu.show();
+        },
+        
         reload: function() {
             location.reload();
         },
         
         keyDownListener: function(e) {
             
-            log(e.keyCode);
+            //log(e.keyCode);
             
             switch(e.keyCode) {
                 case 67: // c
@@ -172,7 +198,7 @@ var dq = (function($, window, undefined) {
             cutlery.setExpression('L01,G01');
             
             refs.$menu.fadeIn();
-            refs.$mealCheck.toggleClass('visible');
+            refs.$mealCheck.toggleClass('visible').removeClass('failed');
         }
         
         //  resets
@@ -180,10 +206,16 @@ var dq = (function($, window, undefined) {
         game.foodCounter = 0;
         debug.printObject({});
         
+        //  pre-gallery times
+        refs.$plates.empty();
+        
         refs.$plates.append(html);
         refs.$plate =  $(dq.refs.$plates.children()[dq.refs.$plates.children().length - 1]);
         
         if (!configs.isTouch) refs.$plate.addClass('desktop');
+        
+        app.renderFoodMenu();
+        app.switchTab(game.constants.DEFAULT_TAB);
         
         refs.$plate.fadeIn();
     },
@@ -209,16 +241,14 @@ var dq = (function($, window, undefined) {
             enoughCalories = (vals.cals > game.constants.KCAL_MIN),
             gameOver = tooMuchC02 || enoughCalories;
         
-        
         if (gameOver || true) {
             refs.$menu.fadeOut();
             refs.$mealCheck.toggleClass('visible');
+            
+            if (tooMuchC02 || true) {
+                refs.$mealCheck.addClass('failed');
+            }
         }
-        
-        //if (tooMuchC02)
-        
-        log('tooMuchC02: ' + tooMuchC02);
-        log('enoughCalories: ' + enoughCalories);
     }
     
     /********** Dragfood **********/
@@ -250,6 +280,10 @@ var dq = (function($, window, undefined) {
                 game.addFood(specs);
                 cutlery.setExpression(specs.exp);
                 game.checkMealVals();
+                
+                if (app.json.rules.food_only_once) {
+                    $(this).addClass('inactive').draggable('disable');
+                }
                 
                 debug.printObject(specs);
                 debug.printObject(game.calcMealVals(game.currentMeal), true);
@@ -339,16 +373,14 @@ var dq = (function($, window, undefined) {
         refs: refs,
         constants: constants,
         app: app,
-        game: game
+        game: game,
+        cutlery: cutlery
     };
 
 }(jQuery, window));
 
-
-
 /*
  * todos
- * new game function
  * throttle device based
  * transition: border 0.3s ease-out; device based
  * opacity: 0.8 !important; of dragged food device based
