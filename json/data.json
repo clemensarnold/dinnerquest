@@ -47,16 +47,44 @@
     "expressions": {
         "new-game": [
             [
-                {"exp": "G05", "txt": "G;Leg los! Sieh zu, dass du satt wirst!"}
+                {"exp": "L01,G01", "txt": "G;Leg los! Sieh zu, dass du satt wirst!", "bgid": 0}
             ],
             [
-                {"exp": "G04", "txt": "G;Auf ein Neues!"},
-                {"exp": "G05", "txt": "G;Was darf's diesmal sein?"},
-                {"exp": "G06", "txt": "G;Wähle mit Bedacht!"}
+                {"exp": "L02,G02", "txt": "G;Auf ein Neues!", "bgid": 1},
+                {"exp": "L03,G03", "txt": "G;Was darf's diesmal sein?", "bgid": 2},
+                {"exp": "L02,G02", "txt": "G;Wähle mit Bedacht!", "bgid": 3}
             ],
             [
-                {"exp": "L05", "txt": "L;Hoffentlich geht’s diesmal gut!"},
-                {"exp": "L06", "txt": "L;Vorsicht! Die Welt steht am Spiel!"}
+                {"exp": "L05,G05", "txt": "L;Hoffentlich geht’s diesmal gut!", "bgid": 4},
+                {"exp": "L06,G06", "txt": "L;Vorsicht! Die Welt steht am Spiel!", "bgid": 5}
+            ]
+        ],
+        "failed": [
+            [
+                {"exp": "L09,G09", "txt": "G;Herrje ein Weltuntergang!", "bgid": 0},
+                {"exp": "L08,G08", "txt": "G;Huch, ein Desaster!", "bgid": 1},
+                {"exp": "L09,G10", "txt": "G;Schlimmer geht’s nimmer!", "bgid": 2},
+                {"exp": "L06,G06", "txt": "L;Zum Donnerwetter!", "bgid": 3},
+                {"exp": "L07,G07", "txt": "L;Herrjemine!", "bgid": 4},
+                {"exp": "L08,G09", "txt": "L;Au Backe!", "bgid": 5}
+            ],
+            [
+                {"exp": "L09,G11", "txt": "G;Ist es denn die Möglichkeit!", "bgid": 6},
+                {"exp": "L08,G11", "txt": "G;Oh nein, nicht schon wieder!", "bgid": 7},
+                {"exp": "L09,G11", "txt": "G;Herrje, hast du nichts dazu gelernt?", "bgid": 8}
+            ],
+            [
+                {"exp": "L09,G10", "txt": "G;Hrmpf. Wo soll das noch hinführen?", "bgid": 9},
+                {"exp": "L08,G10", "txt": "G;Das macht die Welt nicht mehr lange mit!", "bgid": 10}
+            ]
+        ],
+        "success": [
+            [
+                {"exp": "L01,G01", "txt": "G;Wahnsinn! Satt ohne Weltuntergang!", "bgid": 0},
+                {"exp": "L01,G01", "txt": "G;Weltklasse! Du bist satt geworden!", "bgid": 1},
+                {"exp": "L02,G02", "txt": "L;Das war eine Wucht! Rundum satt!", "bgid": 2},
+                {"exp": "L01,G01", "txt": "L;Yummy! I got love in my tummy.", "bgid": 3},
+                {"exp": "L03,G03", "txt": "L;Pumperlgsund und Pappsatt.", "bgid": 4}
             ]
         ],
         "leave-sides-tab": [

@@ -38,6 +38,7 @@ var dq = (function($, window, undefined) {
         currentFoodCat: 'veggies',
         currentMeal: [],
         meals: [],
+        platesCounter: -1,
         foodCounter: NaN,
         BUBBLES_NEWGAME: "new-game",
         BUBBLES_FAILED: "failed",
@@ -48,7 +49,7 @@ var dq = (function($, window, undefined) {
     debug = {},
     cutlery = {},
     constants = {
-        DEV: true,
+        DEV: false,
         URL_HOME: '',
         JSON_PATH: './json/data.json',
         FADE_IN: 200, FADE_OUT: 400, FADE_DELAY: 50,
@@ -68,24 +69,10 @@ var dq = (function($, window, undefined) {
             game.kcal_min = app.json.rules.kcal_min;
             
             game.startNewGame();
+            
+            refs.$fork.show();
+            refs.$spoon.show();
         });
-        
-        
-        // tmp code
-        var tmpAry = [],
-            randNr = 0,
-            range = 3;
-        
-        for (var i = 0; i < range; i++) {
-            tmpAry[i] = 0;
-        }
-        
-        for (i = 0; i < 10000; i++) {
-            randNr = helper.getRandomNumber(range) - 1;
-            tmpAry[randNr]++;
-        }
-        
-        log(tmpAry);
     });
     
     /********** App **********/
@@ -261,6 +248,8 @@ var dq = (function($, window, undefined) {
     
     game.startNewGame = function() {
         var html = '<div class="plate"></div>';
+        
+        game.platesCounter++;
             
         //  resets after first game
         if (game.currentMeal.length > 0) {
@@ -276,9 +265,7 @@ var dq = (function($, window, undefined) {
             app.resetChart();
         }
         
-        //  speech bubbles
-        //dq.app.json.expressions['new-game'][0]
-        cutlery.setExpression('L01,G01', game.BUBBLES_NEWGAME);
+        cutlery.trigger(game.BUBBLES_NEWGAME); 
         
         //  resets
         game.currentMeal = [];
@@ -319,8 +306,6 @@ var dq = (function($, window, undefined) {
             tooMuchC02 = (vals.co2 > game.co2_max),
             enoughCalories = (vals.cals > game.kcal_min),
             gameOver = tooMuchC02 || enoughCalories;
-            
-        //app.generateChart();
         
         if (gameOver) {
             
@@ -329,10 +314,11 @@ var dq = (function($, window, undefined) {
             
             if (tooMuchC02) {
                 // lost
+                cutlery.trigger(game.BUBBLES_FAILED);
                 refs.$mealCheck.addClass('failed');
             } else {
                 // won
-                
+                cutlery.trigger(game.BUBBLES_SUCCESS);
             }
             
             //  show food facts
@@ -367,7 +353,7 @@ var dq = (function($, window, undefined) {
         
             if (onPlate) {
                 game.addFood(specs);
-                cutlery.setExpression(specs.exp);
+                cutlery.setExpression(specs);
                 $newFood.data('specs', specs);
                 game.checkMealVals();
                 
@@ -439,10 +425,44 @@ var dq = (function($, window, undefined) {
         bubblemode: undefined,
         bubbleData: {},
         
-        setExpression: function(exp, bubblemode) {
-            var spoonID = parseInt(exp.split(',')[0].substr(1)),
-                forkID = parseInt(exp.split(',')[1].substr(1)),
+        trigger: function(bubblemode) {
+            var arrayID = NaN, rid = NaN, bubbleData = {};
+            
+            switch(bubblemode) {
+                case game.BUBBLES_NEWGAME:
+                    arrayID = (game.platesCounter < 3) ? game.platesCounter : 2;
+                    rid = helper.getRandomNumber(app.json.expressions[bubblemode][arrayID].length);
+                    bubbleData = app.json.expressions[bubblemode][arrayID][rid];
+                    break;
+                
+                case game.BUBBLES_FAILED:
+                    
+                    if (game.platesCounter < 2) arrayID = game.platesCounter;
+                    else if (game.platesCounter === 2) arrayID = 1;
+                    else arrayID = 2;
+                    
+                    rid = helper.getRandomNumber(app.json.expressions[bubblemode][arrayID].length);
+                    bubbleData = app.json.expressions[bubblemode][arrayID][rid];
+                    break;
+                
+                case game.BUBBLES_SUCCESS:
+                    rid = helper.getRandomNumber(app.json.expressions[bubblemode][0].length);
+                    bubbleData = app.json.expressions[bubblemode][0][rid];
+                    break;
+            }
+            
+            cutlery.bubbleData = bubbleData;
+            cutlery.bubblemode = bubblemode;
+            
+            cutlery.setExpression(bubbleData, bubblemode);
+        },
+        
+        setExpression: function(bubbleData, bubblemode) {
+            var spoonID = parseInt(bubbleData.exp.split(',')[0].substr(1)),
+                forkID = parseInt(bubbleData.exp.split(',')[1].substr(1)),
                 backgroundPosition = -game.constants.CUTLERY_HOROFF * (forkID - 1) + 'px 0';
+                
+   
             
             refs.$fork.css({backgroundPosition: backgroundPosition});
             
@@ -458,9 +478,14 @@ var dq = (function($, window, undefined) {
         
         showBubble: function() {
             
-            // who, what: cutlery.bubblemode, cutlery.bubbleData
-            //refs.$spoonBub.addClass('visible');
-            refs.$forkBub.addClass('visible');
+            var data = cutlery.bubbleData,
+                backgroundPosition = '0px ' + -150 * data.bgid + 'px',
+                $ref = (data.txt.split(';')[0] === 'G') ? refs.$forkBub: refs.$spoonBub;
+            
+            $ref.css({backgroundPosition: backgroundPosition});
+            
+            $ref.removeClass().addClass('bubble visible');
+            $ref.addClass(cutlery.bubblemode);
             
             clearTimeout(cutlery.hideBubbleTO);
             cutlery.hideBubbleTO = setTimeout(cutlery.hideBubble, cutlery.hideDelay);
