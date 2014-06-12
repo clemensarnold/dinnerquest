@@ -69,6 +69,23 @@ var dq = (function($, window, undefined) {
             
             game.startNewGame();
         });
+        
+        
+        // tmp code
+        var tmpAry = [],
+            randNr = 0,
+            range = 3;
+        
+        for (var i = 0; i < range; i++) {
+            tmpAry[i] = 0;
+        }
+        
+        for (i = 0; i < 10000; i++) {
+            randNr = helper.getRandomNumber(range) - 1;
+            tmpAry[randNr]++;
+        }
+        
+        log(tmpAry);
     });
     
     /********** App **********/

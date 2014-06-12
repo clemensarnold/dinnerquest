@@ -45,6 +45,10 @@ var helper = {
 
     setTitle: function(title) {
         document.title = title;
+    },
+    
+    getRandomNumber: function(range) {
+        return Math.floor(Math.random() * range) + 1;
     }
 }
 
