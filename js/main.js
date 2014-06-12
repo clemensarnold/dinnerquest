@@ -122,6 +122,17 @@ var dq = (function($, window, undefined) {
             $('.menu-container').fadeTo(constants.FADE_IN, 1);
         },
         
+        isLabelAlreadyInCurrentFood: function (label) {
+            var exists = false;
+                for(var j = 0; j < game.currentMeal.length; j++) {
+                    if(game.currentMeal[j] != undefined && game.currentMeal[j].label == label) {
+                        exists = true;
+                        break;
+                    }
+                }
+            return exists;
+        },
+        
         renderFoodMenu: function() {
             var foodClass = configs.isTouch ? 'm-item touch' : 'm-item',
                 foodHtml = '<div class="' + foodClass + '"></div>',
@@ -137,32 +148,35 @@ var dq = (function($, window, undefined) {
             refs.$foodCont.empty().append(html);
             
             $('.m-item').each(function(i, el) {
-                
                 specs = app.json.avFood[foodCat][i];
                 specs.foodCat = game.currentFoodCat;
                 specs.bgHorPos = i;
                 
-                $(el).css({backgroundPosition: -i * $(el).width() + 'px ' + vertOff + 'px'}).
+                if(!app.isLabelAlreadyInCurrentFood(specs.label)) {
+                    $(el).css({backgroundPosition: -i * $(el).width() + 'px ' + vertOff + 'px'}).
                     data('specs', specs).
                     delay(i*constants.FADE_DELAY).fadeTo(400, 1);
-            });
-            
-            //  DEV
-            $('.m-item').on({click: function() {
-                debug.printObject($(this).data('specs'));
-            }});
-            
-            $('.m-item').draggable({
-                helper: 'clone',
-                cursorAt: {left: constants.FOOD_HOR, top: constants.FOOD_VERT},
-                start: function(e, ui) {
-                    refs.$dragfood = ui.helper;
-                    refs.$dragfood.addClass('dragged');
                     
-                    dragfood.setBackground(refs.$dragfood, $(this).data('specs'));
-                },
-                stop: dragfood.stopDragging,
-                drag: $.throttle(300, dragfood.calcDistance)
+                    //  DEV
+                    $('.m-item').on({click: function() {
+                        debug.printObject($(this).data('specs'));
+                    }});
+                    
+                    $('.m-item').draggable({
+                        helper: 'clone',
+                        cursorAt: {left: constants.FOOD_HOR, top: constants.FOOD_VERT},
+                        start: function(e, ui) {
+                            refs.$dragfood = ui.helper;
+                            refs.$dragfood.addClass('dragged');
+                            
+                            dragfood.setBackground(refs.$dragfood, $(this).data('specs'));
+                        },
+                        stop: dragfood.stopDragging,
+                        drag: $.throttle(300, dragfood.calcDistance)
+                    });
+                } else {
+                    $(el).css("visibility", "hidden");
+                }
             });
         },
         
