@@ -154,6 +154,7 @@ body {
     z-index: 2;
     display: none;
     height: 670px;
+    background: url(./../img/svg/new-game-button.svg) no-repeat 50% 100%;
     /*border: 1px solid black;*/
 }
 
