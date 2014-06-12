@@ -39,7 +39,9 @@ var dq = (function($, window, undefined) {
         currentMeal: [],
         meals: [],
         foodCounter: NaN,
-        BUBBLES_NEWGAME: "new-game"
+        BUBBLES_NEWGAME: "new-game",
+        BUBBLES_FAILED: "failed",
+        BUBBLES_SUCCESS: "success",
     },
     app = {},
     dragfood = {},
@@ -173,7 +175,7 @@ var dq = (function($, window, undefined) {
                 
                 specs = $(el).data('specs');
 
-                html = '<div class="_CLASSES_"><p>_SERVING_ g _LABEL_<br>_CO2_ KG CO2</p></div>';
+                html = '<div class="_CLASSES_"><p>_SERVING_ g _LABEL_<br>_CO2_ KG CO<sub>2</sub</p></div>';
                 html = html.replace('_CLASSES_', specs.bigbg ? "chart big-chart" : "chart normal-chart");
                 html = html.replace('_SERVING_', specs.serving);
                 html = html.replace('_LABEL_', specs.label);
