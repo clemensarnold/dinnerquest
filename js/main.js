@@ -11,6 +11,8 @@ var dq = (function($, window, undefined) {
         $plate: undefined,
         $fork: $('.fork'),
         $spoon: $('.spoon'),
+        $forkBub: $('.fork .bubble'),
+        $spoonBub: $('.spoon .bubble'),
         $menu: $('.menu-wrapper'),
         $foodCont: $('.food-container'),
         $mealCheck: $('.meal-check'),
@@ -36,7 +38,8 @@ var dq = (function($, window, undefined) {
         currentFoodCat: 'veggies',
         currentMeal: [],
         meals: [],
-        foodCounter: NaN
+        foodCounter: NaN,
+        BUBBLES_NEWGAME: "new-game"
     },
     app = {},
     dragfood = {},
@@ -90,6 +93,7 @@ var dq = (function($, window, undefined) {
             $('.logo').on({click: game.startNewGame});
             
             refs.$chart.on({click: game.startNewGame});
+            refs.$mealCheck.on({click: game.startNewGame});
             
             refs.$infobtn.on({click: function() {
                 $(this).toggleClass('close');
@@ -100,7 +104,8 @@ var dq = (function($, window, undefined) {
         },
         
         renderFoodMenu: function() {
-            var foodHtml = '<div class="m-item"></div>',
+            var foodClass = configs.isTouch ? 'm-item touch' : 'm-item',
+                foodHtml = '<div class="' + foodClass + '"></div>',
                 html = '',
                 foodCat = game.currentFoodCat,
                 vertOff = game.constants.FOODITEMS_VERTOFF[foodCat],
@@ -226,15 +231,16 @@ var dq = (function($, window, undefined) {
             if (app.json.rules.food_only_once) {
                 $('.food-container .inactive').removeClass('inactive').draggable('enable');
             }
-            
-            //dq.app.json.expressions['new-game'][0]
-            cutlery.setExpression('L01,G01');
-            
             refs.$menu.fadeIn();
-            refs.$mealCheck.removeClass('visible failed');
+            refs.$mealCheck.removeClass('visible');
+            setTimeout(function() { refs.$mealCheck.removeClass('failed'); }, 2000);
             
             app.resetChart();
         }
+        
+        //  speech bubbles
+        //dq.app.json.expressions['new-game'][0]
+        cutlery.setExpression('L01,G01', game.BUBBLES_NEWGAME);
         
         //  resets
         game.currentMeal = [];
@@ -388,7 +394,14 @@ var dq = (function($, window, undefined) {
     
     cutlery = {
         
-        setExpression: function(exp) {
+        showBubbleTO: NaN,
+        hideBubbleTO: NaN,
+        showDelay: 1000,
+        hideDelay: 3000,
+        bubblemode: undefined,
+        bubbleData: {},
+        
+        setExpression: function(exp, bubblemode) {
             var spoonID = parseInt(exp.split(',')[0].substr(1)),
                 forkID = parseInt(exp.split(',')[1].substr(1)),
                 backgroundPosition = -game.constants.CUTLERY_HOROFF * (forkID - 1) + 'px 0';
@@ -397,6 +410,31 @@ var dq = (function($, window, undefined) {
             
             backgroundPosition = -game.constants.CUTLERY_HOROFF * (spoonID - 1) + 'px 0';
             refs.$spoon.css({backgroundPosition: backgroundPosition});
+            
+            cutlery.hideBubble();
+            clearTimeout(cutlery.showBubbleTO);
+            if (bubblemode) {
+                cutlery.showBubbleTO = setTimeout(cutlery.showBubble, cutlery.showDelay);
+            }
+        },
+        
+        showBubble: function() {
+            
+            // who, what: cutlery.bubblemode, cutlery.bubbleData
+            //refs.$spoonBub.addClass('visible');
+            refs.$forkBub.addClass('visible');
+            
+            clearTimeout(cutlery.hideBubbleTO);
+            cutlery.hideBubbleTO = setTimeout(cutlery.hideBubble, cutlery.hideDelay);
+        },
+        
+        hideBubble: function() {
+            refs.$spoonBub.removeClass('visible');
+            refs.$forkBub.removeClass('visible');
+        },
+        
+        clearTimeouts: function() {
+            
         }
     }
     
