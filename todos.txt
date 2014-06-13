@@ -1,21 +1,28 @@
+FRAGEN / ABZUKLÄREN
+. min kcal pro mahlzeit
+. jedes item nur einmal
+. beschränkungen für kategorien (max x von y), auch für tierisches
+. video-intro: delta zwischen video und spiel! (z.b. Tortendiagramm-Auswertung)
+  vorschlag: kürzung des videos (ca. sek 25)
+. 2 Zutaten hintereinander auf Teller gezogen mit identen Gesichtsausdrücken > keine Reaktion ersichtlich
+. bei Texten nur Zustand für L/G definiert, das jeweils andere von uns angenommen
+. Diagramm negativ: Random Auswahl einer Message zu Food mit größtem Impact
+. Diagramm positiv: tellerspezf. Messages vs. Food Messages > Food Messages verzögert angezeigt?
+. Besteck-Schläft Frames offen
+. kontakt
+. credits
 
-
-CLEMENS
-[ ] basic setup of gameover screen: + / -, hide food menu, show new game button
-[ ] basic tooltip with food data next to food
-[ ] basic setup infoseite
-[ ] basic logic for cutlery control
-[ ] connect food items with cutlery frames
+OFFEN
+. video-intro (chrome/safari)
+. animationen des bestecks (blinzeln, shaken am spielende)
+. spielbeschreibungsscreen (aktuell nur Platzhalter PNG)
+. sounds
+. schlussanis: sturm, confetti (confettis: ipad-performance!)
+. Reaktion auf Inaktivität
+. special mouse cursor
+. galerie
+. social media stuff
 
 
 BENJAMIN
-[ ] update food spritesheets (food-on-plate.svg, av-food.svg)
-[ ] add new food data to json (dinnerquest_zutaten_20140608.ods),
-    IMPORTANT: order needs to match with order in svg spritesheet!
-[ ] embed pattern for table-cloth
-[ ] embed pattern for food menu
-
-
-NOT ASSIGNED
-[ ] video-intro (chrome/safari)
-[ ] Bratwurst (Schwein)	L08	G10 in json einbauen
+.big-chart > größerer Hintergrund (Bratwurst)
