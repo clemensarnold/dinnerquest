@@ -437,14 +437,15 @@ body {
     color: #3d4c57;
     /*border: 1px solid grey;*/
     /*background: #f5f5f5;*/
-    background-size: 100% 100%;
     background-image: url(./../img/svg/banneret.svg);
+    background-size: 100% 100%;
     z-index: 1;
 }
 
 .big-chart {
     width: 250px;
     height: 74px;
+    background-image: url(./../img/svg/banneret-big.svg);
 }
 
 .normal-chart {
