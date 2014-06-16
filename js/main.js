@@ -17,7 +17,9 @@ var dq = (function($, window, undefined) {
         $foodCont: $('.food-container'),
         $mealCheck: $('.meal-check'),
         $infopage: $('#infopage'),
-        $infobtn: $('.info')
+        $infobtn: $('.info'),
+        $audiocontainer: $('#audiocontainer')
+        
     },
     configs = {
         isTouch: 'ontouchstart' in window,
@@ -42,20 +44,26 @@ var dq = (function($, window, undefined) {
         foodCounter: NaN,
         BUBBLES_NEWGAME: "new-game",
         BUBBLES_FAILED: "failed",
-        BUBBLES_SUCCESS: "success",
+        BUBBLES_SUCCESS: "success"
     },
     app = {},
     dragfood = {},
     debug = {},
     cutlery = {},
     constants = {
-        DEV: false,
+        DEV: true,
         URL_HOME: '',
         JSON_PATH: './json/data.json',
         FADE_IN: 200, FADE_OUT: 400, FADE_DELAY: 50,
         FOOD_HOR: NaN, FOOD_VERT: NaN,
         PLATE_RAD: 270, PLATE_DISTANCE: 40000 // 200*200
+    },
+    sounds = {
+        DROPPED_FOOD: 'dropped-food',
+        NEW_GAME: 'new-game'
     };
+    
+    game.sounds = [{selector: '.navi-container > div, #chart', whichSound: sounds.NEW_GAME}];
     
     $(function() {
         
@@ -68,10 +76,7 @@ var dq = (function($, window, undefined) {
             game.co2_max = app.json.rules.co2_max;
             game.kcal_min = app.json.rules.kcal_min;
             
-            game.startNewGame();
-            
-            refs.$fork.show();
-            refs.$spoon.show();
+            //app.startGame();
         });
     });
     
@@ -97,6 +102,7 @@ var dq = (function($, window, undefined) {
             });
             
             $('.logo').on({click: app.reload});
+            $('#videocontainer').on({click: app.startGame});
             
             refs.$chart.on({click: game.startNewGame});
             refs.$mealCheck.on({click: game.startNewGame});
@@ -107,6 +113,21 @@ var dq = (function($, window, undefined) {
             }});
             
             $('.menu-container').fadeTo(constants.FADE_IN, 1);
+            
+            
+            //  init sounds
+            for (var i = 0; i < game.sounds.length; i++) {
+                $(game.sounds[i].selector).data('whichSound', game.sounds[i].whichSound).on(configs.clickEvent, function() {
+                    app.playSound($(this).data('whichSound'));
+                });
+            }
+        },
+        
+        startGame: function() {
+            game.startNewGame();
+            refs.$fork.show();
+            refs.$spoon.show();
+            $('#videocontainer').hide();
         },
         
         isLabelAlreadyInCurrentFood: function (label) {
@@ -241,6 +262,24 @@ var dq = (function($, window, undefined) {
                     game.startNewGame();
                     break;
             }
+        },
+        
+        playSound: function(whichSound) {
+            
+            var sndpath = app.json.sounds[whichSound],
+                html = '',
+                id = 'active-sound',
+                $snd = undefined;
+            
+            if (Modernizr.audio) {
+                html = '<audio id="' + id + '" class="btn-audio"><source src="./media/sound/' + sndpath + '.mp3" type="audio/mpeg" /></audio>';
+                
+                refs.$audiocontainer.empty().append(html);
+                
+                $snd = document.getElementById(id);
+                $snd.volume = 0.3;
+                $snd.play();
+            }
         }
     }
     
@@ -348,7 +387,6 @@ var dq = (function($, window, undefined) {
             game.foodCounter++;
             $newFood.css({left: left - dq.refs.$plate.offset().left, top: top - dq.refs.$plate.offset().top});
             
-            
             dragfood.setBackground($newFood, specs);
         
             if (onPlate) {
@@ -369,6 +407,8 @@ var dq = (function($, window, undefined) {
             }
             
             dragfood.setDroppableStatus(false);
+            
+            app.playSound(sounds.DROPPED_FOOD);
         },
         
         setDroppableStatus: function(droppable) {

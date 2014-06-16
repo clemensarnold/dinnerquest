@@ -1,19 +1,26 @@
 FRAGEN / ABZUKLÄREN
-. min kcal pro mahlzeit
+. min kcal pro mahlzeit > 
 . jedes item nur einmal
 . beschränkungen für kategorien (max x von y), auch für tierisches
+    max x mal
+    
+
 . video-intro: delta zwischen video und spiel! (z.b. Tortendiagramm-Auswertung)
   vorschlag: kürzung des videos (ca. sek 25)
 . 2 Zutaten hintereinander auf Teller gezogen mit identen Gesichtsausdrücken > keine Reaktion ersichtlich
 . bei Texten nur Zustand für L/G definiert, das jeweils andere von uns angenommen
 . Diagramm negativ: Random Auswahl einer Message zu Food mit größtem Impact
 . Diagramm positiv: tellerspezf. Messages vs. Food Messages > Food Messages verzögert angezeigt?
-. Besteck-Schläft Frames offen
+. Besteck-Schläft Frames offen >schlafende gabel
 . kontakt
 . credits
 
+
+
 OFFEN
+. zeitschalter: keine interaktion für x sekunden > neustart
 . video-intro (chrome/safari)
+, skip-intro
 . animationen des bestecks (blinzeln, shaken am spielende)
 . spielbeschreibungsscreen (aktuell nur Platzhalter PNG)
 . sounds
@@ -22,7 +29,20 @@ OFFEN
 . special mouse cursor
 . galerie
 . social media stuff
+. hintergrund patterns
+
+
+VORSCHLÄGE
+.
 
 
 BENJAMIN
 .big-chart > größerer Hintergrund (Bratwurst)
+.sounds
+
+
+pondfive.com
+freesound.org
+kevin mcleod
+
+. restart der app nach x sekunden
