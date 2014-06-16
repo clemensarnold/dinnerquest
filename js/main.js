@@ -18,12 +18,14 @@ var dq = (function($, window, undefined) {
         $mealCheck: $('.meal-check'),
         $infopage: $('#infopage'),
         $infobtn: $('.info'),
-        $audiocontainer: $('#audiocontainer')
+        $audiocontainer: $('#audiocontainer'),
+        $thunder: $('#thunder')
         
     },
     configs = {
         isTouch: 'ontouchstart' in window,
-        clickEvent: ('ontouchstart' in window) ? 'touchstart' : 'mousedown'
+        clickEvent: ('ontouchstart' in window) ? 'touchstart' : 'mousedown',
+        stats: undefined
     },
     game = {
         co2_max: NaN,
@@ -33,9 +35,10 @@ var dq = (function($, window, undefined) {
             FOODITEMS_VERTOFF_BIG: {veggies: 0, sides: NaN, animals: NaN},
             FOOD_CATS: ['veggies', 'sides', 'animals'],
             FOOD_BGVERT_OFF: {veggies: 0, sides: 1, animals: 2},
-            DEFAULT_TAB: 'veggies',
+            DEFAULT_TAB: 'animals', // veggies
             FOOD_BIG_DIMS: 450,
-            CUTLERY_HOROFF: 120
+            CUTLERY_HOROFF: 120,
+            FPS: 30
         },
         currentFoodCat: 'veggies',
         currentMeal: [],
@@ -50,8 +53,12 @@ var dq = (function($, window, undefined) {
     dragfood = {},
     debug = {},
     cutlery = {},
+    thunder = {},
+    confettis = {},
     constants = {
         DEV: true,
+        SOUNDS: false,
+        SKIP_VIDEO: true,
         URL_HOME: '',
         JSON_PATH: './json/data.json',
         FADE_IN: 200, FADE_OUT: 400, FADE_DELAY: 50,
@@ -73,8 +80,11 @@ var dq = (function($, window, undefined) {
             app.json = data;
             app.initApp();
             
+            //  set balancing-vars from json
             game.co2_max = app.json.rules.co2_max;
             game.kcal_min = app.json.rules.kcal_min;
+            cutlery.showDelay = app.json.rules.showbubble_delay;
+            cutlery.hideDelay = app.json.rules.hidebubble_delay;
             
             //app.startGame();
         });
@@ -91,6 +101,10 @@ var dq = (function($, window, undefined) {
             
             if (constants.DEV) {
                 refs.$window.on({keydown: this.keyDownListener});
+                configs.stats = new Stats();
+                configs.stats.setMode(0);
+                document.body.appendChild(configs.stats.domElement);
+                window.setInterval(function() { configs.stats.update(); }, 1000 / constants.FPS);
             }
             
             $('.navi-container > div').on(configs.clickEvent, function() {
@@ -102,7 +116,9 @@ var dq = (function($, window, undefined) {
             });
             
             $('.logo').on({click: app.reload});
+            
             $('#videocontainer').on({click: app.startGame});
+            if (constants.SKIP_VIDEO) app.startGame();
             
             refs.$chart.on({click: game.startNewGame});
             refs.$mealCheck.on({click: game.startNewGame});
@@ -113,7 +129,6 @@ var dq = (function($, window, undefined) {
             }});
             
             $('.menu-container').fadeTo(constants.FADE_IN, 1);
-            
             
             //  init sounds
             for (var i = 0; i < game.sounds.length; i++) {
@@ -229,6 +244,11 @@ var dq = (function($, window, undefined) {
             });
             
             refs.$chart.show();
+            
+            
+            refs.$menu.fadeOut();
+            refs.$mealCheck.addClass('visible');
+
         },
         
         resetChart: function() {
@@ -265,6 +285,8 @@ var dq = (function($, window, undefined) {
         },
         
         playSound: function(whichSound) {
+            
+            if (!constants.SOUNDS) return;
             
             var sndpath = app.json.sounds[whichSound],
                 html = '',
@@ -348,20 +370,20 @@ var dq = (function($, window, undefined) {
         
         if (gameOver) {
             
-            refs.$menu.fadeOut();
-            refs.$mealCheck.addClass('visible');
-            
             if (tooMuchC02) {
+                
+                log('checkMealVals');
+                
                 // lost
                 cutlery.trigger(game.BUBBLES_FAILED);
                 refs.$mealCheck.addClass('failed');
+                setTimeout(thunder.start, 1500);
             } else {
                 // won
                 cutlery.trigger(game.BUBBLES_SUCCESS);
+                //  show food facts
+                app.generateChart();
             }
-            
-            //  show food facts
-            app.generateChart();
         }
     }
     
@@ -454,14 +476,37 @@ var dq = (function($, window, undefined) {
         }
     }
     
+    /********** Thunder **********/
+    
+    thunder = {
+        intid: NaN,
+        FPS: 30,
+        ANI_LENGTH: 2500,
+        
+        start: function() {
+            
+            thunder.intid = setInterval(function() {
+                refs.$thunder.toggleClass('active');
+                }, 1000 / thunder.fps);
+            
+            setTimeout(thunder.stop, thunder.ANI_LENGTH);
+        },
+        
+        stop: function() {
+            refs.$thunder.removeClass('active');
+            clearInterval(thunder.intid);
+            setTimeout(app.generateChart, 500);
+        }
+    }
+    
     /********** Cutlery **********/
     
     cutlery = {
         
         showBubbleTO: NaN,
         hideBubbleTO: NaN,
-        showDelay: 1000,
-        hideDelay: 3000,
+        showDelay: NaN,
+        hideDelay: NaN,
         bubblemode: undefined,
         bubbleData: {},
         

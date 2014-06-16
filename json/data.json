@@ -41,7 +41,9 @@
         "food_only_once": false,
         "max_sides": 2,
         "max_veggies": 3,
-        "max_animals": 2
+        "max_animals": 2,
+        "showbubble_delay": 1000,
+        "hidebubble_delay": 3000
     },
     
     "sounds": {
