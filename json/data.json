@@ -37,7 +37,7 @@
     
     "rules": {
         "co2_max": 700,
-        "kcal_min": 250,
+        "kcal_min": 50,
         "food_only_once": false,
         "max_sides": 2,
         "max_veggies": 3,

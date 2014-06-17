@@ -140,6 +140,7 @@ body {
     z-index: 2000;
     width: 100%;
     height: 100%;
+    visibility: hidden;
 }
 
 /* ==========================================================================
@@ -157,6 +158,41 @@ body {
 
 #thunder.active {
     display: block;
+}
+
+/* ==========================================================================
+   confettis
+   ========================================================================== */
+
+#confettis {
+    position: absolute;
+    /*z-index: 3000;*/
+    width: 100%;
+    height: 100%;
+    /*opacity: 0.5;*/
+    visibility: hidden;
+}
+
+#confettis.active {
+    visibility: visible;
+}
+
+.conf {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px; height: 20px;
+    /*transition: -webkit-transform 0.3s ease-out 0.5s;*/
+}
+
+.conf.orange { background: #c69d51; }
+.conf.purple { background: #9c458f; }
+.conf.green { background: #488e62; }
+.conf.yellow { background: #e0e22a; }
+.conf.blue { background: #4c9ba9; }
+
+.conf.small {
+    width: 10px; height: 10px;
 }
 
 /* ==========================================================================

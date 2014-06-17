@@ -49,7 +49,10 @@ var helper = {
     
     getRandomNumber: function(range) {
         return Math.floor(Math.random() * range) + 0;
+    },
+    
+    roundNumber: function(num, digits) {
+        var rounded = Math.round(num * digits) / digits;
+        return rounded;
     }
 }
-
-

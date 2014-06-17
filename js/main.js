@@ -19,7 +19,9 @@ var dq = (function($, window, undefined) {
         $infopage: $('#infopage'),
         $infobtn: $('.info'),
         $audiocontainer: $('#audiocontainer'),
-        $thunder: $('#thunder')
+        $videocontainer: $('#videocontainer'),
+        $thunder: $('#thunder'),
+        $confettis: $('#confettis')
         
     },
     configs = {
@@ -35,7 +37,7 @@ var dq = (function($, window, undefined) {
             FOODITEMS_VERTOFF_BIG: {veggies: 0, sides: NaN, animals: NaN},
             FOOD_CATS: ['veggies', 'sides', 'animals'],
             FOOD_BGVERT_OFF: {veggies: 0, sides: 1, animals: 2},
-            DEFAULT_TAB: 'animals', // veggies
+            DEFAULT_TAB: 'veggies', 
             FOOD_BIG_DIMS: 450,
             CUTLERY_HOROFF: 120,
             FPS: 30
@@ -57,6 +59,7 @@ var dq = (function($, window, undefined) {
     confettis = {},
     constants = {
         DEV: true,
+        STATS: true,
         SOUNDS: false,
         SKIP_VIDEO: true,
         URL_HOME: '',
@@ -85,8 +88,6 @@ var dq = (function($, window, undefined) {
             game.kcal_min = app.json.rules.kcal_min;
             cutlery.showDelay = app.json.rules.showbubble_delay;
             cutlery.hideDelay = app.json.rules.hidebubble_delay;
-            
-            //app.startGame();
         });
     });
     
@@ -101,6 +102,9 @@ var dq = (function($, window, undefined) {
             
             if (constants.DEV) {
                 refs.$window.on({keydown: this.keyDownListener});
+            }
+            
+            if (constants.STATS) {
                 configs.stats = new Stats();
                 configs.stats.setMode(0);
                 document.body.appendChild(configs.stats.domElement);
@@ -117,8 +121,11 @@ var dq = (function($, window, undefined) {
             
             $('.logo').on({click: app.reload});
             
-            $('#videocontainer').on({click: app.startGame});
+            refs.$videocontainer.on({click: app.startGame});
             if (constants.SKIP_VIDEO) app.startGame();
+            else {
+                //  start video
+            }
             
             refs.$chart.on({click: game.startNewGame});
             refs.$mealCheck.on({click: game.startNewGame});
@@ -142,7 +149,7 @@ var dq = (function($, window, undefined) {
             game.startNewGame();
             refs.$fork.show();
             refs.$spoon.show();
-            $('#videocontainer').hide();
+            refs.$videocontainer.hide();
         },
         
         isLabelAlreadyInCurrentFood: function (label) {
@@ -381,8 +388,8 @@ var dq = (function($, window, undefined) {
             } else {
                 // won
                 cutlery.trigger(game.BUBBLES_SUCCESS);
-                //  show food facts
                 app.generateChart();
+                confettis.init();
             }
         }
     }
@@ -473,6 +480,85 @@ var dq = (function($, window, undefined) {
         setBackground: function($el, specs) {
             var backgroundImage = 'url(./img/svg/onplate/' + specs.foodCat + '/' + specs.bgHorPos + '.svg)';
             $el.css({backgroundImage: backgroundImage});
+        }
+    }
+    
+    /********** Confettis **********/
+    
+    confettis = {
+        FPS: 30,
+        ANI_LENGTH: 2500,
+        HOW_MANY: 200, // ipad: 200
+        
+        init: function() {
+            
+            var confHtml = '<div class="conf"></div>',
+                html = '', transition = '',
+                top = 330, left = 512,
+                speed = NaN,
+                delay = NaN,
+                translate = 'translate(0px,0px)',
+                speedAry = [1.3,1.8,2.4],
+                colorsAry = ['orange', 'purple', 'green', 'yellow', 'blue'],
+                rid = NaN;
+                
+            for (var i = 0; i < this.HOW_MANY; i++) {
+                html += confHtml;
+            }
+            
+            refs.$confettis.empty().append(html);
+            
+            $('.conf').each(function(i) {
+                rid = Math.floor(Math.random() * speedAry.length);
+                speed = speedAry[rid] * 0.8;
+                delay = helper.roundNumber(0.3 + Math.random() * 2.2, 10);
+                
+                if (Math.random() <= 0.5) {
+                    $(this).addClass('small');
+                }
+                
+                transition = '-webkit-transform ' + speed + 's linear ' + delay + 's';
+                translate = 'translate(' + left + 'px,' + top + 'px)';
+                $(this).css({'transform': translate}).data('transition', transition).addClass(colorsAry[helper.getRandomNumber(colorsAry.length)]);
+              
+            });
+            
+            confettis.setTransition();
+            //setTimeout(confettis.stop, thunder.ANI_LENGTH);
+            setTimeout(confettis.start, 500);
+        },
+        
+        setTransition: function() {
+            $('.conf').each(function(i) {
+                $(this).css({'transition': $(this).data('transition')})
+            });
+        },
+        
+        start: function() {
+            
+            var left = 0,
+                top = 0,
+                translate = 'translate(' + left + 'px,' + top + 'px)',
+                range =  2 * Math.PI,
+                alpha = NaN,
+                scale = 1.65;
+            
+            $('.conf').each(function(i) {
+                alpha = Math.random() * range;
+                left =  $(this).position().left +  Math.cos(alpha) * $(this).offset().left * scale;
+                top =  $(this).position().top +  Math.sin(alpha) * $(this).offset().top * scale;
+                
+                translate = 'translate(' + left + 'px,' + top + 'px)';
+                $(this).css({'transform': translate});
+            });
+            
+            refs.$confettis.addClass('active');
+            
+        },
+        
+        stop: function() {
+            log('confettis stop');
+            refs.$confettis.removeClass('active');
         }
     }
     
@@ -605,7 +691,8 @@ var dq = (function($, window, undefined) {
         constants: constants,
         app: app,
         game: game,
-        cutlery: cutlery
+        cutlery: cutlery,
+        confettis: confettis
     };
 
 }(jQuery, window));
