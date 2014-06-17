@@ -586,15 +586,16 @@ var dq = (function($, window, undefined) {
             app.playSound(sounds.FAILED);
         
             refs.$thunder.addClass('active');
-            /*thunder.intid = setInterval(function() {*/
-               
-                /*if(refs.$thunder.hasClass('active')) {*/
-                
-                thunder.animate;
-                             
-                //}
             
+            /*thunder.intid = setInterval(function() {*/
+                /*if(refs.$thunder.hasClass('active')) {*/
+                //}
             /*}, 250);*/
+            
+            thunder.animate();
+            setTimeout(thunder.animate, 1000);
+            setTimeout(thunder.animate, 2000);
+            setTimeout(thunder.animate, 2250);
             
             setTimeout(thunder.stop, thunder.ANI_LENGTH);
         },
@@ -603,13 +604,7 @@ var dq = (function($, window, undefined) {
             refs.$thunder.animate({"background-color": "rgba(255,255,200,1)"}, 50, function () {
                 refs.$thunder.animate({"background-color": "rgba(0,0,0,1)"}, 100, function () {
                     refs.$thunder.animate({"background-color": "rgba(0,0,0,0)"}, 100, function () {
-                        refs.$thunder.animate({"background-color": "rgba(255,255,200,1)"}, 50, function () {
-                            refs.$thunder.animate({"background-color": "rgba(0,0,0,1)"}, 100, function () {
-                                refs.$thunder.animate({"background-color": "rgba(0,0,0,0)"}, 100, function () {
-                                
-                                });
-                            });
-                        });
+                    
                     });
                 });
             });
