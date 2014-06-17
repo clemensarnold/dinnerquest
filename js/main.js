@@ -60,7 +60,7 @@ var dq = (function($, window, undefined) {
     constants = {
         DEV: true,
         STATS: true,
-        SOUNDS: false,
+        SOUNDS: true,
         SKIP_VIDEO: true,
         URL_HOME: '',
         JSON_PATH: './json/data.json',
@@ -124,6 +124,8 @@ var dq = (function($, window, undefined) {
             refs.$videocontainer.on({click: app.startGame});
             if (constants.SKIP_VIDEO) app.startGame();
             else {
+                
+            
                 //  start video
             }
             
@@ -570,17 +572,42 @@ var dq = (function($, window, undefined) {
         ANI_LENGTH: 2500,
         
         start: function() {
+        
+            refs.$thunder.addClass('active');
+            /*thunder.intid = setInterval(function() {*/
+               
+                /*if(refs.$thunder.hasClass('active')) {*/
+                
+                thunder.animate();
+                    
+                    
+                    
+                //}
             
-            thunder.intid = setInterval(function() {
-                refs.$thunder.toggleClass('active');
-                }, 1000 / thunder.fps);
+            /*}, 250);*/
             
             setTimeout(thunder.stop, thunder.ANI_LENGTH);
         },
         
+        animate: function () {
+            refs.$thunder.animate({"background-color": "rgba(255,255,200,1)"}, 50, function () {
+                refs.$thunder.animate({"background-color": "rgba(0,0,0,1)"}, 100, function () {
+                    refs.$thunder.animate({"background-color": "rgba(0,0,0,0)"}, 100, function () {
+                        refs.$thunder.animate({"background-color": "rgba(255,255,200,1)"}, 50, function () {
+                            refs.$thunder.animate({"background-color": "rgba(0,0,0,1)"}, 100, function () {
+                                refs.$thunder.animate({"background-color": "rgba(0,0,0,0)"}, 100, function () {
+                                
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        },
+        
         stop: function() {
             refs.$thunder.removeClass('active');
-            clearInterval(thunder.intid);
+            /*clearInterval(thunder.intid);*/
             setTimeout(app.generateChart, 500);
         }
     }
