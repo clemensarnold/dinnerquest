@@ -161,6 +161,42 @@ body {
 }
 
 /* ==========================================================================
+   storm + animation
+   ========================================================================== */
+
+#storm {
+    width: 500px;
+    height: 500px;
+
+	position: absolute;
+    display: none;
+    
+    z-index: 2999;
+}
+
+.startStorm {
+    display: block !important;
+    
+    -webkit-animation: storm 5s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: linear;
+}
+
+#storm img {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+}
+
+@-webkit-keyframes storm
+{
+0%  {left: calc(75% - 250px); top: -500px; -webkit-transform: rotate(0deg);}
+45%  {left: calc(60% - 250px); top: -50px; -webkit-transform: rotate(-620deg);}
+65%  {left: calc(40% - 250px); top: -50px; -webkit-transform: rotate(-990deg);}
+100% {left: calc(25% - 250px); top: -500px; -webkit-transform: rotate(-1440deg);}
+}
+
+/* ==========================================================================
    confettis
    ========================================================================== */
 

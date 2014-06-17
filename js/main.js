@@ -21,8 +21,9 @@ var dq = (function($, window, undefined) {
         $audiocontainer: $('#audiocontainer'),
         $videocontainer: $('#videocontainer'),
         $thunder: $('#thunder'),
-        $confettis: $('#confettis')
-        
+        $confettis: $('#confettis'),
+        $storm: $("#storm"),
+        $bolt :$("#bolt")
     },
     configs = {
         isTouch: 'ontouchstart' in window,
@@ -56,6 +57,7 @@ var dq = (function($, window, undefined) {
     debug = {},
     cutlery = {},
     thunder = {},
+    storm = {},
     confettis = {},
     constants = {
         DEV: true,
@@ -394,6 +396,8 @@ var dq = (function($, window, undefined) {
                 // lost
                 cutlery.trigger(game.BUBBLES_FAILED);
                 refs.$mealCheck.addClass('failed');
+                
+                setTimeout(storm.start, 1500);
                 setTimeout(thunder.start, 1500);
             } else {
                 // won
@@ -614,6 +618,43 @@ var dq = (function($, window, undefined) {
             refs.$thunder.removeClass('active');
             /*clearInterval(thunder.intid);*/
             setTimeout(app.generateChart, 500);
+        }
+    }
+    
+    
+    /********** Storm **********/
+    
+    storm = {
+        intid: NaN,
+        ANI_LENGTH: 5000,
+        FLASH_REPEAT: 1500,
+        FLASH_DURATION: 150,
+        
+        start: function start () {
+            console.log("Started");
+            refs.$storm.addClass("startStorm");
+
+            storm.intid = setInterval(function() {
+                if(refs.$storm.hasClass('startStorm')) {
+                    storm.flash();
+                }
+            }, storm.FLASH_REPEAT);
+            
+            setTimeout(storm.stop, storm.ANI_LENGTH);
+        },
+        
+        stop: function stop () {
+            console.log("Stopped");
+            clearInterval(storm.intid);
+            refs.$storm.removeClass("startStorm");
+        },
+    
+        flash: function flash() {
+            refs.$bolt.css({"visibility": "visible"});
+            setTimeout(function()
+            {
+                refs.$bolt.css({"visibility": "hidden"});
+            }, storm.FLASH_DURATION);
         }
     }
     
