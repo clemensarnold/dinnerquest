@@ -47,8 +47,15 @@
     },
     
     "sounds": {
-        "dropped-food": "sound_inactiveBtn",
-        "new-game": "sound_planeAnimation"
+        "dropped-food": "food_on_plate",
+        "new-game": "new_game",
+        "change-tab": "change_tab",
+        "failed": "failed",
+        "click-fork": "G_on_click",
+        "click-spoon": "L_on_click",
+        "leave-tab": "leave_tab",
+        "snoring": "snoring",
+        "success": "success"
     },
     
     "expressions": {

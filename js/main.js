@@ -70,10 +70,17 @@ var dq = (function($, window, undefined) {
     },
     sounds = {
         DROPPED_FOOD: 'dropped-food',
-        NEW_GAME: 'new-game'
+        NEW_GAME: 'new-game',
+        CHANGE_TAB: 'change-tab',
+        FAILED: "failed",
+        CLICK_FORK: "G_on_click",
+        CLICK_SPOON: "L_on_click",
+        LEAVE_TAB: "leave_tab",
+        SNORING: "snoring",
+        SUCCESS: "success"
     };
     
-    game.sounds = [{selector: '.navi-container > div, #chart', whichSound: sounds.NEW_GAME}];
+    game.sounds = [{selector: '.navi-container > div, #chart', whichSound: sounds.CHANGE_TAB}];
     
     $(function() {
         
@@ -178,7 +185,7 @@ var dq = (function($, window, undefined) {
             }
             
             refs.$foodCont.empty().append(html);
-            
+                    
             $('.m-item').each(function(i, el) {
                 specs = app.json.avFood[foodCat][i];
                 specs.foodCat = game.currentFoodCat;
@@ -350,6 +357,7 @@ var dq = (function($, window, undefined) {
         
         if (!configs.isTouch) refs.$plate.addClass('desktop');
         
+        app.playSound(sounds.NEW_GAME);
         app.renderFoodMenu();
         app.switchTab(game.constants.DEFAULT_TAB);
         
@@ -538,6 +546,8 @@ var dq = (function($, window, undefined) {
         
         start: function() {
             
+            app.playSound(sounds.SUCCESS);
+            
             var left = 0,
                 top = 0,
                 translate = 'translate(' + left + 'px,' + top + 'px)',
@@ -573,15 +583,15 @@ var dq = (function($, window, undefined) {
         
         start: function() {
         
+            app.playSound(sounds.FAILED);
+        
             refs.$thunder.addClass('active');
             /*thunder.intid = setInterval(function() {*/
                
                 /*if(refs.$thunder.hasClass('active')) {*/
                 
-                thunder.animate();
-                    
-                    
-                    
+                thunder.animate;
+                             
                 //}
             
             /*}, 250);*/
