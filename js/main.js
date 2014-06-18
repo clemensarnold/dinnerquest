@@ -20,10 +20,9 @@ var dq = (function($, window, undefined) {
         $infobtn: $('.info'),
         $audiocontainer: $('#audiocontainer'),
         $videocontainer: $('#videocontainer'),
-        $thunder: $('#thunder'),
         $confettis: $('#confettis'),
         $storm: $("#storm"),
-        $bolt :$("#bolt")
+        $bolt: $(".bolt")
     },
     configs = {
         isTouch: 'ontouchstart' in window,
@@ -67,7 +66,6 @@ var dq = (function($, window, undefined) {
     dragfood = {},
     debug = {},
     cutlery = {},
-    thunder = {},
     storm = {},
     confettis = {},
     constants = {
@@ -465,7 +463,6 @@ var dq = (function($, window, undefined) {
                 refs.$mealCheck.addClass('failed');
                 
                 setTimeout(storm.start, 1500);
-                setTimeout(thunder.start, 1500);
             } else {
                 // won
                 cutlery.trigger(game.BUBBLES_SUCCESS);
@@ -653,82 +650,53 @@ var dq = (function($, window, undefined) {
         }
     }
     
-    /********** Thunder **********/
-    
-    thunder = {
-        intid: NaN,
-        FPS: 30,
-        ANI_LENGTH: 2500,
-        
-        start: function() {
-        
-            app.playSound(sounds.FAILED);
-        
-            refs.$thunder.addClass('active');
-            
-            /*thunder.intid = setInterval(function() {*/
-                /*if(refs.$thunder.hasClass('active')) {*/
-                //}
-            /*}, 250);*/
-            
-            thunder.animate();
-            setTimeout(thunder.animate, 1000);
-            setTimeout(thunder.animate, 2000);
-            setTimeout(thunder.animate, 2250);
-            
-            setTimeout(thunder.stop, thunder.ANI_LENGTH);
-        },
-        
-        animate: function () {
-            refs.$thunder.animate({"background-color": "rgba(255,255,200,1)"}, 50, function () {
-                refs.$thunder.animate({"background-color": "rgba(0,0,0,1)"}, 100, function () {
-                    refs.$thunder.animate({"background-color": "rgba(0,0,0,0)"}, 100, function () {
-                    
-                    });
-                });
-            });
-        },
-        
-        stop: function() {
-            refs.$thunder.removeClass('active');
-            /*clearInterval(thunder.intid);*/
-            setTimeout(app.generateChart, 500);
-        }
-    }
-    
-    
     /********** Storm **********/
     
     storm = {
         intid: NaN,
         ANI_LENGTH: 5000,
-        FLASH_REPEAT: 1500,
+        FLASH_INTERVALL: 100,
+        FLASH_AMOUNT_PICTURES: refs.$bolt.length,
+        FLASH_NEXT: new Array (300, 500, 600, 700, 1100, 1300, 1600, 1700, 1900, 2200, 2300, 2500, 2750, 3000, 3100, 3400, 4000, 4100, 4400, 4600),
         FLASH_DURATION: 150,
+        flash_picture_id: 0,
+        flash_next_compare_time: 0,
         
-        start: function start () {
-            console.log("Started");
+        start: function () {
             refs.$storm.addClass("startStorm");
 
             storm.intid = setInterval(function() {
                 if(refs.$storm.hasClass('startStorm')) {
-                    storm.flash();
+                    for(var i = 0; i < storm.FLASH_NEXT.length; i++) {
+                        if(storm.flash_next_compare_time == storm.FLASH_NEXT[i]) {
+                            storm.flash(storm.flash_picture_id);
+                            storm.flash_picture_id = (storm.flash_picture_id + 1) % storm.FLASH_AMOUNT_PICTURES;
+                        }
+                    }
+
+                storm.flash_next_compare_time += storm.FLASH_INTERVALL;
                 }
-            }, storm.FLASH_REPEAT);
+            }, storm.FLASH_INTERVALL);
             
             setTimeout(storm.stop, storm.ANI_LENGTH);
         },
         
-        stop: function stop () {
-            console.log("Stopped");
+        stop: function () {
             clearInterval(storm.intid);
             refs.$storm.removeClass("startStorm");
+            
+            storm.flash_picture_id = 0;
+            storm.flash_next_compare_time = 0;
+            
+            setTimeout(app.generateChart, 500);
         },
     
-        flash: function flash() {
-            refs.$bolt.css({"visibility": "visible"});
+        flash: function (id) {
+            var activeBolt = $(refs.$bolt[id]).css({"visibility": "visible"});
+
             setTimeout(function()
             {
-                refs.$bolt.css({"visibility": "hidden"});
+               activeBolt.css({"visibility": "hidden"});
             }, storm.FLASH_DURATION);
         }
     }
