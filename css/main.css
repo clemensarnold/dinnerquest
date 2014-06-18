@@ -497,6 +497,7 @@ body {
     float: left;
     background-image: url(./../img/svg/av-food.svg);
     opacity: 0;
+    /*border: 1px solid;*/
 }
 
 .m-item.dragged {
@@ -554,12 +555,25 @@ body {
     color: #3D4C57;
 }
 
+#performance-boost {
+    pointer-events: none;
+    position: fixed;
+    bottom: 250px;
+    left: 0;
+    width: 100%;
+    min-height: 150px;
+    background: grey;
+    z-index: 1000;
+    opacity: 0;
+}
+
 /* == debug ====================================================== */
 
 [role="debug"] {
     position: fixed;
     bottom: 250px; left: 10px;
     width: 150px;
+    /*width: 100%;    */
     min-height: 150px;
     padding: 0.5em;
     background: black;

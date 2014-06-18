@@ -32,6 +32,11 @@ var dq = (function($, window, undefined) {
     game = {
         co2_max: NaN,
         kcal_min: NaN,
+        inactive_restart: NaN,
+        inactive_fallasleep: NaN,
+        inactivityCounter: 0,
+        started: false,
+        sleeping: false,
         constants: {
             FOODITEMS_VERTOFF: {veggies: 0, sides: -105, animals: -210},
             FOODITEMS_VERTOFF_BIG: {veggies: 0, sides: NaN, animals: NaN},
@@ -40,7 +45,9 @@ var dq = (function($, window, undefined) {
             DEFAULT_TAB: 'veggies', 
             FOOD_BIG_DIMS: 450,
             CUTLERY_HOROFF: 120,
-            FPS: 30
+            FPS: 30,
+            SNORE_EXP: "L04,G07",
+            WAKEUP_EXP: "L01,G01"
         },
         currentFoodCat: 'veggies',
         currentMeal: [],
@@ -60,7 +67,7 @@ var dq = (function($, window, undefined) {
     constants = {
         DEV: true,
         STATS: true,
-        SOUNDS: true,
+        SOUNDS: false,
         SKIP_VIDEO: true,
         URL_HOME: '',
         JSON_PATH: './json/data.json',
@@ -88,13 +95,19 @@ var dq = (function($, window, undefined) {
         
         $.getJSON(constants.JSON_PATH, function(data) {
             app.json = data;
-            app.initApp();
             
-            //  set balancing-vars from json
+             //  set balancing-vars from json
             game.co2_max = app.json.rules.co2_max;
             game.kcal_min = app.json.rules.kcal_min;
+            game.inactive_fallasleep = app.json.rules.inactive_fallasleep;
+            game.inactive_restart = app.json.rules.inactive_restart;
             cutlery.showDelay = app.json.rules.showbubble_delay;
             cutlery.hideDelay = app.json.rules.hidebubble_delay;
+            
+            app.initApp();
+            
+            //  tmp code
+            $('[role="debug"]').hide();
         });
     });
     
@@ -102,6 +115,8 @@ var dq = (function($, window, undefined) {
     app = {
         
         initApp: function() {
+            
+            setInterval(app.checkInactivity, 1000);
             
             game.constants.FOODITEMS_VERTOFF_BIG.sides = -game.constants.FOOD_BIG_DIMS;
             game.constants.FOODITEMS_VERTOFF_BIG.animals = -2 * game.constants.FOOD_BIG_DIMS;
@@ -126,13 +141,15 @@ var dq = (function($, window, undefined) {
                 app.renderFoodMenu();
             });
             
+            
+            refs.$window.on(configs.clickEvent, app.resetInactCounter);
+            
             $('.logo').on({click: app.reload});
             
             refs.$videocontainer.on({click: app.startGame});
+                        
             if (constants.SKIP_VIDEO) app.startGame();
             else {
-                
-            
                 //  start video
             }
             
@@ -154,7 +171,38 @@ var dq = (function($, window, undefined) {
             }
         },
         
+        checkInactivity: function() {
+            if (game.started) game.inactivityCounter++;
+            
+            switch(game.inactivityCounter) {
+                case game.inactive_fallasleep:
+                    game.sleeping = true;
+                    cutlery.setExpression({exp: game.constants.SNORE_EXP});
+                    app.playSound(sounds.SNORING, true);
+                    break;
+                
+                case game.inactive_restart:
+                    app.reload();
+                    break;
+            }
+            
+            //log('ia counter: ' + game.inactivityCounter);
+        },
+        
+        stopSleeping: function() {
+            game.sleeping = false;
+            cutlery.setExpression({exp: game.constants.WAKEUP_EXP});
+            app.stopSound();
+        },
+        
+        resetInactCounter: function() {
+            game.inactivityCounter = 0;
+            
+            if (game.sleeping) app.stopSleeping();
+        },
+        
         startGame: function() {
+            game.started = true;
             game.startNewGame();
             refs.$fork.show();
             refs.$spoon.show();
@@ -211,7 +259,7 @@ var dq = (function($, window, undefined) {
                             dragfood.setBackground(refs.$dragfood, $(this).data('specs'));
                         },
                         stop: dragfood.stopDragging,
-                        drag: $.throttle(300, dragfood.calcDistance)
+                        drag: $.throttle(250, dragfood.calcDistance)
                     });
                 } else {
                     $(el).css("visibility", "hidden");
@@ -300,7 +348,7 @@ var dq = (function($, window, undefined) {
             }
         },
         
-        playSound: function(whichSound) {
+        playSound: function(whichSound, loop) {
             
             if (!constants.SOUNDS) return;
             
@@ -310,7 +358,9 @@ var dq = (function($, window, undefined) {
                 $snd = undefined;
             
             if (Modernizr.audio) {
-                html = '<audio id="' + id + '" class="btn-audio"><source src="./media/sound/' + sndpath + '.mp3" type="audio/mpeg" /></audio>';
+                html = '<audio id="' + id + '" ';
+                if (loop) html += 'loop';
+                html += ' class="btn-audio"><source src="./media/sound/' + sndpath + '.mp3" type="audio/mpeg" /></audio>';
                 
                 refs.$audiocontainer.empty().append(html);
                 
@@ -318,6 +368,10 @@ var dq = (function($, window, undefined) {
                 $snd.volume = 0.3;
                 $snd.play();
             }
+        },
+        
+        stopSound: function() {
+            refs.$audiocontainer.empty();
         }
     }
     
@@ -554,7 +608,7 @@ var dq = (function($, window, undefined) {
                 translate = 'translate(' + left + 'px,' + top + 'px)',
                 range =  2 * Math.PI,
                 alpha = NaN,
-                scale = 1.65;
+                scale = 1.75;
             
             $('.conf').each(function(i) {
                 alpha = Math.random() * range;
@@ -673,7 +727,8 @@ var dq = (function($, window, undefined) {
                 forkID = parseInt(bubbleData.exp.split(',')[1].substr(1)),
                 backgroundPosition = -game.constants.CUTLERY_HOROFF * (forkID - 1) + 'px 0';
                 
-   
+            //log('setExpression');
+            //log(bubbleData);
             
             refs.$fork.css({backgroundPosition: backgroundPosition});
             
@@ -743,4 +798,5 @@ var dq = (function($, window, undefined) {
  * throttle device based
  * transition: border 0.3s ease-out; device based
  * opacity: 0.8 !important; of dragged food device based
+ * app.playSound(sounds.SNORING);
  */
