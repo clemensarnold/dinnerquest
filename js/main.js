@@ -53,6 +53,10 @@ var dq = (function($, window, undefined) {
         currentFoodCat: 'veggies',
         currentMeal: [],
         meals: [],
+        mealMix: {},
+        freezeTab: {},
+        activeTabID: NaN,
+        $activeTab: undefined,
         platesCounter: -1,
         foodCounter: NaN,
         BUBBLES_NEWGAME: "new-game",
@@ -136,13 +140,16 @@ var dq = (function($, window, undefined) {
             }
             
             $('.navi-container > div').on(configs.clickEvent, function() {
+                if (game.freezeTab[$(this).data('foodcat')]) return;
+                
                 game.currentFoodCat = game.constants.FOOD_CATS[$(this).data('foodcat')];
                 
                 $('.navi-container > div.active').removeClass('active');
                 $(this).addClass('active');
                 app.renderFoodMenu();
+                game.activeTabID = $(this).data('foodcat');
+                game.$activeTab = $(this);
             });
-            
             
             refs.$window.on(configs.clickEvent, app.resetInactCounter);
             
@@ -222,6 +229,12 @@ var dq = (function($, window, undefined) {
             return exists;
         },
         
+        freezeFoodMenu: function() {
+            refs.$foodCont.addClass('inactive');
+            game.freezeTab[game.activeTabID] = true;
+            game.$activeTab.addClass('freeze');
+        },
+        
         renderFoodMenu: function() {
             var foodClass = configs.isTouch ? 'm-item touch' : 'm-item',
                 foodHtml = '<div class="' + foodClass + '"></div>',
@@ -230,11 +243,13 @@ var dq = (function($, window, undefined) {
                 vertOff = game.constants.FOODITEMS_VERTOFF[foodCat],
                 specs = {};
                 
+                
+                
             for (var i = 0; i < app.json.avFood[foodCat].length; i++) {
                 html += foodHtml;
             }
             
-            refs.$foodCont.empty().append(html);
+            refs.$foodCont.empty().append(html).removeClass('inactive');
                     
             $('.m-item').each(function(i, el) {
                 specs = app.json.avFood[foodCat][i];
@@ -246,12 +261,7 @@ var dq = (function($, window, undefined) {
                     data('specs', specs).
                     delay(i*constants.FADE_DELAY).fadeTo(400, 1);
                     
-                    //  DEV
-                    $('.m-item').on({click: function() {
-                        debug.printObject($(this).data('specs'));
-                    }});
-                    
-                    $('.m-item').draggable({
+                    $(el).draggable({
                         helper: 'clone',
                         cursorAt: {left: constants.FOOD_HOR, top: constants.FOOD_VERT},
                         start: function(e, ui) {
@@ -387,10 +397,6 @@ var dq = (function($, window, undefined) {
         //  resets after first game
         if (game.currentMeal.length > 0) {
             game.meals.push(game.currentMeal);
-            
-            if (app.json.rules.food_only_once) {
-                $('.food-container .inactive').removeClass('inactive').draggable('enable');
-            }
             refs.$menu.fadeIn();
             refs.$mealCheck.removeClass('visible');
             setTimeout(function() { refs.$mealCheck.removeClass('failed'); }, 2000);
@@ -403,7 +409,14 @@ var dq = (function($, window, undefined) {
         //  resets
         game.currentMeal = [];
         game.foodCounter = 0;
+        game.mealMix = {veggies: 0, sides: 0, animals: 0};
+        game.freezeTab = {0: false, 1: false, 2: false};
+        game.activeTabID = NaN;
+        game.$activeTab = undefined;
+        
         debug.printObject({});
+        
+        $('.navi-container > div.freeze').removeClass('freeze');
         
         //  pre-gallery times
         refs.$plates.empty();
@@ -462,6 +475,11 @@ var dq = (function($, window, undefined) {
         }
     }
     
+    game.checkFoodMix = function() {
+        log('checkFoodMix');
+        if (game.mealMix[game.currentFoodCat] === app.json.rules.switch_tab[game.currentFoodCat]) app.freezeFoodMenu();
+    }
+    
     /********** Dragfood **********/
     
     dragfood = {
@@ -495,6 +513,9 @@ var dq = (function($, window, undefined) {
                 if (app.json.rules.food_only_once) {
                     $(this).addClass('inactive').draggable('disable');
                 }
+                
+                game.mealMix[specs.foodCat]++;
+                game.checkFoodMix();
                 
                 debug.printObject(specs);
                 debug.printObject(game.calcMealVals(game.currentMeal), true);

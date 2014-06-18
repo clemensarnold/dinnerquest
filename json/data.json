@@ -36,14 +36,16 @@
     },        
     
     "rules": {
-        "co2_max": 700,
-        "kcal_min": 50,
-        "food_only_once": false,
+        "co2_max": 1700,
+        "kcal_min": 500,
+        "food_only_once": true,
         "inactive_restart": 60,
         "inactive_fallasleep": 15,
-        "max_sides": 2,
-        "max_veggies": 3,
-        "max_animals": 2,
+        "switch_tab": {
+            "sides": 3,
+            "veggies": 3,
+            "animals": 100
+        },      
         "showbubble_delay": 1000,
         "hidebubble_delay": 3000
     },

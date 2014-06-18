@@ -499,6 +499,10 @@ body {
 
 .navi-container .animals.active { background-position: -196px 0; }
 
+.navi-container > div.freeze {
+    cursor: default;
+}
+
 .m-item {
     width: 120px;
     height: 105px;
@@ -520,6 +524,11 @@ body {
 
 .m-item.inactive {
     cursor: default;
+}
+
+.food-container.inactive {
+    opacity: 0.5;
+    pointer-events: none;
 }
 
 #plates .food {
