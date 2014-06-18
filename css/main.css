@@ -345,6 +345,18 @@ body {
     background-image: url(./../img/svg/failed-bubbles.svg);
 }
 
+.bubble.failed {
+    background-image: url(./../img/svg/failed-bubbles.svg);
+}
+
+.bubble.freeze-veggies {
+    background-image: url(./../img/svg/freeze-veggies-bubbles.svg);
+}
+
+.bubble.freeze-sides {
+    background-image: url(./../img/svg/freeze-sides-bubbles.svg);
+}
+
 .bubble.visible {
     opacity: 1;
 }

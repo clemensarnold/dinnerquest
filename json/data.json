@@ -37,16 +37,16 @@
     
     "rules": {
         "co2_max": 700,
-        "kcal_min": 500,
+        "kcal_min": 400,
         "food_only_once": true,
         "inactive_restart": 60,
         "inactive_fallasleep": 15,
         "switch_tab": {
-            "sides": 3,
-            "veggies": 3,
+            "sides": 2,
+            "veggies": 2,
             "animals": 100
         },      
-        "showbubble_delay": 1000,
+        "showbubble_delay": 500,
         "hidebubble_delay": 3000
     },
     
@@ -105,6 +105,20 @@
                 {"exp": "L03,G03", "txt": "L;Pumperlgsund und Pappsatt.", "bgid": 4}
             ]
         ],
+        "freeze-sides": [
+            [
+                {"exp": "L07,G07", "txt": "G;Darfs ein wenig Abwechslung sein?", "bgid": 0},
+                {"exp": "L06,G06", "txt": "L;Hey, dein Essen soll auch schmecken!", "bgid": 1},
+                {"exp": "L05,G05", "txt": "G;Super, aber du brauchst noch Vitamine!", "bgid": 2}
+            ]
+        ],
+        "freeze-veggies": [
+            [
+                {"exp": "L07,G07", "txt": "G;Nur von Gemüse wirst du aber auch nicht satt!", "bgid": 0},
+                {"exp": "L06,G06", "txt": "L;Vergiss nicht, auch satt zu werden!", "bgid": 1},
+                {"exp": "L05,G05", "txt": "L;Ein Sattmacher fehlt noch!", "bgid": 2}
+            ]
+        ],
         "leave-sides-tab": [
             {"exp": "G07", "txt": "G;Darfs ein wenig Abwechslung sein?"},
             {"exp": "G06", "txt": "L;Hey, dein Essen soll auch schmecken!"},
@@ -117,14 +131,4 @@
         ]
     }
 }
-
-
-
-
-
-
-
-
-
-
 

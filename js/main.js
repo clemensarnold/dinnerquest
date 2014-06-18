@@ -58,9 +58,11 @@ var dq = (function($, window, undefined) {
         $activeTab: undefined,
         platesCounter: -1,
         foodCounter: NaN,
-        BUBBLES_NEWGAME: "new-game",
-        BUBBLES_FAILED: "failed",
-        BUBBLES_SUCCESS: "success"
+        BUBBLES_NEWGAME: 'new-game',
+        BUBBLES_FAILED: 'failed',
+        BUBBLES_SUCCESS: 'success',
+        BUBBLES_FREEZE_VEGGIES: 'freeze-veggies',
+        BUBBLES_FREEZE_SIDES: 'freeze-sides'
     },
     app = {},
     dragfood = {},
@@ -454,6 +456,8 @@ var dq = (function($, window, undefined) {
         
         if (gameOver) {
             
+            app.freezeFoodMenu();
+            
             if (tooMuchC02) {
                 
                 log('checkMealVals');
@@ -473,8 +477,14 @@ var dq = (function($, window, undefined) {
     }
     
     game.checkFoodMix = function() {
-        log('checkFoodMix');
-        if (game.mealMix[game.currentFoodCat] === app.json.rules.switch_tab[game.currentFoodCat]) app.freezeFoodMenu();
+        
+        if (game.mealMix[game.currentFoodCat] === app.json.rules.switch_tab[game.currentFoodCat]) {
+            
+            if (game.currentFoodCat === 'veggies') cutlery.trigger(game.BUBBLES_FREEZE_VEGGIES);
+            else if (game.currentFoodCat === 'sides') cutlery.trigger(game.BUBBLES_FREEZE_SIDES);
+            
+            app.freezeFoodMenu();
+        }
     }
     
     /********** Dragfood **********/
@@ -505,7 +515,6 @@ var dq = (function($, window, undefined) {
                 game.addFood(specs);
                 cutlery.setExpression(specs);
                 $newFood.data('specs', specs);
-                game.checkMealVals();
                 
                 if (app.json.rules.food_only_once) {
                     $(this).addClass('inactive').draggable('disable');
@@ -513,6 +522,8 @@ var dq = (function($, window, undefined) {
                 
                 game.mealMix[specs.foodCat]++;
                 game.checkFoodMix();
+                
+                game.checkMealVals();
                 
                 debug.printObject(specs);
                 debug.printObject(game.calcMealVals(game.currentMeal), true);
@@ -732,6 +743,8 @@ var dq = (function($, window, undefined) {
                     break;
                 
                 case game.BUBBLES_SUCCESS:
+                case game.BUBBLES_FREEZE_SIDES:
+                case game.BUBBLES_FREEZE_VEGGIES:
                     rid = helper.getRandomNumber(app.json.expressions[bubblemode][0].length);
                     bubbleData = app.json.expressions[bubblemode][0][rid];
                     break;
