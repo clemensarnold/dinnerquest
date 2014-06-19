@@ -22,7 +22,8 @@ var dq = (function($, window, undefined) {
         $videocontainer: $('#videocontainer'),
         $confettis: $('#confettis'),
         $storm: $("#storm"),
-        $bolt: $(".bolt")
+        $bolt: $(".bolt"),
+        $bolts: $(".bolt2")
     },
     configs = {
         isTouch: 'ontouchstart' in window,
@@ -73,7 +74,7 @@ var dq = (function($, window, undefined) {
     constants = {
         DEV: true,
         STATS: true,
-        SOUNDS: false,
+        SOUNDS: true,
         SKIP_VIDEO: true,
         URL_HOME: '',
         JSON_PATH: './json/data.json',
@@ -110,6 +111,13 @@ var dq = (function($, window, undefined) {
             cutlery.showDelay = app.json.rules.showbubble_delay;
             cutlery.hideDelay = app.json.rules.hidebubble_delay;
             
+            if (constants.STATS) {
+                configs.stats = new Stats();
+                configs.stats.setMode(0);
+                document.body.appendChild(configs.stats.domElement);
+                window.setInterval(function() { configs.stats.update(); }, 1000 / constants.FPS);
+            }
+            
             app.initApp();
             
             //  tmp code
@@ -130,13 +138,6 @@ var dq = (function($, window, undefined) {
             
             if (constants.DEV) {
                 refs.$window.on({keydown: this.keyDownListener});
-            }
-            
-            if (constants.STATS) {
-                configs.stats = new Stats();
-                configs.stats.setMode(0);
-                document.body.appendChild(configs.stats.domElement);
-                window.setInterval(function() { configs.stats.update(); }, 1000 / constants.FPS);
             }
             
             $('.navi-container > div').on(configs.clickEvent, function() {
@@ -184,6 +185,8 @@ var dq = (function($, window, undefined) {
             if (game.started) game.inactivityCounter++;
             
             switch(game.inactivityCounter) {
+                
+                //  only if game running
                 case game.inactive_fallasleep:
                     game.sleeping = true;
                     cutlery.setExpression({exp: game.constants.SNORE_EXP});
@@ -269,6 +272,7 @@ var dq = (function($, window, undefined) {
                             refs.$dragfood.addClass('dragged');
                             
                             dragfood.setBackground(refs.$dragfood, $(this).data('specs'));
+                            app.stopSound(); // needed for ipad performance (weird)
                         },
                         stop: dragfood.stopDragging,
                         drag: $.throttle(250, dragfood.calcDistance)
@@ -459,14 +463,11 @@ var dq = (function($, window, undefined) {
             app.freezeFoodMenu();
             
             if (tooMuchC02) {
-                
-                log('checkMealVals');
-                
                 // lost
                 cutlery.trigger(game.BUBBLES_FAILED);
+                app.generateChart();
                 refs.$mealCheck.addClass('failed');
-                
-                setTimeout(storm.start, 1500);
+                setTimeout(storm.start, 500);
             } else {
                 // won
                 cutlery.trigger(game.BUBBLES_SUCCESS);
@@ -522,11 +523,10 @@ var dq = (function($, window, undefined) {
                 
                 game.mealMix[specs.foodCat]++;
                 game.checkFoodMix();
-                
                 game.checkMealVals();
                 
-                debug.printObject(specs);
-                debug.printObject(game.calcMealVals(game.currentMeal), true);
+                //debug.printObject(specs);
+                //debug.printObject(game.calcMealVals(game.currentMeal), true);
                 
             } else {
                 $newFood.fadeOut(constants.FADE_OUT, function() { $(this).remove(); });
@@ -664,6 +664,42 @@ var dq = (function($, window, undefined) {
     /********** Storm **********/
     
     storm = {
+        
+        ANI_LENGTH: 8000,
+        $storm: $('#anitest'),
+        boltInt: NaN,
+        
+        start: function() {
+            
+            storm.stop();
+            
+            storm.$storm.addClass('rotate');
+            setTimeout(function() { storm.$storm.toggleClass('rotate'); }, 4500);
+            setTimeout(app.stopSound, storm.ANI_LENGTH);
+           
+            storm.boltInt = setInterval(function() {
+                if (Math.random() > 0.5) {
+                    refs.$actBolt = $(refs.$bolts[helper.getRandomNumber(refs.$bolts.length)]);
+                    refs.$actBolt.removeClass('hidden');
+                    setTimeout(function() { refs.$actBolt.addClass('hidden'); }, 150);
+                }
+            }, 300);
+            
+            setTimeout(storm.stop, storm.ANI_LENGTH);
+            app.playSound(sounds.FAILED, false);
+        },
+        
+        stop: function() {
+            
+            log('stop storm');
+            storm.$storm.removeClass('rotate');
+            clearInterval(storm.boltInt);
+            app.stopSound();
+        }
+    }
+    
+    /*
+    storm = {
         intid: NaN,
         ANI_LENGTH: 5000,
         FLASH_INTERVALL: 100,
@@ -674,7 +710,7 @@ var dq = (function($, window, undefined) {
         flash_next_compare_time: 0,
         
         start: function () {
-            refs.$storm.addClass("startStorm");
+            refs.$storm.addClass("-->Storm");
 
             storm.intid = setInterval(function() {
                 if(refs.$storm.hasClass('startStorm')) {
@@ -711,6 +747,7 @@ var dq = (function($, window, undefined) {
             }, storm.FLASH_DURATION);
         }
     }
+    */
     
     /********** Cutlery **********/
     
@@ -724,6 +761,9 @@ var dq = (function($, window, undefined) {
         bubbleData: {},
         
         trigger: function(bubblemode) {
+            
+            log('trigger / bubblemode: ' + bubblemode);
+            
             var arrayID = NaN, rid = NaN, bubbleData = {};
             
             switch(bubblemode) {
@@ -757,12 +797,12 @@ var dq = (function($, window, undefined) {
         },
         
         setExpression: function(bubbleData, bubblemode) {
+            
+            log('setExpression / bubblemode: ' + bubblemode);
+            
             var spoonID = parseInt(bubbleData.exp.split(',')[0].substr(1)),
                 forkID = parseInt(bubbleData.exp.split(',')[1].substr(1)),
                 backgroundPosition = -game.constants.CUTLERY_HOROFF * (forkID - 1) + 'px 0';
-                
-            //log('setExpression');
-            //log(bubbleData);
             
             refs.$fork.css({backgroundPosition: backgroundPosition});
             
@@ -771,6 +811,7 @@ var dq = (function($, window, undefined) {
             
             cutlery.hideBubble();
             clearTimeout(cutlery.showBubbleTO);
+            
             if (bubblemode) {
                 cutlery.showBubbleTO = setTimeout(cutlery.showBubble, cutlery.showDelay);
             }
@@ -812,7 +853,6 @@ var dq = (function($, window, undefined) {
             }
             
             $('[role="debug"] p').html(html);
-            //log(data);
         }
     }
 
@@ -822,7 +862,8 @@ var dq = (function($, window, undefined) {
         app: app,
         game: game,
         cutlery: cutlery,
-        confettis: confettis
+        confettis: confettis,
+        storm: storm
     };
 
 }(jQuery, window));
@@ -832,5 +873,5 @@ var dq = (function($, window, undefined) {
  * throttle device based
  * transition: border 0.3s ease-out; device based
  * opacity: 0.8 !important; of dragged food device based
- * app.playSound(sounds.SNORING);
+ * 
  */

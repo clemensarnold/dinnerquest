@@ -148,7 +148,7 @@ body {
    ========================================================================== */
 
 #storm {
-	position: absolute;
+    position: absolute;
     display: none;
     
     z-index: 3000;
@@ -423,6 +423,46 @@ body {
 
 .meal-check.visible {
     opacity: 1;
+}
+
+#anitest {
+    pointer-events: none;
+    position: absolute;
+    bottom: 100px;
+    left: -800px;
+    /*left: 100px;*/
+    width: 800px;
+    height: 700px;
+    /*background: lime;*/
+    z-index: 100000;
+    transition: -webkit-transform 3.5s linear, left 3.5s linear;
+    /*transition: all 3.5s linear;*/
+    background-image: url(./../img/png/storm-50-blur.png);
+}
+
+#anitest.rotate {
+    -webkit-transform: rotate(-4500deg);
+    left: 1324px; /* should be dynamic */
+}
+
+#anitest > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 800px;
+    height: 700px;
+}
+
+.bolt2.one {
+    background-image: url(./../img/png/bolt-1-50.png);
+}
+
+.bolt2.two {
+    background-image: url(./../img/png/bolt-2-50.png);
+}
+
+.bolt2.three {
+    background-image: url(./../img/png/bolt-3-50.png);
 }
 
 /* ==========================================================================

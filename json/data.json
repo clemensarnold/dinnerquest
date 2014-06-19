@@ -37,10 +37,10 @@
     
     "rules": {
         "co2_max": 700,
-        "kcal_min": 400,
+        "kcal_min": 100,
         "food_only_once": true,
         "inactive_restart": 60,
-        "inactive_fallasleep": 15,
+        "inactive_fallasleep": 150,
         "switch_tab": {
             "sides": 2,
             "veggies": 2,
