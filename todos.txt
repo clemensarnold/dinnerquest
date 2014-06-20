@@ -19,6 +19,7 @@ BENJAMIN
 . Fertigstellung der Info-Seite inkl. Kontaktdaten / Credits
 . hintergrund patterns
 . Finetuning der Bubblepositionierung (in den SVGs)
+. Allgemeines Layout Finetuning
 
 LATER / NICE TO HAVE
 . animationen des bestecks (shaken am spielende)

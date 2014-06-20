@@ -175,7 +175,7 @@ var dq = (function($, window, undefined) {
             
             //  init sounds
             for (var i = 0; i < game.sounds.length; i++) {
-                $(game.sounds[i].selector).data('whichSound', game.sounds[i].whichSound).on(configs.clickEvent, function() {
+                $(game.sounds[i].selector).data('whichSound', game.sounds[i].whichSound).on(configs.clickEvent, function(e) {
                     app.playSound($(this).data('whichSound'));
                 });
             }
@@ -435,10 +435,8 @@ var dq = (function($, window, undefined) {
         if (!configs.isTouch) refs.$plate.addClass('desktop');
         
         app.playSound(sounds.NEW_GAME);
-        app.renderFoodMenu();
-        $('.navi-container > div.active').removeClass('active');
-        $('.navi-container .' + game.constants.DEFAULT_TAB).addClass('active');
         
+        $('.navi-container .' + game.constants.DEFAULT_TAB).trigger(configs.clickEvent);
         refs.$plate.fadeIn();
     },
     

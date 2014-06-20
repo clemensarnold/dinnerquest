@@ -113,7 +113,8 @@ textarea {
 }
 
 html {
-    overflow: hidden; 
+    overflow: hidden;
+    height: 100%;
 }
 
 html.overflow {
@@ -125,7 +126,8 @@ html, body, #overlays {
 }
 
 body {
-    background: #cadbe5; /*url(./../img/svg/table-cloth.svg);*/
+    background: url(./../img/png/table-cloth-small.png); /*url(./../img/svg/table-cloth.png);*/
+    background-position: bottom left;
 }
 
 .page-wrapper {
@@ -476,7 +478,8 @@ body {
 }
 
 .menu-wrapper {
-    background: #fcecdf; /*url(./../img/svg/food-menu.svg);*/
+    background: url(./../img/png/food-menu.png);
+    /*background: url(./../img/svg/food-menu.svg);*/
     height: 106px;
     width: 100%;
     position: absolute;

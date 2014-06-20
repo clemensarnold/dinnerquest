@@ -9,7 +9,7 @@
             {"label": "SPINAT", "serving": 200, "kcal": 46, "c02": 300, "exp": "L03,G02", "chart": "160, 140", "bigbg" : false},
             {"label": "KRAUT", "serving": 350, "kcal": 77, "c02": 490, "exp": "L02,G02", "chart": "150, 150", "bigbg" : false},
             {"label": "GURKEN", "serving": 200, "kcal": 30, "c02": 300, "exp": "L03,G02", "chart": "163, 153", "bigbg" : false},
-            {"label": "OLIVEN", "serving": 20, "kcal": 27.6, "c02": 70, "exp": "L04,G07", "chart": "150, 140", "bigbg" : false}
+            {"label": "OLIVEN", "serving": 20, "kcal": 27.6, "c02": 70, "exp": "L06,G07", "chart": "150, 140", "bigbg" : false}
         ],
         "sides": [
             {"label": "FUSILI", "serving": 55, "kcal": 202, "c02": 160, "exp": "L02,G03", "chart": "80, 20", "bigbg" : false},
