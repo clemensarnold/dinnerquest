@@ -364,12 +364,16 @@ video {
     background-image: url(./../img/svg/newgame-bubbles.svg);
 }
 
-.bubble.success {
+.bubble.success, .bubble.positive {
     background-image: url(./../img/svg/success-bubbles.svg);
 }
 
 .bubble.failed {
     background-image: url(./../img/svg/failed-bubbles.svg);
+}
+
+.bubble.negative {
+    background-image: url(./../img/svg/negative-bubbles.svg);
 }
 
 .bubble.freeze-veggies {
