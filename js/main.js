@@ -23,7 +23,8 @@ var dq = (function($, window, undefined) {
         $confettis: $('#confettis'),
         $storm: $("#storm"),
         $bolt: $(".bolt"),
-        $bolts: $(".bolt2")
+        $bolts: $(".bolt2"),
+        $continueButton: $("#continueButton")
     },
     configs = {
         isTouch: 'ontouchstart' in window,
@@ -171,6 +172,11 @@ var dq = (function($, window, undefined) {
             refs.$infobtn.on({click: function() {
                 $(this).toggleClass('close');
                 refs.$infopage.hasClass('visible') ? app.hideInfoPage() : app.showInfoPage();
+            }});
+            
+            refs.$continueButton.on({click: function() {
+                refs.$infobtn.toggleClass('close');
+                app.hideInfoPage();
             }});
             
             $('.menu-container').fadeTo(constants.FADE_IN, 1);
