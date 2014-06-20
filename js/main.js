@@ -44,7 +44,7 @@ var dq = (function($, window, undefined) {
             FOODITEMS_VERTOFF_BIG: {veggies: 0, sides: NaN, animals: NaN},
             FOOD_CATS: ['veggies', 'sides', 'animals'],
             FOOD_BGVERT_OFF: {veggies: 0, sides: 1, animals: 2},
-            DEFAULT_TAB: 'sides', 
+            DEFAULT_TAB: 'veggies', 
             FOOD_BIG_DIMS: 450,
             CUTLERY_HOROFF: 120,
             FPS: 30,
@@ -523,6 +523,11 @@ var dq = (function($, window, undefined) {
             
             game.foodCounter++;
             $newFood.css({left: left - dq.refs.$plate.offset().left, top: top - dq.refs.$plate.offset().top});
+            
+            //  quick & dirty, logic missing
+            $newFood.draggable({
+                //drag: $.throttle(250, dragfood.calcDistance)
+            });
             
             dragfood.setBackground($newFood, specs);
         
