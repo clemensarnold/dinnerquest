@@ -74,7 +74,7 @@ var dq = (function($, window, undefined) {
     confettis = {},
     constants = {
         DEV: true,
-        STATS: true,
+        STATS: false,
         SOUNDS: false,
         SKIP_VIDEO: true,
         URL_HOME: '',
