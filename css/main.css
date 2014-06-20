@@ -324,7 +324,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 300px;
+    width: 340px;
     height: 150px;
     z-index: 2000;
     /*border: 1px solid;*/
@@ -345,10 +345,6 @@ body {
     background-image: url(./../img/svg/failed-bubbles.svg);
 }
 
-.bubble.failed {
-    background-image: url(./../img/svg/failed-bubbles.svg);
-}
-
 .bubble.freeze-veggies {
     background-image: url(./../img/svg/freeze-veggies-bubbles.svg);
 }
@@ -363,12 +359,12 @@ body {
 
 .spoon .bubble {
     top: -60px;
-    left: -150px;
+    left: -160px;
 }
 
 .fork .bubble {
     top: -50px;
-    left: -50px;
+    left: -80px;
 }
 
 .logo {
