@@ -257,9 +257,7 @@ body {
     z-index: 2;
     display: none;
     height: 670px;
-    
-    /*background: url(./../img/svg/new-game-button.svg) no-repeat 50% 100%;*/
-    
+    background: url(./../img/svg/new-game-button.svg) no-repeat 50% 100%;
     /*border: 1px solid black;*/
 }
 
@@ -328,7 +326,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 300px;
+    width: 340px;
     height: 150px;
     z-index: 2000;
     /*border: 1px solid;*/
@@ -341,16 +339,12 @@ body {
     background-image: url(./../img/svg/newgame-bubbles.svg);
 }
 
-.bubble.success, .bubble.positive {
+.bubble.success {
     background-image: url(./../img/svg/success-bubbles.svg);
 }
 
 .bubble.failed {
     background-image: url(./../img/svg/failed-bubbles.svg);
-}
-
-.bubble.negative {
-    background-image: url(./../img/svg/negative-bubbles.svg);
 }
 
 .bubble.freeze-veggies {
@@ -367,12 +361,12 @@ body {
 
 .spoon .bubble {
     top: -60px;
-    left: -150px;
+    left: -160px;
 }
 
 .fork .bubble {
     top: -50px;
-    left: -50px;
+    left: -80px;
 }
 
 .logo {
