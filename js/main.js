@@ -77,8 +77,8 @@ var dq = (function($, window, undefined) {
     confettis = {},
     constants = {
         DEV: true,
-        STATS: true,
-        SOUNDS: false,
+        STATS: false,
+        SOUNDS: true,
         SKIP_VIDEO: false,
         URL_HOME: '',
         JSON_PATH: './json/data.json',
@@ -193,10 +193,15 @@ var dq = (function($, window, undefined) {
             // init video
             refs.$videocontainer.removeClass('transparent');
             refs.$videocontainer.on({click: app.finishVideo});
+            $('#intro-video').on({ended: app.finishVideo });
         },
         
         finishVideo: function() {
+            $('#intro-video')[0].pause();
             refs.$videocontainer.addClass('transparent');
+            setTimeout(app.startGame, 1000);
+            $('body').addClass('table-cloth');
+            refs.$menu.removeClass('down');
         },
         
         checkInactivity: function() {

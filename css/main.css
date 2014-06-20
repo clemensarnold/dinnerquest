@@ -129,6 +129,11 @@ body {
     background: #cbdbe7;
     /*background: url(./../img/png/table-cloth-small.png); */
     background-position: bottom left;
+    transition: background 0.5s ease-out 1.0s;
+}
+
+body.table-cloth {
+    background: url(./../img/png/table-cloth-small.png);
 }
 
 .page-wrapper {
@@ -140,7 +145,7 @@ body {
 
 #videocontainer {
     position: absolute;
-    z-index: 10;
+    z-index: 2000;
     width: 100%;
     height: 100%;
     transition: opacity 0.4s ease-out;
@@ -148,8 +153,7 @@ body {
 
 video {
     position: absolute;
-    bottom: 100px;
-    bottom: 99px;
+    bottom: -30px;
     left: 50%;
     margin-left: -512px;
 }
@@ -218,7 +222,7 @@ video {
     top: 0;
     left: 0;
     width: 20px; height: 20px;
-    border-radius: 15px;
+    border-radius: 10px;
     /*transition: -webkit-transform 0.3s ease-out 0.5s;*/
 }
 
@@ -230,6 +234,7 @@ video {
 
 .conf.small {
     width: 10px; height: 10px;
+    border-radius: 5px;
 }
 
 /* ==========================================================================
@@ -505,7 +510,12 @@ video {
     position: absolute;
     bottom: -4px;
     left: 0;
-    text-align: center; 
+    text-align: center;
+    transition: bottom 0.5s ease-out 1.3s;
+}
+
+.menu-wrapper.down {
+    bottom: -180px;
 }
 
 .menu-container {
@@ -561,17 +571,7 @@ video {
 .navi-container .animals.active { background-position: -196px 0; }
 
 .navi-container > div.freeze {
-    background-image: url(./../img/svg/navi-freeze.svg);
     cursor: default;
-}
-
-.navi-container .veggies.freeze {
-    background-position: 0 13px;
-}
-
-.navi-container .sides.freeze {
-
-    background-position: -91px 13px;
 }
 
 .m-item {
