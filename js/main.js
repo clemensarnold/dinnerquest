@@ -197,6 +197,9 @@ var dq = (function($, window, undefined) {
         },
         
         finishVideo: function() {
+            $('.logo, .info').removeClass('transparent');
+            
+            
             $('#intro-video')[0].pause();
             refs.$videocontainer.addClass('transparent');
             setTimeout(app.startGame, 1000);
