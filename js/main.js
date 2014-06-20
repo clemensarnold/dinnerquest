@@ -37,6 +37,7 @@ var dq = (function($, window, undefined) {
         inactive_fallasleep: NaN,
         inactivityCounter: 0,
         started: false,
+        running: false,
         sleeping: false,
         constants: {
             FOODITEMS_VERTOFF: {veggies: 0, sides: -105, animals: -210},
@@ -47,7 +48,7 @@ var dq = (function($, window, undefined) {
             FOOD_BIG_DIMS: 450,
             CUTLERY_HOROFF: 120,
             FPS: 30,
-            SNORE_EXP: "L04,G07",
+            SNORE_EXP: "L04,G12",
             WAKEUP_EXP: "L01,G01"
         },
         currentFoodCat: undefined,
@@ -182,14 +183,10 @@ var dq = (function($, window, undefined) {
         
         checkInactivity: function() {
             if (game.started) game.inactivityCounter++;
-            
             switch(game.inactivityCounter) {
                 
-                //  only if game running
                 case game.inactive_fallasleep:
-                    game.sleeping = true;
-                    cutlery.setExpression({exp: game.constants.SNORE_EXP});
-                    app.playSound(sounds.SNORING, true);
+                    if (game.running) app.startSleeping();
                     break;
                 
                 case game.inactive_restart:
@@ -198,6 +195,12 @@ var dq = (function($, window, undefined) {
             }
             
             //log('ia counter: ' + game.inactivityCounter);
+        },
+        
+        startSleeping: function() {
+            game.sleeping = true;
+            cutlery.setExpression({exp: game.constants.SNORE_EXP});
+            app.playSound(sounds.SNORING, true);
         },
         
         stopSleeping: function() {
@@ -395,8 +398,8 @@ var dq = (function($, window, undefined) {
         storm.stop();
         //  confettis.stop?
         
+        game.running = true;
         game.currentFoodCat = game.constants.DEFAULT_TAB;
-        
         game.platesCounter++;
             
         //  resets after first game
@@ -462,7 +465,9 @@ var dq = (function($, window, undefined) {
         
         if (gameOver) {
             
-            app.freezeFoodMenu();
+            game.running = false;
+            
+            //app.freezeFoodMenu();
             
             if (tooMuchC02) {
                 // lost

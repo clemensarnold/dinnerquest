@@ -40,10 +40,10 @@
         "kcal_min": 350,
         "food_only_once": true,
         "inactive_restart": 60,
-        "inactive_fallasleep": 150,
+        "inactive_fallasleep": 15,
         "switch_tab": {
-            "sides": 2,
-            "veggies": 2,
+            "sides": 3,
+            "veggies": 3,
             "animals": 100
         },      
         "showbubble_delay": 900,

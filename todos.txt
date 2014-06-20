@@ -3,29 +3,24 @@ ABZUKLÄREN / OFFENER INPUT
 . Introvideo auf blauem Hintergrund
 . Für Reiter wechseln (Tierisches)  >  gibt es keine Texte bzw. Illus
 
-OFFEN (QUICK WINs)
-. blinzelndes besteck neuer Frame
-. sleepmode nur wenn spiel läuft!
-. inactive counter pausieren am spielende
-
 OFFEN CLEMENS
 . Diagramm negativ: Random Auswahl einer Message zu Food mit größtem Impact
 . Diagramm positiv: Random Auswahl einer Message zu Food mit größtem Impact
 . ablauf: startscreen > video > spielbeginn
-. Testing
+. Testing / Debugging
 . Performanceoptimierung
 . reload der Seite > Funktionsaufruf anstatt location.reload
 . Preloading (svgs, sounds)
-. video-intro am ipad!
-
----- later / nice to have ---
-. animationen des bestecks (shaken am spielende)
-. galerie
-. social media stuff
-
+. video-intro am ipad
 
 BENJAMIN
 . ausgegraute Reiter (freezeFoodMenu)
 . Konvertierung in h264 mp4
 . Fertigstellung der Info-Seite inkl. Kontaktdaten / Credits
 . hintergrund patterns
+. Finetuning der Bubblepositionierung (in den SVGs)
+
+LATER / NICE TO HAVE
+. animationen des bestecks (shaken am spielende)
+. galerie
+. social media stuff
