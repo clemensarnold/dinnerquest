@@ -4,8 +4,7 @@ ABZUKLÄREN / OFFENER INPUT
 . Für Reiter wechseln (Tierisches)  >  gibt es keine Texte bzw. Illus
 
 OFFEN CLEMENS
-. Diagramm negativ: Random Auswahl einer Message zu Food mit größtem Impact
-. Diagramm positiv: Random Auswahl einer Message zu Food mit größtem Impact
+. Logik für Diagramm positive / negative
 . ablauf: startscreen > video > spielbeginn
 . Testing / Debugging
 . Performanceoptimierung
