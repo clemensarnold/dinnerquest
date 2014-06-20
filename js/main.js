@@ -50,7 +50,7 @@ var dq = (function($, window, undefined) {
             SNORE_EXP: "L04,G07",
             WAKEUP_EXP: "L01,G01"
         },
-        currentFoodCat: 'veggies',
+        currentFoodCat: undefined,
         currentMeal: [],
         meals: [],
         mealMix: {},
@@ -74,7 +74,7 @@ var dq = (function($, window, undefined) {
     constants = {
         DEV: true,
         STATS: true,
-        SOUNDS: true,
+        SOUNDS: false,
         SKIP_VIDEO: true,
         URL_HOME: '',
         JSON_PATH: './json/data.json',
@@ -164,7 +164,6 @@ var dq = (function($, window, undefined) {
             }
             
             refs.$chart.on({click: game.startNewGame});
-            refs.$mealCheck.on({click: game.startNewGame});
             
             refs.$infobtn.on({click: function() {
                 $(this).toggleClass('close');
@@ -239,14 +238,12 @@ var dq = (function($, window, undefined) {
         },
         
         renderFoodMenu: function() {
-            var foodClass = configs.isTouch ? 'm-item touch' : 'm-item',
+            var foodClass = configs.isTouch ? 'm-item touch' : 'm-item no-touch',
                 foodHtml = '<div class="' + foodClass + '"></div>',
                 html = '',
                 foodCat = game.currentFoodCat,
                 vertOff = game.constants.FOODITEMS_VERTOFF[foodCat],
                 specs = {};
-                
-                
                 
             for (var i = 0; i < app.json.avFood[foodCat].length; i++) {
                 html += foodHtml;
@@ -259,10 +256,9 @@ var dq = (function($, window, undefined) {
                 specs.foodCat = game.currentFoodCat;
                 specs.bgHorPos = i;
                 
-                if(!app.isLabelAlreadyInCurrentFood(specs.label)) {
+                if (!app.isLabelAlreadyInCurrentFood(specs.label)) {
                     $(el).css({backgroundPosition: -i * $(el).width() + 'px ' + vertOff + 'px'}).
-                    data('specs', specs).
-                    delay(i*constants.FADE_DELAY).fadeTo(400, 1);
+                    data('specs', specs).addClass('visible');
                     
                     $(el).draggable({
                         helper: 'clone',
@@ -396,6 +392,11 @@ var dq = (function($, window, undefined) {
     game.startNewGame = function() {
         var html = '<div class="plate"></div>';
         
+        storm.stop();
+        //  confettis.stop?
+        
+        game.currentFoodCat = game.constants.DEFAULT_TAB;
+        
         game.platesCounter++;
             
         //  resets after first game
@@ -432,7 +433,8 @@ var dq = (function($, window, undefined) {
         
         app.playSound(sounds.NEW_GAME);
         app.renderFoodMenu();
-        app.switchTab(game.constants.DEFAULT_TAB);
+        $('.navi-container > div.active').removeClass('active');
+        $('.navi-container .' + game.constants.DEFAULT_TAB).addClass('active');
         
         refs.$plate.fadeIn();
     },
@@ -464,12 +466,14 @@ var dq = (function($, window, undefined) {
             
             if (tooMuchC02) {
                 // lost
+                log('---------- lost ----------');
                 cutlery.trigger(game.BUBBLES_FAILED);
                 app.generateChart();
                 refs.$mealCheck.addClass('failed');
                 setTimeout(storm.start, 500);
             } else {
                 // won
+                log('---------- won ----------');
                 cutlery.trigger(game.BUBBLES_SUCCESS);
                 app.generateChart();
                 confettis.init();
@@ -668,15 +672,21 @@ var dq = (function($, window, undefined) {
         ANI_LENGTH: 8000,
         $storm: $('#anitest'),
         boltInt: NaN,
+        moveBackInt: NaN,
+        killSoundInt: NaN,
+        stopStormInt: NaN,
+        stormOn: false,
         
         start: function() {
             
-            storm.stop();
+            storm.stormOn = true;
             
-            storm.$storm.addClass('rotate');
-            setTimeout(function() { storm.$storm.toggleClass('rotate'); }, 4500);
-            setTimeout(app.stopSound, storm.ANI_LENGTH);
-           
+            storm.$storm.addClass('rotate').css({left: refs.$window.width()});
+            storm.$storm.removeClass('transparent');
+            storm.moveBackInt = setTimeout(function() { storm.$storm.removeClass('rotate').removeAttr('style'); }, 4500);
+            storm.killSoundInt = setTimeout(app.stopSound, storm.ANI_LENGTH);
+            storm.stopStormInt = setTimeout(storm.stop, storm.ANI_LENGTH);
+            
             storm.boltInt = setInterval(function() {
                 if (Math.random() > 0.5) {
                     refs.$actBolt = $(refs.$bolts[helper.getRandomNumber(refs.$bolts.length)]);
@@ -685,15 +695,21 @@ var dq = (function($, window, undefined) {
                 }
             }, 300);
             
-            setTimeout(storm.stop, storm.ANI_LENGTH);
+            
             app.playSound(sounds.FAILED, false);
         },
         
         stop: function() {
             
-            log('stop storm');
-            storm.$storm.removeClass('rotate');
+            if (!storm.stormOn) return;
+            
+            log('--- stop storm ----');
+            storm.stormOn = false;
+            storm.$storm.removeClass('rotate').addClass('transparent').removeAttr('style');
             clearInterval(storm.boltInt);
+            clearTimeout(storm.killSoundInt);
+            clearTimeout(storm.moveBackInt);
+            clearTimeout(storm.stopStormInt);
             app.stopSound();
         }
     }

@@ -37,7 +37,7 @@
     
     "rules": {
         "co2_max": 700,
-        "kcal_min": 100,
+        "kcal_min": 350,
         "food_only_once": true,
         "inactive_restart": 60,
         "inactive_fallasleep": 150,
@@ -46,7 +46,7 @@
             "veggies": 2,
             "animals": 100
         },      
-        "showbubble_delay": 500,
+        "showbubble_delay": 900,
         "hidebubble_delay": 3000
     },
     

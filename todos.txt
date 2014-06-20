@@ -1,48 +1,31 @@
-FRAGEN / ABZUKLÄREN
-. min kcal pro mahlzeit > 
-. jedes item nur einmal
-. beschränkungen für kategorien (max x von y), auch für tierisches
-    max x mal
-    
 
-. video-intro: delta zwischen video und spiel! (z.b. Tortendiagramm-Auswertung)
-  vorschlag: kürzung des videos (ca. sek 25)
-. 2 Zutaten hintereinander auf Teller gezogen mit identen Gesichtsausdrücken > keine Reaktion ersichtlich
-. bei Texten nur Zustand für L/G definiert, das jeweils andere von uns angenommen
+ABZUKLÄREN / OFFENER INPUT
+. Introvideo auf blauem Hintergrund
+. Für Reiter wechseln (Tierisches)  >  gibt es keine Texte bzw. Illus
+
+OFFEN (QUICK WINs)
+. blinzelndes besteck neuer Frame
+. sleepmode nur wenn spiel läuft!
+. inactive counter pausieren am spielende
+
+OFFEN CLEMENS
 . Diagramm negativ: Random Auswahl einer Message zu Food mit größtem Impact
-. Diagramm positiv: tellerspezf. Messages vs. Food Messages > Food Messages verzögert angezeigt?
-. Besteck-Schläft Frames offen >schlafende gabel
-. kontakt
-. credits
+. Diagramm positiv: Random Auswahl einer Message zu Food mit größtem Impact
+. ablauf: startscreen > video > spielbeginn
+. Testing
+. Performanceoptimierung
+. reload der Seite > Funktionsaufruf anstatt location.reload
+. Preloading (svgs, sounds)
+. video-intro am ipad!
 
-
-
-OFFEN
-. zeitschalter: keine interaktion für x sekunden > neustart
-. video-intro (chrome/safari)
-, skip-intro
-. animationen des bestecks (blinzeln, shaken am spielende)
-. spielbeschreibungsscreen (aktuell nur Platzhalter PNG)
-. sounds
-. schlussanis: sturm, confetti (confettis: ipad-performance!)
-. Reaktion auf Inaktivität
-. special mouse cursor
+---- later / nice to have ---
+. animationen des bestecks (shaken am spielende)
 . galerie
 . social media stuff
-. hintergrund patterns
-
-
-VORSCHLÄGE
-.
 
 
 BENJAMIN
-.big-chart > größerer Hintergrund (Bratwurst)
-.sounds
-
-
-pondfive.com
-freesound.org
-kevin mcleod
-
-. restart der app nach x sekunden
+. ausgegraute Reiter (freezeFoodMenu)
+. Konvertierung in h264 mp4
+. Fertigstellung der Info-Seite inkl. Kontaktdaten / Credits
+. hintergrund patterns

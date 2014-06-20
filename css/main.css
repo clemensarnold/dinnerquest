@@ -413,6 +413,7 @@ body {
     z-index: 2;
     background-position: -270px -9px;
     background-image: url(./../img/svg/icons.svg);
+    pointer-events: none;
 }
 
 .meal-check.failed {
@@ -442,7 +443,7 @@ body {
 
 #anitest.rotate {
     -webkit-transform: rotate(-4500deg);
-    left: 1324px; /* should be dynamic */
+    /*left: 1324px; /* should be dynamic */*/
 }
 
 #anitest > div {
@@ -556,6 +557,14 @@ body {
     /*border: 1px solid;*/
 }
 
+.m-item.no-touch, .m-item.touch {
+    transition: opacity 0.5s ease-out;
+}
+
+.m-item.visible {
+    opacity: 1;
+}
+
 .m-item.dragged {
     opacity: 1 !important;
     background-position: 0 0 !important;
@@ -568,7 +577,7 @@ body {
 }
 
 .food-container.inactive {
-    opacity: 0.5;
+    opacity: 0.3;
     pointer-events: none;
 }
 
