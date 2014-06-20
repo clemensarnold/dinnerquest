@@ -218,6 +218,7 @@ video {
     top: 0;
     left: 0;
     width: 20px; height: 20px;
+    border-radius: 15px;
     /*transition: -webkit-transform 0.3s ease-out 0.5s;*/
 }
 
@@ -560,7 +561,17 @@ video {
 .navi-container .animals.active { background-position: -196px 0; }
 
 .navi-container > div.freeze {
+    background-image: url(./../img/svg/navi-freeze.svg);
     cursor: default;
+}
+
+.navi-container .veggies.freeze {
+    background-position: 0 13px;
+}
+
+.navi-container .sides.freeze {
+
+    background-position: -91px 13px;
 }
 
 .m-item {
