@@ -44,7 +44,7 @@ var dq = (function($, window, undefined) {
             FOODITEMS_VERTOFF_BIG: {veggies: 0, sides: NaN, animals: NaN},
             FOOD_CATS: ['veggies', 'sides', 'animals'],
             FOOD_BGVERT_OFF: {veggies: 0, sides: 1, animals: 2},
-            DEFAULT_TAB: 'veggies', 
+            DEFAULT_TAB: 'sides', 
             FOOD_BIG_DIMS: 450,
             CUTLERY_HOROFF: 120,
             FPS: 30,
@@ -64,7 +64,9 @@ var dq = (function($, window, undefined) {
         BUBBLES_FAILED: 'failed',
         BUBBLES_SUCCESS: 'success',
         BUBBLES_FREEZE_VEGGIES: 'freeze-veggies',
-        BUBBLES_FREEZE_SIDES: 'freeze-sides'
+        BUBBLES_FREEZE_SIDES: 'freeze-sides',
+        BUBBLES_POSITIVE: 'positive',
+        BUBBLES_NEGATIVE: 'negative'
     },
     app = {},
     dragfood = {},
@@ -75,7 +77,7 @@ var dq = (function($, window, undefined) {
     constants = {
         DEV: true,
         STATS: false,
-        SOUNDS: false,
+        SOUNDS: true,
         SKIP_VIDEO: true,
         URL_HOME: '',
         JSON_PATH: './json/data.json',
@@ -95,7 +97,7 @@ var dq = (function($, window, undefined) {
         SUCCESS: "success"
     };
     
-    game.sounds = [{selector: '.navi-container > div, #chart', whichSound: sounds.CHANGE_TAB}];
+    game.sounds = [{selector: '.navi-container > div', whichSound: sounds.CHANGE_TAB}];
     
     $(function() {
         
@@ -158,12 +160,12 @@ var dq = (function($, window, undefined) {
             $('.logo').on({click: app.reload});
             
             refs.$videocontainer.on({click: app.startGame});
-                        
+
             if (constants.SKIP_VIDEO) app.startGame();
             else {
                 //  start video
             }
-            
+           
             refs.$chart.on({click: game.startNewGame});
             
             refs.$infobtn.on({click: function() {
@@ -175,8 +177,8 @@ var dq = (function($, window, undefined) {
             
             //  init sounds
             for (var i = 0; i < game.sounds.length; i++) {
-                $(game.sounds[i].selector).data('whichSound', game.sounds[i].whichSound).on(configs.clickEvent, function(e) {
-                    app.playSound($(this).data('whichSound'));
+                $(game.sounds[i].selector).data('whichSound', game.sounds[i].whichSound).on(configs.clickEvent, function(e, mode) {
+                    if (mode !== 'no-sound') app.playSound($(this).data('whichSound'));
                 });
             }
         },
@@ -195,6 +197,7 @@ var dq = (function($, window, undefined) {
             }
             
             //log('ia counter: ' + game.inactivityCounter);
+            //log('game.running: ' + game.running);
         },
         
         startSleeping: function() {
@@ -283,7 +286,7 @@ var dq = (function($, window, undefined) {
         },
         
         switchTab: function(foodCat) {
-            $('.navi-container .' + foodCat).trigger(configs.clickEvent);
+            $('.navi-container .' + foodCat).trigger(configs.clickEvent, 'test');
         },
         
         showInfoPage: function() {
@@ -396,7 +399,7 @@ var dq = (function($, window, undefined) {
         var html = '<div class="plate"></div>';
         
         storm.stop();
-        //  confettis.stop?
+        confettis.stop();
         
         game.running = true;
         game.currentFoodCat = game.constants.DEFAULT_TAB;
@@ -435,8 +438,8 @@ var dq = (function($, window, undefined) {
         if (!configs.isTouch) refs.$plate.addClass('desktop');
         
         app.playSound(sounds.NEW_GAME);
+        $('.navi-container .' + game.constants.DEFAULT_TAB).trigger(configs.clickEvent, 'no-sound');
         
-        $('.navi-container .' + game.constants.DEFAULT_TAB).trigger(configs.clickEvent);
         refs.$plate.fadeIn();
     },
     
@@ -459,7 +462,8 @@ var dq = (function($, window, undefined) {
         var vals = game.calcMealVals(game.currentMeal),
             tooMuchC02 = (vals.co2 > game.co2_max),
             enoughCalories = (vals.cals > game.kcal_min),
-            gameOver = tooMuchC02 || enoughCalories;
+            gameOver = tooMuchC02 || enoughCalories,
+            startAniDelay = 500;
         
         if (gameOver) {
             
@@ -473,13 +477,16 @@ var dq = (function($, window, undefined) {
                 cutlery.trigger(game.BUBBLES_FAILED);
                 app.generateChart();
                 refs.$mealCheck.addClass('failed');
-                setTimeout(storm.start, 500);
+                setTimeout(storm.start, startAniDelay);
+                
+                setTimeout(cutlery.trigger, 4000, game.BUBBLES_NEGATIVE);
             } else {
                 // won
                 log('---------- won ----------');
                 cutlery.trigger(game.BUBBLES_SUCCESS);
                 app.generateChart();
-                confettis.init();
+                setTimeout(confettis.init, startAniDelay);
+                setTimeout(cutlery.trigger, 4000, game.BUBBLES_POSITIVE);
             }
         }
     }
@@ -591,7 +598,6 @@ var dq = (function($, window, undefined) {
     
     confettis = {
         FPS: 30,
-        ANI_LENGTH: 2500,
         HOW_MANY: 200, // ipad: 200
         
         init: function() {
@@ -606,11 +612,11 @@ var dq = (function($, window, undefined) {
                 colorsAry = ['orange', 'purple', 'green', 'yellow', 'blue'],
                 rid = NaN;
                 
-            for (var i = 0; i < this.HOW_MANY; i++) {
+            for (var i = 0; i < confettis.HOW_MANY; i++) {
                 html += confHtml;
             }
             
-            refs.$confettis.empty().append(html);
+            refs.$confettis.empty().append(html).addClass('active');
             
             $('.conf').each(function(i) {
                 rid = Math.floor(Math.random() * speedAry.length);
@@ -624,12 +630,11 @@ var dq = (function($, window, undefined) {
                 transition = '-webkit-transform ' + speed + 's linear ' + delay + 's';
                 translate = 'translate(' + left + 'px,' + top + 'px)';
                 $(this).css({'transform': translate}).data('transition', transition).addClass(colorsAry[helper.getRandomNumber(colorsAry.length)]);
-              
+                
             });
             
             confettis.setTransition();
-            //setTimeout(confettis.stop, thunder.ANI_LENGTH);
-            setTimeout(confettis.start, 500);
+            setTimeout(confettis.start, 200);
         },
         
         setTransition: function() {
@@ -647,7 +652,7 @@ var dq = (function($, window, undefined) {
                 translate = 'translate(' + left + 'px,' + top + 'px)',
                 range =  2 * Math.PI,
                 alpha = NaN,
-                scale = 1.75;
+                scale = 1.85;
             
             $('.conf').each(function(i) {
                 alpha = Math.random() * range;
@@ -657,13 +662,9 @@ var dq = (function($, window, undefined) {
                 translate = 'translate(' + left + 'px,' + top + 'px)';
                 $(this).css({'transform': translate});
             });
-            
-            refs.$confettis.addClass('active');
-            
         },
         
         stop: function() {
-            log('confettis stop');
             refs.$confettis.removeClass('active');
         }
     }
@@ -781,7 +782,7 @@ var dq = (function($, window, undefined) {
         
         trigger: function(bubblemode) {
             
-            log('trigger / bubblemode: ' + bubblemode);
+            //log('trigger / bubblemode: ' + bubblemode);
             
             var arrayID = NaN, rid = NaN, bubbleData = {};
             
@@ -807,6 +808,21 @@ var dq = (function($, window, undefined) {
                     rid = helper.getRandomNumber(app.json.expressions[bubblemode][0].length);
                     bubbleData = app.json.expressions[bubblemode][0][rid];
                     break;
+                
+                case game.BUBBLES_POSITIVE:
+                    //  new logic needed: triggerd by potatoes, tofu, no-animals, or nothing
+                    rid = helper.getRandomNumber(app.json.expressions[bubblemode][0].length);
+                    bubbleData = app.json.expressions[bubblemode][0][rid];
+                    break;
+                
+                case game.BUBBLES_NEGATIVE:
+                    log('game.BUBBLES_NEGATIVE');
+                    //  new logic needed: triggerd by potatoes, tofu, no-animals, or nothing
+                    rid = helper.getRandomNumber(app.json.expressions[bubblemode][0].length);
+                    
+                    bubbleData = app.json.expressions[bubblemode][0][rid];
+                    //bubbleData = app.json.expressions[bubblemode][0][11];
+                    break;
             }
             
             cutlery.bubbleData = bubbleData;
@@ -817,7 +833,7 @@ var dq = (function($, window, undefined) {
         
         setExpression: function(bubbleData, bubblemode) {
             
-            log('setExpression / bubblemode: ' + bubblemode);
+            //log('setExpression / bubblemode: ' + bubblemode);
             
             var spoonID = parseInt(bubbleData.exp.split(',')[0].substr(1)),
                 forkID = parseInt(bubbleData.exp.split(',')[1].substr(1)),

@@ -257,7 +257,9 @@ body {
     z-index: 2;
     display: none;
     height: 670px;
-    background: url(./../img/svg/new-game-button.svg) no-repeat 50% 100%;
+    
+    /*background: url(./../img/svg/new-game-button.svg) no-repeat 50% 100%;*/
+    
     /*border: 1px solid black;*/
 }
 
@@ -339,7 +341,7 @@ body {
     background-image: url(./../img/svg/newgame-bubbles.svg);
 }
 
-.bubble.success {
+.bubble.success, .bubble.positive {
     background-image: url(./../img/svg/success-bubbles.svg);
 }
 
@@ -347,8 +349,8 @@ body {
     background-image: url(./../img/svg/failed-bubbles.svg);
 }
 
-.bubble.failed {
-    background-image: url(./../img/svg/failed-bubbles.svg);
+.bubble.negative {
+    background-image: url(./../img/svg/negative-bubbles.svg);
 }
 
 .bubble.freeze-veggies {
