@@ -272,7 +272,7 @@ video {
     z-index: 2;
     display: none;
     height: 670px;
-    background: url(./../img/svg/new-game-button.svg) no-repeat 50% 100%;
+    background: url(./../img/svg/new-game-button.svg) no-repeat 43% 100%;
     /*border: 1px solid black;*/
 }
 
@@ -636,13 +636,13 @@ video {
 
 .big-chart {
     width: 250px;
-    height: 74px;
+    height: 75px;
     background-image: url(./../img/svg/banneret-big.svg);
 }
 
 .normal-chart {
-    width: 132px;
-    height: 74px;
+    width: 140px;
+    height: 75px;
 }
 
 .chart p {

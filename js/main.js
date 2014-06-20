@@ -78,7 +78,7 @@ var dq = (function($, window, undefined) {
     constants = {
         DEV: true,
         STATS: false,
-        SOUNDS: true,
+        SOUNDS: false,
         SKIP_VIDEO: false,
         URL_HOME: '',
         JSON_PATH: './json/data.json',
@@ -547,11 +547,6 @@ var dq = (function($, window, undefined) {
             
             game.foodCounter++;
             $newFood.css({left: left - dq.refs.$plate.offset().left, top: top - dq.refs.$plate.offset().top});
-            
-            //  quick & dirty, logic missing
-            $newFood.draggable({
-                //drag: $.throttle(250, dragfood.calcDistance)
-            });
             
             dragfood.setBackground($newFood, specs);
         
