@@ -78,8 +78,8 @@ var dq = (function($, window, undefined) {
     constants = {
         DEV: true,
         STATS: true,
-        SOUNDS: true,
-        SKIP_VIDEO: true,
+        SOUNDS: false,
+        SKIP_VIDEO: false,
         URL_HOME: '',
         JSON_PATH: './json/data.json',
         FADE_IN: 200, FADE_OUT: 400, FADE_DELAY: 50,
@@ -160,7 +160,7 @@ var dq = (function($, window, undefined) {
             
             $('.logo').on({click: app.reload});
             
-            refs.$videocontainer.on({click: app.startGame});
+            setTimeout(app.initVideo, 1000);
 
             if (constants.SKIP_VIDEO) app.startGame();
             else {
@@ -187,6 +187,16 @@ var dq = (function($, window, undefined) {
                     if (mode !== 'no-sound') app.playSound($(this).data('whichSound'));
                 });
             }
+        },
+        
+        initVideo: function() {
+            // init video
+            refs.$videocontainer.removeClass('transparent');
+            refs.$videocontainer.on({click: app.finishVideo});
+        },
+        
+        finishVideo: function() {
+            refs.$videocontainer.addClass('transparent');
         },
         
         checkInactivity: function() {
