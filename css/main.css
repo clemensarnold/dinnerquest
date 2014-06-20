@@ -551,7 +551,17 @@ body {
 .navi-container .animals.active { background-position: -196px 0; }
 
 .navi-container > div.freeze {
+    background-image: url(./../img/svg/navi-freeze.svg);
     cursor: default;
+}
+
+.navi-container .veggies.freeze {
+    background-position: 0 13px;
+}
+
+.navi-container .sides.freeze {
+
+    background-position: -91px 13px;
 }
 
 .m-item {
