@@ -408,7 +408,7 @@ var dq = (function($, window, undefined) {
         
         stopSound: function(trigger) {
             
-            //log('stopSound / trigger: ' + trigger);
+            log('stopSound / trigger: ' + trigger);
             
             if (game.lastSound) {
                 refs[game.lastSound].pause();
@@ -465,6 +465,7 @@ var dq = (function($, window, undefined) {
         
         storm.stop();
         confettis.stop();
+        app.stopSound('startNewGame');
         
         clearTimeout(game.showFeedbackInt);
         
@@ -524,6 +525,25 @@ var dq = (function($, window, undefined) {
         }
         
         return {cals: cals, co2: co2};
+    }
+    
+    game.getFeedback = function(meal) {
+        //var cals = 0, co2 = 0;
+        
+        var worstFood = '',
+            maxCO2 = 0;
+        
+        for (var i = 0; i < meal.length; i++) {
+            
+            if (meal[i].c02 > maxCO2) {
+                maxCO2 = meal[i].c02;
+                worstFood = meal[i].label
+            }
+        }
+        
+        log('worstFood: ' + worstFood);
+        
+        return worstFood;
     }
     
     game.checkMealVals = function() {
@@ -783,7 +803,6 @@ var dq = (function($, window, undefined) {
             clearTimeout(storm.killSoundInt);
             clearTimeout(storm.moveBackInt);
             clearTimeout(storm.stopStormInt);
-            app.stopSound('stop storm');
         }
     }
     
@@ -853,7 +872,8 @@ var dq = (function($, window, undefined) {
             
             //log('trigger / bubblemode: ' + bubblemode);
             
-            var arrayID = NaN, rid = NaN, bubbleData = {};
+            var arrayID = NaN, rid = NaN, bubbleData = {}, worstFood = '',
+                exprAry = [], bgIDsAry = [], bgid = NaN;
             
             switch(bubblemode) {
                 case game.BUBBLES_NEWGAME:
@@ -880,16 +900,62 @@ var dq = (function($, window, undefined) {
                 
                 case game.BUBBLES_POSITIVE:
                     //  new logic needed: triggerd by potatoes, tofu, no-animals, or nothing
-                    rid = helper.getRandomNumber(app.json.expressions[bubblemode][0].length);
-                    bubbleData = app.json.expressions[bubblemode][0][rid];
+                    //rid = helper.getRandomNumber(app.json.expressions[bubblemode][0].length);
+                    //bubbleData = app.json.expressions[bubblemode][0][rid];
+                    
+                    log('game.BUBBLES_POSITIVE');
+                    
+                    worstFood = game.getFeedback(game.currentMeal);
+                    
+                    var exprAry = app.json.expressions.positive[0], bgIDsAry = [], bgid = NaN;
+                    
+                    for (var i = 0; i < exprAry.length; i++) {
+                        if (exprAry[i]['triggered-by'] === worstFood) {
+                            bgIDsAry.push(exprAry[i]['bgid']);
+                        }
+                    }
+                    
+                    log(bgIDsAry);
+                    log(bgIDsAry.length);
+
+                    //  no food specific message found
+                    if (bgIDsAry.length === 0) return;
+                    
+                    rid = helper.getRandomNumber(bgIDsAry.length);
+                    bgid = bgIDsAry[rid];
+                    
+                    bgid -= 5;
+                    
+                    bubbleData = app.json.expressions[bubblemode][0][bgid];
+                    
                     break;
                 
                 case game.BUBBLES_NEGATIVE:
                     log('game.BUBBLES_NEGATIVE');
-                    //  new logic needed: triggerd by potatoes, tofu, no-animals, or nothing
-                    rid = helper.getRandomNumber(app.json.expressions[bubblemode][0].length);
                     
-                    bubbleData = app.json.expressions[bubblemode][0][rid];
+                    worstFood = game.getFeedback(game.currentMeal);
+                    
+                    var exprAry = app.json.expressions.negative[0], bgIDsAry = [], bgid = NaN;
+                    
+                    for (var i = 0; i < exprAry.length; i++) {
+                        if (exprAry[i]['triggered-by'] === worstFood) {
+                            bgIDsAry.push(exprAry[i]['bgid']);
+                        }
+                    }
+                    
+                    log(bgIDsAry);
+                    log(bgIDsAry.length);
+
+                    //  no food specific message found
+                    if (bgIDsAry.length === 0) return;
+                    
+                    //rid = helper.getRandomNumber(app.json.expressions[bubblemode][0].length);
+                    
+                    rid = helper.getRandomNumber(bgIDsAry.length);
+                    bgid = bgIDsAry[rid];
+                    
+                    //bubbleData = app.json.expressions[bubblemode][0][rid];
+                    bubbleData = app.json.expressions[bubblemode][0][bgid];
                     //bubbleData = app.json.expressions[bubblemode][0][7];
                     break;
             }
