@@ -1,4 +1,4 @@
-{
+﻿{
     "avFood": {        
         "veggies": [
             {"label": "TOMATEN", "serving": 250, "kcal": 42.5, "c02": 350, "exp": "L02,G02", "chart": "150, 140", "bigbg" : false},
