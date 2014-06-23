@@ -151,6 +151,10 @@ body.table-cloth {
     transition: opacity 0.4s ease-out;
 }
 
+#audiocontainer {
+    display: none;
+}
+
 video {
     position: absolute;
     bottom: -30px;
@@ -549,7 +553,9 @@ video {
     margin-right: 5px;
     float: left;
     cursor: pointer;
-    background-image: url(./../img/svg/navi.svg);
+    /*background-image: url(./../img/svg/navi.svg);*/
+    background-image: url(./../img/svg/navi.png);
+    background-repeat: no-repeat;
     transition: background 0.3s ease-out;
 }
 
@@ -661,11 +667,12 @@ video {
 #performance-boost {
     pointer-events: none;
     position: fixed;
-    bottom: 250px;
+    bottom: 150px;
     left: 0;
     width: 100%;
     min-height: 150px;
-    background: grey;
+    height: 700px;
+    background: lime;
     z-index: 1000;
     opacity: 0;
 }
