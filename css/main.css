@@ -549,7 +549,8 @@ video {
     margin-right: 5px;
     float: left;
     cursor: pointer;
-    background-image: url(./../img/svg/navi.svg);
+    background-image: url(./../img/svg/navi.png);
+	background-repeat: no-repeat;
     transition: background 0.3s ease-out;
 }
 
@@ -575,7 +576,16 @@ video {
 .navi-container .animals.active { background-position: -196px 0; }
 
 .navi-container > div.freeze {
+    background-image: url(./../img/svg/navi-freeze.png);
     cursor: default;
+}
+
+.navi-container .veggies.freeze {
+    background-position: 0 13px;
+}
+
+.navi-container .sides.freeze {
+    background-position: -91px 13px;
 }
 
 .m-item {
