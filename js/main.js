@@ -8,6 +8,7 @@ var dq = (function($, window, undefined) {
         $dragfood: undefined,
         $plates: $('#plates'),
         $chart: $('#chart'),
+        $newGameButton: $('#newGameButton'),
         $plate: undefined,
         $fork: $('.fork'),
         $spoon: $('.spoon'),
@@ -171,7 +172,7 @@ var dq = (function($, window, undefined) {
 
             if (constants.SKIP_VIDEO) app.finishVideo();
            
-            refs.$chart.on({click: game.startNewGame});
+            refs.$newGameButton.on({click: game.startNewGame});
             
             refs.$infobtn.on({click: function() {
                 $(this).toggleClass('close');
