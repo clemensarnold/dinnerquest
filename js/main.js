@@ -175,6 +175,7 @@ var dq = (function($, window, undefined) {
             refs.$newGameButton.on({click: game.startNewGame});
             
             refs.$infobtn.on({click: function() {
+                if (storm.stormOn) return;
                 $(this).toggleClass('close');
                 refs.$infopage.hasClass('visible') ? app.hideInfoPage() : app.showInfoPage();
             }});
@@ -323,10 +324,25 @@ var dq = (function($, window, undefined) {
         showInfoPage: function() {
             $('html').addClass('overflow');
             refs.$infopage.addClass('visible');
-            dq.refs.$plates.hide();
-            dq.refs.$fork.hide();
-            dq.refs.$spoon.hide();
-            dq.refs.$menu.hide();
+            
+            refs.$plates.hide();
+            refs.$fork.hide();
+            refs.$spoon.hide();
+            refs.$menu.hide();
+            $('.logo, #newGameButton, .meal-check').hide();
+        },
+        
+        hideInfoPage: function() {
+            $('html').removeClass('overflow');
+            refs.$infopage.removeClass('visible');
+            
+            refs.$plates.show();
+            refs.$fork.show();
+            refs.$spoon.show();
+            if (dq.game.running) {
+                refs.$menu.show();
+            }
+            $('.logo, #newGameButton, .meal-check').show();
         },
         
         convertGrammToKG: function (gramm) {
@@ -366,16 +382,6 @@ var dq = (function($, window, undefined) {
         
         resetChart: function() {
             refs.$chart.hide();
-        },
-        
-        hideInfoPage: function() {
-            $('html').removeClass('overflow');
-            refs.$infopage.removeClass('visible');
-            
-            dq.refs.$plates.show();
-            dq.refs.$fork.show();
-            dq.refs.$spoon.show();
-            dq.refs.$menu.show();
         },
         
         reload: function() {

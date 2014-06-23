@@ -283,6 +283,7 @@ video {
     position: absolute;
     width: 283px;
     height: 70px;
+    cursor: pointer;
     left: calc(50% - 283px / 2);
     top: calc(100% - 70px);
     background: url(./../img/svg/new-game-button.svg) no-repeat;
