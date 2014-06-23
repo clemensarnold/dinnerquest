@@ -37,7 +37,7 @@
     
     "rules": {
         "co2_max": 700,
-        "kcal_min": 350,
+        "kcal_min": 300,
         "food_only_once": true,
         "inactive_restart": 60,
         "inactive_fallasleep": 15,
@@ -116,12 +116,12 @@
             [
                 {"triggered-by": "beef", "exp": "L06,G06", "txt": "G;Tja, 1kg Rindfleisch verursacht soviel CO2 wie 250 km Auto fahren...", "bgid": 0},
                 {"triggered-by": "beef", "exp": "L07,G07", "txt": "G;Überleg mal: Getreide für 10 Rinder bietet Nahrung für 200 Menschen", "bgid": 1},
-                {"triggered-by": "pig", "exp": "L10,G10", "txt": "G;Unsere Schweine erzeugen doppelt so viele Abwässer wie wir Menschen.", "bgid": 2},
+                {"triggered-by": "pig", "exp": "L05,G10", "txt": "G;Unsere Schweine erzeugen doppelt so viele Abwässer wie wir Menschen.", "bgid": 2},
                 {"triggered-by": "pig", "exp": "L09,G09", "txt": "L;So eine Schweinerei!", "bgid": 3},
                 {"triggered-by": "chicken", "exp": "L08,G08", "txt": "L;Ich ess ja lieber vogelfrei.", "bgid": 4},
                 {"triggered-by": "egg", "exp": "L07,G07", "txt": "L;Nicht das Gelbe vom Ei.", "bgid": 5},
                 {"triggered-by": "yoghurt", "exp": "L09,G09", "txt": "G;Milch produzieren verbraucht richtig viel Energie.", "bgid": 6},
-                {"triggered-by": "butter", "exp": "L10,G10", "txt": "G;Butter ist, nach Rindfleisch, das klimaschädlichste Lebensmittel.", "bgid": 7},
+                {"triggered-by": "butter", "exp": "L05,G10", "txt": "G;Butter ist, nach Rindfleisch, das klimaschädlichste Lebensmittel.", "bgid": 7},
                 {"triggered-by": "cheese", "exp": "L05,G05", "txt": "L;So ein Käse.", "bgid": 8},
                 {"triggered-by": "cheese", "exp": "L09,G09", "txt": "L;Lieber Käsefüße als Käsebrot!", "bgid": 9},
                 {"triggered-by": "fish", "exp": "L06,G06", "txt": "L;Ups, das war kein guter Fang!", "bgid": 10},
