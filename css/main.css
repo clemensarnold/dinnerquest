@@ -284,7 +284,7 @@ video {
     width: 283px;
     height: 70px;
     cursor: pointer;
-    left: calc(50% - 283px / 2);
+    left: calc(50% - 283px / 2 - 15px); /* 15px, because the plate graphic is 540, the div is 570, so it looks like it is not in the middle unless we subtracte the half of the difference */
     top: calc(100% - 70px);
     background: url(./../img/svg/new-game-button.svg) no-repeat;
 }
