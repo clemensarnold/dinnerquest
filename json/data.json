@@ -1,4 +1,4 @@
-{
+﻿{
     "avFood": {        
         "veggies": [
             {"label": "TOMATEN", "serving": 250, "kcal": 42.5, "c02": 350, "exp": "L02,G02", "chart": "150, 140", "bigbg" : false},
@@ -37,7 +37,7 @@
     
     "rules": {
         "co2_max": 700,
-        "kcal_min": 200,
+        "kcal_min": 350,
         "food_only_once": true,
         "inactive_restart": 60,
         "inactive_fallasleep": 15,

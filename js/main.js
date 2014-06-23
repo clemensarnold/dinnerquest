@@ -24,7 +24,13 @@ var dq = (function($, window, undefined) {
         $storm: $("#storm"),
         $bolt: $(".bolt"),
         $bolts: $(".bolt2"),
-        $continueButton: $("#continueButton")
+        $continueButton: $("#continueButton"),
+        'change-tab': $('.snd.change-tab')[0],
+        'dropped-food': $('.snd.dropped-food')[0],
+        'success': $('.snd.success')[0],
+        'failed': $('.snd.failed')[0],
+        'new-game': $('.snd.new-game')[0],
+        'snoring': $('.snd.snoring')[0]
     },
     configs = {
         isTouch: 'ontouchstart' in window,
@@ -40,6 +46,7 @@ var dq = (function($, window, undefined) {
         started: false,
         running: false,
         sleeping: false,
+        lastSound: undefined,
         constants: {
             FOODITEMS_VERTOFF: {veggies: 0, sides: -105, animals: -210},
             FOODITEMS_VERTOFF_BIG: {veggies: 0, sides: NaN, animals: NaN},
@@ -78,7 +85,7 @@ var dq = (function($, window, undefined) {
     constants = {
         DEV: true,
         STATS: false,
-        SOUNDS: false,
+        SOUNDS: true,
         SKIP_VIDEO: false,
         URL_HOME: '',
         JSON_PATH: './json/data.json',
@@ -162,10 +169,7 @@ var dq = (function($, window, undefined) {
             
             setTimeout(app.initVideo, 1000);
 
-            if (constants.SKIP_VIDEO) app.startGame();
-            else {
-                //  start video
-            }
+            if (constants.SKIP_VIDEO) app.finishVideo();
            
             refs.$chart.on({click: game.startNewGame});
             
@@ -233,7 +237,7 @@ var dq = (function($, window, undefined) {
         stopSleeping: function() {
             game.sleeping = false;
             cutlery.setExpression({exp: game.constants.WAKEUP_EXP});
-            app.stopSound();
+            app.stopSound('stopSleeping');
         },
         
         resetInactCounter: function() {
@@ -248,6 +252,8 @@ var dq = (function($, window, undefined) {
             refs.$fork.show();
             refs.$spoon.show();
             refs.$videocontainer.hide();
+            
+            setTimeout(app.clearSounds, 900);
         },
         
         isLabelAlreadyInCurrentFood: function (label) {
@@ -298,7 +304,7 @@ var dq = (function($, window, undefined) {
                             refs.$dragfood.addClass('dragged');
                             
                             dragfood.setBackground(refs.$dragfood, $(this).data('specs'));
-                            app.stopSound(); // needed for ipad performance (weird)
+                            //app.stopSound(); // needed for ipad performance (weird)
                         },
                         stop: dragfood.stopDragging,
                         drag: $.throttle(250, dragfood.calcDistance)
@@ -391,13 +397,45 @@ var dq = (function($, window, undefined) {
         },
         
         playSound: function(whichSound, loop) {
+            //app.stopSound('playSound');
             
-            if (!constants.SOUNDS) return;
+            //if (whichSound === 'new-game') return;
+            //log('playSound / whichSound: ' + whichSound);
+            
+            refs[whichSound].play();
+            game.lastSound = whichSound;
+        },
+        
+        stopSound: function(trigger) {
+            
+            //log('stopSound / trigger: ' + trigger);
+            
+            if (game.lastSound) {
+                refs[game.lastSound].pause();
+                //log('dur: ' + refs[game.lastSound].duration);
+                refs[game.lastSound].currentTime = 0;
+                //log('pause');
+            }
+        },
+       
+        _playSound: function(whichSound, loop) {
+            
+            //if (!constants.SOUNDS) return;
+            
+                        
+            //if (whichSound !== ('failed' || 'success')) return;
+            if (whichSound !== 'failed' && whichSound !== 'change-tab') return;
+            
+            log('whichSound: ' + whichSound);
+            
+             
             
             var sndpath = app.json.sounds[whichSound],
                 html = '',
                 id = 'active-sound',
                 $snd = undefined;
+                
+            
             
             if (Modernizr.audio) {
                 html = '<audio id="' + id + '" ';
@@ -406,13 +444,16 @@ var dq = (function($, window, undefined) {
                 
                 refs.$audiocontainer.empty().append(html);
                 
+                log(html);
+                
                 $snd = document.getElementById(id);
                 $snd.volume = 0.3;
                 $snd.play();
             }
         },
         
-        stopSound: function() {
+        clearSounds: function() {
+            log('clearSounds');
             refs.$audiocontainer.empty();
         }
     }
@@ -448,6 +489,7 @@ var dq = (function($, window, undefined) {
         game.freezeTab = {0: false, 1: false, 2: false};
         game.activeTabID = NaN;
         game.$activeTab = undefined;
+        game.lastSound = undefined;
         
         debug.printObject({});
         
@@ -712,7 +754,7 @@ var dq = (function($, window, undefined) {
             storm.$storm.addClass('rotate').css({left: refs.$window.width()});
             storm.$storm.removeClass('transparent');
             storm.moveBackInt = setTimeout(function() { storm.$storm.removeClass('rotate').removeAttr('style'); }, 4500);
-            storm.killSoundInt = setTimeout(app.stopSound, storm.ANI_LENGTH);
+            //storm.killSoundInt = setTimeout(app.stopSound, storm.ANI_LENGTH, 'killSoundInt');
             storm.stopStormInt = setTimeout(storm.stop, storm.ANI_LENGTH);
             
             storm.boltInt = setInterval(function() {
@@ -738,7 +780,7 @@ var dq = (function($, window, undefined) {
             clearTimeout(storm.killSoundInt);
             clearTimeout(storm.moveBackInt);
             clearTimeout(storm.stopStormInt);
-            app.stopSound();
+            app.stopSound('stop storm');
         }
     }
     
