@@ -83,10 +83,10 @@ var dq = (function($, window, undefined) {
     storm = {},
     confettis = {},
     constants = {
-        DEV: true,
+        DEV: false,
         STATS: false,
         SOUNDS: true,
-        SKIP_VIDEO: true,
+        SKIP_VIDEO: false,
         URL_HOME: '',
         JSON_PATH: './json/data.json',
         FADE_IN: 200, FADE_OUT: 400, FADE_DELAY: 50,
@@ -530,8 +530,8 @@ var dq = (function($, window, undefined) {
     game.getFeedback = function(meal) {
         //var cals = 0, co2 = 0;
         
-        var worstFood = '',
-            maxCO2 = 0;
+        var worstFood = '', bestFood = '',
+            maxCO2 = 0, minCO2 = 10000000;
         
         for (var i = 0; i < meal.length; i++) {
             
@@ -539,11 +539,24 @@ var dq = (function($, window, undefined) {
                 maxCO2 = meal[i].c02;
                 worstFood = meal[i].label
             }
+            
+            if (meal[i].c02 < minCO2) {
+                minCO2 = meal[i].c02;
+                bestFood = meal[i].label;
+            }
         }
         
-        log('worstFood: ' + worstFood);
+        return {worstFood: worstFood, bestFood: bestFood};
+    }
+    
+    game.isVegan = function(meal) {
+        var isVegan = true;
         
-        return worstFood;
+        for (var i = 0; i < meal.length; i++) {
+            if (meal[i].foodCat === 'animals') isVegan = false;
+        }
+        
+        return isVegan;
     }
     
     game.checkMealVals = function() {
@@ -872,7 +885,7 @@ var dq = (function($, window, undefined) {
             
             //log('trigger / bubblemode: ' + bubblemode);
             
-            var arrayID = NaN, rid = NaN, bubbleData = {}, worstFood = '',
+            var arrayID = NaN, rid = NaN, bubbleData = {}, worstFood = '', bestFood = '',
                 exprAry = [], bgIDsAry = [], bgid = NaN;
             
             switch(bubblemode) {
@@ -905,12 +918,17 @@ var dq = (function($, window, undefined) {
                     
                     log('game.BUBBLES_POSITIVE');
                     
-                    worstFood = game.getFeedback(game.currentMeal);
+                    bestFood = game.getFeedback(game.currentMeal).bestFood;
+                    
+                    //  check for vegan menu, overrules specific stuff
+                    if (game.isVegan(game.currentMeal)) bestFood = 'no-animals';
+                    
+                    log('bestFood: ' + bestFood);
                     
                     var exprAry = app.json.expressions.positive[0], bgIDsAry = [], bgid = NaN;
                     
                     for (var i = 0; i < exprAry.length; i++) {
-                        if (exprAry[i]['triggered-by'] === worstFood) {
+                        if (exprAry[i]['triggered-by'] === bestFood) {
                             bgIDsAry.push(exprAry[i]['bgid']);
                         }
                     }
@@ -933,7 +951,7 @@ var dq = (function($, window, undefined) {
                 case game.BUBBLES_NEGATIVE:
                     log('game.BUBBLES_NEGATIVE');
                     
-                    worstFood = game.getFeedback(game.currentMeal);
+                    worstFood = game.getFeedback(game.currentMeal).worstFood;
                     
                     var exprAry = app.json.expressions.negative[0], bgIDsAry = [], bgid = NaN;
                     
