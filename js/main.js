@@ -86,7 +86,7 @@ var dq = (function($, window, undefined) {
         DEV: true,
         STATS: false,
         SOUNDS: true,
-        SKIP_VIDEO: false,
+        SKIP_VIDEO: true,
         URL_HOME: '',
         JSON_PATH: './json/data.json',
         FADE_IN: 200, FADE_OUT: 400, FADE_DELAY: 50,
@@ -466,6 +466,8 @@ var dq = (function($, window, undefined) {
         storm.stop();
         confettis.stop();
         
+        clearTimeout(game.showFeedbackInt);
+        
         game.running = true;
         game.currentFoodCat = game.constants.DEFAULT_TAB;
         game.platesCounter++;
@@ -529,7 +531,8 @@ var dq = (function($, window, undefined) {
             tooMuchC02 = (vals.co2 > game.co2_max),
             enoughCalories = (vals.cals > game.kcal_min),
             gameOver = tooMuchC02 || enoughCalories,
-            startAniDelay = 500;
+            startAniDelay = 500,
+            showChartDelay = 5000;
         
         if (gameOver) {
             
@@ -545,14 +548,14 @@ var dq = (function($, window, undefined) {
                 refs.$mealCheck.addClass('failed');
                 setTimeout(storm.start, startAniDelay);
                 
-                setTimeout(cutlery.trigger, 4000, game.BUBBLES_NEGATIVE);
+                game.showFeedbackInt = setTimeout(cutlery.trigger, showChartDelay, game.BUBBLES_NEGATIVE);
             } else {
                 // won
                 log('---------- won ----------');
                 cutlery.trigger(game.BUBBLES_SUCCESS);
                 app.generateChart();
                 setTimeout(confettis.init, startAniDelay);
-                setTimeout(cutlery.trigger, 4000, game.BUBBLES_POSITIVE);
+                game.showFeedbackInt = setTimeout(cutlery.trigger, showChartDelay, game.BUBBLES_POSITIVE);
             }
         }
     }
@@ -887,7 +890,7 @@ var dq = (function($, window, undefined) {
                     rid = helper.getRandomNumber(app.json.expressions[bubblemode][0].length);
                     
                     bubbleData = app.json.expressions[bubblemode][0][rid];
-                    //bubbleData = app.json.expressions[bubblemode][0][11];
+                    //bubbleData = app.json.expressions[bubblemode][0][7];
                     break;
             }
             
