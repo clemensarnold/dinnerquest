@@ -49,9 +49,14 @@ var helper = {
     
     isInArray: function(arg, ary) {
         
+        //log('isInArray');
+        //log(ary);
+        //log(arg);
+        
         for (var i = 0; i < ary.length; i++) {
             
             if (ary[i] === arg) {
+                //log('found');
                 return true;
             }
         }
