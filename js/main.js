@@ -48,6 +48,8 @@ var dq = (function($, window, undefined) {
         running: false,
         sleeping: false,
         lastSound: undefined,
+        worstFoodsAry: [],
+        bestFoodsAry: [],
         constants: {
             FOODITEMS_VERTOFF: {veggies: 0, sides: -105, animals: -210},
             FOODITEMS_VERTOFF_BIG: {veggies: 0, sides: NaN, animals: NaN},
@@ -123,6 +125,8 @@ var dq = (function($, window, undefined) {
             cutlery.showDelay = app.json.rules.showbubble_delay;
             cutlery.hideDelay = app.json.rules.hidebubble_delay;
             
+            app.setFoodArys();
+            
             if (constants.STATS) {
                 configs.stats = new Stats();
                 configs.stats.setMode(0);
@@ -192,6 +196,19 @@ var dq = (function($, window, undefined) {
                 $(game.sounds[i].selector).data('whichSound', game.sounds[i].whichSound).on(configs.clickEvent, function(e, mode) {
                     if (mode !== 'no-sound') app.playSound($(this).data('whichSound'));
                 });
+            }
+        },
+        
+        setFoodArys: function() {
+            var tmpAry = app.json.expressions.positive[0];
+            
+            for (var i = 0; i < tmpAry.length; i++) {
+                game.bestFoodsAry.push(tmpAry[i]['triggered-by']);
+            }
+            
+            tmpAry = app.json.expressions.negative[0];
+            for (i = 0; i < tmpAry.length; i++) {
+                game.worstFoodsAry.push(tmpAry[i]['triggered-by']);
             }
         },
         
@@ -404,7 +421,8 @@ var dq = (function($, window, undefined) {
         },
         
         playSound: function(whichSound, loop) {
-            //app.stopSound('playSound');
+            
+            if (game.lastSound === 'snoring') app.stopSound('playSound');
             
             //if (whichSound === 'new-game') return;
             //log('playSound / whichSound: ' + whichSound);
@@ -539,15 +557,17 @@ var dq = (function($, window, undefined) {
         
         var worstFood = '', bestFood = '',
             maxCO2 = 0, minCO2 = 10000000;
+            
+        // add check: worstFood in json, bestFood in json
         
         for (var i = 0; i < meal.length; i++) {
             
-            if (meal[i].c02 > maxCO2) {
+            if (meal[i].c02 > maxCO2 && helper.isInArray(meal[i].label, game.worstFoodsAry)) {
                 maxCO2 = meal[i].c02;
-                worstFood = meal[i].label
+                worstFood = meal[i].label;
             }
             
-            if (meal[i].c02 < minCO2) {
+            if (meal[i].c02 < minCO2 && helper.isInArray(meal[i].label, game.bestFoodsAry)) {
                 minCO2 = meal[i].c02;
                 bestFood = meal[i].label;
             }
@@ -967,6 +987,8 @@ var dq = (function($, window, undefined) {
                             bgIDsAry.push(exprAry[i]['bgid']);
                         }
                     }
+                    
+                    log('worstFood: ' + worstFood);
                     
                     log(bgIDsAry);
                     log(bgIDsAry.length);

@@ -47,6 +47,18 @@ var helper = {
         document.title = title;
     },
     
+    isInArray: function(arg, ary) {
+        
+        for (var i = 0; i < ary.length; i++) {
+            
+            if (ary[i] === arg) {
+                return true;
+            }
+        }
+        
+        return false;
+    },
+    
     getRandomNumber: function(range) {
         return Math.floor(Math.random() * range) + 0;
     },
