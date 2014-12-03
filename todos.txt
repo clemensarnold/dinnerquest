@@ -1,26 +1,64 @@
+wie satt bin ich?
 
-ABZUKLÄREN / OFFENER INPUT
-. Introvideo auf blauem Hintergrund
-. Für Reiter wechseln (Tierisches)  >  gibt es keine Texte bzw. Illus
+. OPTIMIZE SVGs: http://petercollingridge.appspot.com/svg-editor !!!!
 
-OFFEN CLEMENS
-. Logik für Diagramm positive / negative
-. ablauf: startscreen > video > spielbeginn
-. Testing / Debugging
-. Performanceoptimierung
-. reload der Seite > Funktionsaufruf anstatt location.reload
-. Preloading (svgs, sounds)
-. video-intro am ipad
 
-BENJAMIN
-. ausgegraute Reiter (freezeFoodMenu)
-. Konvertierung in h264 mp4
-. Fertigstellung der Info-Seite inkl. Kontaktdaten / Credits
-. hintergrund patterns
-. Finetuning der Bubblepositionierung (in den SVGs)
-. Allgemeines Layout Finetuning
+. Variante mit Zutatenleiste oben
+. Sattheitsskala einblenden während Spiel (sollte noch design v studenten kommen)
+. Zutaten von Teller nehmen
 
-LATER / NICE TO HAVE
-. animationen des bestecks (shaken am spielende)
-. galerie
-. social media stuff
+. Galerie (anfangen)
+. Sharefunktion von Teller auf Facebook und Instagram
+. 3 Durchgänge
+
+
+
+---
+
+Ergebnisanzeige (studenten machen design hierfür)
+kleine/grosse Portion (da kommenn Illus von den Studenten)
+Jahreszeiten als Levels
+anderes Intro / Getränk 
+
+——
+
+9.Dezember Zwischenpräsentation
+
+
+FRAGEN
+. einzelne Beilagen mehr Kalorien als benötigt
+{"label": "REIS", "serving": 150, "kcal": 528, "c02": 360, "exp": "L05,G06", "chart": "140, 145", "bigbg" : false},
+{"label": "HÄHNCHENFLÜGEL", "serving": 125, "kcal": 362.5, "c02": 260, "exp": "L05,G09", "chart": "80, 115", "bigbg" : true},
+
+PIE CHART
+
+
+. Tutorial > http://bost.ocks.org/mike/bar/2/
+
+. mögl Alternative: Doughnut Chart > http://codepen.io/githiro/pen/ICfFE
+> http://blog.stephenboak.com/2011/08/07/easy-as-a-pie.html   !
+
+. http://www.highcharts.com/demo/pie-basic
+. http://jsfiddle.net/ragingsquirrel3/qkHK6/
+. http://d3js.org/
+. http://codepen.io/ivanrafael/pen/exsaq
+. http://www.highcharts.com/demo/pie-basic
+. http://codepen.io/tpalmer/pen/jqlFG/
+
+
+
+CHANGELOG
+17.11.2014
+
+gallery
+
+. json-file (read/write)
+. structure of single dish
+
+gallery
+
+dish
+	- stats {co2, kcal, date, ip-address: $_SERVER['REMOTE_ADDR'])}
+	- ingredients [
+		{x, y, c02, kcal, label, }
+	]

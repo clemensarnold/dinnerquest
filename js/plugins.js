@@ -28,9 +28,11 @@ var helper = {
         window.log = function(arg) {
             if (dq.constants.DEV) console.log(arg);
         };
-        
-        $('[role="debug"]').removeAttr('hidden').addClass('transparent').
-            click(function() { $(this).toggleClass('transparent'); });
+
+        if (!dq.constants.DEV) {
+            $('[role="debug"]').removeAttr('hidden').addClass('transparent').
+            click(function() { $(this).toggleClass('transparent'); }); 
+        }        
     },
     
     gotoLink: function (targeturl) {

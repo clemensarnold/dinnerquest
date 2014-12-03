@@ -16,8 +16,7 @@
   font-family: "CA12c13c";
   src: url(./../CA12c13c.otf);
 }
-   
-   
+
 html,
 button,
 input,
@@ -279,6 +278,82 @@ video {
     /*border: 1px solid black;*/
 }
 
+#saturationbar {
+    position: absolute;
+    width: 545px;
+    left: 248px;
+    height: 25px;
+    top: 20px;
+    background: #e8e8e8;
+    border-radius: 10px;
+    /*overflow: hidden;*/
+    font-family: "Marker Felt", serif;
+    color: #419FB9;
+    font-size: 20px;
+}
+
+#saturationbar p {
+    text-align: center;
+    margin-top: -30px;
+}
+
+#saturationbar .bar-mask {
+    overflow: hidden;
+    position: absolute;
+    top: 0; left: 0;
+    width: 545px;
+    height: 25px;
+    border-radius: 10px;
+}
+
+#saturationbar .satbar {
+    width: 545px;
+    height: 25px;
+    background: #419FB9;
+    position: absolute;
+    top: 0; 
+    left: 0;
+    margin-left: 600px;
+    transition: margin-left 0.6s ease-out;
+}
+
+#foodstack {
+    position: absolute;
+    width: 260px;
+    left: 528px;
+    top: 52px;
+    /*background: #e8e8e8;*/
+    z-index: 100;
+}
+
+.food-ref {
+    height: 20px;
+    background: #43b1d8;
+    margin: 0 0 1px;
+    padding: 4px 5px;
+    -webkit-user-select: none;
+    cursor: pointer;
+}
+
+.food-ref > span {
+    float: right;
+    color: #3387a6; 
+    font-family: Arial;
+    font-size: 18px;
+    margin-right: 1px;
+    margin-top: -2px;
+    transition: all 0.1s ease-out;
+}
+
+.food-ref:hover > span {
+    color: black;
+    margin-right: 5px;
+}
+
+.food-ref:hover {
+    background: #c1c1c1;
+}
+
 #newGameButton {
     position: absolute;
     width: 283px;
@@ -451,7 +526,7 @@ video {
     right: 290px;
     opacity: 0;
     transition: opacity 0.4s ease-out 0.3s;
-    z-index: 2;
+    z-index: 20000;
     background-position: -270px -9px;
     background-image: url(./../img/svg/icons.svg);
     pointer-events: none;
@@ -556,6 +631,14 @@ video {
     left: 0;
 }
 
+.menu-wrapper.at-top {
+    top: 0;
+}
+
+.menu-wrapper.at-top .navi-container { 
+    top: 65px;
+}
+
 .navi-container > div {
     width: 60px;
     height: 65px;
@@ -639,16 +722,33 @@ video {
     pointer-events: none;
 }
 
-#plates .food {
+#plates .food, .food-container .food, #gallery .food {
     position: absolute;
+    pointer-events: none;
     /*z-index: 1;*/
 }
 
-.m-item.dragged, #plates .food {
+#plates .food > img, .food-container .food > img {
+    border: 1px solid lime;
+    /*cursor: pointer;*/
+}
+
+#plates .food g, .food-container .food g {
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: all;
+}
+
+/*#plates .food.hidesvg g, .food-container .food.hidesvg g,*/
+body.hidesvg g {
+    visibility: hidden;
+    display: none;
+}
+
+.m-item.dragged, #plates .food, .food-container .food, #gallery .food {
     width: 450px;
     height: 450px;
     /*background-image: url(./../img/svg/food-on-plate.svg);*/
-    /*border: 1px solid lime;*/
 }
 
 .chart {
@@ -696,6 +796,142 @@ video {
     opacity: 0;
 }
 
+/* == gallery ====================================================== */
+
+#gallery {
+    width: 1024px;
+    /*height: 2500px;*/
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -512px;
+    /*display: none;*/
+    opacity: 0;
+    transition: opacity 0s;
+}
+
+.gal-header {
+    width: 880px;
+    height: 140px;
+    margin: 0 auto;
+    background: url(./../img/svg/gallery-header.svg) no-repeat center 10px;
+    /*border: 1px solid blue;*/
+}
+
+.gal-wrapper {
+    width: 880px;
+    margin: 0 auto;
+    /*border: 1px solid lime;*/
+    pointer-events: none;
+}
+
+#gallery.visible {
+    /*display: block;*/
+    transition: opacity 0.4s ease-out;
+    opacity: 1;
+
+}
+
+#gallery .dish-wrapper {
+    width: 277px;
+    height: 180px;
+    display: inline-block;
+    margin: 0 19px 20px 0;
+    position: relative;
+    background: url(./../img/svg/gallery-bottom.svg) no-repeat left 175px;
+}
+
+#gallery .dish-mask {
+    width: 277px;
+    height: 176px;
+    position: absolute;
+    top: 0; left: 0;
+    overflow: hidden;
+}
+
+#gallery .dish-wrapper.last-in-row { 
+    margin-right: 0; 
+}
+
+#gallery .dish {
+    width: 545px;
+    height: 540px;
+    background-image: url(./../img/svg/plate.svg);
+    position: absolute;
+    top: 0;
+    left: 0;
+    /*border: 1px solid red;*/
+    -webkit-transform-origin: 0 0;
+    -webkit-transform: scale(0.365,0.365);
+}
+
+/* == piechart ====================================================== */
+
+#piechart {
+    /*width: 500px;  */
+    /*height: 500px; */
+    /*border: 1px solid grey; */
+    position: absolute;
+    top: 54px; 
+    left: 250px;
+    z-index: 4;
+    /* background: #f5f5f5; */
+    /*font-family: Arial;*/
+    font-size: 16px;
+}
+
+#donut {
+    width: 29rem;
+    height: 29rem;
+    margin: 0 auto;
+}
+
+path.color0 {
+    fill: #1072b8;
+}
+
+path.color1 {
+    fill: #35526b;
+}
+
+#piechart text {
+  /*font: bold 24px monospace;*/
+  background: white;
+}
+
+#piechart .enter {
+  fill: green;
+}
+
+#piechart .update {
+  fill: #333;
+}
+
+#piechart svg.big path {
+    stroke: #fff;
+}
+#piechart text {
+    background: white;
+}
+
+#piechart svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#piechart svg.little {
+    top: 397px;
+    left: 500px;   
+}
+
+#piechart svg.txt {
+    /*width: 500px;*/
+    /*height: 500px;*/
+    /*border: 1px solid red*/
+
+}
+
 /* == debug ====================================================== */
 
 [role="debug"] {
@@ -710,7 +946,10 @@ video {
     font-size: 11px;
 }
 
-[role="debug"] p { color: #fff; }
+[role="debug"] p { 
+    color: #fff; 
+    font-family: Arial;
+}
 
 /* ==========================================================================
    Helper classes

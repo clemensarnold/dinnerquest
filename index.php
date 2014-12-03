@@ -19,10 +19,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, minimal-ui">
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
+
+        <script>
+            if (location.hash.indexOf('#dev') >= 0) document.write('<link rel="stylesheet" href="css/main-v2.css">');
+        </script>
+
         <link href="css/ui-lightness/jquery-ui-1.10.4.css" rel="stylesheet">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
+
         <div id="anitest">
             <div class="bolt2 one hidden"></div>
             <div class="bolt2 two hidden"></div>
@@ -33,10 +39,49 @@
         
         <div role="debug" hidden><p></p></div>
 
-        <div id="infopage"><div id="continueButton"></div></div>
+        <div class="content-pages">
+            <div id="gallery">
+                <div class="gal-header"></div>
+                <!-- <div class="gal-wrapper"></div> -->
+                <div class="gal-wrapper">
+                    <div class="dish-wrapper">
+                        <div class="dish-mask">
+                            <div class="dish">
+                               <!--  <div class="food" id="food-0-0" style="left: -6px; top: -29px; background-image: url(http://localhost/dinnerquest/img/svg/onplate/veggies/6.svg);"></div>
+                                <div class="food" id="food-0-0" style="left: 10px; top: 20px; background-image: url(http://localhost/dinnerquest/img/svg/onplate/veggies/5.svg);"></div>
+                                <div class="food" id="food-0-0" style="left: 140px; top: 150px; background-image: url(http://localhost/dinnerquest/img/svg/onplate/veggies/2.svg);"></div>
+                                <div class="food" id="food-0-0" style="left: 190px; top: 190px; background-image: url(http://localhost/dinnerquest/img/svg/onplate/veggies/3.svg);"></div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dish-wrapper">
+                        <div class="dish"></div>
+                    </div>
+                    <div class="dish-wrapper last-in-row">
+                        <div class="dish"></div>
+                    </div>
+
+                    
+
+                </div>
+            </div>
+            <div id="infopage"><div id="continueButton"></div></div>
+        </div>        
         
         <div id="overlays">
             <div id="stage">
+                <div class="meal-check"></div>
+                <div id="piechart">
+                    <div id="d3"></div>
+                    <svg class="d3chart"></svg>
+                </div>
+                <div id="saturationbar">
+                    <p>wie satt bin ich?</p>
+                    <div class="bar-mask">
+                        <div class="satbar"></div>
+                    </div>
+                </div>
+                <div id="foodstack"></div>
                 <div id="confettis"></div>
                 <div class="fork">
                     <div class="bubble"></div>
@@ -45,11 +90,10 @@
                     <div class="bubble"></div>
                 </div>
                 <div id="plates"></div>
+
                 <div id="chart"><div id="newGameButton"></div></div>
                 <div class="logo icon transparent"></div>
-                <div class="info icon transparent"></div>
-                <div class="meal-check"></div>
-           
+                <div class="info icon transparent" data-pagetype="gallery"></div>
             </div>
         </div>
         
@@ -99,6 +143,8 @@
         <script src="js/vendor/throttle-1.1.js"></script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
+        <script src="js/gallery.js"></script>        
         <script src="js/vendor/stats.js"></script>
+        <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>        
     </body>
 </html>

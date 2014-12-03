@@ -1,0 +1,4 @@
+.m-item.dragged, #plates .food {
+    border: 1px solid #666;
+    background: rgba(150,150,150,0.35);
+}

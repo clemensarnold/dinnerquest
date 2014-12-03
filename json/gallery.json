@@ -1,0 +1,28 @@
+[
+    {
+        "stats": { "kcal": 42.5, "c02": 350, "date": "10.10.1980"},
+        "ingredients": [
+            {"label": "TOMATEN", "color": "#f93534", "serving": 250, "kcal": 42.5, "c02": 350, "chart": "150, 140"}
+        ]
+    },
+    {
+        "stats": {"kcal": 42.5, "c02": 350, "date": "10.10.1980"},
+        "ingredients": [
+            {"label": "TOMATEN", "color": "#f93534", "serving": 250, "kcal": 42.5, "c02": 350, "chart": "150, 140"}
+        ]
+    },
+    {
+        "stats": {"kcal": 42.5, "c02": 350, "date": "10.10.1980"},
+        "ingredients": [
+            {"label": "TOMATEN", "color": "#f93534", "serving": 250, "kcal": 42.5, "c02": 350, "chart": "150, 140"}
+        ]
+    },
+    {
+        "stats": {"kcal": 42.5, "c02": 350, "date": "10.10.1980"},
+        "ingredients": [
+            {"label": "TOMATEN", "color": "#f93534", "serving": 250, "kcal": 42.5, "c02": 350, "chart": "150, 140"}
+        ]
+    }
+]
+
+
