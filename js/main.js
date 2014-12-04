@@ -9,7 +9,8 @@ var dq = (function($, window, undefined) {
         $dragfood: undefined,
         $plates: $('#plates'),
         $chart: $('#chart'),
-        $newGameButton: $('#newGameButton'),
+        // $newGameButton: $('#newGameButton'),
+        $newGameButton: $('.start-new-game'),
         $plate: undefined,
         $fork: $('.fork'),
         $spoon: $('.spoon'),
@@ -21,6 +22,7 @@ var dq = (function($, window, undefined) {
         $infopage: $('#infopage'),
         $gallery: $('#gallery .gal-wrapper'),
         $infobtn: $('.info'),
+        $gallerybtn: $('.gallery'),
         $audiocontainer: $('#audiocontainer'),
         $videocontainer: $('#videocontainer'),
         $confettis: $('#confettis'),
@@ -31,6 +33,8 @@ var dq = (function($, window, undefined) {
         $satbar: $('#saturationbar .satbar'),
         $foodstack: $('#foodstack'),
         $piechart: $('#piechart'),
+        $barchart: $('#barchart'),
+        $hud: $('.hud'),
         'change-tab': $('.snd.change-tab')[0],
         'dropped-food': $('.snd.dropped-food')[0],
         'success': $('.snd.success')[0],
@@ -90,8 +94,9 @@ var dq = (function($, window, undefined) {
     },
     app = {},
     svg = {},
-    gallery = {test: 100},
+    gallery = {},
     piechart = {},
+    barchart = {},
     dragfood = {},
     debug = {},
     cutlery = {},
@@ -103,7 +108,7 @@ var dq = (function($, window, undefined) {
         RELOAD_ON_INACTIVE: false,
         SOUNDS: false,
         SKIP_VIDEO: true,
-        TEST_GALLERY: true,
+        TEST_GALLERY: false,
         URL_HOME: '',
         JSON_PATH: './json/data.json',
         JSON_PATH_GALLERY: './json/meals.json',
@@ -154,7 +159,7 @@ var dq = (function($, window, undefined) {
             
             app.initApp();
 
-            $.getJSON(constants.JSON_PATH_GALLERY, function(data) {
+            $.getJSON(constants.JSON_PATH_GALLERY + '?rid=' + Math.random(), function(data) {
                 
                 game.meals = data;
 
@@ -164,11 +169,9 @@ var dq = (function($, window, undefined) {
                     }, 1000);
                 }
             });
-           
-            // window.setTimeout(piechart.traceRawData, 1500);
-            // piechart.renderChart();
-            // piechart.learnSomething();
-            // piechart.drawBarChart(); 
+
+            // barchart.render();
+            // setTimeout(barchart.render, 4000);
         });
     });
     
@@ -215,7 +218,7 @@ var dq = (function($, window, undefined) {
            
             refs.$newGameButton.on({click: game.startNewGame});
             
-            refs.$infobtn.on({click: function() {
+            $('.info.icon, .gallery.icon').on({click: function() {
                 var pagetype = $(this).data('pagetype');
 
                 if (storm.stormOn) return;
@@ -227,6 +230,8 @@ var dq = (function($, window, undefined) {
                 refs.$infobtn.toggleClass('close');
                 app.hideContentPage("infopage");
             }});
+
+            $('.hud .toggle').on({click: barchart.toggle});
             
             $('.menu-container').fadeTo(constants.FADE_IN, 1);
             
@@ -259,7 +264,7 @@ var dq = (function($, window, undefined) {
         },
         
         finishVideo: function() {
-            $('.logo, .info').removeClass('transparent');            
+            $('.logo, .info, .gallery').removeClass('transparent');
             
             $('#intro-video')[0].pause();
             refs.$videocontainer.addClass('transparent');
@@ -384,13 +389,15 @@ var dq = (function($, window, undefined) {
             $('html').addClass('overflow');
 
             if (pagetype === 'gallery') dq.gallery.render();
-            
             $('#' + pagetype).addClass('visible');
             
             refs.$plates.hide();
+            refs.$barchart.hide();
             refs.$fork.hide();
             refs.$spoon.hide();
             refs.$menu.hide();
+            refs.$hud.addClass('hidden');
+
             $('#saturationbar').hide();
             $('.logo, #newGameButton, .meal-check').hide();
         },
@@ -401,15 +408,19 @@ var dq = (function($, window, undefined) {
             $('html').removeClass('overflow');
             $('#' + pagetype).removeClass('visible');
 
-
             refs.$plates.show();
+            refs.$barchart.show();
             refs.$fork.show();
             refs.$spoon.show();
             $('#saturationbar').show();
 
-            if (dq.game.running) {
+            if (game.running) {
                 refs.$menu.show();
+                
+            } else {
+                refs.$hud.removeClass('hidden');
             }
+
             $('.logo, #newGameButton, .meal-check').show();
         },
         
@@ -421,6 +432,8 @@ var dq = (function($, window, undefined) {
             var html = '',
                 specs = {},
                 tmpAry = [];
+
+            log('generateChart');
             
             refs.$plate.find('.food').each(function(i, el) {
                 
@@ -536,8 +549,6 @@ var dq = (function($, window, undefined) {
         }
     }
 
-
-
     /******* SVG *******/
 
     svg = {
@@ -557,10 +568,48 @@ var dq = (function($, window, undefined) {
         }
     }
 
-    /******* piechart *******/
+    /******* Barchart *******/
 
-    
-    
+    barchart = {
+
+        active: false,
+
+        render: function() {
+            refs.$barchart.addClass('show');
+        },
+
+        hide: function() {
+            refs.$barchart.removeClass('show');
+        },
+
+        toggle: function() {
+            log('barchart toggle');
+
+            if (barchart.active) {
+                refs.$plate.find('.food').show();
+
+                barchart.hide();
+
+
+            } else {
+                refs.$plate.find('.food').hide();
+
+                barchart.render();
+            }
+
+            barchart.active = !barchart.active;
+        },
+
+        showHud: function() {
+            refs.$hud.removeClass('hidden');
+        },
+
+        hideHud: function() {
+            refs.$hud.addClass('hidden');
+        }
+    }
+
+    /******* piechart *******/
 
     piechart = {
 
@@ -905,7 +954,6 @@ var dq = (function($, window, undefined) {
                 }
                 );
 
-
         }
     };
 
@@ -922,7 +970,7 @@ var dq = (function($, window, undefined) {
         
         game.running = true;
         game.currentFoodCat = game.constants.DEFAULT_TAB;
-        game.platesCounter++;        
+        game.platesCounter++;
             
         //  resets after first game
         if (game.currentMeal.length > 0) {
@@ -957,13 +1005,15 @@ var dq = (function($, window, undefined) {
         refs.$plates.empty();
         
         refs.$plates.append(html);
-        refs.$plate =  $(dq.refs.$plates.children()[dq.refs.$plates.children().length - 1]);
+        // refs.$plate =  $(dq.refs.$plates.children()[dq.refs.$plates.children().length - 1]);
+        refs.$plate = $('.plate');
         
         if (!configs.isTouch) refs.$plate.addClass('desktop');
         
         app.playSound(sounds.NEW_GAME);
         $('.navi-container .' + game.constants.DEFAULT_TAB).trigger(configs.clickEvent, 'no-sound');
-        
+
+        barchart.hideHud();
         refs.$plate.fadeIn();
     },
     
@@ -1037,14 +1087,13 @@ var dq = (function($, window, undefined) {
             startAniDelay = 500,
             showChartDelay = 5000;
 
-        // piechart.traceRawData(); 
+        barchart.showHud();
         
         if (gameOver) {
 
-            game.addMealToGallery(vals);
+            game.addMealToGallery(vals, tooMuchC02, vals.co2 / game.co2_max);
 
-            // piechart.traceRawData();  
-            window.setTimeout(piechart.traceRawData, 500);
+            window.setTimeout(barchart.render, 500);
             
             game.running = false;
             
@@ -1070,7 +1119,7 @@ var dq = (function($, window, undefined) {
         }
     }
 
-    game.addMealToGallery = function(vals) {
+    game.addMealToGallery = function(vals, lost, ratio) {
         log('addMealToGallery');
 
         for (var i = 0; i < game.currentMeal.length; i++) {
@@ -1079,7 +1128,7 @@ var dq = (function($, window, undefined) {
             delete game.currentMeal[i].$target;
         }
 
-        var dish = {stats: {kcal: vals.cals, co2: vals.co2, date: Date.now()}};
+        var dish = {stats: {kcal: vals.cals, co2: vals.co2, lost: lost, ratio: ratio, date: Date.now()}};
             dish.ingredients = game.currentMeal;
 
         game.meals.unshift(dish);
@@ -1150,7 +1199,7 @@ var dq = (function($, window, undefined) {
             log('removeFromPlate');
             log('extraparam: ' + extraparam)
             log($foodref);
-            log('onPlate: ' + onPlate);    
+            log('onPlate: ' + onPlate);
             log('foodStackID: ' + foodStackID);
 
             if (onPlate) {
@@ -1162,6 +1211,7 @@ var dq = (function($, window, undefined) {
                 refs.$plate.append($foodref);
 
                 dragfood.setDroppableStatus(false);
+
             } else {
                 // click foodstackbtn > deletes food element
                 $('#foodstack-' + foodStackID).trigger(configs.clickEvent);
@@ -1455,57 +1505,6 @@ var dq = (function($, window, undefined) {
             clearTimeout(storm.stopStormInt);
         }
     }
-    
-    /*
-    storm = {
-        intid: NaN,
-        ANI_LENGTH: 5000,
-        FLASH_INTERVALL: 100,
-        FLASH_AMOUNT_PICTURES: refs.$bolt.length,
-        FLASH_NEXT: new Array (300, 500, 600, 700, 1100, 1300, 1600, 1700, 1900, 2200, 2300, 2500, 2750, 3000, 3100, 3400, 4000, 4100, 4400, 4600),
-        FLASH_DURATION: 150,
-        flash_picture_id: 0,
-        flash_next_compare_time: 0,
-        
-        start: function () {
-            refs.$storm.addClass("-->Storm");
-
-            storm.intid = setInterval(function() {
-                if(refs.$storm.hasClass('startStorm')) {
-                    for(var i = 0; i < storm.FLASH_NEXT.length; i++) {
-                        if(storm.flash_next_compare_time == storm.FLASH_NEXT[i]) {
-                            storm.flash(storm.flash_picture_id);
-                            storm.flash_picture_id = (storm.flash_picture_id + 1) % storm.FLASH_AMOUNT_PICTURES;
-                        }
-                    }
-
-                storm.flash_next_compare_time += storm.FLASH_INTERVALL;
-                }
-            }, storm.FLASH_INTERVALL);
-            
-            setTimeout(storm.stop, storm.ANI_LENGTH);
-        },
-        
-        stop: function () {
-            clearInterval(storm.intid);
-            refs.$storm.removeClass("startStorm");
-            
-            storm.flash_picture_id = 0;
-            storm.flash_next_compare_time = 0;
-            
-            setTimeout(app.generateChart, 500);
-        },
-    
-        flash: function (id) {
-            var activeBolt = $(refs.$bolt[id]).css({"visibility": "visible"});
-
-            setTimeout(function()
-            {
-               activeBolt.css({"visibility": "hidden"});
-            }, storm.FLASH_DURATION);
-        }
-    }
-    */
     
     /********** Cutlery **********/
     

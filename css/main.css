@@ -271,6 +271,25 @@ video {
     z-index: 1;
 }
 
+.hud {
+    position: absolute;
+    top: 525px;
+    left: 0;
+    width: 1024px;
+    height: 100px;
+    /*border: 1px dotted grey;*/
+    z-index: 5;
+    text-align: center;
+}
+
+.hud .button {
+    width: 200px;
+    height: 50px;
+    cursor: pointer;
+    background: #FFFDF1;
+    display: inline-block;
+}
+
 #chart {
     z-index: 2;
     display: none;
@@ -496,26 +515,40 @@ video {
     z-index: 100;
 }
 
+.gallery {
+    width: 55px;
+    height: 49px;
+    right: 48px; 
+    background-position: -204px -46px;
+    z-index: 101;
+    transition: background 0.3s ease-out;
+}
+
 .info {
     width: 55px;
     height: 49px;
-    right: 35px; 
-    top: 36px;
+    right: -4px; 
     background-position: -142px 2px;
     z-index: 101;
 }
 
-.info.close {
-    width: 36px;
-    height: 42px;
+.gallery, .info {
+    top: 5px;
+}
+
+.info.close,
+.gallery.close {
+    /*width: 36px;*/
+    /*height: 42px;*/
     background-position: -204px 2px;
-    background-image: url(./../img/svg/icons.svg);
+    /*background-image: url(./../img/svg/icons-2.svg);*/
 }
 
 .icon {
     cursor: pointer;
     position: absolute;
-    background-image: url(./../img/svg/icons.svg);
+    background-image: url(./../img/svg/icons-2.svg);
+    /*border: 1px solid black;*/
 }
 
 .meal-check {
@@ -819,9 +852,8 @@ body.hidesvg g {
 }
 
 .gal-wrapper {
-    width: 880px;
+    width: 890px;
     margin: 0 auto;
-    /*border: 1px solid lime;*/
     pointer-events: none;
 }
 
@@ -829,23 +861,24 @@ body.hidesvg g {
     /*display: block;*/
     transition: opacity 0.4s ease-out;
     opacity: 1;
-
 }
 
 #gallery .dish-wrapper {
-    width: 277px;
-    height: 180px;
+    width: 280px;
+    height: 230px;
     display: inline-block;
-    margin: 0 19px 20px 0;
+    margin: 0 20px 15px 0;
     position: relative;
-    background: url(./../img/svg/gallery-bottom.svg) no-repeat left 175px;
+    background: url(./../img/svg/gallery-bottom-2.svg) no-repeat left 135px;
+    /*border-bottom: 1px solid black;*/
 }
 
 #gallery .dish-mask {
     width: 277px;
-    height: 176px;
+    height: 226px;
     position: absolute;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     overflow: hidden;
 }
 
@@ -858,11 +891,105 @@ body.hidesvg g {
     height: 540px;
     background-image: url(./../img/svg/plate.svg);
     position: absolute;
-    top: 0;
-    left: 0;
-    /*border: 1px solid red;*/
+    top: 58px;
+    left: 2px;
     -webkit-transform-origin: 0 0;
-    -webkit-transform: scale(0.365,0.365);
+    -webkit-transform: scale(0.37,0.37);
+}
+
+#gallery .barchart {
+    position: absolute;
+    top: 0;
+    right: 17px;
+    width: 40px;
+    height: 230px;
+    /*border: 1px solid #fff;*/
+}
+
+.barchart p {
+    font-family: "Marker Felt", serif;
+    color: #37ac41;
+    text-align: center;
+    line-height: 18px;
+    margin-left: -10px;
+    margin-top: 20px;
+    opacity: 0;
+    transition: opacity 0.4s ease-out 0.4s;
+}
+
+.barchart p.lost {
+    color: #cd262c;
+}
+
+#gallery .crossed {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    /*border: 1px solid black;*/
+    width: 270px;
+    height: 190px;
+    background: url(./../img/svg/gallery-cross.svg) no-repeat 0 0;
+}
+
+.barchart .green {
+    width: 30px;
+    height: 60px;
+    position: absolute;
+    bottom: 1px;
+    left: 0;
+    background: #37ac41;
+    /*-webkit-transform-origin: 0 60px;*/
+    /*-webkit-transform: scale(1,.2);*/
+}
+
+.barchart .red {
+    width: 30px;
+    height: 160px;
+    position: absolute;
+    bottom: 65px;
+    left: 0;
+    background: #cd262c;
+}
+
+.barchart .chartmask {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40px;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.4s ease-out;
+}
+
+/* == barchart ====================================================== */
+
+#barchart {
+    width: 540px;
+    height: 535px;
+    /*border: 1px solid grey;*/
+    position: absolute;
+    top: 54px; 
+    left: 250px;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0s;
+}
+
+#barchart.show { 
+    opacity: 1;
+    transition: opacity 0.4s ease-out;
+} 
+
+#barchart .mask {
+    border-radius: 50%;
+    width: 384px;
+    height: 384px;
+    position: absolute;
+    top: 75px;
+    left: 75px;
+    overflow: hidden;
+    background: url(./../img/svg/barchart.svg) no-repeat 70px bottom;
 }
 
 /* == piechart ====================================================== */

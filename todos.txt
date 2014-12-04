@@ -1,4 +1,10 @@
-wie satt bin ich?
+ if (gameOver) 
+    -  app.generateChart();
+
+
+
+
+
 
 . OPTIMIZE SVGs: http://petercollingridge.appspot.com/svg-editor !!!!
 

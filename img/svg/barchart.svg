@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="300px" height="326px" viewBox="0 0 300 326" enable-background="new 0 0 300 326" xml:space="preserve">
+<g>
+	<g>
+		<defs>
+			<filter id="Adobe_OpacityMaskFilter" filterUnits="userSpaceOnUse" x="63.4" y="26.9" width="95.7" height="310.2">
+				<feColorMatrix  type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+			</filter>
+		</defs>
+		<mask maskUnits="userSpaceOnUse" x="63.4" y="26.9" width="95.7" height="310.2" id="SVGID_1_">
+			<g filter="url(#Adobe_OpacityMaskFilter)">
+				<circle fill="#FFFFFF" cx="110.5" cy="143.7" r="192.4"/>
+			</g>
+		</mask>
+		<g mask="url(#SVGID_1_)">
+			<rect x="63.4" y="252.5" fill="#006B48" width="95.7" height="84.5"/>
+			<rect x="63.4" y="168.6" fill="#F05E60" width="95.7" height="84.5"/>
+			<rect x="63.4" y="115.6" fill="#F48331" width="95.7" height="53.3"/>
+			<rect x="63.4" y="31.5" fill="#9CB546" width="95.7" height="84.5"/>
+			<rect x="63.4" y="26.9" fill="#CC4A4A" width="95.7" height="59.8"/>
+			<defs>
+				<filter id="Adobe_OpacityMaskFilter_1_" filterUnits="userSpaceOnUse" x="63.4" y="26.9" width="95.7" height="59.8">
+					<feColorMatrix  type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+				</filter>
+			</defs>
+			<mask maskUnits="userSpaceOnUse" x="63.4" y="26.9" width="95.7" height="59.8" id="SVGID_1_">
+				<g filter="url(#Adobe_OpacityMaskFilter_1_)">
+					<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="114.9496" y1="100.6813" x2="114.9496" y2="46.6806">
+						<stop  offset="0" style="stop-color:#FFFFFF"/>
+						<stop  offset="1" style="stop-color:#000000"/>
+					</linearGradient>
+					<rect x="41.1" y="-2.3" fill="url(#SVGID_2_)" width="147.6" height="89"/>
+				</g>
+			</mask>
+			<rect x="63.4" y="26.9" fill="#812727" width="95.7" height="59.8"/>
+		</g>
+		<rect x="170.9" y="253.1" fill="none" width="99.3" height="33.4"/>
+		<text transform="matrix(1 0 0 1 170.8564 262.1377)"><tspan x="0" y="0" fill="#006B48" font-family="'MarkerFelt-Wide'" font-size="10.9983">Broccoli</tspan><tspan x="0" y="13.2" fill="#006B48" font-family="'MarkerFelt-Wide'" font-size="10.9983">0,2 kg Co2</tspan></text>
+		<rect x="170.9" y="169.3" fill="none" width="99.3" height="30.5"/>
+		<text transform="matrix(1 0 0 1 170.8564 178.4072)"><tspan x="0" y="0" fill="#F05E60" font-family="'MarkerFelt-Wide'" font-size="10.9983">Tomaten </tspan><tspan x="0" y="13.2" fill="#F05E60" font-family="'MarkerFelt-Wide'" font-size="10.9983">0,2 kg Co2</tspan></text>
+		<rect x="170.9" y="116.8" fill="none" width="99.3" height="28.3"/>
+		<text transform="matrix(1 0 0 1 170.8564 125.9004)"><tspan x="0" y="0" fill="#F48331" font-family="'MarkerFelt-Wide'" font-size="10.9983">Karotten</tspan><tspan x="0" y="13.2" fill="#F48331" font-family="'MarkerFelt-Wide'" font-size="10.9983">0,1 kg Co2</tspan></text>
+		<rect x="170.9" y="27.7" fill="none" width="99.3" height="29"/>
+		<text transform="matrix(1 0 0 1 170.8564 36.8145)"><tspan x="0" y="0" fill="#9CB546" font-family="'MarkerFelt-Wide'" font-size="10.9983">Bohnen</tspan><tspan x="0" y="13.2" fill="#9CB546" font-family="'MarkerFelt-Wide'" font-size="10.9983">0,4 kg Co2</tspan></text>
+		<rect x="51.2" fill="none" width="120.6" height="19.1"/>
+		<text transform="matrix(1 0 0 1 75.992 12.3877)" fill="#C63736" font-family="'MarkerFelt-Wide'" font-size="14.9976">0,9 kg Co2</text>
+		
+			<line fill="none" stroke="#C63736" stroke-width="3.9994" stroke-linecap="round" stroke-miterlimit="10" x1="0" y1="87.4" x2="221.3" y2="87.4"/>
+		<text transform="matrix(1 0 0 1 238.5167 84.6221)"><tspan x="0" y="0" fill="#C63736" font-family="'MarkerFelt-Wide'" font-size="14.9976">0,7 kg</tspan><tspan x="0" y="18" fill="#C63736" font-family="'MarkerFelt-Wide'" font-size="14.9976">Co2</tspan></text>
+	</g>
+</g>
+</svg>

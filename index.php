@@ -42,28 +42,7 @@
         <div class="content-pages">
             <div id="gallery">
                 <div class="gal-header"></div>
-                <!-- <div class="gal-wrapper"></div> -->
-                <div class="gal-wrapper">
-                    <div class="dish-wrapper">
-                        <div class="dish-mask">
-                            <div class="dish">
-                               <!--  <div class="food" id="food-0-0" style="left: -6px; top: -29px; background-image: url(http://localhost/dinnerquest/img/svg/onplate/veggies/6.svg);"></div>
-                                <div class="food" id="food-0-0" style="left: 10px; top: 20px; background-image: url(http://localhost/dinnerquest/img/svg/onplate/veggies/5.svg);"></div>
-                                <div class="food" id="food-0-0" style="left: 140px; top: 150px; background-image: url(http://localhost/dinnerquest/img/svg/onplate/veggies/2.svg);"></div>
-                                <div class="food" id="food-0-0" style="left: 190px; top: 190px; background-image: url(http://localhost/dinnerquest/img/svg/onplate/veggies/3.svg);"></div> -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="dish-wrapper">
-                        <div class="dish"></div>
-                    </div>
-                    <div class="dish-wrapper last-in-row">
-                        <div class="dish"></div>
-                    </div>
-
-                    
-
-                </div>
+                <div class="gal-wrapper"></div>
             </div>
             <div id="infopage"><div id="continueButton"></div></div>
         </div>        
@@ -71,7 +50,10 @@
         <div id="overlays">
             <div id="stage">
                 <div class="meal-check"></div>
-                <div id="piechart">
+                <div id="barchart">
+                    <div class="mask"></div>
+                </div>
+                <div id="piechart hidden">
                     <div id="d3"></div>
                     <svg class="d3chart"></svg>
                 </div>
@@ -89,24 +71,18 @@
                 <div class="spoon">
                     <div class="bubble"></div>
                 </div>
+                <div class="hud hidden">
+                    <div class="button toggle">toggle</div>
+                    <div class="button start-new-game">nochmal versuchen</div>
+                </div>
                 <div id="plates"></div>
 
                 <div id="chart"><div id="newGameButton"></div></div>
                 <div class="logo icon transparent"></div>
-                <div class="info icon transparent" data-pagetype="gallery"></div>
+                <div class="gallery icon transparent" data-pagetype="gallery"></div>
+                <div class="info icon transparent" data-pagetype="infopage"></div>
             </div>
         </div>
-        
-        <!-- 
-        <div id="storm" class="stormSize">
-            <img class="stormSize" src="img/png/storm.png">
-            <img class="bolt stormSize" src="img/png/bolt1.png">
-            <img class="bolt stormSize" src="img/png/bolt2.png">
-            <img class="bolt stormSize" src="img/png/bolt3.png">
-            <img class="bolt stormSize" src="img/png/bolt4.png">
-            <img class="bolt stormSize" src="img/png/bolt5.png">
-        </div>
-        -->
         
         <!-- .menu-wrapper -->
         <div class="menu-mask">

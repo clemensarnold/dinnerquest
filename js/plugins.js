@@ -48,6 +48,11 @@ var helper = {
     setTitle: function(title) {
         document.title = title;
     },
+
+    convertToKG: function(gram) {
+        var kg = gram / 1000;
+        return kg;
+    },
     
     isInArray: function(arg, ary) {
         
