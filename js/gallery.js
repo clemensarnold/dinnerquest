@@ -47,7 +47,7 @@ dq.gallery = {
                 $(this).find('p').css({opacity: 1});
             });
 
-            marginTop = 185 - maskHeight;
+            marginTop = 190 - maskHeight;
             if (marginTop > 125) marginTop = 125;
             $(el).find('p').css({marginTop: marginTop});
 

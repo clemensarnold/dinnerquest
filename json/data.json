@@ -26,7 +26,7 @@
             {"label": "LACHSFILET", "color": "#e8a180", "serving": 50, "kcal": 71, "c02": 200, "exp": "L07,G09", "chart": "183, 110", "bigbg" : false},
             {"label": "EI", "color": "#fbdb53", "serving": 60, "kcal": 96.6, "c02": 150, "exp": "L05,G09", "chart": "125, 130", "bigbg" : false},
             {"label": "RIND", "color": "#e8877f", "serving": 50, "kcal": 96.5, "c02": 1650, "exp": "L09,G11", "chart": "160, 130", "bigbg" : false},
-            {"label": "HÄHNCHENFLÜGEL", "color": "#c0632a", "serving": 125, "kcal": 362.5, "c02": 260, "exp": "L05,G07", "chart": "80, 115", "bigbg" : true},
+            {"label": "HÄHNCHENFLÜGEL", "color": "#c0632a", "serving": 125, "kcal": 362.5, "c02": 260, "exp": "L05,G07", "chart": "80, 20", "bigbg" : true},
             {"label": "BRATWURST (SCHWEIN)", "color": "#fab670", "serving": 75, "kcal": 210, "c02": 430, "exp": "L08,G10", "chart": "90, 140", "bigbg" : true},
             {"label": "JOGHURTDIP/CREME FRAICHE", "color": "#f5f5e9", "serving": 25, "kcal": 73, "c02": 120, "exp": "L09,G11", "chart": "65, 140", "bigbg" : true},
             {"label": "BUTTER", "color": "#cfcda4", "serving": 30, "kcal": 223.2, "c02": 260, "exp": "L08,G11", "chart": "160, 130", "bigbg" : false},
@@ -151,6 +151,26 @@
             {"exp": "G07", "txt": "G;Nur von Gemüse wirst du aber auch nicht satt!"},
             {"exp": "G06", "txt": "L;Vergiss nicht, auch satt zu werden!"},
             {"exp": "G05", "txt": "L;Ein Sattmacher fehlt noch!"}
+        ],
+        "trial-won": [
+            [
+                {"exp": "L01,G01", "txt": "G;Some Text 1", "bgid": 0},
+                {"exp": "L01,G01", "txt": "L;Some Text 2", "bgid": 1},
+                {"exp": "L02,G02", "txt": "L;Some Text 3", "bgid": 2},
+                {"exp": "L01,G01", "txt": "G;Some Text 4.", "bgid": 3},
+                {"exp": "L01,G01", "txt": "L;Some Text 5.", "bgid": 4},
+                {"exp": "L01,G01", "txt": "L;Some Text 6.", "bgid": 5}
+            ]
+        ],
+        "trial-lost": [
+            [
+                {"showNext": 4000, "exp": "L01,G01", "txt": "L;Ups, das ging daneben! Du musst wissen: Bestimmte Lebensmittel verursachen sehr viel CO2.", "bgid": 0},
+                {"showNext": 4000, "exp": "L01,G01", "txt": "L;Denn jedes Nahrungsmittel braucht auf seinem langen Weg in deinen Bauch jede Menge Ressourcen, Energie und Anbauflächen. Dabei wird zu viel CO2 freigesetzt und unsere Erde erwärmt sich viel zu rasch.", "bgid": 1},
+                {"showNext": 2000, "exp": "L01,G01", "txt": "G;Ich hab‘s gern fein warm!", "bgid": 2},
+                {"showNext": 3000, "exp": "L01,G01", "txt": "L;Nicht unter diesen Umständen. Außerdem leben wir in der westlichen Welt über unsere Verhältnisse, indem wir drei Mal so viel verbrauchen, wie unser Planet zu bieten hat. Das geht nicht mehr lange gut!", "bgid": 3},
+                {"showNext": 2000, "exp": "L01,G01", "txt": "G;So ein Quatsch! Iss einfach, bis du pappsatt bist!", "bgid": 4},
+                {"showNext": 4000, "exp": "L01,G01", "txt": "L;Wer clever ist, bleibt fair und wird trotzdem satt - probier‘s mal!", "bgid": 5}
+            ]
         ]
     }
 }

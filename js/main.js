@@ -7,7 +7,8 @@ var dq = (function($, window, undefined) {
         $document: $(document),
         $body: $('body'),
         $dragfood: undefined,
-        $plates: $('#plates'),
+        // $plates: $('#plates'),
+        $plates: $('#plates .plate-mask'),
         $chart: $('#chart'),
         // $newGameButton: $('#newGameButton'),
         $newGameButton: $('.start-new-game'),
@@ -31,7 +32,7 @@ var dq = (function($, window, undefined) {
         $bolts: $('.bolt2'),
         $continueButton: $('#continueButton'),
         $satbar: $('#saturationbar .satbar'),
-        $foodstack: $('#foodstack'),
+        // $foodstack: $('#foodstack'),
         $piechart: $('#piechart'),
         $barchart: $('#barchart'),
         $hud: $('.hud'),
@@ -55,6 +56,7 @@ var dq = (function($, window, undefined) {
         inactive_restart: NaN,
         inactive_fallasleep: NaN,
         inactivityCounter: 0,
+        trialmode: true,
         started: false,
         running: false,
         sleeping: false,
@@ -84,13 +86,16 @@ var dq = (function($, window, undefined) {
         $activeTab: undefined,
         platesCounter: -1,
         foodCounter: NaN,
+        $activePage: undefined,
         BUBBLES_NEWGAME: 'new-game',
         BUBBLES_FAILED: 'failed',
         BUBBLES_SUCCESS: 'success',
         BUBBLES_FREEZE_VEGGIES: 'freeze-veggies',
         BUBBLES_FREEZE_SIDES: 'freeze-sides',
         BUBBLES_POSITIVE: 'positive',
-        BUBBLES_NEGATIVE: 'negative'
+        BUBBLES_NEGATIVE: 'negative',
+        BUBBLES_TRIAL_OVER_WON: 'trial-won',
+        BUBBLES_TRIAL_OVER_LOST: 'trial-lost'
     },
     app = {},
     svg = {},
@@ -105,10 +110,10 @@ var dq = (function($, window, undefined) {
     constants = {
         DEV: true,
         STATS: false,
+        CHECK_INACTIVITY: false,
         RELOAD_ON_INACTIVE: false,
         SOUNDS: false,
         SKIP_VIDEO: true,
-        TEST_GALLERY: false,
         URL_HOME: '',
         JSON_PATH: './json/data.json',
         JSON_PATH_GALLERY: './json/meals.json',
@@ -139,6 +144,8 @@ var dq = (function($, window, undefined) {
         
         $.getJSON(constants.JSON_PATH, function(data) {
             app.json = data;
+
+            cutlery.trialLostLast = app.json.expressions[game.BUBBLES_TRIAL_OVER_LOST][0].length;
             
              //  set balancing-vars from json
             game.co2_max = app.json.rules.co2_max;
@@ -160,18 +167,8 @@ var dq = (function($, window, undefined) {
             app.initApp();
 
             $.getJSON(constants.JSON_PATH_GALLERY + '?rid=' + Math.random(), function(data) {
-                
                 game.meals = data;
-
-                if (constants.TEST_GALLERY) {
-                    window.setTimeout(function() {
-                        $('.info').trigger('click');
-                    }, 1000);
-                }
             });
-
-            // barchart.render();
-            // setTimeout(barchart.render, 4000);
         });
     });
     
@@ -186,7 +183,7 @@ var dq = (function($, window, undefined) {
         initApp: function() {
             log('initApp');
 
-            setInterval(app.checkInactivity, 1000);
+            if (constants.CHECK_INACTIVITY) setInterval(app.checkInactivity, 1000);
             
             game.constants.FOODITEMS_VERTOFF_BIG.sides = -game.constants.FOOD_BIG_DIMS;
             game.constants.FOODITEMS_VERTOFF_BIG.animals = -2 * game.constants.FOOD_BIG_DIMS;
@@ -223,6 +220,12 @@ var dq = (function($, window, undefined) {
 
                 if (storm.stormOn) return;
                 $(this).toggleClass('close');
+
+                if (!!game.$activePage && $(this).hasClass('close')) {
+                    $('body').find('[data-pagetype="' + game.$activePage.attr('id') + '"]').removeClass('close');
+                    app.hideContentPage(game.$activePage.attr('id'));
+                }
+
                 $('#' + pagetype).hasClass('visible') ? app.hideContentPage(pagetype) : app.showContentPage(pagetype);
             }});
             
@@ -265,6 +268,7 @@ var dq = (function($, window, undefined) {
         
         finishVideo: function() {
             $('.logo, .info, .gallery').removeClass('transparent');
+            $('#saturationbar').removeClass('hidden');
             
             $('#intro-video')[0].pause();
             refs.$videocontainer.addClass('transparent');
@@ -389,7 +393,9 @@ var dq = (function($, window, undefined) {
             $('html').addClass('overflow');
 
             if (pagetype === 'gallery') dq.gallery.render();
-            $('#' + pagetype).addClass('visible');
+
+            game.$activePage = $('#' + pagetype);
+            game.$activePage.addClass('visible');
             
             refs.$plates.hide();
             refs.$barchart.hide();
@@ -406,7 +412,9 @@ var dq = (function($, window, undefined) {
             log('hideContentPage: ' + pagetype);
 
             $('html').removeClass('overflow');
-            $('#' + pagetype).removeClass('visible');
+            // $('#' + pagetype).removeClass('visible');
+            game.$activePage.removeClass('visible');
+            game.$activePage = undefined;
 
             refs.$plates.show();
             refs.$barchart.show();
@@ -428,41 +436,68 @@ var dq = (function($, window, undefined) {
               return gramm / 1000;
         },
         
-        generateChart: function() {
+        generateChart: function($target) {
             var html = '',
                 specs = {},
-                tmpAry = [];
+                tmpAry = [],
+                showSpecific = !!$target,
+                addChart = false;
 
-            log('generateChart');
+            log('generateChart / showSpecific: ' + showSpecific);
+            if (!showSpecific) app.resetChart();
             
             refs.$plate.find('.food').each(function(i, el) {
-                
-                specs = $(el).data('specs');
+               
+                if (showSpecific) {
+                    addChart = $(el).attr('id') === $target.attr('id');
+                } else {
+                    addChart = true;
+                }
 
-                html = '<div class="_CLASSES_"><p>_SERVING_ g _LABEL_<br>_CO2_ KG CO<sub>2</sub</p></div>';
-                html = html.replace('_CLASSES_', specs.bigbg ? "big-chart chart" : "normal-chart chart");
-                html = html.replace('_SERVING_', specs.serving);
-                html = html.replace('_LABEL_', specs.label);
-                html = html.replace('_CO2_', app.convertGrammToKG(specs.c02));
-               
-                $(el).append(html);
-               
-                if (specs.chart.length > 0) {
-                    tmpAry = $(el).data('specs').chart.split(',');
-                    $(el).children().css({left: tmpAry[0] + 'px', top: tmpAry[1] + 'px'});
+                if (addChart) {
+                
+                    specs = $(el).data('specs');
+
+                    html = '<div class="_CLASSES_"><h3>_LABEL_</h3><p>_SERVING_ g, _CO2_ KG CO<sub>2</sub</p></div>';
+                    html = html.replace('_CLASSES_', specs.bigbg ? "big-chart chart" : "normal-chart chart");
+                    html = html.replace('_SERVING_', specs.serving);
+                    html = html.replace('_LABEL_', specs.label);
+                    html = html.replace('_CO2_', app.convertGrammToKG(specs.c02));
+                   
+                    $(el).append(html);
+                   
+                    if (specs.chart.length > 0) {
+                        tmpAry = $(el).data('specs').chart.split(',');
+                        $(el).children().css({left: tmpAry[0] + 'px', top: tmpAry[1] + 'px'});
+                   }
                }
             });
-            
-            refs.$chart.show();
-            
-            
-            refs.$menu.fadeOut();
-            refs.$mealCheck.addClass('visible');
 
+            if (showSpecific) {
+                refs.$plate.find('.food .chart').delay(2000).fadeOut(500, function() { log('remove'); $(this).remove(); });
+            }
+            
+            //  catch mouse down
+            refs.$plate.find('.food .chart').on(configs.clickEvent, function(e) {
+                e.stopImmediatePropagation();
+                log('label: down');
+            });
+
+            refs.$plate.find('.food .chart').on(configs.clickEventEnd, function(e) {
+                e.stopImmediatePropagation();
+                log('clicked label: up');
+                if (game.running) game.removeFood($(this).parent());
+            });
+
+            // refs.$chart.show();
+            // refs.$menu.fadeOut();
+            // refs.$mealCheck.addClass('visible');
         },
         
         resetChart: function() {
-            refs.$chart.hide();
+            log('resetChart');
+             refs.$plate.find('.food .chart').remove();
+            // refs.$chart.hide();
         },
         
         reload: function() {
@@ -471,7 +506,7 @@ var dq = (function($, window, undefined) {
         
         keyDownListener: function(e) {
             
-            //log(e.keyCode);
+            log(e.keyCode);
             
             switch(e.keyCode) {
                 case 67: // c
@@ -480,6 +515,10 @@ var dq = (function($, window, undefined) {
                 
                 case 78:
                     game.startNewGame();
+                    break;
+
+                case 80: // p
+                    cutlery.trigger(game.BUBBLES_TRIAL_OVER_LOST);
                     break;
             }
         },
@@ -573,39 +612,99 @@ var dq = (function($, window, undefined) {
     barchart = {
 
         active: false,
+        $el: $('.barchart-container'),
+        $mask: $('#barchart .mask'),
+
+        calcBarHeight: function(val) {
+            var height, normHeight = 350, maxHeight = 450, minHeight = 30,
+            height = Math.round((val / 700) * normHeight);
+
+            if (height > maxHeight) height = maxHeight;
+            if (height < minHeight) height = minHeight;
+            return height;
+        },
 
         render: function() {
+
+            log('-----barchart render-----');
+
+            var that = barchart,
+                html = '',
+                hSnippet = '<div class="item"><div class="bar"></div><p></p></div>',
+                bottomOff = 0, $target, text = '',
+                data = dq.game.meals[0].ingredients;
+
+            // log(data);
+
+            data = data.sort(function(obj1,obj2) { return obj1.c02 - obj2.c02; });
+            // data = data.sort(function(obj1,obj2) { return obj2.c02 - obj1.c02; });
+
+            for (var i = 0; i < data.length; i++) {
+                html += hSnippet;
+            }
+            that.$el.empty().append(html);
+
+            $('.barchart-container .item').each(function(i, $el) {
+
+                $target = $($el);
+
+                //  row
+                $target.css({bottom: bottomOff});
+
+                //  bar
+                $target.find('.bar').css({background: data[i].color, height: that.calcBarHeight(data[i].c02)});
+
+                //  label
+                text = data[i].serving + ' g ' + data[i].label + '<br>'+ helper.convertToKG(data[i].c02) + ' kg CO<sub>2</sub>';
+                $target.find('p').html(text);
+
+                bottomOff += $($el).find('.bar').height();
+            });
+
             refs.$barchart.addClass('show');
+            that.$mask.addClass('expand');
         },
 
         hide: function() {
             refs.$barchart.removeClass('show');
+            barchart.$mask.removeClass('expand');
         },
 
         toggle: function() {
             log('barchart toggle');
 
+            var $p = $(this).find('p'),
+                label = $p.data('label');
+
+            $p.data('label', $p.text()).text(label).removeClass('show-food');
+
             if (barchart.active) {
                 refs.$plate.find('.food').show();
-
                 barchart.hide();
-
 
             } else {
                 refs.$plate.find('.food').hide();
-
                 barchart.render();
+                $p.addClass('show-food');
             }
 
             barchart.active = !barchart.active;
         },
 
         showHud: function() {
-            refs.$hud.removeClass('hidden');
+            refs.$plates.addClass('collapse border-bottom');
+            setTimeout(function() { refs.$hud.removeClass('hidden'); }, 300);
         },
 
         hideHud: function() {
+            refs.$plates.removeClass('collapse');
             refs.$hud.addClass('hidden');
+            setTimeout(function() { refs.$plates.removeClass('border-bottom'); }, 300);
+        },
+
+        reset: function() {
+            barchart.hide();
+            barchart.hideHud();
         }
     }
 
@@ -960,6 +1059,9 @@ var dq = (function($, window, undefined) {
     /********** Game **********/
     
     game.startNewGame = function() {
+
+        log('startNewGame');
+
         var html = '<div class="plate"></div>';
         
         storm.stop();
@@ -981,7 +1083,9 @@ var dq = (function($, window, undefined) {
             app.resetChart();
         }
 
-        cutlery.trigger(game.BUBBLES_NEWGAME); 
+        cutlery.trigger(game.BUBBLES_NEWGAME);
+        // cutlery.trigger(game.BUBBLES_TRIAL_OVER_WON);
+        // cutlery.trigger(game.BUBBLES_TRIAL_OVER_LOST);
         
         //  resets
         game.currentMeal = [];
@@ -993,7 +1097,7 @@ var dq = (function($, window, undefined) {
         game.lastSound = undefined;
         refs.$piechart.empty();
 
-        refs.$foodstack.empty();
+        // refs.$foodstack.empty();
 
         dragfood.setSatBar();
         
@@ -1013,8 +1117,11 @@ var dq = (function($, window, undefined) {
         app.playSound(sounds.NEW_GAME);
         $('.navi-container .' + game.constants.DEFAULT_TAB).trigger(configs.clickEvent, 'no-sound');
 
-        barchart.hideHud();
+        barchart.reset();
         refs.$plate.fadeIn();
+
+        //  temp
+        // barchart.showHud();
     },
     
     game.addFood = function(specs, $target) {
@@ -1022,7 +1129,9 @@ var dq = (function($, window, undefined) {
         game.currentMeal.push(specs);
     }
 
-    game.removeFood = function(label) {
+    game.removeFood = function($target) {
+
+        var label = $target.data('specs').label;
 
         for (var i = 0; i < game.currentMeal.length; i++) {
 
@@ -1030,6 +1139,8 @@ var dq = (function($, window, undefined) {
                 game.currentMeal.splice(i, 1);
             }
         }
+
+        $target.fadeOut(constants.FADE_OUT, function() { log('removed'); log($(this)); $(this).remove(); });
 
         dragfood.setSatBar();
     },
@@ -1079,23 +1190,22 @@ var dq = (function($, window, undefined) {
         return isVegan;
     }
     
-    game.checkMealVals = function() {
+    game.checkMealVals = function($target) {
         var vals = game.calcMealVals(game.currentMeal),
             tooMuchC02 = (vals.co2 >= game.co2_max),
             enoughCalories = (vals.cals >= game.kcal_min),
             gameOver = tooMuchC02 || enoughCalories,
             startAniDelay = 500,
             showChartDelay = 5000;
-
-        barchart.showHud();
         
         if (gameOver) {
+            game.running = false;
+            refs.$menu.fadeOut();
 
             game.addMealToGallery(vals, tooMuchC02, vals.co2 / game.co2_max);
 
-            window.setTimeout(barchart.render, 500);
-            
-            game.running = false;
+            window.setTimeout(barchart.showHud, 500);
+            app.generateChart();
             
             //app.freezeFoodMenu();
             
@@ -1103,7 +1213,6 @@ var dq = (function($, window, undefined) {
                 // lost
                 log('---------- lost ----------');
                 cutlery.trigger(game.BUBBLES_FAILED);
-                app.generateChart();
                 refs.$mealCheck.addClass('failed');
                 setTimeout(storm.start, startAniDelay);
                 
@@ -1112,11 +1221,14 @@ var dq = (function($, window, undefined) {
                 // won
                 log('---------- won ----------');
                 cutlery.trigger(game.BUBBLES_SUCCESS);
-                app.generateChart();
                 setTimeout(confettis.init, startAniDelay);
                 game.showFeedbackInt = setTimeout(cutlery.trigger, showChartDelay, game.BUBBLES_POSITIVE);
             }
+
+            $target = undefined;
         }
+
+        app.generateChart($target);
     }
 
     game.addMealToGallery = function(vals, lost, ratio) {
@@ -1159,6 +1271,7 @@ var dq = (function($, window, undefined) {
         }
     }
 
+    /*
     game.addToFoodstack = function(specs, $foodOnPlate) {
         var id = 'foodstack-' + game.currentMeal.length, 
             foodHTML = '<div class="food-ref" id="' + id + '">' + specs.label + ', ' + specs.kcal + ' kcal<span>x</span></div>',
@@ -1178,6 +1291,7 @@ var dq = (function($, window, undefined) {
             game.removeFood($(this).data('label')); 
         });
     }
+    */
     
     /********** Dragfood **********/
     
@@ -1187,8 +1301,8 @@ var dq = (function($, window, undefined) {
 
         removeFromPlate: function($ref, extraparam) {
             var onPlate = false,
-                $foodref = extraparam === 'clicked' ? $ref : $(this),
-                foodStackID = $foodref.data('foodStackID');
+                $foodref = extraparam === 'clicked' ? $ref : $(this);
+                // foodStackID = $foodref.data('foodStackID');
             
             refs.$body.removeClass('hidesvg');
 
@@ -1200,7 +1314,6 @@ var dq = (function($, window, undefined) {
             log('extraparam: ' + extraparam)
             log($foodref);
             log('onPlate: ' + onPlate);
-            log('foodStackID: ' + foodStackID);
 
             if (onPlate) {
 
@@ -1213,8 +1326,7 @@ var dq = (function($, window, undefined) {
                 dragfood.setDroppableStatus(false);
 
             } else {
-                // click foodstackbtn > deletes food element
-                $('#foodstack-' + foodStackID).trigger(configs.clickEvent);
+                game.removeFood($(this));
             }
         },
 
@@ -1255,12 +1367,13 @@ var dq = (function($, window, undefined) {
             dragfood.setBackground($newFood, specs);
         
             if (onPlate) {
+
                 game.addFood(specs, $newFood);
-                game.addToFoodstack(specs, $newFood);
+                // game.addToFoodstack(specs, $newFood);
                 cutlery.setExpression(specs);
                 $newFood.data('specs', specs);
                 dragfood.setOffPlateVals($newFood,dq.refs.$dragfood.css('left'), dq.refs.$dragfood.css('top'));
-                $newFood.data('foodStackID', game.currentMeal.length);
+                // $newFood.data('foodStackID', game.currentMeal.length);
                 
                 if (app.json.rules.food_only_once) {
                     $(this).addClass('inactive').draggable('disable');
@@ -1268,11 +1381,10 @@ var dq = (function($, window, undefined) {
                 
                 game.mealMix[specs.foodCat]++;
                 game.checkFoodMix();
-                game.checkMealVals();
+                game.checkMealVals($newFood);
                 
                 // debug.printObject(specs);
-                debug.printObject(game.calcMealVals(game.currentMeal), true); 
-                             
+                debug.printObject(game.calcMealVals(game.currentMeal), true);
                 
                 dragfood.setSatBar();
 
@@ -1287,9 +1399,9 @@ var dq = (function($, window, undefined) {
                        
                     } else {
 
-                        log('--- APPEND OFF PLATE ----');                     
+                        log('--- APPEND OFF PLATE ----');
                         refs.$foodCont.append($(this));
-                        $(this).css({left: $(this).data('offplate-left'), top: $(this).data('offplate-top')});             
+                        $(this).css({left: $(this).data('offplate-left'), top: $(this).data('offplate-top')});
                     }             
                 });
 
@@ -1299,7 +1411,7 @@ var dq = (function($, window, undefined) {
                     dragfood.removeFromPlate($(this), 'clicked');
                 });
 
-                // $newFood.draggable();               
+                // $newFood.draggable();
                 $newFood.draggable({
                     start: function(e, ui) {
                         refs.$dragfood = ui.helper;
@@ -1311,13 +1423,14 @@ var dq = (function($, window, undefined) {
                     // drag: $.throttle(300, dragfood.calcDistance)
                 });
                 
+                // app.generateChart($newFood);
                 
-            } else {                
+            } else {
                 $newFood.fadeOut(constants.FADE_OUT, function() { $(this).remove(); });
             }
             
             dragfood.setDroppableStatus(false);  
-            refs.$body.removeClass('hidesvg');         
+            refs.$body.removeClass('hidesvg');
             
             app.playSound(sounds.DROPPED_FOOD);
             game.foodCounter++;
@@ -1331,7 +1444,7 @@ var dq = (function($, window, undefined) {
 
             if (ratio > 1) ratio = 1;
 
-            marginLeft = Math.round(offset - ratio * offset);    
+            marginLeft = Math.round(offset - ratio * offset);
             
             refs.$satbar.css({marginLeft: marginLeft});
         },
@@ -1516,6 +1629,9 @@ var dq = (function($, window, undefined) {
         hideDelay: NaN,
         bubblemode: undefined,
         bubbleData: {},
+        trialLostID: 0,
+        trialLostLast: NaN,
+        SHOW_BUBBLETXT: true,
         
         trigger: function(bubblemode) {
             
@@ -1614,10 +1730,31 @@ var dq = (function($, window, undefined) {
                     bubbleData = app.json.expressions[bubblemode][0][bgid];
                     //bubbleData = app.json.expressions[bubblemode][0][7];
                     break;
+
+                case game.BUBBLES_TRIAL_OVER_WON:
+                    // rid = helper.getRandomNumber(app.json.expressions[bubblemode][0].length);
+                    rid = 0;
+                    bubbleData = app.json.expressions[bubblemode][0][rid];
+                    break;
+
+                case game.BUBBLES_TRIAL_OVER_LOST:
+                    if (cutlery.trialLostID >= cutlery.trialLostLast) {
+                        log('SHOW VIDEO');
+                        return;
+                    }
+                    bubbleData = app.json.expressions[bubblemode][0][cutlery.trialLostID];
+                    cutlery.trialLostID++;
+
+                    //  trigger next bubble
+                    setTimeout(cutlery.trigger, bubbleData.showNext, game.BUBBLES_TRIAL_OVER_LOST);
+                    break;
             }
             
             cutlery.bubbleData = bubbleData;
             cutlery.bubblemode = bubblemode;
+
+            // log(bubbleData);
+            // log(bubblemode);
             
             cutlery.setExpression(bubbleData, bubblemode);
         },
@@ -1639,15 +1776,24 @@ var dq = (function($, window, undefined) {
             clearTimeout(cutlery.showBubbleTO);
             
             if (bubblemode) {
-                cutlery.showBubbleTO = setTimeout(cutlery.showBubble, cutlery.showDelay);
+                // cutlery.showBubbleTO = setTimeout(cutlery.showBubble, cutlery.showDelay);
+                cutlery.showBubbleTO = setTimeout(cutlery.showBubble, 150);
             }
         },
         
         showBubble: function() {
+
+            log('showBubble');
+            // game.trialmode
             
             var data = cutlery.bubbleData,
                 backgroundPosition = '0px ' + -150 * data.bgid + 'px',
                 $ref = (data.txt.split(';')[0] === 'G') ? refs.$forkBub: refs.$spoonBub;
+
+            //  debug
+            if (cutlery.SHOW_BUBBLETXT) {
+                $ref.html('<p>' + data.txt.split(';')[1] + '</p>');
+            }
             
             $ref.css({backgroundPosition: backgroundPosition});
             
@@ -1655,10 +1801,14 @@ var dq = (function($, window, undefined) {
             $ref.addClass(cutlery.bubblemode);
             
             clearTimeout(cutlery.hideBubbleTO);
-            cutlery.hideBubbleTO = setTimeout(cutlery.hideBubble, cutlery.hideDelay);
+
+            if (!game.trialmode) {
+                cutlery.hideBubbleTO = setTimeout(cutlery.hideBubble, cutlery.hideDelay);
+            }
         },
         
         hideBubble: function() {
+            log('hideBubble');
             refs.$spoonBub.removeClass('visible');
             refs.$forkBub.removeClass('visible');
         },
@@ -1688,6 +1838,7 @@ var dq = (function($, window, undefined) {
         app: app,
         gallery: gallery,
         game: game,
+        barchart: barchart,
         piechart: piechart,
         cutlery: cutlery,
         confettis: confettis,

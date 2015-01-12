@@ -17,6 +17,18 @@
   src: url(./../CA12c13c.otf);
 }
 
+@font-face {
+    font-family: 'cooper_md_btmedium';
+    src: url('./fonts/cooprmd_-webfont.eot');
+    src: url('./fonts/cooprmd_-webfont.eot?#iefix') format('embedded-opentype'),
+         url('./fonts/cooprmd_-webfont.woff2') format('woff2'),
+         url('./fonts/cooprmd_-webfont.woff') format('woff'),
+         url('./fonts/cooprmd_-webfont.ttf') format('truetype'),
+         url('./fonts/cooprmd_-webfont.svg#cooper_md_btmedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 html,
 button,
 input,
@@ -283,12 +295,29 @@ video {
 }
 
 .hud .button {
-    width: 200px;
+    width: 235px;
     height: 50px;
     cursor: pointer;
     background: #FFFDF1;
     display: inline-block;
+    background: url(./../img/svg/button.svg) no-repeat;
 }
+
+.hud p {
+    font-family: "Marker Felt", serif;
+    font-weight: bold;
+    color: #3D4D59;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin: 12px 0 0 0;
+    background: url(./../img/svg/button-icons.svg) no-repeat;
+    background-position: 10px -5px;
+    padding-left: 12px;
+    transition: background-position 0.3s ease-out;
+}
+
+.hud p.show-food { background-position: 10px -41px; }
+.hud .start-new-game p { background-position: 10px -78px; }
 
 #chart {
     z-index: 2;
@@ -437,12 +466,30 @@ video {
     border: 2px dotted rgba(243,40,44,1);
 }
 
+.plate-mask {
+    width: 560px;
+    height: 606px;
+    position: absolute;
+    top: 0; left: 0;
+    /*border: 1px solid red;*/
+    overflow: hidden;
+    transition: height 0.3s ease-out;
+}
+
+.plate-mask.collapse {
+    height: 465px;
+}
+
+.plate-mask.border-bottom {
+    border-bottom: 1px solid #999;
+}
+
 .fork {
     position: absolute;
     top: 80px; 
     left: 163px;
     width: 90px; height: 400px;
-    background-image: url(./../img/svg/forks.svg);
+    background-image: url(./../img/svg/forks-new.svg); /* forks-new.svg */
     display: none;
 }
 
@@ -452,7 +499,7 @@ video {
     left: 814px;
     width: 106px; height: 400px;
     /*border: 1px solid red;*/
-    background-image: url(./../img/svg/spoons.svg);
+    background-image: url(./../img/svg/knives.svg); /*spoons.svg*/
     display: none;
 }
 .bubble {
@@ -460,12 +507,18 @@ video {
     top: 0;
     left: 0;
     width: 340px;
-    height: 150px;
+    height: 150px; 
     z-index: 2000;
     /*border: 1px solid;*/
     opacity: 0;
     transition: opacity 0.3s ease-out;
     pointer-events: none;
+}
+
+.bubble p {
+    font-family: Arial;
+    font-size: 12px;
+    line-height: 14px;
 }
 
 .bubble.new-game {
@@ -490,6 +543,14 @@ video {
 
 .bubble.freeze-sides {
     background-image: url(./../img/svg/freeze-sides-bubbles.svg);
+}
+
+.bubble.trial-won {
+    background-image: url(./../img/svg/bubbles/trial-won.svg);
+}
+
+.bubble.trial-lost {
+    background-image: url(./../img/svg/bubbles/trial-lost.svg);
 }
 
 .bubble.visible {
@@ -788,32 +849,42 @@ body.hidesvg g {
     position: absolute;
     top: 170px;
     left: 150px;
+    height: 50px;
     color: #3d4c57;
     /*border: 1px solid grey;*/
-    /*background: #f5f5f5;*/
-    background-image: url(./../img/svg/banneret.svg);
-    background-size: 100% 100%;
+    background-image: url(./../img/svg/chart-bg.svg);
+    background-repeat: no-repeat;
+    /*background-size: 100% 100%;*/
     z-index: 1;
+    cursor: pointer;
+    pointer-events: all;
+    font-family: "Marker Felt", serif !important;
+    font-weight: normal !important;
+    padding: 8px 0 0 12px;
+    color: #fff;
+    text-align: left;
 }
 
 .big-chart {
-    width: 250px;
-    height: 75px;
-    background-image: url(./../img/svg/banneret-big.svg);
+    width: 222px;
+    background-position: left -68px; 
 }
 
 .normal-chart {
-    width: 140px;
-    height: 75px;
+    width: 133px;
+}
+
+.chart h3 {
+    margin: 0;
+    font-size: 19px;
+    font-weight: normal;
 }
 
 .chart p {
     font-weight: normal;
-    font-size: 17px;
+    font-size: 13px;
     line-height: 20px;
-    margin: 5px 0 0 0px;
-    text-align: center;
-    color: #3D4C57;
+    margin: -3px 0 0 0px;
 }
 
 #performance-boost {
@@ -961,7 +1032,7 @@ body.hidesvg g {
     transition: height 0.4s ease-out;
 }
 
-/* == barchart ====================================================== */
+/* == main barchart ====================================================== */
 
 #barchart {
     width: 540px;
@@ -969,27 +1040,86 @@ body.hidesvg g {
     /*border: 1px solid grey;*/
     position: absolute;
     top: 54px; 
-    left: 250px;
-    pointer-events: none;
+    left: 270px;
+    /*pointer-events: none;*/
     z-index: 2;
     opacity: 0;
-    transition: opacity 0s;
+    /*font-family: "Marker Felt", serif;*/
+    /*font-family: "Cooper Md BT";*/
+    font-family: "cooper_md_btmedium";
 }
 
 #barchart.show { 
     opacity: 1;
-    transition: opacity 0.4s ease-out;
+    display: block;
 } 
 
 #barchart .mask {
-    border-radius: 50%;
-    width: 384px;
-    height: 384px;
+    /*border-radius: 50%;*/
     position: absolute;
-    top: 75px;
-    left: 75px;
+    bottom: 73px;
+    left: 40px;
+    width: 530px;
+    height: 0;
+    /*height: 0;*/
     overflow: hidden;
-    background: url(./../img/svg/barchart.svg) no-repeat 70px bottom;
+    transition: height 0.8s ease-out;
+    /*border: 1px solid red;*/
+    /*background: url(./../img/svg/barchart.svg) no-repeat 70px bottom;*/
+}
+
+#barchart .mask.expand {
+    height: 650px;
+}
+
+#barchart .co2-limit {
+    position: absolute;
+    left: 102px;
+    bottom: 350px;
+    border-bottom: 3px solid #f3282e;
+    height: 3px;
+    width: 200px;
+    z-index: 10;
+}
+
+.co2-limit p {
+    color: #f3282e;
+    position: absolute;
+    top: -4px;
+    left: -90px;
+}
+
+.barchart-container {
+    position: absolute;
+    bottom: 0;
+    left: 130px;
+}
+
+.barchart-container .item {
+    width: 400px;
+    /*border-bottom: 1px solid black;*/
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.barchart-container .bar {
+    width: 150px;
+    /*height: 110px;*/
+    /*border: 1px solid black;*/
+    /*position: absolute;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
+}
+
+.barchart-container p {
+    position: absolute;
+    left: 185px;
+    top: 50%;
+    margin-top: -14px;
+    line-height: 14px;
+    font-size: 14px;
+    color: #333;
 }
 
 /* == piechart ====================================================== */

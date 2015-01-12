@@ -51,13 +51,16 @@
             <div id="stage">
                 <div class="meal-check"></div>
                 <div id="barchart">
-                    <div class="mask"></div>
+                    <div class="mask">
+                        <div class="co2-limit"><p>0,7 kg CO<sub>2</sub></p></div>
+                        <div class="barchart-container"></div>
+                    </div>
                 </div>
                 <div id="piechart hidden">
                     <div id="d3"></div>
                     <svg class="d3chart"></svg>
                 </div>
-                <div id="saturationbar">
+                <div id="saturationbar" class="hidden">
                     <p>wie satt bin ich?</p>
                     <div class="bar-mask">
                         <div class="satbar"></div>
@@ -72,12 +75,20 @@
                     <div class="bubble"></div>
                 </div>
                 <div class="hud hidden">
-                    <div class="button toggle">toggle</div>
-                    <div class="button start-new-game">nochmal versuchen</div>
+                    <div class="button toggle">
+                        <p data-label="essens ansicht">diagramm</p>
+                    </div>
+                    <div class="button start-new-game">
+                        <p>nochmal versuchen</p>
+                    </div>
                 </div>
-                <div id="plates"></div>
+                <div id="plates">
+                    <div class="plate-mask"></div>
+                </div>
 
-                <div id="chart"><div id="newGameButton"></div></div>
+                <div id="chart">
+                    <!-- <div id="newGameButton"></div> -->
+                </div>
                 <div class="logo icon transparent"></div>
                 <div class="gallery icon transparent" data-pagetype="gallery"></div>
                 <div class="info icon transparent" data-pagetype="infopage"></div>
