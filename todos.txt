@@ -31,10 +31,11 @@ spoons.svg
 
 michallondo
 
-. Gesichtsausdrücke einbauen (fork-new / spoon)
-. img/svg/navi.png
-. /img/svg/av-food.svg
-. data.json > neue Infos einbauen
+[x] Gesichtsausdrücke einbauen (fork-new / spoon)
+[ ] img/svg/navi.png
+[ ] /img/svg/av-food.svg
+[ ] Intro-Animation
+[ ] data.json > neue Infos einbauen
 
 
 
