@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-<svg version="1.0" id="plate" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="800px" height="600px" viewBox="0 0 800 600" enable-background="new 0 0 800 600" xml:space="preserve">
+<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="800px" height="600px" viewBox="265 -215 800 600" enable-background="new 265 -215 800 600" xml:space="preserve">
 <g>
 	<g>
-		<g opacity="0.4">
-			<path d="M542.188,275.19c0,147.458-119.539,266.999-267,266.999c-147.457,0-267-119.541-267-266.999
-				c0-147.461,119.543-267.001,267-267.001C422.649,8.188,542.188,127.729,542.188,275.19z"/>
+		<g opacity="0.2">
+			<circle cx="543.5" cy="63.5" r="267.5"/>
 		</g>
 		<g>
-			<path fill="#F2F2F0" d="M535,268.001C535,415.459,415.461,535,268,535C120.543,535,1,415.459,1,268.001
-				C1,120.541,120.543,1,268,1C415.461,1,535,120.541,535,268.001z"/>
+			<circle fill="#EEECE5" cx="533.5" cy="53.5" r="267.5"/>
+		</g>
+		<defs>
+			<filter id="Adobe_OpacityMaskFilter" filterUnits="userSpaceOnUse" x="266" y="-214" width="535.1" height="535.1">
+				<feColorMatrix  type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+			</filter>
+		</defs>
+		<mask maskUnits="userSpaceOnUse" x="266" y="-214" width="535.1" height="535.1" id="SVGID_1_">
+			<g filter="url(#Adobe_OpacityMaskFilter)">
+				<polygon fill="#FFFFFF" points="214.5,-141.6 844.5,263.4 917.6,-101.6 581.5,-335.7 				"/>
+			</g>
+		</mask>
+		<g opacity="0.5" mask="url(#SVGID_1_)">
+			<circle fill="#FFFFFF" cx="533.5" cy="53.5" r="267.5"/>
+		</g>
+		<g>
+			<path fill="none" stroke="#B2AC9E" stroke-width="3" stroke-linecap="round" stroke-miterlimit="10" d="M788.1,53.5
+				c0,140.6-114,254.5-254.5,254.5C393,308.1,279,194.1,279,53.5C279-87,393-201,533.5-201C674.1-201,788.1-87,788.1,53.5z"/>
 		</g>
 	</g>
-	<ellipse fill="#E8E8E8" cx="268.002" cy="268.001" rx="192.182" ry="192.176"/>
+	<circle fill="#E1DDD2" cx="533.5" cy="53.5" r="192.6"/>
+	<path opacity="0.3" fill="#D5CEC0" d="M353.5,62.2c0-104.2,84.5-188.7,188.7-188.7c49.8,0,95.1,19.3,128.8,50.8
+		c-34.5-36.9-83.5-60-138-60c-104.2,0-188.7,84.5-188.7,188.7c0,54.5,23.1,103.5,60,138C372.7,157.3,353.5,112,353.5,62.2z"/>
+	<path opacity="0.5" fill="#F3EFEA" d="M713.6,44.9c0,104.2-84.5,188.7-188.7,188.7c-49.8,0-95.1-19.3-128.8-50.8
+		c34.5,36.9,83.5,60,138,60c104.2,0,188.7-84.5,188.7-188.7c0-54.5-23.1-103.5-60-138C694.3-50.2,713.6-4.9,713.6,44.9z"/>
 </g>
 </svg>

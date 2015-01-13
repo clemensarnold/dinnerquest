@@ -10,6 +10,7 @@ var dq = (function($, window, undefined) {
         // $plates: $('#plates'),
         $plates: $('#plates .plate-mask'),
         $chart: $('#chart'),
+        $intro: $('.intro-container'),
         // $newGameButton: $('#newGameButton'),
         $newGameButton: $('.start-new-game'),
         $plate: undefined,
@@ -31,7 +32,6 @@ var dq = (function($, window, undefined) {
         $bolt: $('.bolt'),
         $bolts: $('.bolt2'),
         $continueButton: $('#continueButton'),
-        $satbar: $('#saturationbar .satbar'),
         // $foodstack: $('#foodstack'),
         $piechart: $('#piechart'),
         $barchart: $('#barchart'),
@@ -50,6 +50,9 @@ var dq = (function($, window, undefined) {
         stats: undefined,
         menuAtTop: false
     },
+    buttons = {
+        START_GAME: 'start-game'
+    },
     game = {
         co2_max: NaN,
         kcal_min: NaN,
@@ -64,9 +67,9 @@ var dq = (function($, window, undefined) {
         worstFoodsAry: [],
         bestFoodsAry: [],
         constants: {
-            FOODITEMS_VERTOFF: {veggies: 0, sides: -105, animals: -210},
-            FOODITEMS_VERTOFF_BIG: {veggies: 0, sides: NaN, animals: NaN},
-            FOOD_CATS: ['veggies', 'sides', 'animals'],
+            FOODITEMS_VERTOFF: {veggies: 0, sides: -105, animals: -210, fruit: -315, fastfood: -420},
+            // FOODITEMS_VERTOFF_BIG: {veggies: 0, sides: NaN, animals: NaN},
+            FOOD_CATS: ['veggies', 'sides', 'animals', 'fruit', 'fastfood'],
             FOOD_BGVERT_OFF: {veggies: 0, sides: 1, animals: 2},
             DEFAULT_TAB: 'veggies', 
             FOOD_BIG_DIMS: 450,
@@ -75,7 +78,8 @@ var dq = (function($, window, undefined) {
             PIECOLOR: '#f2282e', // f2282e, 43b1d8
             FPS: 30,
             SNORE_EXP: "L04,G12",
-            WAKEUP_EXP: "L01,G01"
+            WAKEUP_EXP: "L01,G01",
+            FADEIN_SPEED: 500
         },
         currentFoodCat: undefined,
         currentMeal: [],
@@ -87,6 +91,7 @@ var dq = (function($, window, undefined) {
         platesCounter: -1,
         foodCounter: NaN,
         $activePage: undefined,
+        currentTemplate: undefined,
         BUBBLES_NEWGAME: 'new-game',
         BUBBLES_FAILED: 'failed',
         BUBBLES_SUCCESS: 'success',
@@ -97,6 +102,8 @@ var dq = (function($, window, undefined) {
         BUBBLES_TRIAL_OVER_WON: 'trial-won',
         BUBBLES_TRIAL_OVER_LOST: 'trial-lost'
     },
+    intro = {},
+    hud = {},
     app = {},
     svg = {},
     gallery = {},
@@ -119,9 +126,9 @@ var dq = (function($, window, undefined) {
         JSON_PATH_GALLERY: './json/meals.json',
         FADE_IN: 200, FADE_OUT: 400, FADE_DELAY: 50,
         FOOD_HOR: NaN, FOOD_VERT: NaN,
-        PLATE_RAD: 270, PLATE_DISTANCE: 40000, // 200*200
-        OFFSET_SATBAR: -545
+        PLATE_RAD: 270, PLATE_DISTANCE: 40000// 200*200
     },
+    templates = ['INTRO', 'TRIAL','VIDEO','GAME','SCENARIO'],
     sounds = {
         DROPPED_FOOD: 'dropped-food',
         NEW_GAME: 'new-game',
@@ -172,7 +179,6 @@ var dq = (function($, window, undefined) {
         });
     });
     
-    /********** App **********/
     app = {
         
         clicklistener: function(e) {
@@ -180,13 +186,29 @@ var dq = (function($, window, undefined) {
             log(e.originalEvent.srcElement);
         },
 
+        renderTemplate: function(template) {
+            log('renderTemplate');
+
+            switch(template) {
+                case 'INTRO': 
+                    setTimeout(intro.init, 500);
+                    break;
+
+                default:
+
+                    break;
+            }
+        },
+
         initApp: function() {
             log('initApp');
 
+            game.currentTemplate = templates[0];
+
             if (constants.CHECK_INACTIVITY) setInterval(app.checkInactivity, 1000);
             
-            game.constants.FOODITEMS_VERTOFF_BIG.sides = -game.constants.FOOD_BIG_DIMS;
-            game.constants.FOODITEMS_VERTOFF_BIG.animals = -2 * game.constants.FOOD_BIG_DIMS;
+            // game.constants.FOODITEMS_VERTOFF_BIG.sides = -game.constants.FOOD_BIG_DIMS;
+            // game.constants.FOODITEMS_VERTOFF_BIG.animals = -2 * game.constants.FOOD_BIG_DIMS;
             constants.FOOD_HOR = constants.FOOD_VERT = game.constants.FOOD_BIG_DIMS / 2;
             
             if (constants.DEV) {
@@ -208,10 +230,6 @@ var dq = (function($, window, undefined) {
             refs.$window.on(configs.clickEvent, app.resetInactCounter);
             
             $('.logo').on({click: app.reload});
-            
-            setTimeout(app.initVideo, 1000);
-
-            if (constants.SKIP_VIDEO) app.finishVideo();
            
             refs.$newGameButton.on({click: game.startNewGame});
             
@@ -236,7 +254,7 @@ var dq = (function($, window, undefined) {
 
             $('.hud .toggle').on({click: barchart.toggle});
             
-            $('.menu-container').fadeTo(constants.FADE_IN, 1);
+            // $('.menu-container').fadeTo(constants.FADE_IN, 1);
             
             //  init sounds
             for (var i = 0; i < game.sounds.length; i++) {
@@ -244,6 +262,13 @@ var dq = (function($, window, undefined) {
                     if (mode !== 'no-sound') app.playSound($(this).data('whichSound'));
                 });
             }
+
+
+            //  show/hide Video
+            // setTimeout(app.initVideo, 1000);
+            // if (constants.SKIP_VIDEO) app.finishVideo();
+
+            app.renderTemplate(game.currentTemplate);
         },
         
         setFoodArys: function() {
@@ -260,6 +285,9 @@ var dq = (function($, window, undefined) {
         },
         
         initVideo: function() {
+
+            log('initVideo');
+
             // init video
             refs.$videocontainer.removeClass('transparent');
             refs.$videocontainer.on({click: app.finishVideo});
@@ -267,8 +295,10 @@ var dq = (function($, window, undefined) {
         },
         
         finishVideo: function() {
+
+            log('finishVideo');
+
             $('.logo, .info, .gallery').removeClass('transparent');
-            $('#saturationbar').removeClass('hidden');
             
             $('#intro-video')[0].pause();
             refs.$videocontainer.addClass('transparent');
@@ -276,7 +306,7 @@ var dq = (function($, window, undefined) {
             $('body').addClass('table-cloth');
             refs.$menu.removeClass('down');
 
-            if (configs.menuAtTop) refs.$menu.addClass('at-top');
+            // if (configs.menuAtTop) refs.$menu.addClass('at-top');
         },
         
         checkInactivity: function() {
@@ -363,6 +393,8 @@ var dq = (function($, window, undefined) {
                 if (!app.isLabelAlreadyInCurrentFood(specs.label)) {
                     $(el).css({backgroundPosition: -i * $(el).width() + 'px ' + vertOff + 'px'}).
                     data('specs', specs).addClass('visible');
+
+                    $(el).append('<p>' + specs.label + '</p>');
                     
                     $(el).draggable({
                         helper: 'clone',
@@ -404,7 +436,6 @@ var dq = (function($, window, undefined) {
             refs.$menu.hide();
             refs.$hud.addClass('hidden');
 
-            $('#saturationbar').hide();
             $('.logo, #newGameButton, .meal-check').hide();
         },
         
@@ -420,7 +451,6 @@ var dq = (function($, window, undefined) {
             refs.$barchart.show();
             refs.$fork.show();
             refs.$spoon.show();
-            $('#saturationbar').show();
 
             if (game.running) {
                 refs.$menu.show();
@@ -519,6 +549,11 @@ var dq = (function($, window, undefined) {
 
                 case 80: // p
                     cutlery.trigger(game.BUBBLES_TRIAL_OVER_LOST);
+                    break;
+
+                //  r
+                case 82:
+                    location.reload();
                     break;
             }
         },
@@ -1056,13 +1091,46 @@ var dq = (function($, window, undefined) {
         }
     };
 
+    hud = {
+        showButton: function(selector) {
+            $('.hud-new .' + selector).removeClass('hidden').fadeTo(constants.FADEIN_SPEED, 1);
+        },
+
+        hideButton: function(selector) {
+
+        }
+    }
+
+    intro = {
+
+        init: function() {
+            var delays = [1000, 200, 200, 200],
+                buttonDelay = 1000,
+                delay = 0,
+                html = '';
+
+            for (var i = 0; i < delays.length; i++) {
+                html += '<div></div>';
+            }
+
+            refs.$intro.empty().html(html);
+            game.addPlate();
+
+            $('.intro-container > div').each(function(i, el) {
+                delay += delays[i];
+                $(el).delay(delay).fadeTo(constants.FADEIN_SPEED, 1);
+            });
+
+            delay += buttonDelay;
+            setTimeout(hud.showButton, delay, buttons.START_GAME);
+        }
+    }
+
     /********** Game **********/
     
     game.startNewGame = function() {
 
         log('startNewGame');
-
-        var html = '<div class="plate"></div>';
         
         storm.stop();
         confettis.stop();
@@ -1098,30 +1166,32 @@ var dq = (function($, window, undefined) {
         refs.$piechart.empty();
 
         // refs.$foodstack.empty();
-
-        dragfood.setSatBar();
-        
         debug.printObject({});
         
         $('.navi-container > div.freeze').removeClass('freeze');
-        
-        //  pre-gallery times
-        refs.$plates.empty();
-        
-        refs.$plates.append(html);
-        // refs.$plate =  $(dq.refs.$plates.children()[dq.refs.$plates.children().length - 1]);
-        refs.$plate = $('.plate');
-        
-        if (!configs.isTouch) refs.$plate.addClass('desktop');
+
+        game.addPlate();
         
         app.playSound(sounds.NEW_GAME);
         $('.navi-container .' + game.constants.DEFAULT_TAB).trigger(configs.clickEvent, 'no-sound');
 
         barchart.reset();
-        refs.$plate.fadeIn();
 
         //  temp
         // barchart.showHud();
+    },
+
+    game.addPlate = function() {
+        var html = '<div class="plate"></div>';
+
+        refs.$plates.empty().append(html);
+        
+        // refs.$plate =  $(dq.refs.$plates.children()[dq.refs.$plates.children().length - 1]);
+        refs.$plate = $('.plate');
+        
+        if (!configs.isTouch) refs.$plate.addClass('desktop');
+
+        refs.$plate.fadeIn();
     },
     
     game.addFood = function(specs, $target) {
@@ -1141,8 +1211,6 @@ var dq = (function($, window, undefined) {
         }
 
         $target.fadeOut(constants.FADE_OUT, function() { log('removed'); log($(this)); $(this).remove(); });
-
-        dragfood.setSatBar();
     },
     
     game.calcMealVals = function(meal) {
@@ -1385,8 +1453,6 @@ var dq = (function($, window, undefined) {
                 
                 // debug.printObject(specs);
                 debug.printObject(game.calcMealVals(game.currentMeal), true);
-                
-                dragfood.setSatBar();
 
                 //  food clickstart
                 $newFood.on(configs.clickEvent, function(e, triggered) { 
@@ -1434,19 +1500,6 @@ var dq = (function($, window, undefined) {
             
             app.playSound(sounds.DROPPED_FOOD);
             game.foodCounter++;
-        },
-
-        setSatBar: function() {
-            var mealVals = game.calcMealVals(game.currentMeal),
-                offset = constants.OFFSET_SATBAR,
-                ratio = mealVals.cals / game.kcal_min,
-                marginLeft = 0;
-
-            if (ratio > 1) ratio = 1;
-
-            marginLeft = Math.round(offset - ratio * offset);
-            
-            refs.$satbar.css({marginLeft: marginLeft});
         },
         
         setDroppableStatus: function(droppable) {

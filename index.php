@@ -60,12 +60,6 @@
                     <div id="d3"></div>
                     <svg class="d3chart"></svg>
                 </div>
-                <div id="saturationbar" class="hidden">
-                    <p>wie satt bin ich?</p>
-                    <div class="bar-mask">
-                        <div class="satbar"></div>
-                    </div>
-                </div>
                 <div id="foodstack"></div>
                 <div id="confettis"></div>
                 <div class="fork">
@@ -74,6 +68,11 @@
                 <div class="spoon">
                     <div class="bubble"></div>
                 </div>
+                <div class="hud-new">
+                    <div class="button start-game hidden"><p>spiel starten</p></div>
+                    <div class="button show-chart hidden"><p>diagramm</p></div>
+                </div>
+
                 <div class="hud hidden">
                     <div class="button toggle">
                         <p data-label="essens ansicht">diagramm</p>
@@ -83,6 +82,7 @@
                     </div>
                 </div>
                 <div id="plates">
+                    <div class="intro-container"></div>
                     <div class="plate-mask"></div>
                 </div>
 
@@ -103,6 +103,8 @@
                         <div data-foodcat="0" class="veggies"></div>
                         <div data-foodcat="1" class="sides"></div>
                         <div data-foodcat="2" class="animals"></div>
+                        <div data-foodcat="3" class="fruit"></div>
+                        <div data-foodcat="4" class="fastfood"></div>
                     </div>
                     <div class="food-container"></div>
                 </div>
@@ -118,7 +120,7 @@
             <audio class="btn-audio snd snoring" loop><source src="./media/sound/snoring.mp3" type="audio/mpeg" /></audio>
         </div>
         <div id="videocontainer" class="transparent">
-            <video id="intro-video" autoplay="autoplay" width="1024" height="768">
+            <video id="intro-video" width="1024" height="768">
                 <source src="./media/video/dq.mp4" type="video/mp4">
             </video>
         </div>

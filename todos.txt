@@ -1,8 +1,119 @@
+TODOS
+. GALLERY IN DB
+. SHARING ON FB
+. Bubble Logik anpassen
+
+
+
+FRAGEN
+. Confetti- und Sturm-Animation noch Thema oder raus?
+. MouseOver Effekte bei Buttons?
+
+--- beantwortet -----
+. Sattheitsbalken nicht in Layouts > kommt er raus? 
+. Info-Seite: Layout fehlt
+. Besteck: welche Gesichtsausdrücke sind dem Schlafmodus zugeordnet?
+
+Font: Cooper BT
+
+TEMPLATES
+. INTRO_ANI
+. TRIAL_MODE
+. INTRO_VIDEO
+. GAME
+
+---------------------
+
+forks.svg
+spoons.svg
+
+
+
+michallondo
+
+. Gesichtsausdrücke einbauen (fork-new / spoon)
+. img/svg/navi.png
+. /img/svg/av-food.svg
+. data.json > neue Infos einbauen
+
+
+
+
+
+neue Version 14.1.
+
+ABLAUF
+Probeteller > Video > Spiel
+
+
+STORYBOARD
+. Probeteller (skip button / merken)
+. Probeteller nicht geschafft > Dialog automatisch durchlaufen?
+
+
+
+
+BASICS
+. dinnerquest_zutaten_kommentare_02.xlsx vs dinnerquest_zutaten_kommentare_03.xlsx?
+. finalen Layoutstand für alle Screens
+. Infoseite
+. Intro bleibt Video
+. Github Acccount
+. Animationen lost/won
+. große/kleine Portionen
+. Menüs mit mehr Zutaten
+. Saisonale Komponente
+
+TASKS MICHAL
+. SVGs komprimieren (http://petercollingridge.appspot.com/svg-editor)
+failed-bubbles.svg, av-food.svg, spoons.svg
+
+
+
+ALLGEMEINE TODOS
+. restock food item after deletion
+. Galerie in DB
+. FB Sharing
+. Misc Debugging
+. Code Sweeping
+
+SWEEPING
+. Schriften
+
+
+
+TODOS DIAGRAMM
+. Strahlenkranz-Animation lt AI-File
+
+ABLAUF ANIMATION
+. GameOver > Maske fährt nach oben
+
+
+
+CODE
+barchart.render
+game.currentMeal
+dq.game.meals[0] > {stats: Object, ingredients: Array[1]}
+dq.game.meals[25].ingridient
+
+dq.game.meals[23].ingredients.sort(function(obj1,obj2) { return obj1.c02 - obj2.c02; })
+
+
+
+
+
+
+
+addToFoodstack
+game.removeFood($(this).data('label')); 
+
+
+
  if (gameOver) 
     -  app.generateChart();
 
 
-
+$mealCheck
 
 
 
@@ -68,3 +179,24 @@ dish
 	- ingredients [
 		{x, y, c02, kcal, label, }
 	]
+
+
+
+
+PHASE 2
+. Food Off Plate
+. Stack
+. Sattheitsbalken
+. Auswertung BarChart
+
+PHASE 3
+. Gallery
+
+
+
+
+--- TODOS 13012015 --------
+
+[x] IUC Domain Poll
+[ ] Anruf Hr Gschwend
+[ ] KRZ ToDos festlegen
