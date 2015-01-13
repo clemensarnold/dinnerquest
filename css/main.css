@@ -810,39 +810,39 @@ video {
 }
 
 .navi-container .veggies {
-    width: 90px;
+    width: 98px;
     background-position: 0 13px;
 }
 
 .navi-container .veggies.active { background-position: 0 0; }
 
 .navi-container .sides {
-    width: 100px;
-    background-position: -91px 13px;
+    width: 105px;
+    background-position: -97px 13px;
 }
 
-.navi-container .sides.active { background-position: -91px 0; }
+.navi-container .sides.active { background-position: -97px 0; }
 
 .navi-container .animals {
-    width: 115px;
-    background-position: -196px 13px;
+    width: 118px;
+    background-position: -198px 13px;
 }
 
-.navi-container .animals.active { background-position: -196px 0; }
+.navi-container .animals.active { background-position: -198px 0; }
 
 .navi-container .fruit {
-    width: 115px;
-    background-position: -196px 13px;
+    width: 60px;
+    background-position: -320px 13px;
 }
 
-.navi-container .fruit.active { background-position: -196px 0; }
+.navi-container .fruit.active { background-position: -320px 0; }
 
 .navi-container .fastfood {
     width: 115px;
-    background-position: -196px 13px;
+    background-position: -382px 13px;
 }
 
-.navi-container .fastfood.active { background-position: -196px 0; }
+.navi-container .fastfood.active { background-position: -382px 0; }
 
 
 
