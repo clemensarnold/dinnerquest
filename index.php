@@ -122,7 +122,7 @@
             <audio class="btn-audio snd snoring" loop><source src="./media/sound/snoring.mp3" type="audio/mpeg" /></audio>
         </div>
         <div id="videocontainer" class="hidden transparent">
-            <video id="intro-video" width="1024" height="768">
+            <video id="intro-video" width="1024" height="768" _autoplay _controls>
                 <source src="./media/video/dq.mp4" type="video/mp4">
             </video>
         </div>

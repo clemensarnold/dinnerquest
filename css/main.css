@@ -169,7 +169,7 @@ body.table-cloth {
 
 video {
     position: absolute;
-    bottom: -30px;
+    bottom: -1px;
     left: 50%;
     margin-left: -512px;
 }
@@ -759,7 +759,7 @@ video {
     bottom: -4px;
     left: 0;
     /*text-align: center;*/
-    transition: bottom 0.5s ease-out 1.3s;
+    transition: bottom 0.5s ease-out 0s;
     padding: 0 10px;
 }
 

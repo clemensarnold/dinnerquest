@@ -124,7 +124,7 @@ var dq = (function($, window, undefined) {
         CHECK_INACTIVITY: false,
         RELOAD_ON_INACTIVE: false,
         SOUNDS: false,
-        SKIP_INTRO: true,
+        SKIP_INTRO: false,
         SKIP_VIDEO: true,
         URL_HOME: '',
         JSON_PATH: './json/data.json',
@@ -156,8 +156,6 @@ var dq = (function($, window, undefined) {
         
         $.getJSON(constants.JSON_PATH, function(data) {
             app.json = data;
-
-            cutlery.trialLostLast = app.json.expressions[game.BUBBLES_TRIAL_LOST][0].length;
             
              //  set balancing-vars from json
             game.co2_max = app.json.rules.co2_max;
@@ -267,10 +265,6 @@ var dq = (function($, window, undefined) {
                 });
             }
 
-            //  show/hide Video
-            // setTimeout(app.initVideo, 1000);
-            // if (constants.SKIP_VIDEO) app.finishVideo();
-
             app.renderTemplate(templates[0]);
         },
         
@@ -292,9 +286,11 @@ var dq = (function($, window, undefined) {
             log('initVideo');
 
             // init video
-            refs.$videocontainer.removeClass('transparent');
+            refs.$videocontainer.removeClass('transparent hidden');
             refs.$videocontainer.on({click: app.finishVideo});
             $('#intro-video').on({ended: app.finishVideo });
+
+            $('#intro-video')[0].play();
         },
         
         finishVideo: function() {
@@ -304,7 +300,7 @@ var dq = (function($, window, undefined) {
             $('.logo, .info, .gallery').removeClass('transparent');
             
             $('#intro-video')[0].pause();
-            refs.$videocontainer.addClass('transparent');
+            refs.$videocontainer.addClass('hidden');
             setTimeout(app.startGame, 1000);
         },
         
@@ -346,6 +342,8 @@ var dq = (function($, window, undefined) {
         startGame: function() {
             game.started = true;
             game.startNewGame();
+
+            refs.$plates.fadeIn();
             refs.$fork.show();
             refs.$spoon.show();
 
@@ -353,6 +351,19 @@ var dq = (function($, window, undefined) {
             refs.$menu.removeClass('down');
             
             setTimeout(app.clearSounds, 900);
+        },
+
+        stopTrialMode: function() {
+            log('stopTrialMode');
+
+            game.trialmode = false;
+
+            refs.$menu.addClass('down');
+            refs.$fork.hide();
+            refs.$spoon.hide();
+            refs.$plates.fadeOut();
+
+            setTimeout(app.initVideo, 1500);
         },
         
         isLabelAlreadyInCurrentFood: function (label) {
@@ -1162,6 +1173,7 @@ var dq = (function($, window, undefined) {
         }
 
         if (game.trialmode) setTimeout(cutlery.trigger, 2000, game.BUBBLES_TRIAL_START);
+        // if (game.trialmode) setTimeout(cutlery.trigger, 2000, game.BUBBLES_TRIAL_LOST);
 
         // cutlery.trigger(game.BUBBLES_NEWGAME);
         // cutlery.trigger(game.BUBBLES_TRIAL_WON);
@@ -1452,10 +1464,20 @@ var dq = (function($, window, undefined) {
             dragfood.setBackground($newFood, specs);
         
             if (onPlate) {
+                log('on plate');
 
                 game.addFood(specs, $newFood);
                 // game.addToFoodstack(specs, $newFood);
+                
+                //  cutlery / bubbles
                 cutlery.setExpression(specs);
+               
+                //  tmp Code
+                if (game.trialmode) {
+                    // setTimeout(cutlery.trigger, 1000, game.BUBBLES_TRIAL_LOST);
+                    setTimeout(cutlery.trigger, 1000, game.BUBBLES_TRIAL_WON);
+                }
+
                 $newFood.data('specs', specs);
                 dragfood.setOffPlateVals($newFood,dq.refs.$dragfood.css('left'), dq.refs.$dragfood.css('top'));
                 // $newFood.data('foodStackID', game.currentMeal.length);
@@ -1699,14 +1721,12 @@ var dq = (function($, window, undefined) {
         hideDelay: NaN,
         bubblemode: undefined,
         bubbleData: {},
-        trialLostID: 0,
-        trialLostLast: NaN,
         chatid: 0,
         SHOW_BUBBLETXT: true,
         
         trigger: function(bubblemode) {
             
-            //log('trigger / bubblemode: ' + bubblemode);
+            log('trigger / bubblemode: ' + bubblemode);
             
             var arrayID = NaN, rid = NaN, bubbleData = {}, worstFood = '', bestFood = '',
                 exprAry = [], bgIDsAry = [], bgid = NaN,
@@ -1804,38 +1824,33 @@ var dq = (function($, window, undefined) {
                     break;
 
                 case game.BUBBLES_TRIAL_START:
-
+                case game.BUBBLES_TRIAL_WON:
+                case game.BUBBLES_TRIAL_LOST:
+                    
                     if (cutlery.chatid === app.json.expressions[bubblemode][0].length) {
                         cutlery.chatid = 0;
                         hideBubble = true;
+
+                        if (bubblemode !== game.BUBBLES_TRIAL_START) {
+                            app.stopTrialMode();
+                        }
+
                         break;
                     }
                     
                     bubbleData = app.json.expressions[bubblemode][0][cutlery.chatid];
                     cutlery.chatid++;
 
-                    cutlery.triggerNextBubble(bubbleData.showNext, game.BUBBLES_TRIAL_START);
-                    break;
-
-                case game.BUBBLES_TRIAL_WON:
-                    rid = 0;
-                    bubbleData = app.json.expressions[bubblemode][0][rid];
-                    break;
-
-                case game.BUBBLES_TRIAL_LOST:
-                    if (cutlery.trialLostID >= cutlery.trialLostLast) {
-                        log('SHOW VIDEO');
-                        return;
-                    }
-                    bubbleData = app.json.expressions[bubblemode][0][cutlery.trialLostID];
-                    cutlery.trialLostID++;
-                    
-                    cutlery.triggerNextBubble(bubbleData.showNext, game.BUBBLES_TRIAL_START);
+                    cutlery.triggerNextBubble(bubbleData.showNext, bubblemode);
                     break;
             }
             
             cutlery.bubbleData = bubbleData;
             cutlery.bubblemode = bubblemode;
+
+            if (!!bubbleData.standard) {
+                cutlery.bubblemode = bubbleData.standard;
+            }
 
             // log(bubbleData);
             // log(bubblemode);
@@ -1846,7 +1861,7 @@ var dq = (function($, window, undefined) {
         
         setExpression: function(bubbleData, bubblemode) {
             
-            //log('setExpression / bubblemode: ' + bubblemode);
+            log('setExpression / bubblemode: ' + bubblemode);
             
             var spoonID = parseInt(bubbleData.exp.split(',')[0].substr(1)),
                 forkID = parseInt(bubbleData.exp.split(',')[1].substr(1)),
@@ -1873,10 +1888,11 @@ var dq = (function($, window, undefined) {
         showBubble: function() {
 
             log('showBubble');
-            // game.trialmode
+            
+            var vertOffset = (!!cutlery.bubbleData.standard) ? 200 : 150;
             
             var data = cutlery.bubbleData,
-                backgroundPosition = '0px ' + -150 * data.bgid + 'px',
+                backgroundPosition = '0px ' + -vertOffset * data.bgid + 'px',
                 $ref = (data.txt.split(';')[0].indexOf('G') >= 0) ? refs.$forkBub: refs.$spoonBub;
 
             //  debug
@@ -1897,7 +1913,8 @@ var dq = (function($, window, undefined) {
         },
         
         hideBubble: function() {
-            log('hideBubble');
+            log('hideBubble'); 
+            // return;
             refs.$spoonBub.removeClass('visible');
             refs.$forkBub.removeClass('visible');
         },
@@ -1937,10 +1954,7 @@ var dq = (function($, window, undefined) {
 }(jQuery, window));
 
 /*
- * Remove Food form Plate
- * game.currentMeal [{},{},{}]
- * 
- * . empty foodstack on new game
+ * INTRO > TRIAL > VIDEO > GAME
  * 
  * 
  */
