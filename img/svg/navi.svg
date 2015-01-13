@@ -71,7 +71,7 @@
 				M199.423,32.552c-2.161,0.566-4.593,0.066-6.853,0.227c-4.125,0.291-8.203,0.496-12.429,0.488
 				c-10.991-0.018-21.813,0.355-32.817-0.004c-22.162-0.727-44.357-2.387-66.551-2.379"/>
 		</g>
-		<text transform="matrix(0.9996 -0.0283 0.0283 0.9996 113.0081 44.7246)" font-family="'CooperBT-Medium'" font-size="14">Beilagen</text>
+		<text transform="matrix(0.9996 -0.0283 0.0283 0.9996 105.3762 44.9404)" font-family="'CooperBT-Medium'" font-size="14">Beilagen</text>
 		
 			<rect x="232.593" y="61.303" transform="matrix(0.0277 -0.9996 0.9996 0.0277 180.1462 310.9716)" width="34.673" height="3.156"/>
 		<g>
@@ -107,7 +107,7 @@
 				M193.442,31.447c2.473,0.477,5.252,0.057,7.839,0.191c4.719,0.244,9.383,0.418,14.219,0.41
 				c12.574-0.014,24.957,0.301,37.545-0.004c25.356-0.611,50.748-2.008,76.143-2.004"/>
 		</g>
-		<text transform="matrix(0.9999 0.0153 -0.0153 0.9999 216.9661 40.4717)" font-family="'CooperBT-Medium'" font-size="14">Tierisches</text>
+		<text transform="matrix(0.9999 0.0153 -0.0153 0.9999 208.2444 40.3379)" font-family="'CooperBT-Medium'" font-size="14">Tierisches</text>
 		
 			<rect x="415.176" y="62.378" transform="matrix(-0.0136 -0.9999 0.9999 -0.0136 374.4578 497.3016)" width="34.673" height="3.158"/>
 		<g>
@@ -143,7 +143,7 @@
 				M495.461,32.662c-2.479,0.434-5.252-0.02-7.842,0.078c-4.722,0.172-9.387,0.277-14.223,0.203
 				c-12.574-0.191-24.959-0.059-37.541-0.533c-25.346-0.957-50.716-2.686-76.107-3.039"/>
 		</g>
-		<text transform="matrix(0.9999 0.0153 -0.0153 0.9999 396.3323 40.4648)" font-family="'CooperBT-Medium'" font-size="14">Fast Food</text>
+		<text transform="matrix(0.9999 0.0153 -0.0153 0.9999 388.8752 40.3506)" font-family="'CooperBT-Medium'" font-size="14">Fast Food</text>
 		
 			<rect x="328.321" y="60.632" transform="matrix(0.0277 -0.9996 0.9996 0.0277 273.8894 406.0104)" width="34.672" height="3.157"/>
 		<g>
@@ -179,7 +179,7 @@
 				M379.989,34.242c-1.318,0.521-2.8,0.061-4.182,0.209c-2.516,0.27-5.003,0.457-7.581,0.451
 				c-6.705-0.016-13.309,0.328-20.021-0.006c-13.521-0.67-27.062-2.201-40.603-2.197"/>
 		</g>
-		<text transform="matrix(0.9999 0.0153 -0.0153 0.9999 329.3264 39.7715)" font-family="'CooperBT-Medium'" font-size="14">Obst</text>
+		<text transform="matrix(0.9999 0.0153 -0.0153 0.9999 325.5891 39.7139)" font-family="'CooperBT-Medium'" font-size="14">Obst</text>
 		<g>
 			<defs>
 				<polygon id="SVGID_17_" points="98.868,53.061 192.758,51.479 190.785,25.24 97.635,27.232 				"/>
@@ -292,7 +292,7 @@
 			</g>
 			<g>
 				
-					<text transform="matrix(0.9996 -0.0283 0.0283 0.9996 109.0081 40.7246)" fill="#FFFFFF" font-family="'CooperBT-Medium'" font-size="14">Beilagen</text>
+					<text transform="matrix(0.9996 -0.0283 0.0283 0.9996 101.3762 40.9404)" fill="#FFFFFF" font-family="'CooperBT-Medium'" font-size="14">Beilagen</text>
 			</g>
 			<g>
 				
@@ -333,7 +333,7 @@
 				</g>
 				<g>
 					
-						<text transform="matrix(0.9999 0.0153 -0.0153 0.9999 212.9661 36.4717)" fill="#FFFFFF" font-family="'CooperBT-Medium'" font-size="14">Tierisches</text>
+						<text transform="matrix(0.9999 0.0153 -0.0153 0.9999 204.2444 36.3379)" fill="#FFFFFF" font-family="'CooperBT-Medium'" font-size="14">Tierisches</text>
 				</g>
 			</g>
 			<g>
@@ -375,7 +375,7 @@
 				</g>
 				<g>
 					
-						<text transform="matrix(0.9999 0.0153 -0.0153 0.9999 392.3323 36.4648)" fill="#FFFFFF" font-family="'CooperBT-Medium'" font-size="14">Fast Food</text>
+						<text transform="matrix(0.9999 0.0153 -0.0153 0.9999 384.8752 36.3506)" fill="#FFFFFF" font-family="'CooperBT-Medium'" font-size="14">Fast Food</text>
 				</g>
 			</g>
 			<g>
@@ -417,7 +417,7 @@
 				</g>
 				<g>
 					
-						<text transform="matrix(0.9999 0.0153 -0.0153 0.9999 325.3264 35.7715)" fill="#FFFFFF" font-family="'CooperBT-Medium'" font-size="14">Obst</text>
+						<text transform="matrix(0.9999 0.0153 -0.0153 0.9999 321.5891 35.7139)" fill="#FFFFFF" font-family="'CooperBT-Medium'" font-size="14">Obst</text>
 				</g>
 			</g>
 		</g>
@@ -507,7 +507,7 @@
 				c1.988,0.658,4.225,0.076,6.305,0.262c3.795,0.34,7.545,0.576,11.434,0.568c10.111-0.021,20.068,0.412,30.189-0.004
 				c20.389-0.846,40.807-2.773,61.227-2.766"/>
 		</g>
-		<text transform="matrix(0.9978 -0.0668 0.0668 0.9978 22.196 46.6011)" font-family="'CooperBT-Medium'" font-size="14">Gemüse</text>
+		<text transform="matrix(0.9978 -0.0668 0.0668 0.9978 16.8425 46.9595)" font-family="'CooperBT-Medium'" font-size="14">Gemüse</text>
 		<g>
 			<defs>
 				<polygon id="SVGID_53_" points="92.1,51.46 11.188,53.806 7.942,24.644 87.645,22.415 				"/>
@@ -566,7 +566,7 @@
 			</g>
 			<g>
 				
-					<text transform="matrix(0.9978 -0.0668 0.0668 0.9978 18.196 42.6011)" fill="#FFFFFF" font-family="'CooperBT-Medium'" font-size="14">Gemüse</text>
+					<text transform="matrix(0.9978 -0.0668 0.0668 0.9978 12.8425 42.9595)" fill="#FFFFFF" font-family="'CooperBT-Medium'" font-size="14">Gemüse</text>
 			</g>
 		</g>
 		<g>
