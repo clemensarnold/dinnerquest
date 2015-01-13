@@ -69,7 +69,9 @@
                     <div class="bubble"></div>
                 </div>
                 <div class="hud-new">
-                    <div class="button start-game hidden"><p>spiel starten</p></div>
+                    <div class="button init-game hidden"><p>spiel starten</p></div>
+                    <div class="button start-trial hidden"><p>kennenlernen</p></div>
+                    <div class="button skip-trial hidden"><p>gleich spielen</p></div>
                     <div class="button show-chart hidden"><p>diagramm</p></div>
                 </div>
 
@@ -119,7 +121,7 @@
             <audio class="btn-audio snd new-game" preload="auto"><source src="./media/sound/new_game.mp3" type="audio/mpeg" /></audio>
             <audio class="btn-audio snd snoring" loop><source src="./media/sound/snoring.mp3" type="audio/mpeg" /></audio>
         </div>
-        <div id="videocontainer" class="transparent">
+        <div id="videocontainer" class="hidden transparent">
             <video id="intro-video" width="1024" height="768">
                 <source src="./media/video/dq.mp4" type="video/mp4">
             </video>
@@ -134,6 +136,6 @@
         <script src="js/main.js"></script>
         <script src="js/gallery.js"></script>        
         <script src="js/vendor/stats.js"></script>
-        <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>        
+        <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script> 
     </body>
 </html>

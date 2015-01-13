@@ -164,6 +164,12 @@
             {"exp": "G06", "txt": "L;Vergiss nicht, auch satt zu werden!"},
             {"exp": "G05", "txt": "L;Ein Sattmacher fehlt noch!"}
         ],
+        "trial-start": [
+            [
+                {"showNext": 2000, "exp": "L01,G01", "txt": "G05;Was hast du zuletzt zu mittag gegessen?", "bgid": 0},
+                {"showNext": 2000, "exp": "L01,G01", "txt": "M02;Zieh die Zutaten einfach auf deinen Teller!", "bgid": 1}
+            ]
+        ],
         "trial-won": [
             [
                 {"exp": "L01,G01", "txt": "G;Some Text 1", "bgid": 0},

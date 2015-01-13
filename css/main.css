@@ -582,6 +582,10 @@ video {
     background-image: url(./../img/svg/bubbles/trial-lost.svg);
 }
 
+.bubble.trial-start {
+    background-image: url(./../img/svg/bubbles/trial-won.svg);
+}
+
 .bubble.visible {
     opacity: 1;
 }
@@ -759,7 +763,7 @@ video {
 }
 
 .menu-wrapper.down {
-    bottom: -180px;
+    bottom: -200px;
 }
 
 .menu-container {
@@ -899,6 +903,8 @@ video {
 .m-item p .small {
     font-size: 12px;
 }
+
+.m-item.dragged p { display: none !important; }
 
 .food-container.inactive {
     opacity: 0.3;
