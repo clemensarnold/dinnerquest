@@ -166,23 +166,18 @@
         ],
         "trial-start": [
             [
-                {"showNext": 2000, "exp": "L01,G01", "txt": "G05;Was hast du zuletzt zu mittag gegessen?", "bgid": 0},
-                {"showNext": 2000, "exp": "L01,G01", "txt": "M02;Zieh die Zutaten einfach auf deinen Teller!", "bgid": 1}
+                {"standard": "standard", "showNext": 2000, "exp": "L01,G05", "txt": "G05;Was hast du zuletzt zu mittag gegessen?", "bgid": 0},
+                {"standard": "standard", "showNext": 2000, "exp": "L01,G01", "txt": "M02;Zieh die Zutaten einfach auf deinen Teller!", "bgid": 1}
             ]
         ],
         "trial-won": [
             [
-                {"exp": "L01,G01", "txt": "G;Some Text 1", "bgid": 0},
-                {"exp": "L01,G01", "txt": "L;Some Text 2", "bgid": 1},
-                {"exp": "L02,G02", "txt": "L;Some Text 3", "bgid": 2},
-                {"exp": "L01,G01", "txt": "G;Some Text 4.", "bgid": 3},
-                {"exp": "L01,G01", "txt": "L;Some Text 5.", "bgid": 4},
-                {"exp": "L01,G01", "txt": "L;Some Text 6.", "bgid": 5}
+                {"showNext": 4000, "exp": "L01,G01", "txt": "M01;Super, du bist ein Naturtalent! Trotz- dem solltest du wissen, dass bestimmte Lebensmittel sehr viel CO2 verursachen.", "bgid": 0}
             ]
         ],
         "trial-lost": [
             [
-                {"showNext": 4000, "exp": "L01,G01", "txt": "L;Ups, das ging daneben! Du musst wissen: Bestimmte Lebensmittel verursachen sehr viel CO2.", "bgid": 0},
+                {"showNext": 4000, "exp": "M06,G01", "txt": "M06;Ups, das ging daneben! Du musst wissen: Bestimmte Lebensmittel verursachen sehr viel CO2.", "bgid": 0},
                 {"showNext": 4000, "exp": "L01,G01", "txt": "L;Denn jedes Nahrungsmittel braucht auf seinem langen Weg in deinen Bauch jede Menge Ressourcen, Energie und Anbauflächen. Dabei wird zu viel CO2 freigesetzt und unsere Erde erwärmt sich viel zu rasch.", "bgid": 1},
                 {"showNext": 2000, "exp": "L01,G01", "txt": "G;Ich hab‘s gern fein warm!", "bgid": 2},
                 {"showNext": 3000, "exp": "L01,G01", "txt": "L;Nicht unter diesen Umständen. Außerdem leben wir in der westlichen Welt über unsere Verhältnisse, indem wir drei Mal so viel verbrauchen, wie unser Planet zu bieten hat. Das geht nicht mehr lange gut!", "bgid": 3},

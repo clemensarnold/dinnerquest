@@ -536,7 +536,7 @@ video {
     top: 0;
     left: 0;
     width: 340px;
-    height: 150px; 
+    height: 165px; 
     z-index: 2000;
     /*border: 1px solid;*/
     opacity: 0;
@@ -582,8 +582,9 @@ video {
     background-image: url(./../img/svg/bubbles/trial-lost.svg);
 }
 
-.bubble.trial-start {
-    background-image: url(./../img/svg/bubbles/trial-won.svg);
+.bubble.trial-start,
+.bubble.standard {
+    background-image: url(./../img/svg/bubbles/standard.svg);
 }
 
 .bubble.visible {
