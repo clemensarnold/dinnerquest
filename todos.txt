@@ -1,11 +1,20 @@
+OFFEN
+. Facebook Description
+
+
+
+
+
+
 TODOS
 . GALLERY IN DB
 . SHARING ON FB
 . Bubble Logik anpassen
 
 
-
 FRAGEN
+. neue Gerichte: Burger, Sushi, Pizza etc.
+. Dialog bei 'Probeteller nicht geschafft' raus?
 . Confetti- und Sturm-Animation noch Thema oder raus?
 . MouseOver Effekte bei Buttons?
 
@@ -31,8 +40,12 @@ spoons.svg
 
 michallondo
 
+
+footage/XLs/dinnerquest_Zutaten_20150111.xls > /json/data.json
+
+
 [x] Gesichtsausdrücke einbauen (fork-new / spoon)
-[ ] img/svg/navi.png
+[x] img/svg/navi.png
 [ ] /img/svg/av-food.svg
 [ ] Intro-Animation
 [ ] data.json > neue Infos einbauen
@@ -195,9 +208,21 @@ PHASE 3
 
 
 
+--- TODOS 14012015 --------
+. Anruf Hannes Unterberger
 
 --- TODOS 13012015 --------
 
 [x] IUC Domain Poll
-[ ] Anruf Hr Gschwend
 [ ] KRZ ToDos festlegen
+
+
+
+
+
+
+
+
+--- Website ------
+. Fotos: zugeschickt oder FB
+

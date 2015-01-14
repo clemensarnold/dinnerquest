@@ -17,12 +17,23 @@
         <meta http-equiv="x-rim-auto-match" content="none" />
             
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, minimal-ui">
+
+        <meta property="og:title" content="Dinnerquest">
+        <meta property="og:description" content="Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.">
+        <meta property="og:image" content="http://havefunwashing.net/dq/v2/fb-share.jpg"/>
+
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
 
         <script>
             if (location.hash.indexOf('#dev') >= 0) document.write('<link rel="stylesheet" href="css/main-v2.css">');
         </script>
+
+        <?php
+            if (isset($_GET["fb"])) {
+                echo "<script>var dqfbts = '" . $_GET["fb"] . "'; </script>";
+            }
+        ?>
 
         <link href="css/ui-lightness/jquery-ui-1.10.4.css" rel="stylesheet">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>

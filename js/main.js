@@ -128,13 +128,13 @@ var dq = (function($, window, undefined) {
         SKIP_VIDEO: false,
         URL_HOME: '',
         JSON_PATH: './json/data.json',
-        JSON_PATH_GALLERY: './json/meals.json',
+        JSON_PATH_GALLERY: './json/getGallery.php', // meals.json, 
         FADE_IN: 200, FADE_OUT: 400, FADE_DELAY: 50,
         FOOD_HOR: NaN, FOOD_VERT: NaN,
         PLATE_RAD: 270, PLATE_DISTANCE: 40000// 200*200
     },
     templates = ['INTRO', 'TRIAL','VIDEO','GAME','SCENARIO'],
-    defaultTemplate = templates[0], //  templates[3]
+    defaultTemplate = templates[3], 
     sounds = {
         DROPPED_FOOD: 'dropped-food',
         NEW_GAME: 'new-game',
@@ -177,9 +177,21 @@ var dq = (function($, window, undefined) {
             
             app.init();
 
-            $.getJSON(constants.JSON_PATH_GALLERY + '?rid=' + Math.random(), function(data) {
-                game.meals = data;
+            $.ajax({
+                type: 'POST',
+                dataType : 'text',
+                async: true,
+                url: constants.JSON_PATH_GALLERY,
+                data: {mode: 'getGallery'},
+                // data: {mode: 'getMeal', timestamp: '1421240744933'},
+                success: function (data) {
+                    game.meals = jQuery.parseJSON(data);
+                }
             });
+
+            // $.get(constants.JSON_PATH_GALLERY + '?mode=getGallery&rid=' + Math.random(), function(data) {
+            //     game.meals = jQuery.parseJSON(data);
+            // });
         });
     });
     
@@ -202,6 +214,7 @@ var dq = (function($, window, undefined) {
 
                 case 'GAME':
                     log('GAME');
+                    app.showGameButtons();
                     intro.hide();
                     break;
 
@@ -219,6 +232,10 @@ var dq = (function($, window, undefined) {
             // game.constants.FOODITEMS_VERTOFF_BIG.sides = -game.constants.FOOD_BIG_DIMS;
             // game.constants.FOODITEMS_VERTOFF_BIG.animals = -2 * game.constants.FOOD_BIG_DIMS;
             constants.FOOD_HOR = constants.FOOD_VERT = game.constants.FOOD_BIG_DIMS / 2;
+
+
+            //  set FB Link
+            // $('.sm.fb').each(function() { helper.setFbLink($(this), window.location.href); });
             
             if (constants.DEV) {
                 refs.$window.on({keydown: this.keyDownListener});
@@ -301,12 +318,16 @@ var dq = (function($, window, undefined) {
 
             $('#intro-video')[0].play();
         },
+
+        showGameButtons: function() {
+            $('.logo, .info, .gallery').removeClass('transparent');
+        },
         
         finishVideo: function() {
 
             log('finishVideo');
 
-            $('.logo, .info, .gallery').removeClass('transparent');
+            app.showGameButtons();
             
             $('#intro-video')[0].pause();
             refs.$videocontainer.addClass('hidden');
@@ -1350,8 +1371,10 @@ var dq = (function($, window, undefined) {
             type: 'POST',
             dataType : 'text',
             async: true,
-            url: './json/write-json.php',
-            data: {data: JSON.stringify(game.meals)},
+            url: constants.JSON_PATH_GALLERY,
+            // url: './json/write-json.php',
+            // data: {mode: 'addMeal', data: JSON.stringify(game.meals)},
+            data: {mode: 'addMeal', meal: JSON.stringify(dish), timestamp: dish.stats.date},
             success: function (data) {
                 console.log(data);
                 // String: SUCCESS || TRUE
