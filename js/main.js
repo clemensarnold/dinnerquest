@@ -1148,7 +1148,7 @@ var dq = (function($, window, undefined) {
         clearplate: false,
 
         init: function() {
-            var delays = [1000, 200, 200, 200],
+            var delays = [1000, 200, 200, 200, 200, 200, 200],
                 buttonDelay = 1000,
                 delay = 0,
                 html = '';

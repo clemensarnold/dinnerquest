@@ -733,9 +733,13 @@ video {
     opacity: 0;
 }
 
-.intro-container > div:nth-child(2) { background-position: -600px 0; }
-.intro-container > div:nth-child(3) { background-position: -1200px 0; }
-.intro-container > div:nth-child(4) { background-position: -1800px 0; }
+.intro-container > div:nth-child(2) { background-position:  -600px    0px; }
+.intro-container > div:nth-child(3) { background-position: -1200px    0px; }
+.intro-container > div:nth-child(4) { background-position: -1800px    0px; }
+.intro-container > div:nth-child(5) { background-position:     0px -600px; }
+.intro-container > div:nth-child(6) { background-position:  -600px -600px; }
+.intro-container > div:nth-child(7) { background-position: -1200px -600px; }
+
 
 /* ==========================================================================
    menu
