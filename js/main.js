@@ -51,7 +51,6 @@ var dq = (function($, window, undefined) {
         menuAtTop: false
     },
     buttons = {
-        INIT_GAME: 'init-game',
         START_TRIAL: 'start-trial',
         SKIP_TRIAL: 'skip-trial'
     },
@@ -61,7 +60,7 @@ var dq = (function($, window, undefined) {
         inactive_restart: NaN,
         inactive_fallasleep: NaN,
         inactivityCounter: 0,
-        trialmode: true,
+        trialmode: false,
         started: false,
         running: false,
         sleeping: false,
@@ -125,7 +124,8 @@ var dq = (function($, window, undefined) {
         RELOAD_ON_INACTIVE: false,
         SOUNDS: false,
         SKIP_INTRO: false,
-        SKIP_VIDEO: true,
+        SKIP_TRIAL: false,
+        SKIP_VIDEO: false,
         URL_HOME: '',
         JSON_PATH: './json/data.json',
         JSON_PATH_GALLERY: './json/meals.json',
@@ -134,6 +134,7 @@ var dq = (function($, window, undefined) {
         PLATE_RAD: 270, PLATE_DISTANCE: 40000// 200*200
     },
     templates = ['INTRO', 'TRIAL','VIDEO','GAME','SCENARIO'],
+    defaultTemplate = templates[0], //  templates[3]
     sounds = {
         DROPPED_FOOD: 'dropped-food',
         NEW_GAME: 'new-game',
@@ -190,13 +191,18 @@ var dq = (function($, window, undefined) {
         },
 
         renderTemplate: function(template) {
-            log('renderTemplate');
+            log('renderTemplate: ' + template);
 
             game.currentTemplate = template;
 
             switch(game.currentTemplate) {
                 case 'INTRO': 
                     constants.SKIP_INTRO ? intro.hide() : setTimeout(intro.init, 500);
+                    break;
+
+                case 'GAME':
+                    log('GAME');
+                    intro.hide();
                     break;
 
                 default:
@@ -235,7 +241,10 @@ var dq = (function($, window, undefined) {
             $('.logo').on({click: app.reload});
            
             refs.$newGameButton.on({click: game.startNewGame});
-            $('.init-game').on({click: intro.hide});
+            $('.' + buttons.START_TRIAL).on({click: function() {
+                game.trialmode = true;
+                intro.hide();
+            }});
             
             $('.info.icon, .gallery.icon').on({click: function() {
                 var pagetype = $(this).data('pagetype');
@@ -265,7 +274,7 @@ var dq = (function($, window, undefined) {
                 });
             }
 
-            app.renderTemplate(templates[0]);
+            app.renderTemplate(defaultTemplate);
         },
         
         setFoodArys: function() {
@@ -1137,12 +1146,12 @@ var dq = (function($, window, undefined) {
             });
 
             delay += buttonDelay;
-            setTimeout(hud.showButton, delay, buttons.INIT_GAME);
+            setTimeout(hud.showButton, delay, buttons.START_TRIAL);
         },
 
         hide: function() {
             refs.$intro.fadeTo(constants.FADEOUT_SPEED, 0, function() { $(this).remove(); });
-            hud.hideButton(buttons.INIT_GAME);
+            hud.hideButton(buttons.START_TRIAL);
             setTimeout(app.startGame, 1000);
         }
     }
@@ -1172,12 +1181,7 @@ var dq = (function($, window, undefined) {
             app.resetChart();
         }
 
-        if (game.trialmode) setTimeout(cutlery.trigger, 2000, game.BUBBLES_TRIAL_START);
-        // if (game.trialmode) setTimeout(cutlery.trigger, 2000, game.BUBBLES_TRIAL_LOST);
-
-        // cutlery.trigger(game.BUBBLES_NEWGAME);
-        // cutlery.trigger(game.BUBBLES_TRIAL_WON);
-        // cutlery.trigger(game.BUBBLES_TRIAL_LOST);
+        setTimeout(cutlery.trigger, 2000, game.trialmode ? game.BUBBLES_TRIAL_START : game.BUBBLES_NEWGAME);
         
         //  resets
         game.currentMeal = [];
