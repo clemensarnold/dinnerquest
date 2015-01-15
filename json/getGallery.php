@@ -44,11 +44,8 @@
                 // to come: filter based on cookie
 
                 
-                $condition = "WHERE 1";
-
-                if ($mode == 'getMeal') {
-                    $condition = "WHERE `meal_timestamp` = '" . $_POST["timestamp"] . "'";
-                }
+                $condition = "WHERE `meal_visitorid` = '" . $_POST["visitorid"] . "'";
+                if ($mode == 'getMeal') $condition = "WHERE `meal_timestamp` = '" . $_POST["timestamp"] . "'";
 
                 $sql = "SELECT * FROM `Dinnerquest` " . $condition . "  ORDER BY `meal_id` DESC";
 
@@ -72,7 +69,7 @@
                 break;
 
             case 'addMeal':
-                $sql = "INSERT INTO Dinnerquest (meal_timestamp, meal_data) VALUES (". $_POST["timestamp"] . ", '" . $_POST["meal"] . "')";
+                $sql = "INSERT INTO Dinnerquest (meal_timestamp, meal_visitorid, meal_data) VALUES (". $_POST["timestamp"] . ", '" . $_POST["visitorid"] . "', '" . $_POST["meal"] . "')";
            
                 $retval = mysql_query($sql, $dbhandle);
 

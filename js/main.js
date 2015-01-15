@@ -55,6 +55,8 @@ var dq = (function($, window, undefined) {
         SKIP_TRIAL: 'skip-trial'
     },
     game = {
+        visitorid: NaN,
+        firstvisit: false,
         co2_max: NaN,
         kcal_min: NaN,
         inactive_restart: NaN,
@@ -134,7 +136,7 @@ var dq = (function($, window, undefined) {
         PLATE_RAD: 270, PLATE_DISTANCE: 40000// 200*200
     },
     templates = ['INTRO', 'TRIAL','VIDEO','GAME','SCENARIO'],
-    defaultTemplate = templates[3], 
+    defaultTemplate = templates[0], 
     sounds = {
         DROPPED_FOOD: 'dropped-food',
         NEW_GAME: 'new-game',
@@ -175,6 +177,13 @@ var dq = (function($, window, undefined) {
                 window.setInterval(function() { configs.stats.update(); }, 1000 / constants.FPS);
             }
             
+            //  check for repeating visitors
+            if (!docCookies.getItem("dq-visitorid")) {
+                docCookies.setItem("dq-visitorid", Date.now(), new Date(2015, 1, 31));
+                game.firstvisit = true;
+            }
+            game.visitorid = docCookies.getItem("dq-visitorid");
+
             app.init();
 
             $.ajax({
@@ -182,7 +191,7 @@ var dq = (function($, window, undefined) {
                 dataType : 'text',
                 async: true,
                 url: constants.JSON_PATH_GALLERY,
-                data: {mode: 'getGallery'},
+                data: {visitorid: game.visitorid, mode: 'getGallery'},
                 // data: {mode: 'getMeal', timestamp: '1421240744933'},
                 success: function (data) {
                     game.meals = jQuery.parseJSON(data);
@@ -1374,14 +1383,12 @@ var dq = (function($, window, undefined) {
             url: constants.JSON_PATH_GALLERY,
             // url: './json/write-json.php',
             // data: {mode: 'addMeal', data: JSON.stringify(game.meals)},
-            data: {mode: 'addMeal', meal: JSON.stringify(dish), timestamp: dish.stats.date},
+            data: {visitorid: game.visitorid, mode: 'addMeal', meal: JSON.stringify(dish), timestamp: dish.stats.date},
             success: function (data) {
                 console.log(data);
                 // String: SUCCESS || TRUE
             }
         });
-
-
     },
     
     game.checkFoodMix = function() {
