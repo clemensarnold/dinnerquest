@@ -99,6 +99,7 @@ dq = (function($, window, undefined) {
         $activePage: undefined,
         currentTemplate: undefined,
         BUBBLES_NEWGAME: 'new-game',
+        BUBBLES_DROPPED_FOOD: 'food-dropped',
         BUBBLES_FAILED: 'failed',
         BUBBLES_SUCCESS: 'success',
         BUBBLES_FREEZE_VEGGIES: 'freeze-veggies',
@@ -222,6 +223,11 @@ dq = (function($, window, undefined) {
             switch(game.currentTemplate) {
                 case 'INTRO': 
                     constants.SKIP_INTRO ? intro.hide() : setTimeout(intro.init, 500);
+                    break;
+
+                case 'TRIAL':
+                    game.trialmode = true;
+                    intro.hide();
                     break;
 
                 case 'GAME':
@@ -446,6 +452,8 @@ dq = (function($, window, undefined) {
                 if (!app.isLabelAlreadyInCurrentFood(specs.label)) {
                     $(el).css({backgroundPosition: -i * $(el).width() + 'px ' + vertOff + 'px'}).
                     data('specs', specs).addClass('visible');
+
+                    specs.label = specs.label.replace('class=__small__', 'class="small"');
 
                     $(el).append('<p>' + specs.label + '</p>');
                     
@@ -1356,35 +1364,43 @@ dq = (function($, window, undefined) {
             showChartDelay = 5000;
         
         if (gameOver) {
-            barchart.activate();
-            game.running = false;
-            refs.$menu.fadeOut();
 
-            game.addMealToGallery(vals, tooMuchC02, vals.co2 / game.co2_max);
+            if (game.trialmode) {
+                setTimeout(cutlery.trigger, 1000, tooMuchC02 ? game.BUBBLES_TRIAL_LOST : game.BUBBLES_TRIAL_WON);
 
-            window.setTimeout(barchart.showHud, 500);
-            app.generateChart();
-            
-            //app.freezeFoodMenu();
-            
-            if (tooMuchC02) {
-                // lost
-                log('---------- lost ----------');
-                cutlery.trigger(game.BUBBLES_FAILED);
-                refs.$mealCheck.addClass('failed');
-                
-                // setTimeout(storm.start, startAniDelay);
-                
-                game.showFeedbackInt = setTimeout(cutlery.trigger, showChartDelay, game.BUBBLES_NEGATIVE);
             } else {
-                // won
-                log('---------- won ----------');
-                cutlery.trigger(game.BUBBLES_SUCCESS);
-                // setTimeout(confettis.init, startAniDelay);
-                game.showFeedbackInt = setTimeout(cutlery.trigger, showChartDelay, game.BUBBLES_POSITIVE);
-            }
 
-            $target = undefined;
+                barchart.activate();
+                game.running = false;
+                refs.$menu.fadeOut();
+
+                game.addMealToGallery(vals, tooMuchC02, vals.co2 / game.co2_max);
+
+                window.setTimeout(barchart.showHud, 500);
+                app.generateChart();
+                
+                //app.freezeFoodMenu();
+                
+                if (tooMuchC02) {
+                    // lost
+                    log('---------- lost ----------');
+                    cutlery.trigger(game.BUBBLES_FAILED);
+                    refs.$mealCheck.addClass('failed');
+                    
+                    // setTimeout(storm.start, startAniDelay);
+                    
+                    game.showFeedbackInt = setTimeout(cutlery.trigger, showChartDelay, game.BUBBLES_NEGATIVE);
+                } else {
+                    // won
+                    log('---------- won ----------');
+                    cutlery.trigger(game.BUBBLES_SUCCESS);
+                    // setTimeout(confettis.init, startAniDelay);
+                    game.showFeedbackInt = setTimeout(cutlery.trigger, showChartDelay, game.BUBBLES_POSITIVE);
+                }
+
+                $target = undefined;
+
+            }
         }
 
         app.generateChart($target);
@@ -1531,14 +1547,11 @@ dq = (function($, window, undefined) {
                 game.addFood(specs, $newFood);
                 // game.addToFoodstack(specs, $newFood);
                 
-                //  cutlery / bubbles
-                cutlery.setExpression(specs);
-               
-                //  tmp Code
-                if (game.trialmode) {
-                    // setTimeout(cutlery.trigger, 1000, game.BUBBLES_TRIAL_LOST);
-                    setTimeout(cutlery.trigger, 1000, game.BUBBLES_TRIAL_WON);
-                }
+                //  cutlery
+                // cutlery.setExpression(specs);
+
+                //  bubble
+                setTimeout(cutlery.trigger, 10, game.BUBBLES_DROPPED_FOOD, specs['msg-dropped']);
 
                 $newFood.data('specs', specs);
                 dragfood.setOffPlateVals($newFood,dq.refs.$dragfood.css('left'), dq.refs.$dragfood.css('top'));
@@ -1786,7 +1799,7 @@ dq = (function($, window, undefined) {
         chatid: 0,
         SHOW_BUBBLETXT: true,
         
-        trigger: function(bubblemode) {
+        trigger: function(bubblemode, msg) {
             
             log('trigger / bubblemode: ' + bubblemode);
             
@@ -1795,6 +1808,12 @@ dq = (function($, window, undefined) {
                 hideBubble = false;
             
             switch(bubblemode) {
+                case game.BUBBLES_DROPPED_FOOD:
+                    // {"standard": "standard", "showNext": 2000, "exp": "L01,G05", "txt": "G05;Was hast du zuletzt zu mittag gegessen?", "bgid": 0}
+                    bubbleData = {standard: "standard", exp: 'L01,G05', txt: msg, bgid: 0};
+                    break;
+
+
                 case game.BUBBLES_NEWGAME:
                     arrayID = (game.platesCounter < 3) ? game.platesCounter : 2;
                     rid = helper.getRandomNumber(app.json.expressions[bubblemode][arrayID].length);
@@ -1950,6 +1969,8 @@ dq = (function($, window, undefined) {
         showBubble: function() {
 
             log('showBubble');
+            log('bubbleData');
+            log(cutlery.bubbleData);
             
             var vertOffset = (!!cutlery.bubbleData.standard) ? 200 : 150;
             

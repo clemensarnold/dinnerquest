@@ -88,13 +88,10 @@ var helper = {
         var facebook_url = 'http://www.facebook.com/sharer.php?u=' + url;
         
         //log('url: ' + url);
-        log('facebook_url: ' + facebook_url);
+        // log('facebook_url: ' + facebook_url);
         
         //var facebook_url = 'http://www.facebook.com/sharer.php?'+ 'u=' + encodeURIComponent('http://google.com/?q=bla');                        
         $target.attr('href', facebook_url);
-
-        log('fuck you bitch');
-        log($target);
     },
 }
 
