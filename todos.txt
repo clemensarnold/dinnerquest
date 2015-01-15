@@ -1,5 +1,6 @@
 OFFEN
 . Facebook Description
+. Layout für Food Labels
 
 
 
@@ -7,7 +8,6 @@ OFFEN
 
 
 TODOS
-. GALLERY IN DB
 . SHARING ON FB
 . Bubble Logik anpassen
 
@@ -30,6 +30,10 @@ TEMPLATES
 . TRIAL_MODE
 . INTRO_VIDEO
 . GAME
+
+
+ABLAUF
+Spiel fertig > Message (geschafft / nicht geschafft) > Szenario > Animation
 
 ---------------------
 
@@ -226,3 +230,4 @@ PHASE 3
 --- Website ------
 . Fotos: zugeschickt oder FB
 
+. "label": "ERBSEN<br><font class=\"small\">TK</font>"
