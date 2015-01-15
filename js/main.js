@@ -1,4 +1,4 @@
-var dq = (function($, window, undefined) {
+dq = (function($, window, undefined) {
     
     "use strict";
     
@@ -52,7 +52,9 @@ var dq = (function($, window, undefined) {
     },
     buttons = {
         START_TRIAL: 'start-trial',
-        SKIP_TRIAL: 'skip-trial'
+        SKIP_TRIAL: 'skip-trial',
+        START_NEW_GAME: 'start-new-game',
+        FB_SHARE: 'fb-share'
     },
     game = {
         visitorid: NaN,
@@ -136,7 +138,7 @@ var dq = (function($, window, undefined) {
         PLATE_RAD: 270, PLATE_DISTANCE: 40000// 200*200
     },
     templates = ['INTRO', 'TRIAL','VIDEO','GAME','SCENARIO'],
-    defaultTemplate = templates[0], 
+    defaultTemplate = templates[3], 
     sounds = {
         DROPPED_FOOD: 'dropped-food',
         NEW_GAME: 'new-game',
@@ -223,8 +225,9 @@ var dq = (function($, window, undefined) {
                     break;
 
                 case 'GAME':
+                    intro.remove();
                     app.showGameButtons();
-                    intro.hide();
+                    app.startGame();
                     break;
 
                 default:
@@ -242,9 +245,8 @@ var dq = (function($, window, undefined) {
             // game.constants.FOODITEMS_VERTOFF_BIG.animals = -2 * game.constants.FOOD_BIG_DIMS;
             constants.FOOD_HOR = constants.FOOD_VERT = game.constants.FOOD_BIG_DIMS / 2;
 
-
             //  set FB Link
-            // $('.sm.fb').each(function() { helper.setFbLink($(this), window.location.href); });
+            helper.setFbLink($('.' + buttons.FB_SHARE), window.location.href);
             
             if (constants.DEV) {
                 refs.$window.on({keydown: this.keyDownListener});
@@ -268,7 +270,6 @@ var dq = (function($, window, undefined) {
            
             refs.$newGameButton.on({click: game.startNewGame});
             $('.' + buttons.START_TRIAL + ', .' + buttons.SKIP_TRIAL).on({click: function() {
-                
                 game.trialmode = !$(this).hasClass(buttons.SKIP_TRIAL);
                 intro.hide();
             }});
@@ -748,13 +749,21 @@ var dq = (function($, window, undefined) {
                 bottomOff += $($el).find('.bar').height();
             });
 
-            refs.$barchart.addClass('show');
+            refs.$barchart.addClass('show').removeClass('_hidden');
             that.$mask.addClass('expand');
         },
 
         hide: function() {
-            refs.$barchart.removeClass('show');
+            refs.$barchart.removeClass('show').addClass('_hidden');
             barchart.$mask.removeClass('expand');
+        },
+
+        activate: function() {
+            refs.$barchart.removeClass('hidden');
+        },
+
+        deactivate: function() {
+            refs.$barchart.addClass('hidden');
         },
 
         toggle: function() {
@@ -1188,13 +1197,17 @@ var dq = (function($, window, undefined) {
         },
 
         hide: function() {
-            refs.$intro.fadeTo(constants.FADEOUT_SPEED, 0, function() { $(this).remove(); });
+            intro.remove();
             hud.hideButton(buttons.START_TRIAL);
             hud.hideButton(buttons.SKIP_TRIAL);
             
             // game in trial mode || or show video
             var delay = 1000;
             game.trialmode ? setTimeout(app.startGame, delay) : setTimeout(app.initVideo, delay);
+        },
+
+        remove: function() {
+            refs.$intro.fadeTo(constants.FADEOUT_SPEED, 0, function() { $(this).remove(); });
         }
     }
 
@@ -1234,6 +1247,7 @@ var dq = (function($, window, undefined) {
         game.$activeTab = undefined;
         game.lastSound = undefined;
         refs.$piechart.empty();
+        barchart.deactivate();
 
         // refs.$foodstack.empty();
         debug.printObject({});
@@ -1341,7 +1355,8 @@ var dq = (function($, window, undefined) {
             startAniDelay = 500,
             showChartDelay = 5000;
         
-        if (gameOver) {
+        if (gameOver || true) {
+            barchart.activate();
             game.running = false;
             refs.$menu.fadeOut();
 
@@ -1357,14 +1372,15 @@ var dq = (function($, window, undefined) {
                 log('---------- lost ----------');
                 cutlery.trigger(game.BUBBLES_FAILED);
                 refs.$mealCheck.addClass('failed');
-                setTimeout(storm.start, startAniDelay);
+                
+                // setTimeout(storm.start, startAniDelay);
                 
                 game.showFeedbackInt = setTimeout(cutlery.trigger, showChartDelay, game.BUBBLES_NEGATIVE);
             } else {
                 // won
                 log('---------- won ----------');
                 cutlery.trigger(game.BUBBLES_SUCCESS);
-                setTimeout(confettis.init, startAniDelay);
+                // setTimeout(confettis.init, startAniDelay);
                 game.showFeedbackInt = setTimeout(cutlery.trigger, showChartDelay, game.BUBBLES_POSITIVE);
             }
 

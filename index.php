@@ -86,11 +86,10 @@
                 </div>
 
                 <div class="hud hidden">
-                    <div class="button toggle">
-                        <p data-label="essens ansicht">diagramm</p>
-                    </div>
-                    <div class="button start-new-game">
-                        <p>nochmal versuchen</p>
+                    <div class="btn-wrapper">
+                        <div class="button toggle small"><p data-label="essensansicht">diagramm</p></div><br>
+                        <div class="button start-new-game"><p>weiterspielen</p></div><br>
+                        <a target="_blank" href="" class="button fb-share">share</a>
                     </div>
                 </div>
                 <div id="plates">

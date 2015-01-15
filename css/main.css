@@ -294,7 +294,8 @@ video {
     text-align: center;
 }
 
-.hud-new .button {
+.hud-new .button,
+.hud .button {
     background: #199151;
     display: inline-block;
     padding: 1em 2em;
@@ -306,7 +307,8 @@ video {
     /*opacity: 1;*/
 }
 
-.hud-new .button p {
+.hud-new .button p, 
+.hud .button p {
     color: #fff;
     font-size: 28px;
     text-transform: uppercase;
@@ -323,16 +325,29 @@ video {
     text-align: center;
 }
 
-.hud .button {
-    width: 235px;
-    height: 50px;
-    cursor: pointer;
-    background: #FFFDF1;
+.hud .btn-wrapper {
+    margin: 0 auto;
     display: inline-block;
-    background: url(./../img/svg/button.svg) no-repeat;
+    text-align: center;
 }
 
-.hud p {
+.hud .button {
+    opacity: 1;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.hud .button.small p {
+    font-size: 12px;
+}
+
+.hud .button.fb-share  {
+    background: #1d68b3;
+    color: #fff;
+    text-decoration: none;
+}
+
+/*.hud p {
     font-family: "Marker Felt", serif;
     font-weight: bold;
     color: #3D4D59;
@@ -343,10 +358,10 @@ video {
     background-position: 10px -5px;
     padding-left: 12px;
     transition: background-position 0.3s ease-out;
-}
+}*/
 
-.hud p.show-food { background-position: 10px -41px; }
-.hud .start-new-game p { background-position: 10px -78px; }
+/*.hud p.show-food { background-position: 10px -41px; }*/
+/*.hud .start-new-game p { background-position: 10px -78px; }*/
 
 #chart {
     z-index: 2;
