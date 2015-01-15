@@ -12,7 +12,7 @@
             {"label": "OLIVEN", "color": "#3a5935", "serving": 20, "kcal": 27.6, "c02": 0.07, "exp": "L05,G06", "chart": "150, 140", "bigbg" : false, "msg": "M06: Natürlich immer mit Maß und Ziel."},
             {"label": "TOMATEN FREILAND", "color": "#3a5935", "serving": 125, "kcal": 21.25, "c02": 0.18, "exp": "L05,G06", "chart": "150, 140", "bigbg" : false, "msg": "M04:Tomaten aus dem eigenen Garten oder vom Feld sind unbedenklich!"},
             {"label": "TOMATEN BEHEIZT", "color": "#3a5935", "serving": 125, "kcal": 21.25, "c02": 1.19, "exp": "L05,G06", "chart": "150, 140", "bigbg" : false, "msg": "M06: Eine Tomate aus dem beheizten Gewächshaus hat den gleichen CO2 Fußabdruck wie 16 Freilandtomaten."},
-            {"label": "ERBSEN TK", "color": "#3a5935", "serving": 125, "kcal": 85.5, "c02": 0.17, "exp": "L05,G06", "chart": "150, 140", "bigbg" : false, "msg": "M10: Der Gefrierschrank daheim ist ein echter Energiefresser!"},
+            {"label": "ERBSEN<br><font class=\"small\">TK</font>", "color": "#3a5935", "serving": 125, "kcal": 85.5, "c02": 0.17, "exp": "L05,G06", "chart": "150, 140", "bigbg" : false, "msg": "M10: Der Gefrierschrank daheim ist ein echter Energiefresser!"},
             {"label": "ERBSEN DOSE", "color": "#3a5935", "serving": 125, "kcal": 85.5, "c02": 0.15, "exp": "L05,G06", "chart": "150, 140", "bigbg" : false, "msg": "M08: Bloß die Verpackung recyclen!"}
         ],
         "sides": [

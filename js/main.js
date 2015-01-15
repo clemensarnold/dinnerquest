@@ -183,6 +183,7 @@ var dq = (function($, window, undefined) {
                 game.firstvisit = true;
             }
             game.visitorid = docCookies.getItem("dq-visitorid");
+            log(game.visitorid);
 
             app.init();
 
@@ -222,7 +223,6 @@ var dq = (function($, window, undefined) {
                     break;
 
                 case 'GAME':
-                    log('GAME');
                     app.showGameButtons();
                     intro.hide();
                     break;
@@ -267,8 +267,9 @@ var dq = (function($, window, undefined) {
             $('.logo').on({click: app.reload});
            
             refs.$newGameButton.on({click: game.startNewGame});
-            $('.' + buttons.START_TRIAL).on({click: function() {
-                game.trialmode = true;
+            $('.' + buttons.START_TRIAL + ', .' + buttons.SKIP_TRIAL).on({click: function() {
+                
+                game.trialmode = !$(this).hasClass(buttons.SKIP_TRIAL);
                 intro.hide();
             }});
             
@@ -1176,13 +1177,24 @@ var dq = (function($, window, undefined) {
             });
 
             delay += buttonDelay;
+
             setTimeout(hud.showButton, delay, buttons.START_TRIAL);
+
+            if (!game.firstvisit) {
+                setTimeout(hud.showButton, delay, buttons.SKIP_TRIAL);
+                $('.' + buttons.START_TRIAL + ' p').text('kennenlernen');
+            }
+            
         },
 
         hide: function() {
             refs.$intro.fadeTo(constants.FADEOUT_SPEED, 0, function() { $(this).remove(); });
             hud.hideButton(buttons.START_TRIAL);
-            setTimeout(app.startGame, 1000);
+            hud.hideButton(buttons.SKIP_TRIAL);
+            
+            // game in trial mode || or show video
+            var delay = 1000;
+            game.trialmode ? setTimeout(app.startGame, delay) : setTimeout(app.initVideo, delay);
         }
     }
 

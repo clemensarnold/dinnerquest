@@ -61,7 +61,7 @@
         <div id="overlays">
             <div id="stage">
                 <div class="meal-check"></div>
-                <div id="barchart">
+                <div id="barchart" class="hidden">
                     <div class="mask">
                         <div class="co2-limit"><p>0,7 kg CO<sub>2</sub></p></div>
                         <div class="barchart-container"></div>
@@ -80,7 +80,7 @@
                     <div class="bubble"></div>
                 </div>
                 <div class="hud-new">
-                    <div class="button start-trial hidden"><p>spiel starten / kennenlernen</p></div>
+                    <div class="button start-trial hidden" data-label="kennenlernen"><p>spiel starten</p></div>
                     <div class="button skip-trial hidden"><p>gleich spielen</p></div>
                     <div class="button show-chart hidden"><p>diagramm</p></div>
                 </div>
