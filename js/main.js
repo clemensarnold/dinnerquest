@@ -1355,7 +1355,7 @@ dq = (function($, window, undefined) {
             startAniDelay = 500,
             showChartDelay = 5000;
         
-        if (gameOver || true) {
+        if (gameOver) {
             barchart.activate();
             game.running = false;
             refs.$menu.fadeOut();
