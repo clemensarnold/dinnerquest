@@ -301,6 +301,12 @@ video {
     padding: 1em 2em;
     cursor: pointer;
     opacity: 0;
+    transition: background 0.3s ease-out 0s;
+}
+
+.hud-new .button:hover,
+.hud .button:hover {
+    background: #22ab62;
 }
 
 .hud-new .button.show {
@@ -347,6 +353,11 @@ video {
     text-decoration: none;
 }
 
+.hud .button.fb-share:hover {
+    background: #2b82d9;
+}
+
+
 /*.hud p {
     font-family: "Marker Felt", serif;
     font-weight: bold;
@@ -379,7 +390,7 @@ video {
     background: #e8e8e8;
     border-radius: 10px;
     /*overflow: hidden;*/
-    font-family: "Marker Felt", serif;
+    /*font-family: "Marker Felt", serif;*/
     color: #419FB9;
     font-size: 20px;
 }
@@ -495,13 +506,14 @@ video {
 
 .plate.visible {
     opacity: 1;
+    display: block;
 }
 
 .plate.drop {
    border: 2px solid rgba(243,40,44,1);
 }
 
-.plate.desktop {
+.plate.desktop_off {
     transition: border 0.3s ease-out;
     border: 2px dotted rgba(243,40,44,0);
 }
@@ -551,7 +563,7 @@ video {
     top: 0;
     left: 0;
     width: 340px;
-    height: 165px; 
+    height: 195px; 
     z-index: 2000;
     /*border: 1px solid;*/
     opacity: 0;
@@ -560,9 +572,19 @@ video {
 }
 
 .bubble p {
-    font-family: Arial;
-    font-size: 12px;
-    line-height: 14px;
+    font-size: 20px;
+    line-height: 24px;
+    color: #333;
+    width: 290px;
+    /*border: 1px solid;*/
+}
+
+.fork .bubble p {
+    margin: 30px 0 0 26px;
+}
+
+.spoon .bubble p {
+    margin: 29px 0 0 26px;
 }
 
 .bubble.new-game {
@@ -611,9 +633,19 @@ video {
     left: -160px;
 }
 
+.spoon .bubble.standard {
+    top: -50px;
+    left: -290px;
+}
+
 .fork .bubble {
     top: -50px;
     left: -80px;
+}
+
+.fork .bubble.standard {
+    top: -60px;
+    left: -50px;
 }
 
 .logo {
@@ -881,7 +913,7 @@ video {
 .m-item {
     width: 120px;
     height: 105px;
-    margin: 0 0 0 0;
+    margin: 0 0 10px 0;
     padding: 0;
     cursor: pointer;
     float: left;
@@ -925,6 +957,11 @@ video {
 }
 
 .m-item.dragged p { display: none !important; }
+
+.food-container {
+    height: 125px;
+    overflow: hidden;
+}
 
 .food-container.inactive {
     opacity: 0.3;
@@ -973,7 +1010,7 @@ body.hidesvg g {
     z-index: 1;
     cursor: pointer;
     pointer-events: all;
-    font-family: "Marker Felt", serif !important;
+    /*font-family: "Marker Felt", serif !important;*/
     font-weight: normal !important;
     padding: 8px 0 0 12px;
     color: #fff;
@@ -1033,20 +1070,21 @@ body.hidesvg g {
     width: 880px;
     height: 140px;
     margin: 0 auto;
-    background: url(./../img/svg/gallery-header.svg) no-repeat center 10px;
+    background: url(./../img/svg/gallery-header.svg) no-repeat center 0;
     /*border: 1px solid blue;*/
 }
 
 .gal-wrapper {
     width: 890px;
     margin: 0 auto;
-    pointer-events: none;
+    /*pointer-events: none; ?? */
 }
 
 #gallery.visible {
     /*display: block;*/
     transition: opacity 0.4s ease-out;
     opacity: 1;
+    z-index: 100;
 }
 
 #gallery .dish-wrapper {
@@ -1057,6 +1095,7 @@ body.hidesvg g {
     position: relative;
     background: url(./../img/svg/gallery-bottom-2.svg) no-repeat left 135px;
     /*border-bottom: 1px solid black;*/
+    cursor: pointer;
 }
 
 #gallery .dish-mask {
@@ -1087,20 +1126,21 @@ body.hidesvg g {
     position: absolute;
     top: 0;
     right: 17px;
-    width: 40px;
+    width: 50px;
     height: 230px;
     /*border: 1px solid #fff;*/
 }
 
 .barchart p {
-    font-family: "Marker Felt", serif;
+    /*font-family: "Marker Felt", serif;*/
     color: #37ac41;
     text-align: center;
     line-height: 18px;
-    margin-left: -10px;
+    margin-left: -7px;
     margin-top: 20px;
     opacity: 0;
     transition: opacity 0.4s ease-out 0.4s;
+    /*border: 1px solid;*/
 }
 
 .barchart p.lost {
@@ -1220,6 +1260,7 @@ body.hidesvg g {
 
 .barchart-container .bar {
     width: 150px;
+    cursor: pointer;
     /*height: 110px;*/
     /*border: 1px solid black;*/
     /*position: absolute;*/

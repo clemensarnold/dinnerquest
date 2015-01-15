@@ -1,4 +1,4 @@
-dq = (function($, window, undefined) {
+var dq = (function($, window, undefined) {
     
     "use strict";
     
@@ -58,6 +58,7 @@ dq = (function($, window, undefined) {
     },
     game = {
         visitorid: NaN,
+        mealindex: 0, // used in barchart.render
         firstvisit: false,
         co2_max: NaN,
         kcal_min: NaN,
@@ -100,6 +101,7 @@ dq = (function($, window, undefined) {
         currentTemplate: undefined,
         BUBBLES_NEWGAME: 'new-game',
         BUBBLES_DROPPED_FOOD: 'food-dropped',
+        BUBBLES_CLICKED_CHART: 'clicked-chart',
         BUBBLES_FAILED: 'failed',
         BUBBLES_SUCCESS: 'success',
         BUBBLES_FREEZE_VEGGIES: 'freeze-veggies',
@@ -127,7 +129,7 @@ dq = (function($, window, undefined) {
         STATS: false,
         CHECK_INACTIVITY: false,
         RELOAD_ON_INACTIVE: false,
-        SOUNDS: false,
+        SOUNDS: true,
         SKIP_INTRO: false,
         SKIP_TRIAL: false,
         SKIP_VIDEO: false,
@@ -139,7 +141,7 @@ dq = (function($, window, undefined) {
         PLATE_RAD: 270, PLATE_DISTANCE: 40000// 200*200
     },
     templates = ['INTRO', 'TRIAL','VIDEO','GAME','SCENARIO'],
-    defaultTemplate = templates[3], 
+    defaultTemplate = templates[0], 
     sounds = {
         DROPPED_FOOD: 'dropped-food',
         NEW_GAME: 'new-game',
@@ -186,7 +188,6 @@ dq = (function($, window, undefined) {
                 game.firstvisit = true;
             }
             game.visitorid = docCookies.getItem("dq-visitorid");
-            log(game.visitorid);
 
             app.init();
 
@@ -548,6 +549,7 @@ dq = (function($, window, undefined) {
                 if (addChart) {
                 
                     specs = $(el).data('specs');
+                    specs.label = specs.label.replace('<br>',' ');
 
                     html = '<div class="_CLASSES_"><h3>_LABEL_</h3><p>_SERVING_ g, _CO2_ KG CO<sub>2</sub</p></div>';
                     html = html.replace('_CLASSES_', specs.bigbg ? "big-chart chart" : "normal-chart chart");
@@ -587,7 +589,8 @@ dq = (function($, window, undefined) {
         
         resetChart: function() {
             log('resetChart');
-             refs.$plate.find('.food .chart').remove();
+
+            if (refs.$plate) refs.$plate.find('.food .chart').remove();
             // refs.$chart.hide();
         },
         
@@ -728,7 +731,7 @@ dq = (function($, window, undefined) {
                 html = '',
                 hSnippet = '<div class="item"><div class="bar"></div><p></p></div>',
                 bottomOff = 0, $target, text = '',
-                data = dq.game.meals[0].ingredients;
+                data = game.meals[game.mealindex].ingredients;
 
             // log(data);
 
@@ -743,6 +746,7 @@ dq = (function($, window, undefined) {
             $('.barchart-container .item').each(function(i, $el) {
 
                 $target = $($el);
+                $target.data('data', data[i]);
 
                 //  row
                 $target.css({bottom: bottomOff});
@@ -756,6 +760,11 @@ dq = (function($, window, undefined) {
 
                 bottomOff += $($el).find('.bar').height();
             });
+
+            $('.barchart-container .item').on({click: function() {
+                log('clicked');
+                setTimeout(cutlery.trigger, 10, game.BUBBLES_CLICKED_CHART, $(this).data('data')['msg-chart']);
+            }});
 
             refs.$barchart.addClass('show').removeClass('_hidden');
             that.$mask.addClass('expand');
@@ -779,6 +788,8 @@ dq = (function($, window, undefined) {
 
             var $p = $(this).find('p'),
                 label = $p.data('label');
+
+            log('label: ' + label);
 
             $p.data('label', $p.text()).text(label).removeClass('show-food');
 
@@ -1233,10 +1244,11 @@ dq = (function($, window, undefined) {
         
         game.running = true;
         game.currentFoodCat = game.constants.DEFAULT_TAB;
-        game.platesCounter++;
+
+        if (!game.trialmode) game.platesCounter++;
             
         //  resets after first game
-        if (game.currentMeal.length > 0) {
+        if (game.currentMeal.length > 0 || true) {
             refs.$menu.fadeIn();
             refs.$mealCheck.removeClass('visible');
             setTimeout(function() { refs.$mealCheck.removeClass('failed'); }, 2000);
@@ -1245,10 +1257,12 @@ dq = (function($, window, undefined) {
         }
 
         setTimeout(cutlery.trigger, 2000, game.trialmode ? game.BUBBLES_TRIAL_START : game.BUBBLES_NEWGAME);
+        // setTimeout(cutlery.trigger, 2000, game.trialmode ? game.BUBBLES_TRIAL_LOST : game.BUBBLES_NEGATIVE);
         
         //  resets
         game.currentMeal = [];
         game.foodCounter = 0;
+        game.mealindex = 0;
         game.mealMix = {veggies: 0, sides: 0, animals: 0};
         game.freezeTab = {0: false, 1: false, 2: false};
         game.activeTabID = NaN;
@@ -1288,9 +1302,15 @@ dq = (function($, window, undefined) {
         // refs.$plate =  $(dq.refs.$plates.children()[dq.refs.$plates.children().length - 1]);
         refs.$plate = $('.plate');
         if (!configs.isTouch) refs.$plate.addClass('desktop');
+        
         refs.$plate.fadeIn();
     },
     
+    game.clearPlate = function() {
+        refs.$plates.html('<div class="plate visible"></div>');
+        refs.$plate = $('.plate');
+    },
+
     game.addFood = function(specs, $target) {
         specs.$target = $target;
         game.currentMeal.push(specs);
@@ -1369,15 +1389,9 @@ dq = (function($, window, undefined) {
                 setTimeout(cutlery.trigger, 1000, tooMuchC02 ? game.BUBBLES_TRIAL_LOST : game.BUBBLES_TRIAL_WON);
 
             } else {
-
-                barchart.activate();
-                game.running = false;
-                refs.$menu.fadeOut();
-
-                game.addMealToGallery(vals, tooMuchC02, vals.co2 / game.co2_max);
-
-                window.setTimeout(barchart.showHud, 500);
+                game.finishGame();
                 app.generateChart();
+                game.addMealToGallery(vals, tooMuchC02, vals.co2 / game.co2_max);
                 
                 //app.freezeFoodMenu();
                 
@@ -1403,7 +1417,15 @@ dq = (function($, window, undefined) {
             }
         }
 
-        app.generateChart($target);
+        // ??
+        // app.generateChart($target);
+    }
+
+    game.finishGame = function() {
+        barchart.activate();
+        game.running = false;
+        refs.$menu.fadeOut();
+        window.setTimeout(barchart.showHud, 500);
     }
 
     game.addMealToGallery = function(vals, lost, ratio) {
@@ -1412,11 +1434,18 @@ dq = (function($, window, undefined) {
         for (var i = 0; i < game.currentMeal.length; i++) {
             game.currentMeal[i].x = game.currentMeal[i].$target.css('left');
             game.currentMeal[i].y = game.currentMeal[i].$target.css('top');
+
+            game.currentMeal[i].label = game.currentMeal[i].label.replace('class="small"', 'class=__small__');
+
             delete game.currentMeal[i].$target;
         }
 
         var dish = {stats: {kcal: vals.cals, co2: vals.co2, lost: lost, ratio: ratio, date: Date.now()}};
-            dish.ingredients = game.currentMeal;
+            
+        
+        dish.ingredients = game.currentMeal;
+        
+        // log(JSON.stringify(dish));
 
         game.meals.unshift(dish);
 
@@ -1437,6 +1466,9 @@ dq = (function($, window, undefined) {
     
     game.checkFoodMix = function() {
         
+        // tmp deactivated
+        return;
+
         if (game.mealMix[game.currentFoodCat] === app.json.rules.switch_tab[game.currentFoodCat]) {
             
             if (game.currentFoodCat === 'veggies') cutlery.trigger(game.BUBBLES_FREEZE_VEGGIES);
@@ -1467,6 +1499,31 @@ dq = (function($, window, undefined) {
         });
     }
     */
+
+    game.renderMeal = function(mealdata, mealindex) {
+
+        log('renderMeal');
+        log(mealdata);
+
+        var html = '', obj = {};
+
+        refs.$body.scrollTop(0);
+        game.mealindex = mealindex;
+
+        for (var i = 0; i < mealdata.ingredients.length; i++) {
+            obj = mealdata.ingredients[i];
+            html += '<div class="food" style="left: ' + obj.x + '; top: ' + obj.y + '; background-image: url(./img/svg/onplate/' + obj.foodCat + '/' + obj.bgHorPos + '.svg);"></div>';
+        }
+
+        game.clearPlate();
+        refs.$plate.append(html);
+
+        game.finishGame();
+
+        if (barchart.active) {
+            $('.hud .toggle').trigger('click');
+        }
+    }
     
     /********** Dragfood **********/
     
@@ -1548,10 +1605,12 @@ dq = (function($, window, undefined) {
                 // game.addToFoodstack(specs, $newFood);
                 
                 //  cutlery
-                // cutlery.setExpression(specs);
+                cutlery.setExpression(specs);
 
                 //  bubble
-                setTimeout(cutlery.trigger, 10, game.BUBBLES_DROPPED_FOOD, specs['msg-dropped']);
+                if (!game.trialmode) {
+                    setTimeout(cutlery.trigger, 10, game.BUBBLES_DROPPED_FOOD, specs['msg-dropped']);
+                }
 
                 $newFood.data('specs', specs);
                 dragfood.setOffPlateVals($newFood,dq.refs.$dragfood.css('left'), dq.refs.$dragfood.css('top'));
@@ -1809,6 +1868,7 @@ dq = (function($, window, undefined) {
             
             switch(bubblemode) {
                 case game.BUBBLES_DROPPED_FOOD:
+                case game.BUBBLES_CLICKED_CHART:
                     // {"standard": "standard", "showNext": 2000, "exp": "L01,G05", "txt": "G05;Was hast du zuletzt zu mittag gegessen?", "bgid": 0}
                     bubbleData = {standard: "standard", exp: 'L01,G05', txt: msg, bgid: 0};
                     break;
@@ -1972,15 +2032,20 @@ dq = (function($, window, undefined) {
             log('bubbleData');
             log(cutlery.bubbleData);
             
-            var vertOffset = (!!cutlery.bubbleData.standard) ? 200 : 150;
+            var vertOffset = (!!cutlery.bubbleData.standard) ? 300 : 150;
             
             var data = cutlery.bubbleData,
                 backgroundPosition = '0px ' + -vertOffset * data.bgid + 'px',
                 $ref = (data.txt.split(';')[0].indexOf('G') >= 0) ? refs.$forkBub: refs.$spoonBub;
 
+            if (cutlery.bubbleData.standard) {
+                backgroundPosition = '0 0';
+                if (data.txt.split(';')[0].indexOf('M') >= 0) backgroundPosition = '0 -300px';
+            }
+
             //  debug
             if (cutlery.SHOW_BUBBLETXT) {
-                $ref.html('<p>' + data.txt.split(';')[1] + '</p>');
+                $ref.html('<p>' + data.txt.substr(data.txt.indexOf(';') + 1) + '</p>');
             }
             
             $ref.css({backgroundPosition: backgroundPosition});

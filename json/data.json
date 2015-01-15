@@ -9,10 +9,10 @@
             {"label": "Rotkraut", "color": "#7f2d61", "serving": 125, "kcal": 27.5, "c02": 180, "exp": "L03,G02", "chart": "150, 150", "bigbg" : false, "msg-chart": "M01;Bei Oma schmeckt&apos;s am besten!", "msg-dropped": "M06;Aber immer mit Maß und Ziel!"},
             {"label": "Gurken", "color": "#c1d677", "serving": 125, "kcal": 18.75, "c02": 190, "exp": "L03,G02", "chart": "163, 153", "bigbg" : false, "msg-chart": "G07;Ja klar, die bestehen ja auch fast nur aus Wasser.", "msg-dropped": "M05;Immer schauen woher!"},
             {"label": "Oliven", "color": "#3a5935", "serving": 20, "kcal": 27.6, "c02": 70, "exp": "L05,G06", "chart": "150, 140", "bigbg" : false, "msg-chart": "M06;Natürlich immer mit Maß und Ziel.", "msg-dropped": "M01;Mhh, aus Bella Italia kommt nur Gutes!"},
-            {"label": "Tomaten<br><font class=__small__>freiland</font>", "serving": 125, "kcal": 21.25, "c02": 180, "exp": "L05,G06", "chart": "150, 140", "bigbg" : false, "msg-chart": "M04;Tomaten aus dem eigenen Garten oder vom Feld sind unbedenklich!", "msg-dropped": "M08;Solange sie nicht aus dem Gewächshaus kommen..."},
-            {"label": "Tomaten<br><font class=__small__>beheizt</font>", "serving": 125, "kcal": 21.25, "c02": 1190, "exp": "L05,G06", "chart": "150, 140", "bigbg" : false, "msg-chart": "M06;Eine Tomate aus dem beheizten Gewächshaus hat den gleichen CO2 Fußabdruck wie 16 Freilandtomaten.", "msg-dropped": "G05;Ich hab&apos;s gern fein warm. Die Tomaten doch bestimmt auch."},
+            {"label": "Tomaten<br><font class=__small__>freiland</font>", "color": "#f3282e","serving": 125, "kcal": 21.25, "c02": 180, "exp": "L05,G06", "chart": "150, 140", "bigbg" : false, "msg-chart": "M04;Tomaten aus dem eigenen Garten oder vom Feld sind unbedenklich!", "msg-dropped": "M08;Solange sie nicht aus dem Gewächshaus kommen..."},
+            {"label": "Tomaten<br><font class=__small__>beheizt</font>", "color": "#f3282e","serving": 125, "kcal": 21.25, "c02": 1190, "exp": "L05,G06", "chart": "150, 140", "bigbg" : false, "msg-chart": "M06;Eine Tomate aus dem beheizten Gewächshaus hat den gleichen CO2 Fußabdruck wie 16 Freilandtomaten.", "msg-dropped": "G05;Ich hab&apos;s gern fein warm. Die Tomaten doch bestimmt auch."},
             {"label": "Erbsen<br><font class=__small__>tk</font>", "color": "#3a5935", "serving": 125, "kcal": 85.5, "c02": 170, "exp": "L05,G06", "chart": "150, 140", "bigbg" : false, "msg-chart": "M10;Der Gefrierschrank daheim ist ein echter Energiefresser!", "msg-dropped": "G03;Tiefgekühltes ist echt praktisch!"},
-            {"label": "Erbsen<br><font class=__small__>dose</font>", "serving": 125, "kcal": 85.5, "c02": 150, "exp": "L05,G06", "chart": "150, 140", "bigbg" : false, "msg-chart": "M08: Bloß die Verpackung recyclen!", "msg-dropped": "G05;Gut verpackt hält eben länger."}
+            {"label": "Erbsen<br><font class=__small__>dose</font>", "color": "#3a5935","serving": 125, "kcal": 85.5, "c02": 150, "exp": "L05,G06", "chart": "150, 140", "bigbg" : false, "msg-chart": "M08: Bloß die Verpackung recyclen!", "msg-dropped": "G05;Gut verpackt hält eben länger."}
         ],
         "sides": [
             {"label": "Nudeln", "color": "#f5cd2c", "serving": 200, "kcal": 704, "c02": 240, "exp": "L02,G03", "chart": "80, 20", "bigbg" : false, "msg-chart": "M06;Kommt natürlich immer darauf an, wie du deine Nudeln machst.", "msg-dropped": "G06;Nudeln schmecken besser als Kartoffeln!"},
@@ -94,67 +94,67 @@
     "expressions": {
         "new-game": [
             [
-                {"exp": "L01,G01", "txt": "G;Leg los! Sieh zu, dass du satt wirst!", "bgid": 0}
+                {"standard": "standard", "exp": "L01,G01", "txt": "G;Leg los! Sieh zu, dass du satt wirst!", "bgid": 0}
             ],
             [
-                {"exp": "L02,G02", "txt": "G;Auf ein Neues!", "bgid": 1},
-                {"exp": "L03,G03", "txt": "G;Was darf's diesmal sein?", "bgid": 2},
-                {"exp": "L02,G02", "txt": "G;Wähle mit Bedacht!", "bgid": 3}
+                {"standard": "standard", "exp": "L02,G02", "txt": "G;Auf ein Neues!", "bgid": 1},
+                {"standard": "standard", "exp": "L03,G03", "txt": "G;Was darf's diesmal sein?", "bgid": 2},
+                {"standard": "standard", "exp": "L02,G02", "txt": "G;Wähle mit Bedacht!", "bgid": 3}
             ],
             [
-                {"exp": "L05,G05", "txt": "L;Hoffentlich geht’s diesmal gut!", "bgid": 4},
-                {"exp": "L06,G06", "txt": "L;Vorsicht! Die Welt steht am Spiel!", "bgid": 5}
+                {"standard": "standard", "exp": "L05,G05", "txt": "M;Hoffentlich geht’s diesmal gut!", "bgid": 4},
+                {"standard": "standard", "exp": "L06,G06", "txt": "M;Vorsicht! Die Welt steht am Spiel!", "bgid": 5}
             ]
         ],
         "failed": [
             [
-                {"exp": "L09,G09", "txt": "G;Herrje ein Weltuntergang!", "bgid": 0},
-                {"exp": "L08,G08", "txt": "G;Huch, ein Desaster!", "bgid": 1},
-                {"exp": "L09,G10", "txt": "G;Schlimmer geht’s nimmer!", "bgid": 2},
-                {"exp": "L06,G06", "txt": "L;Zum Donnerwetter!", "bgid": 3},
-                {"exp": "L07,G07", "txt": "L;Herrjemine!", "bgid": 4},
-                {"exp": "L08,G09", "txt": "L;Au Backe!", "bgid": 5}
+                {"standard": "standard", "exp": "L09,G09", "txt": "G;Herrje ein Weltuntergang!", "bgid": 0},
+                {"standard": "standard", "exp": "L08,G08", "txt": "G;Huch, ein Desaster!", "bgid": 1},
+                {"standard": "standard", "exp": "L09,G10", "txt": "G;Schlimmer geht’s nimmer!", "bgid": 2},
+                {"standard": "standard", "exp": "L06,G06", "txt": "M;Zum Donnerwetter!", "bgid": 3},
+                {"standard": "standard", "exp": "L07,G07", "txt": "M;Herrjemine!", "bgid": 4},
+                {"standard": "standard", "exp": "L08,G09", "txt": "M;Au Backe!", "bgid": 5}
             ],
             [
-                {"exp": "L09,G10", "txt": "G;Ist es denn die Möglichkeit!", "bgid": 6},
-                {"exp": "L08,G09", "txt": "G;Oh nein, nicht schon wieder!", "bgid": 7},
-                {"exp": "L09,G10", "txt": "G;Herrje, hast du nichts dazu gelernt?", "bgid": 8}
+                {"standard": "standard", "exp": "L09,G10", "txt": "G;Ist es denn die Möglichkeit!", "bgid": 6},
+                {"standard": "standard", "exp": "L08,G09", "txt": "G;Oh nein, nicht schon wieder!", "bgid": 7},
+                {"standard": "standard", "exp": "L09,G10", "txt": "G;Herrje, hast du nichts dazu gelernt?", "bgid": 8}
             ],
             [
-                {"exp": "L09,G10", "txt": "G;Hrmpf. Wo soll das noch hinführen?", "bgid": 9},
-                {"exp": "L08,G10", "txt": "G;Das macht die Welt nicht mehr lange mit!", "bgid": 10}
+                {"standard": "standard", "exp": "L09,G10", "txt": "G;Hrmpf. Wo soll das noch hinführen?", "bgid": 9},
+                {"standard": "standard", "exp": "L08,G10", "txt": "G;Das macht die Welt nicht mehr lange mit!", "bgid": 10}
             ]
         ],
         "success": [
             [
-                {"exp": "L01,G01", "txt": "G;Wahnsinn! Satt ohne Weltuntergang!", "bgid": 0},
-                {"exp": "L01,G01", "txt": "G;Weltklasse! Du bist satt geworden!", "bgid": 1},
-                {"exp": "L02,G02", "txt": "L;Das war eine Wucht! Rundum satt!", "bgid": 2},
-                {"exp": "L01,G01", "txt": "L;Yummy! I got love in my tummy.", "bgid": 3},
-                {"exp": "L03,G03", "txt": "L;Pumperlgsund und Pappsatt.", "bgid": 4}
+                {"standard": "standard", "exp": "L01,G01", "txt": "G;Wahnsinn! Satt ohne Weltuntergang!", "bgid": 0},
+                {"standard": "standard", "exp": "L01,G01", "txt": "G;Weltklasse! Du bist satt geworden!", "bgid": 1},
+                {"standard": "standard", "exp": "L02,G02", "txt": "M;Das war eine Wucht! Rundum satt!", "bgid": 2},
+                {"standard": "standard", "exp": "L01,G01", "txt": "M;Yummy! I got love in my tummy.", "bgid": 3},
+                {"standard": "standard", "exp": "L03,G03", "txt": "M;Pumperlgsund und Pappsatt.", "bgid": 4}
             ]
         ],
         "positive": [
             [
-                {"triggered-by": "ROSM. KARTOFFELN", "exp": "L02,G02", "txt": "G;Kartoffeln machen satt und das ohne Schaden anzurichten.", "bgid": 5},
-                {"triggered-by": "no-animals", "exp": "L03,G03", "txt": "G;Wenn sich alle Menschen pflanzlich ernähren, sparen wir fast 40% C02-Emissionen!", "bgid": 6},
-                {"triggered-by": "TOFU", "exp": "L02,G02", "txt": "L;Besser du isst das Soya gleich selbst als über den Umweg durch die Kuh.", "bgid": 7}
+                {"standard": "standard", "triggered-by": "ROSM. KARTOFFELN", "exp": "L02,G02", "txt": "G;Kartoffeln machen satt und das ohne Schaden anzurichten.", "bgid": 5},
+                {"standard": "standard", "triggered-by": "no-animals", "exp": "L03,G03", "txt": "G;Wenn sich alle Menschen pflanzlich ernähren, sparen wir fast 40% C02-Emissionen!", "bgid": 6},
+                {"standard": "standard", "triggered-by": "TOFU", "exp": "L02,G02", "txt": "M;Besser du isst das Soya gleich selbst als über den Umweg durch die Kuh.", "bgid": 7}
             ]
         ],
          "negative": [
             [
-                {"triggered-by": "RIND", "exp": "L06,G06", "txt": "G;Tja, 1kg Rindfleisch verursacht soviel CO2 wie 250 km Auto fahren...", "bgid": 0},
-                {"triggered-by": "RIND", "exp": "L07,G07", "txt": "G;Überleg mal: Getreide für 10 Rinder bietet Nahrung für 200 Menschen", "bgid": 1},
-                {"triggered-by": "BRATWURST (SCHWEIN)", "exp": "L05,G10", "txt": "G;Unsere Schweine erzeugen doppelt so viele Abwässer wie wir Menschen.", "bgid": 2},
-                {"triggered-by": "BRATWURST (SCHWEIN)", "exp": "L09,G09", "txt": "L;So eine Schweinerei!", "bgid": 3},
-                {"triggered-by": "HÄHNCHENFLÜGEL", "exp": "L08,G08", "txt": "L;Ich ess ja lieber vogelfrei.", "bgid": 4},
-                {"triggered-by": "EI", "exp": "L07,G07", "txt": "L;Nicht das Gelbe vom Ei.", "bgid": 5},
-                {"triggered-by": "JOGHURTDIP/CREME FRAICHE", "exp": "L09,G09", "txt": "G;Milch produzieren verbraucht richtig viel Energie.", "bgid": 6},
-                {"triggered-by": "BUTTER", "exp": "L05,G10", "txt": "G;Butter ist, nach Rindfleisch, das klimaschädlichste Lebensmittel.", "bgid": 7},
-                {"triggered-by": "SCHAFSKÄSE", "exp": "L05,G05", "txt": "L;So ein Käse.", "bgid": 8},
-                {"triggered-by": "SCHAFSKÄSE", "exp": "L09,G09", "txt": "L;Lieber Käsefüße als Käsebrot!", "bgid": 9},
-                {"triggered-by": "LACHSFILET", "exp": "L06,G06", "txt": "L;Ups, das war kein guter Fang!", "bgid": 10},
-                {"triggered-by": "LACHSFILET", "exp": "L06,G08", "txt": "G;Bald hat sich's ausgelachst!", "bgid": 11}
+                {"standard": "standard", "triggered-by": "RIND", "exp": "L06,G06", "txt": "G;Tja, 1kg Rindfleisch verursacht soviel CO2 wie 250 km Auto fahren...", "bgid": 0},
+                {"standard": "standard", "triggered-by": "RIND", "exp": "L07,G07", "txt": "G;Überleg mal: Getreide für 10 Rinder bietet Nahrung für 200 Menschen", "bgid": 1},
+                {"standard": "standard", "triggered-by": "BRATWURST (SCHWEIN)", "exp": "L05,G10", "txt": "G;Unsere Schweine erzeugen doppelt so viele Abwässer wie wir Menschen.", "bgid": 2},
+                {"standard": "standard", "triggered-by": "BRATWURST (SCHWEIN)", "exp": "L09,G09", "txt": "M;So eine Schweinerei!", "bgid": 3},
+                {"standard": "standard", "standard": "standard", "triggered-by": "HÄHNCHENFLÜGEL", "exp": "L08,G08", "txt": "M;Ich ess ja lieber vogelfrei.", "bgid": 4},
+                {"standard": "standard", "triggered-by": "EI", "exp": "L07,G07", "txt": "M;Nicht das Gelbe vom Ei.", "bgid": 5},
+                {"standard": "standard", "triggered-by": "JOGHURTDIP/CREME FRAICHE", "exp": "L09,G09", "txt": "G;Milch produzieren verbraucht richtig viel Energie.", "bgid": 6},
+                {"standard": "standard", "triggered-by": "BUTTER", "exp": "L05,G10", "txt": "G;Butter ist, nach Rindfleisch, das klimaschädlichste Lebensmittel.", "bgid": 7},
+                {"standard": "standard", "triggered-by": "SCHAFSKÄSE", "exp": "L05,G05", "txt": "M;So ein Käse.", "bgid": 8},
+                {"standard": "standard", "triggered-by": "SCHAFSKÄSE", "exp": "L09,G09", "txt": "M;Lieber Käsefüße als Käsebrot!", "bgid": 9},
+                {"standard": "standard", "triggered-by": "LACHSFILET", "exp": "L06,G06", "txt": "M;Ups, das war kein guter Fang!", "bgid": 10},
+                {"standard": "standard", "triggered-by": "LACHSFILET", "exp": "L06,G08", "txt": "G;Bald hat sich's ausgelachst!", "bgid": 11}
             ]
         ],
         "freeze-sides": [
@@ -189,17 +189,19 @@
         ],
         "trial-won": [
             [
-                {"showNext": 4000, "exp": "L01,G01", "txt": "M01;Super, du bist ein Naturtalent! Trotz- dem solltest du wissen, dass bestimmte Lebensmittel sehr viel CO2 verursachen.", "bgid": 0}
+                {"standard": "standard", "showNext": 4000, "exp": "L01,G01", "txt": "M01;Super, du bist ein Naturtalent! Trotzdem solltest du wissen, dass bestimmte Lebensmittel sehr viel CO2 verursachen.", "bgid": 0}
             ]
         ],
         "trial-lost": [
             [
-                {"showNext": 4000, "exp": "M06,G01", "txt": "M06;Ups, das ging daneben! Du musst wissen: Bestimmte Lebensmittel verursachen sehr viel CO2.", "bgid": 0},
-                {"showNext": 4000, "exp": "L01,G01", "txt": "L;Denn jedes Nahrungsmittel braucht auf seinem langen Weg in deinen Bauch jede Menge Ressourcen, Energie und Anbauflächen. Dabei wird zu viel CO2 freigesetzt und unsere Erde erwärmt sich viel zu rasch.", "bgid": 1},
-                {"showNext": 2000, "exp": "L01,G01", "txt": "G;Ich hab‘s gern fein warm!", "bgid": 2},
-                {"showNext": 3000, "exp": "L01,G01", "txt": "L;Nicht unter diesen Umständen. Außerdem leben wir in der westlichen Welt über unsere Verhältnisse, indem wir drei Mal so viel verbrauchen, wie unser Planet zu bieten hat. Das geht nicht mehr lange gut!", "bgid": 3},
-                {"showNext": 2000, "exp": "L01,G01", "txt": "G;So ein Quatsch! Iss einfach, bis du pappsatt bist!", "bgid": 4},
-                {"showNext": 4000, "exp": "L01,G01", "txt": "L;Wer clever ist, bleibt fair und wird trotzdem satt - probier‘s mal!", "bgid": 5}
+                {"standard": "standard", "showNext": 4000, "exp": "M06,G01", "txt": "M06;Ups, das ging daneben! Du musst wissen: Bestimmte Lebensmittel verursachen sehr viel CO2.", "bgid": 0}
+            ],
+            [
+                {"standard": "standard", "showNext": 4000, "exp": "L01,G01", "txt": "M;Denn jedes Nahrungsmittel braucht auf seinem langen Weg in deinen Bauch jede Menge Ressourcen, Energie und Anbauflächen. Dabei wird zu viel CO2 freigesetzt und unsere Erde erwärmt sich viel zu rasch.", "bgid": 1},
+                {"standard": "standard", "showNext": 2000, "exp": "L01,G01", "txt": "G;Ich hab‘s gern fein warm!", "bgid": 2},
+                {"standard": "standard", "showNext": 3000, "exp": "L01,G01", "txt": "M;Nicht unter diesen Umständen. Außerdem leben wir in der westlichen Welt über unsere Verhältnisse, indem wir drei Mal so viel verbrauchen, wie unser Planet zu bieten hat. Das geht nicht mehr lange gut!", "bgid": 3},
+                {"standard": "standard", "showNext": 2000, "exp": "L01,G01", "txt": "G;So ein Quatsch! Iss einfach, bis du pappsatt bist!", "bgid": 4},
+                {"standard": "standard", "showNext": 4000, "exp": "L01,G01", "txt": "M;Wer clever ist, bleibt fair und wird trotzdem satt - probier‘s mal!", "bgid": 5}
             ]
         ]
     }

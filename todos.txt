@@ -1,9 +1,15 @@
+. FB-SHare FB-Icon
+. restock Food
+. Tellergalerie-Button
+
+
+
+
+
 OFFEN
 . Facebook Description
 . Layout für Food Labels
-
-
-
+. Spielbeginn Messages
 
 
 
@@ -12,8 +18,7 @@ TODOS
 . Bubble Logik anpassen
 
 
-FRAGEN
-. neue Gerichte: Burger, Sushi, Pizza etc.
+FRAGEN an Studis
 . Dialog bei 'Probeteller nicht geschafft' raus?
 . Confetti- und Sturm-Animation noch Thema oder raus?
 . MouseOver Effekte bei Buttons?
