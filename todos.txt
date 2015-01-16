@@ -1,3 +1,4 @@
+TODOS
 . FB-SHare FB-Icon
 . restock Food
 . Tellergalerie-Button
@@ -19,6 +20,7 @@ TODOS
 
 
 FRAGEN an Studis
+. MSGS: letzte Zutat > LOST/WON Message > Hin
 . Dialog bei 'Probeteller nicht geschafft' raus?
 . Confetti- und Sturm-Animation noch Thema oder raus?
 . MouseOver Effekte bei Buttons?
@@ -236,3 +238,25 @@ PHASE 3
 . Fotos: zugeschickt oder FB
 
 . "label": "ERBSEN<br><font class=\"small\">TK</font>"
+
+
+
+
+
+------ Write Screenshot -------
+
+$('#target_div').html2canvas({
+
+onrendered: function (canvas) {
+
+var url = canvas.toDataURL("image/png").replace(/^data:image\/[^;]/, 'data:application/octet-stream');
+
+location.href = url;
+
+}
+
+});
+
+
+
+https://github.com/niklasvh/html2canvas

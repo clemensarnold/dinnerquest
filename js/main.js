@@ -157,6 +157,10 @@ var dq = (function($, window, undefined) {
     game.sounds = [{selector: '.navi-container > div', whichSound: sounds.CHANGE_TAB}];
     
     $(function() {
+
+        if (location.hash === '#game') {
+            defaultTemplate = templates[3];
+        }
         
         helper.initMisc();
 
