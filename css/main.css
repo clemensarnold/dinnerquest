@@ -36,7 +36,7 @@ button,
 input,
 select,
 textarea {
-    color: #222;
+    color: #AB8E6E;
 }
 
 html {
@@ -947,11 +947,11 @@ video {
 .m-item p {
     /*border: 1px solid red;*/
     position: absolute;
-    bottom: -22px;
+    bottom: -18px;
     left: 0;
     width: 100%;
     text-align: center;
-    line-height: 17px;
+    line-height: 14px;
 }
 
 .m-item p .small {
