@@ -140,7 +140,7 @@ html, body, #overlays {
 }
 
 body {
-    background: #c7b299;
+    background: #7FBBD5;
     /*background: url(./../img/png/table-cloth-small.png); */
     background-position: bottom left;
     transition: background 0.5s ease-out 1.0s;
