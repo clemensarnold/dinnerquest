@@ -1,16 +1,25 @@
+TERMIN @ Angewandte
+
+. showspecific einblenden
+. HTML5 Video maskieren
+. FB-Share-Link > 
+
+
+
 TODOS
 . FB-SHare FB-Icon
 . restock Food
 . Tellergalerie-Button
 
 
+ABLAUF
+. Teller fertig > Szenario > Buttons für Auswertung
 
 
 
 OFFEN
 . Facebook Description
 . Layout für Food Labels
-. Spielbeginn Messages
 
 
 
@@ -20,6 +29,7 @@ TODOS
 
 
 FRAGEN an Studis
+. welche(r) Browser
 . MSGS: letzte Zutat > LOST/WON Message > Hin
 . Dialog bei 'Probeteller nicht geschafft' raus?
 . Confetti- und Sturm-Animation noch Thema oder raus?
@@ -260,3 +270,4 @@ location.href = url;
 
 
 https://github.com/niklasvh/html2canvas
+http://stackoverflow.com/questions/6887183/how-to-take-screen-shot-of-a-div-with-javascript
