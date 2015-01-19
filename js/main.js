@@ -141,7 +141,7 @@ var dq = (function($, window, undefined) {
         PLATE_RAD: 270, PLATE_DISTANCE: 40000// 200*200
     },
     templates = ['INTRO', 'TRIAL','VIDEO','GAME','SCENARIO'],
-    defaultTemplate = templates[0], 
+    defaultTemplate = templates[3], 
     sounds = {
         DROPPED_FOOD: 'dropped-food',
         NEW_GAME: 'new-game',
@@ -402,7 +402,7 @@ var dq = (function($, window, undefined) {
             $('body').addClass('table-cloth');
             refs.$menu.removeClass('down');
             
-            setTimeout(app.clearSounds, 900);
+            // setTimeout(app.clearSounds, 900);
         },
 
         stopTrialMode: function() {
@@ -571,7 +571,7 @@ var dq = (function($, window, undefined) {
             });
 
             if (showSpecific) {
-                refs.$plate.find('.food .chart').delay(2000).fadeOut(500, function() { log('remove .food .chart'); $(this).remove(); });
+                // refs.$plate.find('.food .chart').delay(2000).fadeOut(500, function() { log('remove .food .chart'); $(this).remove(); });
             }
             
             //  catch mouse down
@@ -627,6 +627,9 @@ var dq = (function($, window, undefined) {
         },
         
         playSound: function(whichSound, loop) {
+
+            log('playSound / whichSound: ' + whichSound);
+            log('playSound / loop: ' + loop);
             
             if (!constants.SOUNDS) return;
 
@@ -635,6 +638,8 @@ var dq = (function($, window, undefined) {
             //if (whichSound === 'new-game') return;
             //log('playSound / whichSound: ' + whichSound);
             
+            // refs[whichSound].pause();
+            // refs[whichSound].currentTime = 0;
             refs[whichSound].play();
             game.lastSound = whichSound;
         },
@@ -1386,6 +1391,8 @@ var dq = (function($, window, undefined) {
             gameOver = tooMuchC02 || enoughCalories,
             startAniDelay = 500,
             showChartDelay = 5000;
+
+        log('checkMealVals / $target: ' + $target);
         
         if (gameOver) {
 
@@ -1421,8 +1428,10 @@ var dq = (function($, window, undefined) {
             }
         }
 
-        // ??
-        // app.generateChart($target);
+        // show single food label
+        else {
+            app.generateChart($target);
+        }
     }
 
     game.finishGame = function() {
@@ -2033,8 +2042,8 @@ var dq = (function($, window, undefined) {
         showBubble: function() {
 
             log('showBubble');
-            log('bubbleData');
-            log(cutlery.bubbleData);
+            // log('bubbleData');
+            // log(cutlery.bubbleData);
             
             var vertOffset = (!!cutlery.bubbleData.standard) ? 300 : 150;
             

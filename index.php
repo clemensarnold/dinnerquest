@@ -123,8 +123,11 @@
         </div>
         
         <div id="audiocontainer">
-            <audio class="btn-audio snd change-tab" preload="auto"><source src="./media/sound/change_tab.mp3" type="audio/mpeg" /></audio>
-            <audio class="btn-audio snd dropped-food" preload="auto"><source src="./media/sound/food_on_plate.mp3" type="audio/mpeg" /></audio>
+            <!-- <audio class="btn-audio snd change-tab" preload="auto"><source src="./media/sound/change_tab.mp3" type="audio/mpeg" /></audio> -->
+            <!-- <audio class="btn-audio snd dropped-food" preload="auto"><source src="./media/sound/food_on_plate.mp3" type="audio/mpeg" /></audio> -->
+
+            <audio class="btn-audio snd change-tab" preload="auto"><source src="./media/sound-new/KaregorieAuswahlHolz.wav" type="audio/mpeg" /></audio>
+            <audio class="btn-audio snd dropped-food" preload="auto"><source src="./media/sound-new/ClickZutatGehtAufTeller.wav" type="audio/mpeg" /></audio>
             <audio class="btn-audio snd failed"><source src="./media/sound/failed.mp3" type="audio/mpeg" /></audio>
             <audio class="btn-audio snd success"><source src="./media/sound/success.mp3" type="audio/mpeg" /></audio>
             <audio class="btn-audio snd new-game" preload="auto"><source src="./media/sound/new_game.mp3" type="audio/mpeg" /></audio>
