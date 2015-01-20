@@ -188,4 +188,58 @@
 		</g>
 	</g>
 </g>
+<g>
+	<rect x="410.429" y="100.771" fill="#2C4077" width="125.344" height="39.751"/>
+	<polyline fill="#161F3B" points="540.048,144.927 414.769,144.927 410.46,140.519 535.773,140.519 	"/>
+	<g>
+		
+			<text transform="matrix(1 -0.0027 0.0027 1 459.4143 126.8008)" fill="#FFFFFF" font-family="'CooperBT-Medium'" font-size="17.6622" letter-spacing="1">share</text>
+	</g>
+	<path fill="#FFFFFF" d="M433.943,114.716h1.955v-3.529c-0.785-0.023-1.816-0.05-3.168-0.08c-4.883-0.107-4.703,4.918-4.703,4.918
+		v2.891h-3.357v3.772h3.357v9.793h3.906v-9.793h3.283l0.469-3.772h-3.752v-2.534C431.933,114.545,433.943,114.716,433.943,114.716z"
+		/>
+	<rect x="448.659" y="100.771" fill="#1E2B50" width="1.262" height="39.749"/>
+	<polygon fill="#1E2B50" points="540.048,145.229 535.74,140.519 535.74,100.771 540.048,105.474 	"/>
+</g>
+<g>
+	<rect x="5.937" y="100.771" fill="#936844" width="186.389" height="39.747"/>
+	<polygon fill="#4A3422" points="196.634,145.229 10.245,145.229 5.937,140.519 192.325,140.519 	"/>
+	<polygon fill="#62452D" points="196.634,145.229 192.325,140.519 192.325,100.771 196.634,105.474 	"/>
+	
+		<text transform="matrix(1 0 0 1 16.2996 126.6143)" fill="#FFFFFF" font-family="'CooperBT-Medium'" font-size="17.6622" letter-spacing="1">Essensansicht</text>
+</g>
+<g>
+	<rect x="217.171" y="158.125" fill="#96D44F" width="182.08" height="39.748"/>
+	<polygon fill="#68961E" points="212.863,158.135 399.251,158.135 399.251,162.846 217.171,162.846 	"/>
+	<polygon fill="#74AA27" points="212.863,158.135 217.171,162.846 217.171,197.873 212.863,197.873 	"/>
+	
+		<text transform="matrix(1 0 0 1 226.8762 185.2656)" fill="#FFFFFF" font-family="'CooperBT-Medium'" font-size="17.6622" letter-spacing="1">WEITERSPIELEN</text>
+</g>
+<g>
+	<polygon fill="#4E7117" points="399.251,145.229 212.863,145.229 208.554,140.519 394.943,140.519 	"/>
+	<polygon fill="#68961E" points="399.251,145.229 394.943,140.519 394.943,100.771 399.251,105.474 	"/>
+	<rect x="208.554" y="100.771" fill="#74AA27" width="186.389" height="39.747"/>
+	
+		<text transform="matrix(1 0 0 1 222.5676 126.6143)" fill="#FFFFFF" font-family="'CooperBT-Medium'" font-size="17.6622" letter-spacing="1">WEITERSPIELEN</text>
+</g>
+<g>
+	<rect x="14.537" y="158.125" fill="#936844" width="182.08" height="39.748"/>
+	<polygon fill="#62452D" points="10.245,158.135 14.554,162.846 14.554,197.873 10.245,197.873 	"/>
+	
+		<text transform="matrix(1 0 0 1 24.9011 185.2656)" fill="#FFFFFF" font-family="'CooperBT-Medium'" font-size="17.6622" letter-spacing="1">Essensansicht</text>
+	<polygon fill="#4A3422" points="196.634,162.846 14.554,162.846 10.245,158.135 196.634,158.135 	"/>
+</g>
+<g>
+	<rect x="414.72" y="158.125" fill="#2C4077" width="125.344" height="39.75"/>
+	<g>
+		
+			<text transform="matrix(1 -0.0027 0.0027 1 463.7053 184.1543)" fill="#FFFFFF" font-family="'CooperBT-Medium'" font-size="17.6622" letter-spacing="1">share</text>
+	</g>
+	<path fill="#FFFFFF" d="M438.234,172.068h1.955v-3.529c-0.785-0.023-1.816-0.049-3.168-0.08c-4.883-0.107-4.703,4.918-4.703,4.918
+		v2.891h-3.357v3.773h3.357v9.793h3.906v-9.793h3.283l0.469-3.773h-3.752v-2.533C436.224,171.898,438.234,172.068,438.234,172.068z"
+		/>
+	<rect x="452.95" y="158.125" fill="#1E2B50" width="1.262" height="39.748"/>
+	<polygon fill="#1E2B50" points="419.077,197.873 414.769,197.873 414.769,158.135 419.077,162.838 	"/>
+	<polygon fill="#0F1528" points="414.769,158.145 540.064,158.145 540.064,162.855 419.077,162.855 	"/>
+</g>
 </svg>

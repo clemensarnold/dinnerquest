@@ -285,6 +285,70 @@ video {
     top: 50px; left: 248px;
     z-index: 1;
 }
+
+#prev {
+    left: 63px;
+    width: 43px;
+    background: url('img_navsprites.gif') -47px 0;
+}
+
+.diargamm {
+    width: 55px;
+    height: 49px;
+    right: 130px; 
+    background-position: -204px -46px;
+    z-index: 101;
+    transition: background 0.3s ease-out;
+}
+
+.continue {
+    width: 191px;
+    height: 45px;
+    right: 410px; 
+    background-position: -211px 100px;
+    z-index: 101;
+}
+
+.continue:hover {
+    width: 191px;
+    height: 45px;
+    right: 410px; 
+    background-position: -211px 45px;
+    z-index: 101;
+}
+
+.fb-share {
+    width: 150px;
+    height: 45px;
+    right: 250px; 
+    background-position: -412px 100px;
+    z-index: 101;
+}
+
+.fb-share:hover {
+    width: 150px;
+    height: 45px;
+    right: 250px; 
+    background-position: -412px 45px;
+    z-index: 101;
+}
+
+.diagramm {
+    width: 191px;
+    height: 45px;
+    right: 615px; 
+    background-position: -5px 100px;
+    z-index: 101;
+}
+
+.diagramm:hover {
+    width: 191px;
+    height: 45px;
+    right: 615px; 
+    background-position: -5px 45px;
+    z-index: 101;
+}
+
 .hud-new {
     position: absolute;
     top: 625px;
@@ -358,6 +422,20 @@ video {
 
 .hud .button.fb-share:hover {
     background: #2b82d9;
+}
+
+.meal-check {
+    width: 50px; height: 50px;
+    /*background: #009370;*/
+    position: absolute;
+    bottom: 110px;
+    right: 290px;
+    opacity: 0;
+    transition: opacity 0.4s ease-out 0.3s;
+    z-index: 20000;
+    background-position: -270px -9px;
+    background-image: url(./../img/svg/icons.svg);
+    pointer-events: none;
 }
 
 
@@ -653,7 +731,7 @@ video {
 
 .logo {
     width: 139px;
-    height: 106px;
+    height: 100px;
     left: 5px;
     top: 22px;
     background-position: 2px 2px;
