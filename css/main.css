@@ -305,7 +305,8 @@ video {
     height: 100%;
     line-height: 41px;
     color: white;
-    font-weight: normal;
+    font-weight: 50;
+    font-size: 30;
 }
 
 .btnn:hover p {
@@ -962,39 +963,39 @@ video {
 }
 
 .navi-container .veggies {
-    width: 98px;
+    width: 115px;
     background-position: 0 13px;
 }
 
 .navi-container .veggies.active { background-position: 0 0; }
 
 .navi-container .sides {
-    width: 105px;
-    background-position: -97px 13px;
+    width: 110px;
+    background-position: -115px 13px;
 }
 
-.navi-container .sides.active { background-position: -97px 0; }
+.navi-container .sides.active { background-position: -115px 0; }
 
 .navi-container .animals {
-    width: 118px;
-    background-position: -198px 13px;
+    width: 123px;
+    background-position: -227px 13px;
 }
 
-.navi-container .animals.active { background-position: -198px 0; }
+.navi-container .animals.active { background-position: -227px 0; }
 
 .navi-container .fruit {
-    width: 60px;
-    background-position: -320px 13px;
+    width: 78px;
+    background-position: -350px 13px;
 }
 
-.navi-container .fruit.active { background-position: -320px 0; }
+.navi-container .fruit.active { background-position: -350px 0; }
 
 .navi-container .fastfood {
-    width: 115px;
-    background-position: -382px 13px;
+    width: 120px;
+    background-position: -427px 13px;
 }
 
-.navi-container .fastfood.active { background-position: -382px 0; }
+.navi-container .fastfood.active { background-position: -427px 0; }
 
 
 
