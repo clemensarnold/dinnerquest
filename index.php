@@ -104,7 +104,7 @@
                 <div class="logo icon transparent"></div>
                 <div class="gallery icon transparent" data-pagetype="gallery"></div>
                 <div class="info icon transparent" data-pagetype="infopage"></div>
-                <div class="sound icon" data-pagetype="sound"></div>
+                <div class="sound icon transparent" data-pagetype="sound"></div>
             </div>
         </div>
         

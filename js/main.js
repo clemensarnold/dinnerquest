@@ -342,7 +342,7 @@ var dq = (function($, window, undefined) {
         },
 
         showGameButtons: function() {
-            $('.logo, .info, .gallery').removeClass('transparent');
+            $('.logo, .info, .gallery, .sound').removeClass('transparent');
         },
         
         finishVideo: function() {
