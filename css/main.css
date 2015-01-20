@@ -301,6 +301,18 @@ video {
     transition: background 0.3s ease-out;
 }
 
+.btnn p {
+    height: 100%;
+    line-height: 41px;
+    color: white;
+    font-weight: normal;
+}
+
+.btnn:hover p {
+    line-height: 47px;
+    padding-left: 7px;
+}
+
 .continue {
     width: 191px;
     height: 45px;

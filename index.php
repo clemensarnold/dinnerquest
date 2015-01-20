@@ -88,7 +88,7 @@
                 <div class="hud hidden">
                     <div class="btn-wrapper">
                         <a target="_blank" href="" class="fb-share icon" data-pagetype="fb-share"></a>
-                        <div class="toggle small diagramm icon"><p data-label="essensansicht">diagramm</p></div>
+                        <div class="toggle btnn small diagramm icon"><p data-label="essensansicht" class style="text-transform: uppercase">diagramm</p></div>
                         <div class="start-new-game continue icon" data-pagetype="continue"></div>
                         
                     </div>

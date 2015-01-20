@@ -205,8 +205,6 @@
 	<rect x="5.937" y="100.771" fill="#936844" width="186.389" height="39.747"/>
 	<polygon fill="#4A3422" points="196.634,145.229 10.245,145.229 5.937,140.519 192.325,140.519 	"/>
 	<polygon fill="#62452D" points="196.634,145.229 192.325,140.519 192.325,100.771 196.634,105.474 	"/>
-	
-		<text transform="matrix(1 0 0 1 16.2996 126.6143)" fill="#FFFFFF" font-family="'CooperBT-Medium'" font-size="17.6622" letter-spacing="1">Essensansicht</text>
 </g>
 <g>
 	<rect x="217.171" y="158.125" fill="#96D44F" width="182.08" height="39.748"/>
@@ -225,8 +223,6 @@
 <g>
 	<rect x="14.537" y="158.125" fill="#936844" width="182.08" height="39.748"/>
 	<polygon fill="#62452D" points="10.245,158.135 14.554,162.846 14.554,197.873 10.245,197.873 	"/>
-	
-		<text transform="matrix(1 0 0 1 24.9011 185.2656)" fill="#FFFFFF" font-family="'CooperBT-Medium'" font-size="17.6622" letter-spacing="1">Essensansicht</text>
 	<polygon fill="#4A3422" points="196.634,162.846 14.554,162.846 10.245,158.135 196.634,158.135 	"/>
 </g>
 <g>
