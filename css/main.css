@@ -663,7 +663,7 @@ video {
 .gallery {
     width: 55px;
     height: 49px;
-    right: 48px; 
+    right: 130px; 
     background-position: -204px -46px;
     z-index: 101;
     transition: background 0.3s ease-out;
@@ -672,12 +672,20 @@ video {
 .info {
     width: 55px;
     height: 49px;
-    right: -4px; 
+    right: 60px; 
     background-position: -142px 2px;
     z-index: 101;
 }
 
-.gallery, .info {
+.sound {
+    width: 55px;
+    height: 49px;
+    right: -10px; 
+    background-position: -142px -46px;
+    z-index: 101;
+}
+
+.gallery, .info, .sound {
     top: 5px;
 }
 
