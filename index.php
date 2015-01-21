@@ -102,9 +102,9 @@
                     <!-- <div id="newGameButton"></div> -->
                 </div>
                 <div class="logo icon transparent"></div>
-                <div class="gallery icon transparent" data-pagetype="gallery"></div>
-                <div class="info icon transparent" data-pagetype="infopage"></div>
-                <div class="sound icon transparent" data-pagetype="sound"></div>
+                <div class="gallery icon transparent" data-pagetype="gallery" style="cursor: hand;"></div>
+                <div class="info icon transparent" data-pagetype="infopage" style="cursor: hand;"></div>
+                <div class="sound icon transparent" data-pagetype="sound" style="cursor: hand;"></div>
             </div>
         </div>
         
