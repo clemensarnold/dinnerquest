@@ -1277,25 +1277,33 @@ body.hidesvg g {
     position: absolute;
     top: 0;
     right: 17px;
-    width: 50px;
+    width: 70px;
     height: 230px;
     /*border: 1px solid #fff;*/
 }
 
 .barchart p {
     /*font-family: "Marker Felt", serif;*/
-    color: #37ac41;
-    text-align: center;
-    line-height: 18px;
-    margin-left: -7px;
-    margin-top: 20px;
-    opacity: 0;
+    color: #938980;
+    position: absolute;
+    top: 220px;
+    top: 225px;
+    right: -10px;
+    width: 100px;
+    margin-top: 0px !important;
+    z-index: 1;
+    font-family: 'Cooper Lt BT', 'Arial', Sans-Serif;
+    font-weight: bold;
     transition: opacity 0.4s ease-out 0.4s;
     /*border: 1px solid;*/
 }
 
 .barchart p.lost {
-    color: #cd262c;
+    position: absolute;
+    z-index: 1;
+    font-family: 'Cooper Lt BT', 'Arial', Sans-Serif;
+    font-weight: bold;
+    color: #938980;
 }
 
 #gallery .crossed {

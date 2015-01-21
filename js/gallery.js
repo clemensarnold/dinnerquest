@@ -20,7 +20,7 @@ dq.gallery = {
             data[i].stats.lost = data[i].stats.lost || data[i].stats.co2 >= dq.game.co2_max;
             data[i].stats.ratio = data[i].stats.ratio || data[i].stats.co2 / dq.game.co2_max;
             html += '<div class="dish-wrapper"><div class="dish-mask"><div class="dish"></div><div class="barchart">';
-            html += '<p>' + helper.convertToKG(data[i].stats.co2) + ' kg<br/>CO<sub>2</sub></p><div class="chartmask"><div class="green"></div><div class="red"></div></div></div></div><div class="crossed hidden"></div></div>';
+            html += '<p>' + helper.convertToKG(data[i].stats.co2) + ' kg CO<sub>2</sub></p><div class="chartmask"><div class="green"></div><div class="red"></div></div></div></div><div class="crossed hidden"></div></div>';
         }
 
         this.$target.empty().append(html);
