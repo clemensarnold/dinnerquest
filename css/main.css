@@ -769,11 +769,15 @@ video {
 }
 
 .sound {
-    width: 55px;
+    width: 52px;
     height: 49px;
     right: -10px; 
-    background-position: -142px -46px;
+    background-position: -424px -1px;
     z-index: 101;
+}
+
+.sound.off {
+    background-position: -469px -1px;
 }
 
 .gallery, .info, .sound {
@@ -781,7 +785,8 @@ video {
 }
 
 .info.close,
-.gallery.close {
+.gallery.close,
+.sound.close {
     /*width: 36px;*/
     /*height: 42px;*/
     background-position: -204px 2px;

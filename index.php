@@ -151,5 +151,12 @@
         <script src="js/gallery.js"></script>        
         <script src="js/vendor/stats.js"></script>
         <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script> 
+
+        <script>
+        $('.sound').click(function () {
+            $(this).toggleClass('off');
+        });
+        </script>
+
     </body>
 </html>
