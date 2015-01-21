@@ -93,8 +93,8 @@
 
     "scenarios": [
         {
-            "positive": {"img": "placeholder-pos.jpg", "sound": "Sz1Positiv.mp3", "txt": "Positive: Die Flüsse in der Natur sind so schön ach gott ich schmelze dahin ( :"},
-            "negative": {"img": "placeholder-neg.jpg", "sound": "Sz1Negativ.mp3", "txt": "Negative: Die Flüsse in der Natur sind so schön ach gott ich schmelze dahin ( :"}
+            "positive": {"txt-fork": "G12;POS - Ah, das ist ja völlig übertrieben.", "txt-spoon": "M01;POS - Schau dir doch mal den schlimmsten Übeltäter an.", "img": "placeholder-pos.jpg", "sound": "Sz1Positiv.mp3", "txt": "Positive: Die Flüsse in der Natur sind so schön ach gott ich schmelze dahin ( :"},
+            "negative": {"txt-fork": "G12;NEG - Ah, das ist ja völlig übertrieben.", "txt-spoon": "M06;NEG - Schau dir doch mal den schlimmsten Übeltäter an.", "img": "placeholder-neg.jpg", "sound": "Sz1Negativ.mp3", "txt": "Negative: Die Flüsse in der Natur sind so schön ach gott ich schmelze dahin ( :"}
         }
     ],
     

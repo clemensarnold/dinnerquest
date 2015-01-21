@@ -104,6 +104,8 @@ var dq = (function($, window, undefined) {
         currentTemplate: undefined,
         BUBBLES_NEWGAME: 'new-game',
         BUBBLES_DROPPED_FOOD: 'food-dropped',
+        BUBBLES_SCENARIO_FORK: 'scenario-fork',
+        BUBBLES_SCENARIO_SPOON: 'scenario-spoon',
         BUBBLES_CLICKED_CHART: 'clicked-chart',
         BUBBLES_FAILED: 'failed',
         BUBBLES_SUCCESS: 'success',
@@ -133,7 +135,7 @@ var dq = (function($, window, undefined) {
         STATS: false,
         CHECK_INACTIVITY: false,
         RELOAD_ON_INACTIVE: false,
-        SOUNDS: true,
+        SOUNDS: false,
         SKIP_INTRO: false,
         SKIP_TRIAL: false,
         SKIP_VIDEO: false,
@@ -246,6 +248,7 @@ var dq = (function($, window, undefined) {
                     app.startGame();
 
                     // scenario.render();
+                    // setTimeout(scenario.render, 4000);
                     break;
 
                 default:
@@ -736,6 +739,9 @@ var dq = (function($, window, undefined) {
 
         SHOW_DELAY: 3500,
         HIDE_DELAY: 10000,
+        SPOON_DELAY: 500,
+        FORK_DELAY: 5000,
+        data: undefined,
 
         render: function() {
             log('scenario.render');
@@ -744,6 +750,7 @@ var dq = (function($, window, undefined) {
                 scenarioMood = game.lost ? 'negative' : 'positive';
             
             var dataObj = app.json.scenarios[scenarioNr][scenarioMood];
+            scenario.dataObj = dataObj;
 
             log(dataObj);
 
@@ -757,6 +764,10 @@ var dq = (function($, window, undefined) {
                 $(this).addClass('show').dequeue();
             });
 
+            //  trigger bubbles
+            setTimeout(cutlery.trigger, scenario.SPOON_DELAY, game.BUBBLES_SCENARIO_SPOON);
+            setTimeout(cutlery.trigger, scenario.FORK_DELAY, game.BUBBLES_SCENARIO_FORK);
+            
             setTimeout(scenario.hide, scenario.HIDE_DELAY);
         },
 
@@ -1973,6 +1984,16 @@ var dq = (function($, window, undefined) {
                     bubbleData = {standard: "standard", exp: cutexpr, txt: msg, bgid: 0};
                     break;
 
+                case game.BUBBLES_SCENARIO_SPOON:
+                case game.BUBBLES_SCENARIO_FORK:
+                    // log(scenario.dataObj);
+
+                    msg = bubblemode === game.BUBBLES_SCENARIO_SPOON ? scenario.dataObj['txt-spoon'] : scenario.dataObj['txt-fork'];
+
+                    cutexpr = scenario.dataObj['txt-spoon'].split(';')[0] + ',' + scenario.dataObj['txt-fork'][0];
+
+                    bubbleData = {standard: "standard", exp: cutexpr, txt: msg, bgid: 0};
+                    break;
 
                 case game.BUBBLES_NEWGAME:
                     arrayID = (game.platesCounter < 3) ? game.platesCounter : 2;
