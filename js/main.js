@@ -764,7 +764,7 @@ var dq = (function($, window, undefined) {
                 $target.find('.bar').css({background: data[i].color, height: that.calcBarHeight(data[i].c02)});
 
                 //  label
-                text = data[i].serving + ' g ' + data[i].label + '<br>'+ helper.convertToKG(data[i].c02) + ' kg CO<sub>2</sub>';
+                //text = data[i].serving + ' g ' + data[i].label + helper.convertToKG(data[i].c02) + ' kg CO<sub>2</sub>';
                 $target.find('p').html(text);
 
                 bottomOff += $($el).find('.bar').height();

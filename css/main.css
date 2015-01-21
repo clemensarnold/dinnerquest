@@ -307,7 +307,7 @@ video {
     color: white;
     font-weight: 50;
     font-size: 30;
-    font-family: 'cooper_md_btmedium';
+    font-family: 'cooper_md_btmedium'
 }
 
 .btnn:hover p {
@@ -1197,22 +1197,14 @@ body.hidesvg g {
 
 #gallery .dish-wrapper {
     width: 280px;
-    height: 230px;
+    height: 316px;
     display: inline-block;
     margin: 0 20px 15px 0;
     position: relative;
     background: url(./../img/svg/gallery-bottom-2.svg) no-repeat left 135px;
     /*border-bottom: 1px solid black;*/
     cursor: pointer;
-}
-
-#gallery .dish-mask {
-    width: 277px;
-    height: 226px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    overflow: hidden;
+    background-size: 100% 45%;
 }
 
 #gallery .dish-wrapper.last-in-row { 
@@ -1269,9 +1261,9 @@ body.hidesvg g {
     width: 30px;
     height: 60px;
     position: absolute;
-    bottom: 1px;
+    bottom: 12px;
     left: 0;
-    background: #37ac41;
+    background: #95D944;
     /*-webkit-transform-origin: 0 60px;*/
     /*-webkit-transform: scale(1,.2);*/
 }
@@ -1280,9 +1272,9 @@ body.hidesvg g {
     width: 30px;
     height: 160px;
     position: absolute;
-    bottom: 65px;
+    bottom: 72px;
     left: 0;
-    background: #cd262c;
+    background: #ED705A;
 }
 
 .barchart .chartmask {
