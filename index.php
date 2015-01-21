@@ -61,6 +61,12 @@
         <div id="overlays">
             <div id="stage">
                 <div class="meal-check"></div>
+                <div class="scenario hidden">
+                    <div class="img-wrapper">
+                        <img src="" />
+                    </div>
+                    <p></p>
+                </div>
                 <div id="barchart" class="hidden">
                     <div class="mask">
                         <div class="co2-limit"><p>0,7 kg CO<sub>2</sub></p></div>
@@ -125,11 +131,21 @@
         </div>
         
         <div id="audiocontainer">
+            <audio class="btn-audio snd first-intro" preload="auto"><source src="./media/sound-final/intro/IntroFoodOnPlate.mp3" type="audio/mpeg" /></audio>
+
             <!-- <audio class="btn-audio snd change-tab" preload="auto"><source src="./media/sound/change_tab.mp3" type="audio/mpeg" /></audio> -->
             <!-- <audio class="btn-audio snd dropped-food" preload="auto"><source src="./media/sound/food_on_plate.mp3" type="audio/mpeg" /></audio> -->
 
             <audio class="btn-audio snd change-tab" preload="auto"><source src="./media/sound-new/KaregorieAuswahlHolz.wav" type="audio/mpeg" /></audio>
-            <audio class="btn-audio snd dropped-food" preload="auto"><source src="./media/sound-new/ClickZutatGehtAufTeller.wav" type="audio/mpeg" /></audio>
+
+            <!-- <audio class="btn-audio snd dropped-food" preload="auto"><source src="./media/sound-new/ClickZutatGehtAufTeller.wav" type="audio/mpeg" /></audio> -->
+            <audio class="btn-audio snd dropped-food" preload="auto"><source src="./media/sound-final/gameplay/FoodTothePlate.mp3" type="audio/mpeg" /></audio>
+
+
+            
+
+
+
             <audio class="btn-audio snd failed"><source src="./media/sound/failed.mp3" type="audio/mpeg" /></audio>
             <audio class="btn-audio snd success"><source src="./media/sound/success.mp3" type="audio/mpeg" /></audio>
             <audio class="btn-audio snd new-game" preload="auto"><source src="./media/sound/new_game.mp3" type="audio/mpeg" /></audio>
@@ -151,12 +167,6 @@
         <script src="js/gallery.js"></script>        
         <script src="js/vendor/stats.js"></script>
         <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script> 
-
-        <script>
-        $('.sound').click(function () {
-            $(this).toggleClass('off');
-        });
-        </script>
 
     </body>
 </html>

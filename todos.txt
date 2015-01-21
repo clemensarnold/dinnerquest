@@ -1,3 +1,13 @@
+Hallo Jörg,
+Hier das (jetzt aber wirklich) finale layout ai.
+Entschuldige bitte die vielen Änderungen.
+Wir haben den 3d-effekt beim balkendiagramm wieder weggenommen aber wollten fragen ob ein Schatten trotzdem möglich ist. Wenn nein, einfach weglassen.
+Das Konsequenzlayout soll jetzt ein Polaroid statt einem Fernseher sein. Nachrichtensprechersatz (wie im Storyboard) soll am Fotro stehen. Font hier in Basecamp!
+Hier wäre die Frage ob man eine Irisblende (Animation) auf das Polaroid machen kann. Als würde sich das Foto entwickeln.
+Die rollon und click zustände der buttons sind im ai.
+Paul sitzt gerade am Obst. Das kommt diese Woche noch.
+Danke und liebe Grüße
+Theresa
 
 
 ABLAUF
@@ -18,14 +28,18 @@ TODOS ALLGEMEIN
 TODOS CLEMENS
 [ ] gleich spielen > direkt zum spiel
 [ ] Adjust Game Logic for Scenario Integration
+[ ] Layout neues Mainchart
+[ ] Layout GalleryView
 [ ] restock food item after deletion
 [ ] Strahlenkranz-Animation lt AI-File
 [ ] Food Menu with opt arrows
 [ ] individual fb share
 
 TASKS MICHAL
-[ ] SVGs komprimieren (http://petercollingridge.appspot.com/svg-editor)
+[ ] new logo
 [ ] navitabs: navi.png > navi.svg
+[ ] SVGs komprimieren (http://petercollingridge.appspot.com/svg-editor)
+
 
 ------ SVG Optimisation -------
 . OPTIMIZE SVGs: http://petercollingridge.appspot.com/svg-editor !!!!

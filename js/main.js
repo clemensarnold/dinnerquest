@@ -32,6 +32,7 @@ var dq = (function($, window, undefined) {
         $bolt: $('.bolt'),
         $bolts: $('.bolt2'),
         $continueButton: $('#continueButton'),
+        $scenario: $('.scenario'),
         // $foodstack: $('#foodstack'),
         $piechart: $('#piechart'),
         $barchart: $('#barchart'),
@@ -41,7 +42,8 @@ var dq = (function($, window, undefined) {
         'success': $('.snd.success')[0],
         'failed': $('.snd.failed')[0],
         'new-game': $('.snd.new-game')[0],
-        'snoring': $('.snd.snoring')[0]
+        'snoring': $('.snd.snoring')[0],
+        'scenario': $('.snd.scenario')[0]
     },
     configs = {
         isTouch: 'ontouchstart' in window,
@@ -68,6 +70,7 @@ var dq = (function($, window, undefined) {
         trialmode: false,
         started: false,
         running: false,
+        lost: true,
         sleeping: false,
         lastSound: undefined,
         worstFoodsAry: [],
@@ -119,6 +122,7 @@ var dq = (function($, window, undefined) {
     gallery = {},
     piechart = {},
     barchart = {},
+    scenario = {},
     dragfood = {},
     debug = {},
     cutlery = {},
@@ -151,7 +155,8 @@ var dq = (function($, window, undefined) {
         CLICK_SPOON: "L_on_click",
         LEAVE_TAB: "leave_tab",
         SNORING: "snoring",
-        SUCCESS: "success"
+        SUCCESS: "success",
+        SCENARIO: "scenario"
     };
     
     game.sounds = [{selector: '.navi-container > div', whichSound: sounds.CHANGE_TAB}];
@@ -239,6 +244,8 @@ var dq = (function($, window, undefined) {
                     intro.remove();
                     app.showGameButtons();
                     app.startGame();
+
+                    // scenario.render();
                     break;
 
                 default:
@@ -298,6 +305,11 @@ var dq = (function($, window, undefined) {
 
                 $('#' + pagetype).hasClass('visible') ? app.hideContentPage(pagetype) : app.showContentPage(pagetype);
             }});
+
+            $('.sound').click(function () {
+                $(this).toggleClass('off', constants.SOUNDS);
+                constants.SOUNDS = !constants.SOUNDS;
+            });
             
             refs.$continueButton.on({click: function() {
                 refs.$infobtn.toggleClass('close');
@@ -626,10 +638,12 @@ var dq = (function($, window, undefined) {
             }
         },
         
-        playSound: function(whichSound, loop) {
+        playSound: function(whichSound, delay) {
 
             log('playSound / whichSound: ' + whichSound);
-            log('playSound / loop: ' + loop);
+            log('playSound / delay: ' + delay);
+
+            var delay = delay || 0;
             
             if (!constants.SOUNDS) return;
 
@@ -640,7 +654,10 @@ var dq = (function($, window, undefined) {
             
             // refs[whichSound].pause();
             // refs[whichSound].currentTime = 0;
-            refs[whichSound].play();
+            
+
+            setTimeout(function() { refs[whichSound].play(); }, delay);
+
             game.lastSound = whichSound;
         },
         
@@ -715,7 +732,65 @@ var dq = (function($, window, undefined) {
         }
     }
 
-    /******* Barchart *******/
+    scenario = {
+
+        SHOW_DELAY: 3500,
+        HIDE_DELAY: 10000,
+
+        render: function() {
+            log('scenario.render');
+
+            var scenarioNr = 0,
+                scenarioMood = game.lost ? 'negative' : 'positive';
+            
+            var dataObj = app.json.scenarios[scenarioNr][scenarioMood];
+
+            log(dataObj);
+
+            $('.scenario img').attr('src', './img/scenario/' + dataObj.img);
+            $('.scenario p').text(dataObj.txt);
+
+            scenario.initSound(dataObj.sound);
+            app.playSound(sounds.SCENARIO, 500);
+
+            refs.$scenario.removeClass('hidden').delay(500).queue(function(){ 
+                $(this).addClass('show').dequeue();
+            });
+
+            setTimeout(scenario.hide, scenario.HIDE_DELAY);
+        },
+
+        initSound: function(sound) {
+            var html = '<audio class="btn-audio snd scenario" preload="auto"><source src="./media/sound-final/scenarios/'+ sound + '" type="audio/mpeg" /></audio>';
+            
+
+            $('.snd.scenario').remove();
+            refs.$audiocontainer.append(html);
+
+            refs['scenario'] = $('.snd.scenario')[0];
+            
+            // log(html);
+            
+            // $snd = document.getElementById(id);
+            // $snd.volume = 0.3;
+            // $snd.play();
+        },
+
+        hide: function() {
+
+            log('scenario hide');
+
+            refs.$scenario.removeClass('show').delay(500).queue(function(){ 
+                $(this).addClass('hidden').dequeue();
+            });
+
+            setTimeout(function() {
+                app.generateChart();
+                window.setTimeout(barchart.showHud, 100);
+                barchart.activate();
+            }, 1500);
+        }
+    }
 
     barchart = {
 
@@ -1252,6 +1327,7 @@ var dq = (function($, window, undefined) {
         clearTimeout(game.showFeedbackInt);
         
         game.running = true;
+        game.lost = true;
         game.currentFoodCat = game.constants.DEFAULT_TAB;
 
         if (!game.trialmode) game.platesCounter++;
@@ -1401,7 +1477,8 @@ var dq = (function($, window, undefined) {
 
             } else {
                 game.finishGame();
-                app.generateChart();
+
+                //  app.generateChart(); //  after scenario
                 game.addMealToGallery(vals, tooMuchC02, vals.co2 / game.co2_max);
                 
                 //app.freezeFoodMenu();
@@ -1418,6 +1495,7 @@ var dq = (function($, window, undefined) {
                 } else {
                     // won
                     log('---------- won ----------');
+                    game.lost = true;
                     cutlery.trigger(game.BUBBLES_SUCCESS);
                     // setTimeout(confettis.init, startAniDelay);
                     game.showFeedbackInt = setTimeout(cutlery.trigger, showChartDelay, game.BUBBLES_POSITIVE);
@@ -1435,10 +1513,11 @@ var dq = (function($, window, undefined) {
     }
 
     game.finishGame = function() {
-        barchart.activate();
+        log('finishGame');
         game.running = false;
         refs.$menu.fadeOut();
-        window.setTimeout(barchart.showHud, 500);
+
+        setTimeout(scenario.render, scenario.SHOW_DELAY);
     }
 
     game.addMealToGallery = function(vals, lost, ratio) {
@@ -1471,7 +1550,8 @@ var dq = (function($, window, undefined) {
             // data: {mode: 'addMeal', data: JSON.stringify(game.meals)},
             data: {visitorid: game.visitorid, mode: 'addMeal', meal: JSON.stringify(dish), timestamp: dish.stats.date},
             success: function (data) {
-                console.log(data);
+                log('WROTE INTO DB');
+                log(data);
                 // String: SUCCESS || TRUE
             }
         });
@@ -1616,14 +1696,6 @@ var dq = (function($, window, undefined) {
 
                 game.addFood(specs, $newFood);
                 // game.addToFoodstack(specs, $newFood);
-                
-                //  cutlery
-                cutlery.setExpression(specs);
-
-                //  bubble
-                if (!game.trialmode) {
-                    setTimeout(cutlery.trigger, 10, game.BUBBLES_DROPPED_FOOD, specs['msg-dropped']);
-                }
 
                 $newFood.data('specs', specs);
                 dragfood.setOffPlateVals($newFood,dq.refs.$dragfood.css('left'), dq.refs.$dragfood.css('top'));
@@ -1636,6 +1708,18 @@ var dq = (function($, window, undefined) {
                 game.mealMix[specs.foodCat]++;
                 game.checkFoodMix();
                 game.checkMealVals($newFood);
+
+
+                if (game.running) {
+                    
+                    //  cutlery
+                    // cutlery.setExpression(specs);
+
+                    //  bubble
+                    if (!game.trialmode) {
+                        setTimeout(cutlery.trigger, 10, game.BUBBLES_DROPPED_FOOD, specs['msg-dropped']);
+                    }
+                }
                 
                 // debug.printObject(specs);
                 debug.printObject(game.calcMealVals(game.currentMeal), true);
@@ -1874,6 +1958,7 @@ var dq = (function($, window, undefined) {
         trigger: function(bubblemode, msg) {
             
             log('trigger / bubblemode: ' + bubblemode);
+            log('trigger / msg: ' + msg);
             
             var arrayID = NaN, rid = NaN, bubbleData = {}, worstFood = '', bestFood = '',
                 exprAry = [], bgIDsAry = [], bgid = NaN,
@@ -1882,8 +1967,10 @@ var dq = (function($, window, undefined) {
             switch(bubblemode) {
                 case game.BUBBLES_DROPPED_FOOD:
                 case game.BUBBLES_CLICKED_CHART:
-                    // {"standard": "standard", "showNext": 2000, "exp": "L01,G05", "txt": "G05;Was hast du zuletzt zu mittag gegessen?", "bgid": 0}
-                    bubbleData = {standard: "standard", exp: 'L01,G05', txt: msg, bgid: 0};
+                    var cutexprVal = msg.substr(1,msg.indexOf(';') - 1),
+                        cutexpr = 'M' + cutexprVal + ',G' + cutexprVal;
+
+                    bubbleData = {standard: "standard", exp: cutexpr, txt: msg, bgid: 0};
                     break;
 
 
@@ -2109,13 +2196,15 @@ var dq = (function($, window, undefined) {
         piechart: piechart,
         cutlery: cutlery,
         confettis: confettis,
-        storm: storm
+        storm: storm,
+        scenario: scenario
     };
 
 }(jQuery, window));
 
 /*
- * INTRO > TRIAL > VIDEO > GAME
+ * New Sounds in Use
+ * .gameplay/FoodTothePlate.mp3
  * 
  * 
  */

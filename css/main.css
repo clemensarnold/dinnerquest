@@ -31,6 +31,20 @@
     font-style: normal;
 }
 
+
+@font-face {
+    font-family: 'gloria_hallelujahregular';
+    src: url('./fonts/gloriahallelujah-webfont.eot');
+    src: url('./fonts/gloriahallelujah-webfont.eot?#iefix') format('embedded-opentype'),
+         url('./fonts/gloriahallelujah-webfont.woff2') format('woff2'),
+         url('./fonts/gloriahallelujah-webfont.woff') format('woff'),
+         url('./fonts/gloriahallelujah-webfont.ttf') format('truetype'),
+         url('./fonts/gloriahallelujah-webfont.svg#gloria_hallelujahregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 html,
 button,
 input,
@@ -276,6 +290,43 @@ video {
     bottom: 99px;
     left: 50%;
     margin-left: -512px;
+}
+
+.scenario {
+    position: absolute;
+    top: 80px;
+    left: 320px;
+    /*border: 1px solid;*/
+    width: 500px;
+    z-index: 10;
+    width: 400px;
+    height: 550px;
+    /*border: 1px solid lime;*/
+    opacity: 0;
+    background: url(./../img/scenario/picframe.png);
+    transition: opacity 0.4s ease-out;
+    -webkit-transform: rotate(-5deg);
+    padding: 25px 25px;
+}
+
+.scenario p {
+    padding: 7px 0 0;
+    color: #231f20;
+    /*border: 1px solid;*/
+    width: 322px;
+    font-family: 'gloria_hallelujahregular', 'Arial', Sans-Serif;
+    font-size: 21px;
+    line-height: 22px;
+}
+
+.img-wrapper {
+    width: 322px;
+    height: 332px;
+    overflow: hidden;
+}
+
+.scenario.show {
+    opacity: 1;
 }
 
 #plates, #chart {
