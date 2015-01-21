@@ -1117,10 +1117,48 @@ video {
 
 .m-item.dragged p { display: none !important; }
 
+.foodmenu-mask {
+    /*border: 1px dotted;*/
+    overflow: hidden;
+    margin-left: 45px;
+    margin-right: 45px;
+    height: 125px;
+}
+
 .food-container {
     height: 125px;
-    overflow: hidden;
+    transition: margin 0.4s ease-out;
+    /*overflow: hidden;*/
+    /*margin-left: 50px;*/
+    /*margin-right: 50px;*/
+    /*border: 1px dotted lime;*/
+
+    /*padding-right: 50px;*/
 }
+
+.menu-btn {
+    width: 45px;
+    height: 127px;
+    /*background: grey;*/
+    cursor: pointer;
+    position: absolute;
+    top: 0px;
+    opacity: 0.4;
+}
+
+.menu-btn.left {
+    left: 0px;
+}
+
+.menu-btn.next {
+    right: 0px;
+    /*background: blue;*/
+}
+
+.menu-btn.active {
+    opacity: 1;
+}
+
 
 .food-container.inactive {
     opacity: 0.3;

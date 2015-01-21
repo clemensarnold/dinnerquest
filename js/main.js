@@ -20,6 +20,7 @@ var dq = (function($, window, undefined) {
         $spoonBub: $('.spoon .bubble'),
         $menu: $('.menu-wrapper'),
         $foodCont: $('.food-container'),
+        $foodContMask: $('.foodmenu-mask'),
         $mealCheck: $('.meal-check'),
         $infopage: $('#infopage'),
         $gallery: $('#gallery .gal-wrapper'),
@@ -135,7 +136,7 @@ var dq = (function($, window, undefined) {
         STATS: false,
         CHECK_INACTIVITY: false,
         RELOAD_ON_INACTIVE: false,
-        SOUNDS: false,
+        SOUNDS: true,
         SKIP_INTRO: false,
         SKIP_TRIAL: false,
         SKIP_VIDEO: false,
@@ -320,7 +321,8 @@ var dq = (function($, window, undefined) {
             }});
 
             $('.hud .toggle').on({click: barchart.toggle});
-            
+            $('.menu-btn').on({click: app.scrollFoodMenu});
+
             //  init sounds
             for (var i = 0; i < game.sounds.length; i++) {
                 $(game.sounds[i].selector).data('whichSound', game.sounds[i].whichSound).on(configs.clickEvent, function(e, mode) {
@@ -329,6 +331,37 @@ var dq = (function($, window, undefined) {
             }
 
             app.renderTemplate(defaultTemplate);
+            
+        },
+
+        scrollFoodMenu: function(arg) {
+            log('scrollFoodMenu');
+
+            var prev = $(this).hasClass('prev'),
+                marginLeft = NaN,
+                itemWidth = 120,
+                lastID = NaN,
+                prevActive = false,
+                nextActive = false;
+
+            lastID = app.foodMenuObj.howMany - Math.floor(refs.$foodContMask.width()/itemWidth);
+            if (lastID < 0) lastID = 0;
+
+            if (arg !== 'no-change') {
+                prev ? app.foodMenuObj.currentID-- : app.foodMenuObj.currentID++;
+            }
+
+            if (app.foodMenuObj.currentID < 0) app.foodMenuObj.currentID = 0;
+            if (app.foodMenuObj.currentID > lastID) app.foodMenuObj.currentID = lastID;
+            
+            marginLeft = -app.foodMenuObj.currentID * itemWidth;
+            refs.$foodCont.css({marginLeft: marginLeft});
+
+            nextActive = (app.foodMenuObj.currentID < lastID);
+            prevActive = (app.foodMenuObj.currentID > 0);
+
+            $('.menu-btn.prev').toggleClass('active', prevActive);
+            $('.menu-btn.next').toggleClass('active', nextActive);
         },
         
         setFoodArys: function() {
@@ -451,6 +484,9 @@ var dq = (function($, window, undefined) {
         },
         
         renderFoodMenu: function() {
+
+            app.foodMenuObj = {howMany: 0, currentID: 0};
+
             var foodClass = configs.isTouch ? 'm-item touch' : 'm-item no-touch',
                 foodHtml = '<div class="' + foodClass + '"></div>',
                 html = '',
@@ -461,8 +497,10 @@ var dq = (function($, window, undefined) {
             for (var i = 0; i < app.json.avFood[foodCat].length; i++) {
                 html += foodHtml;
             }
+
+            app.foodMenuObj.howMany = i;
             
-            refs.$foodCont.empty().append(html).removeClass('inactive');
+            refs.$foodCont.empty().append(html).removeClass('inactive').css({marginLeft: 0});
                     
             $('.m-item').each(function(i, el) {
                 specs = app.json.avFood[foodCat][i];
@@ -495,6 +533,8 @@ var dq = (function($, window, undefined) {
                     $(el).css("visibility", "hidden");
                 }
             });
+
+            app.scrollFoodMenu('no-change');
         },
         
         switchTab: function(foodCat) {
@@ -586,7 +626,7 @@ var dq = (function($, window, undefined) {
             });
 
             if (showSpecific) {
-                // refs.$plate.find('.food .chart').delay(2000).fadeOut(500, function() { log('remove .food .chart'); $(this).remove(); });
+                refs.$plate.find('.food .chart').delay(2000).fadeOut(500, function() { log('remove .food .chart'); $(this).remove(); });
             }
             
             //  catch mouse down

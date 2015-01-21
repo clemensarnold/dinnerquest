@@ -125,7 +125,11 @@
                         <div data-foodcat="3" class="fruit"></div>
                         <div data-foodcat="4" class="fastfood"></div>
                     </div>
-                    <div class="food-container"></div>
+                    <div class="foodmenu-mask">
+                        <div class="food-container"></div>
+                    </div>
+                    <div class="menu-btn prev">prev</div>
+                    <div class="menu-btn next">next</div>
                 </div>
             </div><!-- /.menu-wrapper -->
         </div>
@@ -140,10 +144,6 @@
 
             <!-- <audio class="btn-audio snd dropped-food" preload="auto"><source src="./media/sound-new/ClickZutatGehtAufTeller.wav" type="audio/mpeg" /></audio> -->
             <audio class="btn-audio snd dropped-food" preload="auto"><source src="./media/sound-final/gameplay/FoodTothePlate.mp3" type="audio/mpeg" /></audio>
-
-
-            
-
 
 
             <audio class="btn-audio snd failed"><source src="./media/sound/failed.mp3" type="audio/mpeg" /></audio>
