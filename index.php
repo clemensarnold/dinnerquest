@@ -72,6 +72,7 @@
                         <div class="co2-limit"><p>0,7 kg CO<sub>2</sub></p></div>
                         <div class="barchart-container"></div>
                     </div>
+                    <div class="result"><p><font class="big">0.24</font> kg CO<sub>2</sub></p></div>
                 </div>
                 <div id="piechart hidden">
                     <div id="d3"></div>
@@ -91,7 +92,7 @@
                     <div class="button show-chart hidden"><p>diagramm</p></div>
                 </div>
 
-                <div class="hud hidden">
+                <div class="hud hidden transparent">
                     <div class="btn-wrapper">
                         <a target="_blank" href="" class="fb-share icon standard" data-pagetype="fb-share"></a>
                         <div class="toggle btnn small diagramm icon standard"><p data-label="ESSENSANSICHT">DIAGRAMM</p></div>

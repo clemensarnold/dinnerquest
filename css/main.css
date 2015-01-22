@@ -453,13 +453,14 @@ video {
 
 .hud {
     position: absolute;
-    top: 525px;
+    top: 605px;
     left: 0;
     width: 1024px;
     height: 100px;
     /*border: 1px dotted grey;*/
     z-index: 5;
     text-align: center;
+    transition: opacity 0.4s ease-out 0s;
 }
 
 .hud .btn-wrapper {
@@ -1448,14 +1449,14 @@ body.hidesvg g {
     position: absolute;
     left: 102px;
     bottom: 350px;
-    border-bottom: 3px solid #f3282e;
+    border-bottom: 3px dotted #ee4f39;
     height: 3px;
     width: 200px;
     z-index: 10;
 }
 
 .co2-limit p {
-    color: #f3282e;
+    color: #ee4f39;
     position: absolute;
     top: -4px;
     left: -90px;
@@ -1465,6 +1466,29 @@ body.hidesvg g {
     position: absolute;
     bottom: 0;
     left: 130px;
+}
+
+#barchart .result {
+    background: #e0d4c3;
+    width: 235px;
+    height: 65px;
+    position: absolute;
+    bottom: 10px;
+    left: 125px;
+    z-index: 1;
+    border-top: 7px solid #eae4dc;
+    box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.4);
+}
+
+#barchart .result p {
+    color: #775b43;
+    text-align: center;
+    padding-top: 0px;
+    font-size: 18px;
+}
+
+#barchart .result p .big {
+    font-size: 47px;
 }
 
 .barchart-container .item {
