@@ -1354,13 +1354,20 @@ body.hidesvg g {
 
 #gallery .crossed {
     position: absolute;
-    top: 45px;
-    left: 0;
+    top: 51px;
+    left: -5px;
     /*border: 1px solid black;*/
-    width: 270px;
-    height: 190px;
-    background: url(./../img/svg/gallery-cross.svg) no-repeat 0 0;
+    width: 214px;
+    height: 214px;
+    background: url(./../img/svg/gallery-encircled.svg) no-repeat 0 0;
+    -webkit-animation:spin 40s linear infinite;
+    -moz-animation:spin 40s linear infinite;
+    animation:spin 40s linear infinite;
 }
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
 .barchart .green {
     width: 30px;
@@ -1369,6 +1376,7 @@ body.hidesvg g {
     bottom: 12px;
     left: 0;
     background: #95D944;
+    z-index: -1;
     /*-webkit-transform-origin: 0 60px;*/
     /*-webkit-transform: scale(1,.2);*/
 }
@@ -1380,6 +1388,7 @@ body.hidesvg g {
     bottom: 72px;
     left: 0;
     background: #ED705A;
+    z-index: -1;
 }
 
 .barchart .chartmask {

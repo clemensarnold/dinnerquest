@@ -27,12 +27,13 @@ dq.gallery = {
 
         this.$target.find('.dish-wrapper').each(function(i, el) {
             if (i%3 === 2) $(el).addClass('last-in-row');
+            $(el).find('.crossed').removeClass('hidden');
 
             // log(data[i].stats);
             // log(data[i].ingredients);
             
             if (data[i].stats.lost) {
-                $(el).find('.crossed').removeClass('hidden');
+                $(el).find('.crossed').addClass('hidden');
                 // $(el).find('.red').removeClass('hidden');
                 $(el).find('p').addClass('lost');
             }
