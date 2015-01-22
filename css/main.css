@@ -1152,21 +1152,24 @@ video {
     position: absolute;
     top: 0px;
     opacity: 0.4;
-}
-
-.menu-btn.left {
-    left: 0px;
+    background-image: url(./../img/svg/icons-2.svg);
 }
 
 .menu-btn.next {
     right: 0px;
+    background-position: 400px 20px;
     /*background: blue;*/
+}
+
+.menu-btn.left {
+    left: 0px;
+    background-image: url(./../img/svg/icons-2.svg);
+    background-position: 400px 20px;
 }
 
 .menu-btn.active {
     opacity: 1;
 }
-
 
 .food-container.inactive {
     opacity: 0.3;
