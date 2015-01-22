@@ -1,3 +1,12 @@
+. Buttons für FoodMenu: Michal
+. Sounds
+. Scenaris: Fakt, Bubble-Txt, Img, Sound in json
+. Iris-Blende
+
+
+
+
+
 Hallo Jörg,
 Hier das (jetzt aber wirklich) finale layout ai.
 Entschuldige bitte die vielen Änderungen.

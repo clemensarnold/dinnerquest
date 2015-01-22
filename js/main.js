@@ -44,6 +44,8 @@ var dq = (function($, window, undefined) {
         'failed': $('.snd.failed')[0],
         'new-game': $('.snd.new-game')[0],
         'snoring': $('.snd.snoring')[0],
+        'first-intro': $('.snd.first-intro')[0],
+        'standard-click': $('.snd.standard-click')[0],
         'scenario': $('.snd.scenario')[0]
     },
     configs = {
@@ -148,7 +150,7 @@ var dq = (function($, window, undefined) {
         PLATE_RAD: 270, PLATE_DISTANCE: 40000// 200*200
     },
     templates = ['INTRO', 'TRIAL','VIDEO','GAME','SCENARIO'],
-    defaultTemplate = templates[3], 
+    defaultTemplate = templates[0], 
     sounds = {
         DROPPED_FOOD: 'dropped-food',
         NEW_GAME: 'new-game',
@@ -159,7 +161,9 @@ var dq = (function($, window, undefined) {
         LEAVE_TAB: "leave_tab",
         SNORING: "snoring",
         SUCCESS: "success",
-        SCENARIO: "scenario"
+        SCENARIO: "scenario",
+        FIRST_INTRO: "first-intro",
+        STANDARD_CLICK: "standard-click"
     };
     
     game.sounds = [{selector: '.navi-container > div', whichSound: sounds.CHANGE_TAB}];
@@ -294,6 +298,7 @@ var dq = (function($, window, undefined) {
             $('.' + buttons.START_TRIAL + ', .' + buttons.SKIP_TRIAL).on({click: function() {
                 game.trialmode = !$(this).hasClass(buttons.SKIP_TRIAL);
                 intro.hide();
+                app.playSound(sounds.STANDARD_CLICK);
             }});
             
             $('.info.icon, .gallery.icon').on({click: function() {
@@ -777,17 +782,18 @@ var dq = (function($, window, undefined) {
 
     scenario = {
 
-        SHOW_DELAY: 3500,
-        HIDE_DELAY: 10000,
-        SPOON_DELAY: 500,
-        FORK_DELAY: 5000,
-        data: undefined,
+        SHOW_DELAY: 3000,
+        SPOON_DELAY: 3000,
+        FORK_DELAY: 8000,
+        HIDE_DELAY: 12000,
 
         render: function() {
             log('scenario.render');
 
             var scenarioNr = 0,
                 scenarioMood = game.lost ? 'negative' : 'positive';
+
+            scenarioNr = helper.getRandomNumber(app.json.scenarios.length);
             
             var dataObj = app.json.scenarios[scenarioNr][scenarioMood];
             scenario.dataObj = dataObj;
@@ -1347,7 +1353,8 @@ var dq = (function($, window, undefined) {
                 setTimeout(hud.showButton, delay, buttons.SKIP_TRIAL);
                 $('.' + buttons.START_TRIAL + ' p').text('kennenlernen');
             }
-            
+
+            app.playSound(sounds.FIRST_INTRO);
         },
 
         hide: function() {

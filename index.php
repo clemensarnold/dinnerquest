@@ -136,6 +136,8 @@
         
         <div id="audiocontainer">
             <audio class="btn-audio snd first-intro" preload="auto"><source src="./media/sound-final/intro/IntroFoodOnPlate.mp3" type="audio/mpeg" /></audio>
+            <audio class="btn-audio snd standard-click" preload="auto"><source src="./media/sound-final/clicks-highlights/Click1.1.mp3" type="audio/mpeg" /></audio>
+
 
             <!-- <audio class="btn-audio snd change-tab" preload="auto"><source src="./media/sound/change_tab.mp3" type="audio/mpeg" /></audio> -->
             <!-- <audio class="btn-audio snd dropped-food" preload="auto"><source src="./media/sound/food_on_plate.mp3" type="audio/mpeg" /></audio> -->

@@ -93,8 +93,24 @@
 
     "scenarios": [
         {
-            "positive": {"txt-fork": "G12;POS - Ah, das ist ja völlig übertrieben.", "txt-spoon": "M01;POS - Schau dir doch mal den schlimmsten Übeltäter an.", "img": "placeholder-pos.jpg", "sound": "Sz1Positiv.mp3", "txt": "Positive: Die Flüsse in der Natur sind so schön ach gott ich schmelze dahin ( :"},
-            "negative": {"txt-fork": "G12;NEG - Ah, das ist ja völlig übertrieben.", "txt-spoon": "M06;NEG - Schau dir doch mal den schlimmsten Übeltäter an.", "img": "placeholder-neg.jpg", "sound": "Sz1Negativ.mp3", "txt": "Negative: Die Flüsse in der Natur sind so schön ach gott ich schmelze dahin ( :"}
+            "positive": {"txt-fork": "G12;POS 1 - Ah, das ist ja völlig übertrieben.", "txt-spoon": "M01;POS 1 - Schau dir doch mal den schlimmsten Übeltäter an.", "img": "placeholder-pos.jpg", "sound": "Sz1Positiv.mp3", "txt": "Positive 1: Die Flüsse in der Natur sind so schön ach gott ich schmelze dahin ( :"},
+            "negative": {"txt-fork": "G12;NEG 1 - Ah, das ist ja völlig übertrieben.", "txt-spoon": "M06;NEG 1- Schau dir doch mal den schlimmsten Übeltäter an.", "img": "placeholder-neg.jpg", "sound": "Sz1Negativ.mp3", "txt": "Negative 1: Die Flüsse in der Natur sind so schön ach gott ich schmelze dahin ( :"}
+        },
+        {
+            "positive": {"txt-fork": "G12;POS 2 - Ah, das ist ja völlig übertrieben.", "txt-spoon": "M01;POS 2- Schau dir doch mal den schlimmsten Übeltäter an.", "img": "placeholder-pos.jpg", "sound": "Sz2Positiv.mp3", "txt": "Positive 2: Die Flüsse in der Natur sind so schön ach gott ich schmelze dahin ( :"},
+            "negative": {"txt-fork": "G12;NEG 2 - Ah, das ist ja völlig übertrieben.", "txt-spoon": "M06;NEG 2- Schau dir doch mal den schlimmsten Übeltäter an.", "img": "placeholder-neg.jpg", "sound": "Sz2Negativ.mp3", "txt": "Negative 2: Die Flüsse in der Natur sind so schön ach gott ich schmelze dahin ( :"}
+        },
+        {
+            "positive": {"txt-fork": "G12;POS 3 - Ah, das ist ja völlig übertrieben.", "txt-spoon": "M01;POS 3- Schau dir doch mal den schlimmsten Übeltäter an.", "img": "placeholder-pos.jpg", "sound": "Sz3Positiv.mp3", "txt": "Positive 3: Die Flüsse in der Natur sind so schön ach gott ich schmelze dahin ( :"},
+            "negative": {"txt-fork": "G12;NEG 4 - Ah, das ist ja völlig übertrieben.", "txt-spoon": "M06;NEG 3- Schau dir doch mal den schlimmsten Übeltäter an.", "img": "placeholder-neg.jpg", "sound": "Sz3Negativ.mp3", "txt": "Negative 3: Die Flüsse in der Natur sind so schön ach gott ich schmelze dahin ( :"}
+        },
+        {
+            "positive": {"txt-fork": "G12;POS 4 - Ah, das ist ja völlig übertrieben.", "txt-spoon": "M01;POS 4- Schau dir doch mal den schlimmsten Übeltäter an.", "img": "placeholder-pos.jpg", "sound": "Sz4Positiv.mp3", "txt": "Positive 4: Die Flüsse in der Natur sind so schön ach gott ich schmelze dahin ( :"},
+            "negative": {"txt-fork": "G12;NEG 4 - Ah, das ist ja völlig übertrieben.", "txt-spoon": "M06;NEG 4- Schau dir doch mal den schlimmsten Übeltäter an.", "img": "placeholder-neg.jpg", "sound": "Sz4Negativ.mp3", "txt": "Negative 4: Die Flüsse in der Natur sind so schön ach gott ich schmelze dahin ( :"}
+        },
+        {
+            "positive": {"txt-fork": "G12;POS 5 - Ah, das ist ja völlig übertrieben.", "txt-spoon": "M01;POS 5- Schau dir doch mal den schlimmsten Übeltäter an.", "img": "placeholder-pos.jpg", "sound": "Sz5Positiv.mp3", "txt": "Positive 5: Die Flüsse in der Natur sind so schön ach gott ich schmelze dahin ( :"},
+            "negative": {"txt-fork": "G12;NEG 5 - Ah, das ist ja völlig übertrieben.", "txt-spoon": "M06;NEG 5- Schau dir doch mal den schlimmsten Übeltäter an.", "img": "placeholder-neg.jpg", "sound": "Sz5Negativ.mp3", "txt": "Negative 5: Die Flüsse in der Natur sind so schön ach gott ich schmelze dahin ( :"}
         }
     ],
     
