@@ -1,3 +1,11 @@
+. layout für chart fertig machen
+. Strahelnkranz ani wie gallery
+[ ] kennenlernern > spiel > kein logo nicht reproduzierbar
+[ ] Food labels: adjust for long text (Tomaten freiland)
+
+
+
+
 All Sounds as far as possible
 
 .Scenarios aus Storyboard
@@ -50,7 +58,7 @@ OFFEN STUDENTEN
 . Infoseite
 
 TODOS ALLGEMEIN
-[ ] Food labels: adjust for long text (Tomaten freiland)
+
 [ ] FB-Share button > FB Icon einbauen
 
 TODOS CLEMENS

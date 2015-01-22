@@ -140,7 +140,7 @@ var dq = (function($, window, undefined) {
         STATS: false,
         CHECK_INACTIVITY: false,
         RELOAD_ON_INACTIVE: false,
-        SOUNDS: false,
+        SOUNDS: true,
         SKIP_INTRO: false,
         SKIP_TRIAL: false,
         SKIP_VIDEO: false,
@@ -466,6 +466,9 @@ var dq = (function($, window, undefined) {
 
             $('body').addClass('table-cloth');
             refs.$menu.removeClass('down');
+
+
+            $('.logo').removeClass('transparent');
             
             // setTimeout(app.clearSounds, 900);
         },
@@ -572,7 +575,10 @@ var dq = (function($, window, undefined) {
             if (pagetype === 'gallery') dq.gallery.render();
 
             game.$activePage = $('#' + pagetype);
+            
+
             game.$activePage.addClass('visible');
+            game.$activePage.removeClass('hidden');
             
             refs.$plates.hide();
             refs.$barchart.hide();
@@ -590,6 +596,7 @@ var dq = (function($, window, undefined) {
             $('html').removeClass('overflow');
             // $('#' + pagetype).removeClass('visible');
             game.$activePage.removeClass('visible');
+            game.$activePage.addClass('hidden');
             game.$activePage = undefined;
 
             refs.$plates.show();
@@ -633,6 +640,13 @@ var dq = (function($, window, undefined) {
                 
                     specs = $(el).data('specs');
                     specs.label = specs.label.replace('<br>',' ');
+
+                    // q&d
+                    if (specs.label.indexOf('small') > 0) specs.bigbg = true;
+
+                    log('YAY');
+                    log('specs.bigbg: ' + specs.bigbg);
+
 
                     html = '<div class="_CLASSES_"><h3>_LABEL_</h3><p>_SERVING_ g, _CO2_ KG CO<sub>2</sub</p></div>';
                     html = html.replace('_CLASSES_', specs.bigbg ? "big-chart chart" : "normal-chart chart");
@@ -880,7 +894,7 @@ var dq = (function($, window, undefined) {
         $mask: $('#barchart .mask'),
 
         calcBarHeight: function(val) {
-            var height, normHeight = 350, maxHeight = 450, minHeight = 30,
+            var height, normHeight = 350, maxHeight = 500, minHeight = 30,
             height = Math.round((val / 700) * normHeight);
 
             if (height > maxHeight) height = maxHeight;
@@ -896,6 +910,7 @@ var dq = (function($, window, undefined) {
                 html = '', result = '',
                 hSnippet = '<div class="item"><div class="bar"></div><p></p></div>',
                 bottomOff = 0, $target, text = '',
+                co2 = 0,
                 data = game.meals[game.mealindex].ingredients;
 
             // log(data);
@@ -908,13 +923,19 @@ var dq = (function($, window, undefined) {
             }
             that.$el.empty().append(html);
 
+            var zIndexCounter = 1000;
+
             $('.barchart-container .item').each(function(i, $el) {
 
                 $target = $($el);
                 $target.data('data', data[i]);
 
+                log(data[i]);
+
+                co2 += data[i].c02;
+
                 //  row
-                $target.css({bottom: bottomOff});
+                $target.css({zIndex: zIndexCounter - i, bottom: bottomOff});
 
                 //  bar
                 $target.find('.bar').css({background: data[i].color, height: that.calcBarHeight(data[i].c02)});
@@ -932,8 +953,8 @@ var dq = (function($, window, undefined) {
             }});
 
             //  result
-            // result = '<p><font class="big">' + helper.convertToKG(data[i].stats.co2) + '</font> kg CO<sub>2</sub></p>';
-            result = '<p><font class="big">1.4</font> kg CO<sub>2</sub></p>';
+            result = '<p><font class="big">' + helper.convertToKG(co2) + '</font> kg CO<sub>2</sub></p>';
+            // result = '<p><font class="big">1.4</font> kg CO<sub>2</sub></p>';
             $('#barchart .result').html(result);
 
             refs.$barchart.addClass('show').removeClass('_hidden');
@@ -1591,6 +1612,10 @@ var dq = (function($, window, undefined) {
 
                     // tmp: 22012015
                     // game.showFeedbackInt = setTimeout(cutlery.trigger, showChartDelay, game.BUBBLES_POSITIVE);
+
+
+
+                    refs.$plates.append('<div class="ring"></div>');
                 }
 
                 $target = undefined;

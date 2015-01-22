@@ -675,8 +675,19 @@ video {
     position: absolute;
     top: 0; left: 0;
     /*border: 1px solid red;*/
-    overflow: hidden;
-    transition: height 0.3s ease-out;
+    /*overflow: hidden;*/
+    /*transition: height 0.3s ease-out;*/
+}
+
+.plate-mask .ring {
+    width: 600px;
+    height: 600px;
+    position: absolute;
+    top: -30px; 
+    left: -30px;
+    background-image: url(./../img/svg/the-ring.svg);
+    background-repeat: no-repeat;
+    -webkit-animation:spin 40s linear infinite;
 }
 
 .plate-mask.collapse {
@@ -807,7 +818,7 @@ video {
 .gallery {
     width: 55px;
     height: 49px;
-    right: 130px; 
+    right: 98px; 
     background-position: -204px -46px;
     z-index: 101;
     transition: background 0.3s ease-out;
@@ -816,7 +827,7 @@ video {
 .info {
     width: 55px;
     height: 49px;
-    right: 60px; 
+    right: 40px; 
     background-position: -142px 2px;
     z-index: 101;
 }
@@ -824,7 +835,7 @@ video {
 .sound {
     width: 52px;
     height: 49px;
-    right: -10px; 
+    right: -20px; 
     background-position: -424px -1px;
     z-index: 101;
 }
@@ -925,7 +936,8 @@ video {
     width: 550px;
     height: 550px;
     position: absolute;
-    top: -28px;
+    /*top: -28px;*/
+    top: 12px;
     left: -5px;
     z-index: 2;
 }
@@ -1345,6 +1357,7 @@ body.hidesvg g {
     font-weight: bold;
     transition: opacity 0.4s ease-out 0.4s;
     /*border: 1px solid;*/
+
 }
 
 .barchart p.lost {
@@ -1431,7 +1444,7 @@ body.hidesvg g {
     position: absolute;
     bottom: 73px;
     left: 40px;
-    width: 530px;
+    width: 700px;
     height: 0;
     /*height: 0;*/
     overflow: hidden;
@@ -1474,7 +1487,7 @@ body.hidesvg g {
     position: absolute;
     bottom: 10px;
     left: 125px;
-    z-index: 1;
+    z-index: 10000;
     border-top: 7px solid #eae4dc;
     box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.4);
 }
@@ -1491,7 +1504,7 @@ body.hidesvg g {
 }
 
 .barchart-container .item {
-    width: 400px;
+    width: 650px;
     /*border-bottom: 1px solid black;*/
     position: absolute;
     bottom: 0;
@@ -1501,6 +1514,7 @@ body.hidesvg g {
 .barchart-container .bar {
     width: 150px;
     cursor: pointer;
+    box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 0.4);
     /*height: 110px;*/
     /*border: 1px solid black;*/
     /*position: absolute;*/
@@ -1510,12 +1524,24 @@ body.hidesvg g {
 
 .barchart-container p {
     position: absolute;
-    left: 185px;
+    left: 146px;
     top: 50%;
-    margin-top: -14px;
-    line-height: 14px;
+    margin-top: -31px;
+    line-height: 16px;
     font-size: 14px;
-    color: #333;
+    color: #405e6b;
+    /*width: 210px;*/
+    cursor: pointer;
+    /*background: #e5f1f6;*/
+    background-image: url(./../img/svg/chart-label.svg);
+    background-repeat: no-repeat;
+    font-size: 20px;
+    padding: 12px 15px 10px 52px;
+    height: 50px;
+}
+
+.barchart-container p .small {
+    font-size: 14px;
 }
 
 /* == piechart ====================================================== */

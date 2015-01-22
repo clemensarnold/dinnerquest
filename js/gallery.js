@@ -41,7 +41,7 @@ dq.gallery = {
             // log('ratio: ' + data[i].stats.ratio);
 
             greenRatio = data[i].stats.ratio;
-            maskHeight = Math.round(60 * greenRatio);
+            maskHeight = Math.round(72 * greenRatio);
 
             $(el).data('maskHeight', maskHeight).delay(1000 + i * 200).queue(function() {
                 $(this).find('.chartmask').css({height: $(this).data('maskHeight')});
