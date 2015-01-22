@@ -140,7 +140,7 @@ var dq = (function($, window, undefined) {
         STATS: false,
         CHECK_INACTIVITY: false,
         RELOAD_ON_INACTIVE: false,
-        SOUNDS: false,
+        SOUNDS: true,
         SKIP_INTRO: false,
         SKIP_TRIAL: false,
         SKIP_VIDEO: false,
