@@ -1107,7 +1107,7 @@ video {
 .m-item p {
     /*border: 1px solid red;*/
     position: absolute;
-    bottom: -18px;
+    bottom: -22px;
     left: 0;
     width: 100%;
     text-align: center;
@@ -1118,6 +1118,11 @@ video {
     font-size: 12px;
 }
 
+.m-item p.byline {
+    bottom: -8px;
+    font-size: 12px;
+}
+
 .m-item.dragged p { display: none !important; }
 
 .foodmenu-mask {
@@ -1125,7 +1130,7 @@ video {
     overflow: hidden;
     margin-left: 45px;
     margin-right: 45px;
-    height: 125px;
+    height: 129px;
 }
 
 .food-container {

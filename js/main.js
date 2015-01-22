@@ -138,7 +138,7 @@ var dq = (function($, window, undefined) {
         STATS: false,
         CHECK_INACTIVITY: false,
         RELOAD_ON_INACTIVE: false,
-        SOUNDS: true,
+        SOUNDS: false,
         SKIP_INTRO: false,
         SKIP_TRIAL: false,
         SKIP_VIDEO: false,
@@ -518,7 +518,13 @@ var dq = (function($, window, undefined) {
 
                     specs.label = specs.label.replace('class=__small__', 'class="small"');
 
-                    $(el).append('<p>' + specs.label + '</p>');
+
+                    if (specs.label.indexOf('<font class="small">') > 0) {
+                        $(el).append('<p class="byline">' + specs.label.substr(specs.label.indexOf('<font class="small">')) + '</p>');
+                        $(el).append('<p>' + specs.label.substr(0, specs.label.indexOf('<font class="small">')) + '</p>');
+                    } else {
+                        $(el).append('<p>' + specs.label + '</p>');
+                    }
                     
                     $(el).draggable({
                         helper: 'clone',
