@@ -1,13 +1,16 @@
+All Sounds as far as possible
+
+.Scenarios aus Storyboard
+
 
 . Bugs im Gameplay: herumklicken
 
 
-Layout: Text für Food Menu
-Restock
+
+
+
 Adjust Label for Big Text
 Big Chart
-All Sounds as far as possible
-Bugs
 
 
 . Buttons für FoodMenu: Michal
@@ -16,7 +19,6 @@ Bugs
 . Sounds
 . Scenaris: Fakt, Bubble-Txt, Img, Sound in json
 . Iris-Blende
-. Restock
 
 . Recycle
 
@@ -52,16 +54,12 @@ TODOS ALLGEMEIN
 [ ] FB-Share button > FB Icon einbauen
 
 TODOS CLEMENS
-[ ] gleich spielen > direkt zum spiel
 [ ] Layout neues Mainchart
 [ ] Layout GalleryView
-[ ] restock food item after deletion
 [ ] Strahlenkranz-Animation lt AI-File
-[ ] Food Menu with opt arrows
 [ ] individual fb share
 
 TASKS MICHAL
-[ ] new logo
 [ ] navitabs: navi.png > navi.svg
 [ ] SVGs komprimieren (http://petercollingridge.appspot.com/svg-editor)
 

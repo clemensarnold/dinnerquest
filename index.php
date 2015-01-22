@@ -93,9 +93,9 @@
 
                 <div class="hud hidden">
                     <div class="btn-wrapper">
-                        <a target="_blank" href="" class="fb-share icon" data-pagetype="fb-share"></a>
-                        <div class="toggle btnn small diagramm icon"><p data-label="ESSENSANSICHT">DIAGRAMM</p></div>
-                        <div class="start-new-game continue icon" data-pagetype="continue"></div>
+                        <a target="_blank" href="" class="fb-share icon standard" data-pagetype="fb-share"></a>
+                        <div class="toggle btnn small diagramm icon standard"><p data-label="ESSENSANSICHT">DIAGRAMM</p></div>
+                        <div class="start-new-game continue icon standard" data-pagetype="continue"></div>
                         
                     </div>
                 </div>
@@ -108,9 +108,9 @@
                     <!-- <div id="newGameButton"></div> -->
                 </div>
                 <div class="logo icon transparent"></div>
-                <div class="gallery icon transparent" data-pagetype="gallery"></div>
-                <div class="info icon transparent" data-pagetype="infopage"></div>
-                <div class="sound icon transparent" data-pagetype="sound"></div>
+                <div class="gallery icon transparent standard" data-pagetype="gallery"></div>
+                <div class="info icon transparent standard" data-pagetype="infopage"></div>
+                <div class="sound icon transparent standard" data-pagetype="sound"></div>
             </div>
         </div>
         
@@ -128,15 +128,15 @@
                     <div class="foodmenu-mask">
                         <div class="food-container"></div>
                     </div>
-                    <div class="menu-btn prev">prev</div>
-                    <div class="menu-btn next">next</div>
+                    <div class="menu-btn prev standard">prev</div>
+                    <div class="menu-btn next standard">next</div>
                 </div>
             </div><!-- /.menu-wrapper -->
         </div>
         
         <div id="audiocontainer">
             <audio class="btn-audio snd first-intro" preload="auto"><source src="./media/sound-final/intro/IntroFoodOnPlate.mp3" type="audio/mpeg" /></audio>
-            <audio class="btn-audio snd standard-click" preload="auto"><source src="./media/sound-final/clicks-highlights/Click1.1.mp3" type="audio/mpeg" /></audio>
+            <audio class="btn-audio snd standard-click" preload="auto"><source src="./media/sound-final/clicks-highlights/ClickGeneral.mp3" type="audio/mpeg" /></audio>
 
 
             <!-- <audio class="btn-audio snd change-tab" preload="auto"><source src="./media/sound/change_tab.mp3" type="audio/mpeg" /></audio> -->
@@ -146,6 +146,11 @@
 
             <!-- <audio class="btn-audio snd dropped-food" preload="auto"><source src="./media/sound-new/ClickZutatGehtAufTeller.wav" type="audio/mpeg" /></audio> -->
             <audio class="btn-audio snd dropped-food" preload="auto"><source src="./media/sound-final/gameplay/FoodTothePlate.mp3" type="audio/mpeg" /></audio>
+            <audio class="btn-audio snd restock-food" preload="auto"><source src="./media/sound-final/gameplay/FoodBackToMenu.mp3" type="audio/mpeg" /></audio>
+            <audio class="btn-audio snd select-dish" preload="auto"><source src="./media/sound-final/gameplay/SelectDish.mp3" type="audio/mpeg" /></audio>
+
+
+            
 
 
             <audio class="btn-audio snd failed"><source src="./media/sound/failed.mp3" type="audio/mpeg" /></audio>

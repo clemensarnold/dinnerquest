@@ -40,6 +40,8 @@ var dq = (function($, window, undefined) {
         $hud: $('.hud'),
         'change-tab': $('.snd.change-tab')[0],
         'dropped-food': $('.snd.dropped-food')[0],
+        'restock-food': $('.snd.restock-food')[0],
+        'select-dish': $('.snd.select-dish')[0],
         'success': $('.snd.success')[0],
         'failed': $('.snd.failed')[0],
         'new-game': $('.snd.new-game')[0],
@@ -138,7 +140,7 @@ var dq = (function($, window, undefined) {
         STATS: false,
         CHECK_INACTIVITY: false,
         RELOAD_ON_INACTIVE: false,
-        SOUNDS: false,
+        SOUNDS: true,
         SKIP_INTRO: false,
         SKIP_TRIAL: false,
         SKIP_VIDEO: false,
@@ -153,6 +155,8 @@ var dq = (function($, window, undefined) {
     defaultTemplate = templates[0], 
     sounds = {
         DROPPED_FOOD: 'dropped-food',
+        RESTOCK_FOOD: 'restock-food',
+        SELECT_DISH: 'select-dish',
         NEW_GAME: 'new-game',
         CHANGE_TAB: 'change-tab',
         FAILED: "failed",
@@ -166,7 +170,10 @@ var dq = (function($, window, undefined) {
         STANDARD_CLICK: "standard-click"
     };
     
-    game.sounds = [{selector: '.navi-container > div', whichSound: sounds.CHANGE_TAB}];
+    game.sounds = [
+        {selector: '.navi-container > div', whichSound: sounds.CHANGE_TAB}, 
+        {selector: '.standard', whichSound: sounds.STANDARD_CLICK}
+    ];
     
     $(function() {
 
@@ -296,9 +303,14 @@ var dq = (function($, window, undefined) {
            
             refs.$newGameButton.on({click: game.startNewGame});
             $('.' + buttons.START_TRIAL + ', .' + buttons.SKIP_TRIAL).on({click: function() {
+
+                app.playSound(sounds.STANDARD_CLICK);
                 game.trialmode = !$(this).hasClass(buttons.SKIP_TRIAL);
                 intro.hide();
-                app.playSound(sounds.STANDARD_CLICK);
+
+                // game in trial mode || or finsih video > start actual game
+                var delay = 1000;
+                game.trialmode ? setTimeout(app.startGame, delay) : setTimeout(app.finishVideo, delay);
             }});
             
             $('.info.icon, .gallery.icon').on({click: function() {
@@ -535,7 +547,8 @@ var dq = (function($, window, undefined) {
                             
                             dragfood.setBackground(refs.$dragfood, $(this).data('specs'));
                             refs.$body.addClass('hidesvg');
-                            //app.stopSound(); // needed for ipad performance (weird)
+
+                            app.playSound(sounds.SELECT_DISH);
                         },
                         stop: dragfood.stopDragging,
                         drag: $.throttle(300, dragfood.calcDistance)
@@ -706,8 +719,8 @@ var dq = (function($, window, undefined) {
             //if (whichSound === 'new-game') return;
             //log('playSound / whichSound: ' + whichSound);
             
-            // refs[whichSound].pause();
-            // refs[whichSound].currentTime = 0;
+            refs[whichSound].pause();
+            refs[whichSound].currentTime = 0;
             
 
             setTimeout(function() { refs[whichSound].play(); }, delay);
@@ -1367,10 +1380,6 @@ var dq = (function($, window, undefined) {
             intro.remove();
             hud.hideButton(buttons.START_TRIAL);
             hud.hideButton(buttons.SKIP_TRIAL);
-            
-            // game in trial mode || or show video
-            var delay = 1000;
-            game.trialmode ? setTimeout(app.startGame, delay) : setTimeout(app.initVideo, delay);
         },
 
         remove: function() {
@@ -1478,6 +1487,7 @@ var dq = (function($, window, undefined) {
 
         //  resock in food menu
         $(dq.refs.$foodCont.children()[$target.data('specs').bgHorPos]).removeClass('inactive');
+        app.playSound(sounds.RESTOCK_FOOD);
 
         $target.fadeOut(constants.FADE_OUT, function() { log('removed'); log($(this)); $(this).remove(); });
     },
