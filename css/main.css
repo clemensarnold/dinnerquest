@@ -616,13 +616,13 @@ video {
 
 #infopage {
     width: 1024px;
-    height: 2500px;
+    height: 2420px;
     position: absolute;
     top: 0;
     left: 50%;
     margin-left: -512px;
     display: none;
-    background-image: url(./../img/infopage-placeholder.png);
+    background-image: url(./../img/DinnerQuest_infoseite.png);
 }
 
 #infopage.visible {
@@ -631,7 +631,7 @@ video {
 
 #continueButton {
     position: absolute;
-    left: calc(48% - 238px / 2);
+    left: calc(48% - 190px / 2);
     bottom: 30px;
     width: 238px;
     height: 50px;
