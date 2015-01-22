@@ -129,8 +129,8 @@
                     <div class="foodmenu-mask">
                         <div class="food-container"></div>
                     </div>
-                    <div class="menu-btn prev standard">prev</div>
-                    <div class="menu-btn next standard">next</div>
+                    <div class="menu-btn prev standard"></div>
+                    <div class="menu-btn next standard"></div>
                 </div>
             </div><!-- /.menu-wrapper -->
         </div>

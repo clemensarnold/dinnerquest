@@ -140,7 +140,7 @@ var dq = (function($, window, undefined) {
         STATS: false,
         CHECK_INACTIVITY: false,
         RELOAD_ON_INACTIVE: false,
-        SOUNDS: true,
+        SOUNDS: false,
         SKIP_INTRO: false,
         SKIP_TRIAL: false,
         SKIP_VIDEO: false,
@@ -1672,15 +1672,10 @@ var dq = (function($, window, undefined) {
         var id = 'foodstack-' + game.currentMeal.length, 
             foodHTML = '<div class="food-ref" id="' + id + '">' + specs.label + ', ' + specs.kcal + ' kcal<span>x</span></div>',
             $foodRef = undefined;
-
         refs.$foodstack.prepend(foodHTML);
-
         $foodRef = $('#' + id);
-
-
         $foodRef.data('$foodOnPlate', $foodOnPlate);
         $foodRef.data('label', specs.label);
-
         $foodRef.on(configs.clickEvent, function() {             
             $(this).data('$foodOnPlate').trigger(configs.clickEvent, 'clicked-on-stackbutton');
             $(this).fadeOut(constants.FADE_OUT, function() { $(this).remove(); });

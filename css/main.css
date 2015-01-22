@@ -1156,16 +1156,15 @@ video {
     background-image: url(./../img/svg/icons-2.svg);
 }
 
-.menu-btn.next {
-    right: 0px;
-    background-position: 400px 20px;
+.menu-btn.prev {
+    left: 0px;
+    background-position: 442px 35px;
     /*background: blue;*/
 }
 
-.menu-btn.left {
-    left: 0px;
-    background-image: url(./../img/svg/icons-2.svg);
-    background-position: 400px 20px;
+.menu-btn.next {
+    right: 0px;
+    background-position: 400px 35px;
 }
 
 .menu-btn.active {
