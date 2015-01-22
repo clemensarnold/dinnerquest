@@ -1614,7 +1614,6 @@ var dq = (function($, window, undefined) {
                     // game.showFeedbackInt = setTimeout(cutlery.trigger, showChartDelay, game.BUBBLES_POSITIVE);
 
 
-
                     refs.$plates.append('<div class="ring"></div>');
                 }
 
@@ -1738,6 +1737,8 @@ var dq = (function($, window, undefined) {
         if (barchart.active) {
             $('.hud .toggle').trigger('click');
         }
+
+        if (!mealdata.stats.lost) refs.$plates.append('<div class="ring"></div>');
     }
     
     /********** Dragfood **********/
