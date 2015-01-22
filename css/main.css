@@ -1099,6 +1099,9 @@ video {
 
 .m-item.inactive {
     cursor: default;
+    pointer-events: none;
+    opacity: .2;
+    /*display: none;*/
 }
 
 .m-item p {

@@ -1470,6 +1470,9 @@ var dq = (function($, window, undefined) {
             }
         }
 
+        //  resock in food menu
+        $(dq.refs.$foodCont.children()[$target.data('specs').bgHorPos]).removeClass('inactive');
+
         $target.fadeOut(constants.FADE_OUT, function() { log('removed'); log($(this)); $(this).remove(); });
     },
     
@@ -1693,10 +1696,11 @@ var dq = (function($, window, undefined) {
             refs.$dragfood = $foodref;
             onPlate = dragfood.calcDistance(true);
 
-            log('removeFromPlate');
-            log('extraparam: ' + extraparam)
-            log($foodref);
-            log('onPlate: ' + onPlate);
+            // log('removeFromPlate');
+            // log('extraparam: ' + extraparam)
+            // log($foodref);
+            // log($foodref.data('specs'));
+            // log('onPlate: ' + onPlate);
 
             if (onPlate) {
 
@@ -1760,7 +1764,8 @@ var dq = (function($, window, undefined) {
                 // $newFood.data('foodStackID', game.currentMeal.length);
                 
                 if (app.json.rules.food_only_once) {
-                    $(this).addClass('inactive').draggable('disable');
+                    // $(this).addClass('inactive').draggable('disable');
+                    $(this).addClass('inactive');
                 }
                 
                 game.mealMix[specs.foodCat]++;
