@@ -140,7 +140,7 @@ var dq = (function($, window, undefined) {
         STATS: false,
         CHECK_INACTIVITY: false,
         RELOAD_ON_INACTIVE: false,
-        SOUNDS: true,
+        SOUNDS: false,
         SKIP_INTRO: false,
         SKIP_TRIAL: false,
         SKIP_VIDEO: false,
@@ -645,10 +645,7 @@ var dq = (function($, window, undefined) {
                     // q&d
                     if (specs.label.indexOf('small') > 0) specs.bigbg = true;
 
-                    log('YAY');
-                    log('specs.bigbg: ' + specs.bigbg);
-
-
+                    
                     html = '<div class="_CLASSES_"><h3>_LABEL_</h3><p>_SERVING_ g, _CO2_ KG CO<sub>2</sub</p></div>';
                     html = html.replace('_CLASSES_', specs.bigbg ? "big-chart chart" : "normal-chart chart");
                     html = html.replace('_SERVING_', specs.serving);
@@ -816,12 +813,15 @@ var dq = (function($, window, undefined) {
 
     scenario = {
 
-        SHOW_DELAY: 3000,
-        SPOON_DELAY: 3000,
-        FORK_DELAY: 8000,
-        HIDE_DELAY: 12000,
-        // SHOW_DELAY: 1,
-        // HIDE_DELAY: 10,
+        // SHOW_DELAY: 3000,
+        // HIDE_DELAY: 12000,
+        // SPOON_DELAY: 3000,
+        // FORK_DELAY: 8000,
+
+        SHOW_DELAY: 1,
+        HIDE_DELAY: 5000,
+        SPOON_DELAY: 3,
+        FORK_DELAY: 8,
 
         render: function() {
             log('scenario.render');
@@ -880,11 +880,14 @@ var dq = (function($, window, undefined) {
                 $(this).addClass('hidden').dequeue();
             });
 
+            
             setTimeout(function() {
-                app.generateChart();
+                // app.generateChart();
                 window.setTimeout(barchart.showHud, 100);
+                // window.setTimeout(function() { $('.hud .toggle').trigger('click'); }, 500);
                 barchart.activate();
-            }, 1500);
+            }, 500);
+            /**/
         }
     }
 
