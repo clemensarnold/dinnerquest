@@ -361,7 +361,7 @@ video {
     font-family: 'cooper_md_btmedium'
 }
 
-.btnn:hover p {
+.btnn:active p {
     line-height: 47px;
     padding-left: 7px;
 }
@@ -370,7 +370,7 @@ video {
     width: 191px;
     height: 45px;
     right: 410px; 
-    background-position: -211px 100px;
+    background-position: -211px 211px;
     z-index: 101;
 }
 
@@ -378,23 +378,39 @@ video {
     width: 191px;
     height: 45px;
     right: 410px; 
-    background-position: -211px 45px;
+    background-position: -211px 104px;
+    z-index: 101;
+}
+
+.continue:active {
+    width: 191px;
+    height: 45px;
+    right: 410px; 
+    background-position: -211px 157px;
     z-index: 101;
 }
 
 .fb-share {
-    width: 150px;
+    width: 130px;
     height: 45px;
-    right: 250px; 
-    background-position: -412px 100px;
+    right: 270px; 
+    background-position: -412px 211px;
     z-index: 101;
 }
 
 .fb-share:hover {
-    width: 150px;
+    width: 130px;
     height: 45px;
-    right: 250px; 
-    background-position: -412px 45px;
+    right: 270px; 
+    background-position: -412px 104px;
+    z-index: 101;
+}
+
+.fb-share:active {
+    width: 130px;
+    height: 45px;
+    right: 270px; 
+    background-position: -412px 157px;
     z-index: 101;
 }
 
@@ -402,7 +418,7 @@ video {
     width: 191px;
     height: 45px;
     right: 615px; 
-    background-position: -5px 100px;
+    background-position: -5px 211px;
     z-index: 101;
 }
 
@@ -410,7 +426,15 @@ video {
     width: 191px;
     height: 45px;
     right: 615px; 
-    background-position: -5px 45px;
+    background-position: -5px 104px;
+    z-index: 101;
+}
+
+.diagramm:active {
+    width: 191px;
+    height: 45px;
+    right: 615px; 
+    background-position: -5px 157px;
     z-index: 101;
 }
 
