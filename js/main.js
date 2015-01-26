@@ -407,7 +407,7 @@ var dq = (function($, window, undefined) {
         },
 
         showGameButtons: function() {
-            $('.logo, .info, .gallery, .sound').removeClass('transparent');
+            $('.logo, .info, .gallery, .sound, .transparent').removeClass('transparent');
         },
         
         finishVideo: function() {

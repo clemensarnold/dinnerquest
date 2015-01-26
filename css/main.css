@@ -815,6 +815,15 @@ video {
     z-index: 100;
 }
 
+.trash {
+    width: 70px;
+    height: 108px;
+    right: -30px;
+    bottom: 23px;
+    background-position: -662px -9px;
+    z-index: 100;
+}
+
 .gallery {
     width: 55px;
     height: 49px;
@@ -823,6 +832,8 @@ video {
     z-index: 101;
     transition: background 0.3s ease-out;
 }
+
+
 
 .info {
     width: 55px;
