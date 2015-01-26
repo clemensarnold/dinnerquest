@@ -1,3 +1,30 @@
+. leiste mit Zutaten unten: links bei scroller ist anders Maskiert als Rechts (wenn zutaten raus. einheitlich die Linke Animation mit ins transparente ladende Maske. 
+. nach Polaroid soll Diagramm kommen dicht Essensansicht.
+. Text Sprechblasen schneller bzw in kürzeren Abständen. (Generelle Einstellung, kann ruhig um die hälfte kürzer sein das Intervall)
+. Klick zuerst auf die oberste Zutat > Einbau der Logik für diese Bubble
+. Polaroid bleibt liegen bei ABOUT seite (wenn man von Teller auf about klickt)
+. dinnerqest logo = home button , funktioniert noch nicht
+. Galerie: Kommastellencheck
+
+
+RECYCLING
+. müllwagen soll - (jeder vierte spielsession) einrollen vom rechten Bildschirmrand. bei klick kommt eine eine per zufalssgenerator bestimmte Zutat die man auf das Teller schieben kann (diese Zutat hat 0 CO2) Text. du hast Glück! - 
+In der Galerie soll das mülltonnensimbol auch erscheinen. Dieses Teller aus Galerieansicht streichen, kommt nicht vor weil verzerrend.  Diagrammansicht gibts nicht, Button deaktiviert (halbtransparent) 2 Sprechblasen erklären den Sonderfall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 . layout für chart fertig machen
 . Strahelnkranz ani wie gallery
 [ ] kennenlernern > spiel > kein logo nicht reproduzierbar
