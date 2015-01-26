@@ -810,7 +810,7 @@ video {
     width: 139px;
     height: 100px;
     left: 5px;
-    top: 22px;
+    top: -185px;
     background-position: 2px 2px;
     z-index: 100;
 }
@@ -845,7 +845,7 @@ video {
 }
 
 .gallery, .info, .sound {
-    top: 5px;
+    top: -185px;
 }
 
 .info.close,
