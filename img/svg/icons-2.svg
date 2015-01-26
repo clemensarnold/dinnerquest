@@ -210,13 +210,13 @@
 	<rect x="217.171" y="158.125" fill="#96D44F" width="182.08" height="39.748"/>
 	<polygon fill="#68961E" points="212.863,158.135 399.251,158.135 399.251,162.846 217.171,162.846 	"/>
 	<polygon fill="#74AA27" points="212.863,158.135 217.171,162.846 217.171,197.873 212.863,197.873 	"/>
-	<text transform="matrix(1 0 0 1 226.8748 185.2656)" fill="#FFFFFF" font-family="'CooperBT-Medium'" font-size="17.6622">WEITERSPIELEN</text>
+	<text transform="matrix(1 0 0 1 238.241 185.2656)" fill="#FFFFFF" font-family="'CooperBT-Medium'" font-size="17.6622">WEITERSPIELEN</text>
 </g>
 <g>
 	<polygon fill="#4E7117" points="399.251,145.229 212.863,145.229 208.554,140.52 394.943,140.52 	"/>
 	<polygon fill="#68961E" points="399.251,145.229 394.943,140.52 394.943,100.771 399.251,105.475 	"/>
 	<rect x="208.554" y="100.771" fill="#74AA27" width="186.389" height="39.746"/>
-	<text transform="matrix(1 0 0 1 222.5667 126.6152)" fill="#FFFFFF" font-family="'CooperBT-Medium'" font-size="17.6622">WEITERSPIELEN</text>
+	<text transform="matrix(1 0 0 1 233.2405 126.6152)" fill="#FFFFFF" font-family="'CooperBT-Medium'" font-size="17.6622">WEITERSPIELEN</text>
 </g>
 <g>
 	<rect x="14.537" y="158.125" fill="#D39363" width="182.08" height="39.748"/>
@@ -306,7 +306,7 @@
 	<polygon fill="#4E7117" points="399.251,252.229 212.862,252.229 208.553,247.52 394.942,247.52 	"/>
 	<polygon fill="#68961E" points="399.251,252.229 394.942,247.52 394.942,207.771 399.251,212.475 	"/>
 	<rect x="208.553" y="207.771" fill="#95D333" width="186.389" height="39.746"/>
-	<text transform="matrix(1 0 0 1 222.5662 233.6152)" fill="#FFFFFF" font-family="'CooperBT-Medium'" font-size="17.6622">WEITERSPIELEN</text>
+	<text transform="matrix(1 0 0 1 233.241 233.6152)" fill="#FFFFFF" font-family="'CooperBT-Medium'" font-size="17.6622">WEITERSPIELEN</text>
 </g>
 <g>
 	<rect x="410.428" y="207.771" fill="#5079D3" width="125.344" height="39.75"/>
