@@ -407,7 +407,7 @@ var dq = (function($, window, undefined) {
         },
 
         showGameButtons: function() {
-            $('.logo, .info, .gallery, .sound, .transparent').removeClass('transparent');
+            $('.logo, .info, .gallery, .sound, .trash, .transparent').removeClass('transparent');
         },
         
         finishVideo: function() {
@@ -469,6 +469,7 @@ var dq = (function($, window, undefined) {
 
 
             $('.logo').removeClass('transparent');
+            $('.trash').removeClass('transparent');
             
             // setTimeout(app.clearSounds, 900);
         },
@@ -587,7 +588,7 @@ var dq = (function($, window, undefined) {
             refs.$menu.hide();
             refs.$hud.addClass('hidden');
 
-            $('.logo, #newGameButton, .meal-check').hide();
+            $('.logo, #newGameButton, .meal-check, .trash').hide();
         },
         
         hideContentPage: function(pagetype) {
@@ -611,7 +612,7 @@ var dq = (function($, window, undefined) {
                 refs.$hud.removeClass('hidden');
             }
 
-            $('.logo, #newGameButton, .meal-check').show();
+            $('.logo, #newGameButton, .meal-check, .trash').show();
         },
         
         convertGrammToKG: function (gramm) {
