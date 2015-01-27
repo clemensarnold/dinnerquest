@@ -142,7 +142,7 @@ var dq = (function($, window, undefined) {
         STATS: false,
         CHECK_INACTIVITY: false,
         RELOAD_ON_INACTIVE: false,
-        SOUNDS: false,
+        SOUNDS: true,
         SKIP_INTRO: false,
         SKIP_TRIAL: false,
         SKIP_VIDEO: false,
@@ -152,6 +152,9 @@ var dq = (function($, window, undefined) {
         FADE_IN: 200, FADE_OUT: 400, FADE_DELAY: 50,
         FOOD_HOR: NaN, FOOD_VERT: NaN,
         PLATE_RAD: 270, PLATE_DISTANCE: 40000// 200*200
+    },
+    bubbleDelay = {
+        START_GAME: 750
     },
     templates = ['INTRO', 'TRIAL','VIDEO','GAME','SCENARIO'],
     defaultTemplate = templates[0], 
@@ -197,6 +200,7 @@ var dq = (function($, window, undefined) {
             game.inactive_restart = app.json.rules.inactive_restart;
             cutlery.showDelay = app.json.rules.showbubble_delay;
             cutlery.hideDelay = app.json.rules.hidebubble_delay;
+            cutlery.hideDelayScenario = app.json.rules.hidebubble_delay_scenario;
             
             app.setFoodArys();
             
@@ -656,9 +660,16 @@ var dq = (function($, window, undefined) {
                 }
 
                 if (addChart) {
+
+                    log('YAY');
+
                 
                     specs = $(el).data('specs');
                     specs.label = specs.label.replace('<br>',' ');
+
+
+                    log(specs);
+
 
                     // q&d
                     if (specs.label.indexOf('small') > 0) specs.bigbg = true;
@@ -831,10 +842,11 @@ var dq = (function($, window, undefined) {
 
     scenario = {
 
-        SHOW_DELAY: 3000,
-        HIDE_DELAY: 12000,
-        SPOON_DELAY: 3000,
-        FORK_DELAY: 8000,
+        SHOW_DELAY: 1500,
+        HIDE_DELAY: 11000,
+        SPOON_DELAY: 2000,
+        FORK_DELAY: 5000,
+        visible: false,
 
         // SHOW_DELAY: 1,
         // HIDE_DELAY: 2000,
@@ -843,6 +855,7 @@ var dq = (function($, window, undefined) {
 
         render: function() {
             log('scenario.render');
+            scenario.visible = true;
 
             var scenarioNr = 0,
                 scenarioMood = game.lost ? 'negative' : 'positive';
@@ -896,6 +909,7 @@ var dq = (function($, window, undefined) {
         hide: function() {
 
             log('scenario hide');
+            scenario.visible = false;
 
             refs.$scenario.removeClass('show').delay(500).queue(function(){ 
                 $(this).addClass('hidden').dequeue();
@@ -1495,8 +1509,7 @@ var dq = (function($, window, undefined) {
             app.resetChart();
         }
 
-        setTimeout(cutlery.trigger, 2000, game.trialmode ? game.BUBBLES_TRIAL_START : game.BUBBLES_NEWGAME);
-        // setTimeout(cutlery.trigger, 2000, game.trialmode ? game.BUBBLES_TRIAL_LOST : game.BUBBLES_NEGATIVE);
+        setTimeout(cutlery.trigger, bubbleDelay.START_GAME, game.trialmode ? game.BUBBLES_TRIAL_START : game.BUBBLES_NEWGAME);
         
         //  resets
         game.currentMeal = [];
@@ -1759,7 +1772,7 @@ var dq = (function($, window, undefined) {
     game.renderMeal = function(mealdata, mealindex) {
 
         log('renderMeal');
-        log(mealdata);
+        // log(mealdata);
 
         var html = '', obj = {};
 
@@ -1774,17 +1787,15 @@ var dq = (function($, window, undefined) {
         game.clearPlate();
         refs.$plate.append(html);
 
-
         //   add food specs
         refs.$plate.find('.food').each(function(i, el) {
             $(el).data('specs', mealdata.ingredients[i]);
         });
 
         game.finishGame('skip-scenario');
-
-        if (barchart.active) {
-            $('.hud .toggle').trigger('click');
-        }
+        
+        // if (barchart.active) $('.hud .toggle').trigger('click');
+        // window.setTimeout(function() { $('.hud .toggle').trigger('click', {show: 'chart'}); }, 1);
 
         if (!mealdata.stats.lost) refs.$plates.append('<div class="ring"></div>');
     }
@@ -2123,6 +2134,7 @@ var dq = (function($, window, undefined) {
         hideBubbleTO: NaN,
         showDelay: NaN,
         hideDelay: NaN,
+        hideDelayScenario: NaN,
         bubblemode: undefined,
         bubbleData: {},
         chatid: 0,
@@ -2266,7 +2278,7 @@ var dq = (function($, window, undefined) {
                     bubbleData = app.json.expressions[bubblemode][0][cutlery.chatid];
                     cutlery.chatid++;
 
-                    cutlery.triggerNextBubble(bubbleData.showNext, bubblemode);
+                    if (bubbleData.showNext > 0) cutlery.triggerNextBubble(bubbleData.showNext, bubblemode);
                     break;
             }
             
@@ -2302,7 +2314,7 @@ var dq = (function($, window, undefined) {
             
             if (bubblemode) {
                 // cutlery.showBubbleTO = setTimeout(cutlery.showBubble, cutlery.showDelay);
-                cutlery.showBubbleTO = setTimeout(cutlery.showBubble, 150);
+                cutlery.showBubbleTO = setTimeout(cutlery.showBubble, cutlery.showDelay);
             }
         },
 
@@ -2320,7 +2332,8 @@ var dq = (function($, window, undefined) {
             
             var data = cutlery.bubbleData,
                 backgroundPosition = '0px ' + -vertOffset * data.bgid + 'px',
-                $ref = (data.txt.split(';')[0].indexOf('G') >= 0) ? refs.$forkBub: refs.$spoonBub;
+                $ref = (data.txt.split(';')[0].indexOf('G') >= 0) ? refs.$forkBub: refs.$spoonBub,
+                hideBubbleDelay = scenario.visible ? cutlery.hideDelayScenario : cutlery.hideDelay;
 
             if (cutlery.bubbleData.standard) {
                 backgroundPosition = '0 0';
@@ -2340,7 +2353,7 @@ var dq = (function($, window, undefined) {
             clearTimeout(cutlery.hideBubbleTO);
 
             if (!game.trialmode) {
-                cutlery.hideBubbleTO = setTimeout(cutlery.hideBubble, cutlery.hideDelay);
+                cutlery.hideBubbleTO = setTimeout(cutlery.hideBubble, hideBubbleDelay);
             }
         },
         

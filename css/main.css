@@ -749,7 +749,7 @@ video {
     z-index: 2000;
     /*border: 1px solid;*/
     opacity: 0;
-    transition: opacity 0.3s ease-out;
+    transition: opacity 0.2s ease-out;
     pointer-events: none;
 }
 

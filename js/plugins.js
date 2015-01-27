@@ -53,9 +53,6 @@ var helper = {
         var kg = gram / 1000,
             strg = '';
 
-        // kg = helper.roundNumber(kg, 2);
-        log('convert / kg: ' + kg);
-        
         strg = kg.toString();
 
         if (strg.length > 4) {
