@@ -112,9 +112,11 @@
                 <div class="gallery icon transparent standard" data-pagetype="gallery"></div>
                 <div class="info icon transparent standard" data-pagetype="infopage"></div>
                 <div class="sound icon transparent standard" data-pagetype="sound"></div>
-                <div class="trash icon transparent hidden"></div>
+               
             </div>
         </div>
+
+         <div class="trash icon transparent _hidden"></div>
         
         <!-- .menu-wrapper -->
         <div class="menu-mask">

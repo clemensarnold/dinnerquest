@@ -65,6 +65,7 @@ var dq = (function($, window, undefined) {
     },
     game = {
         contentPageVisible: false,
+        skipMeal: false,
         visitorid: NaN,
         mealindex: 0, // used in barchart.render
         firstvisit: false,
@@ -110,6 +111,7 @@ var dq = (function($, window, undefined) {
         currentTemplate: undefined,
         BUBBLES_NEWGAME: 'new-game',
         BUBBLES_SHOWCHART: 'show-chart',
+        BUBBLES_TRASHFOOD: 'trash-food',
         BUBBLES_DROPPED_FOOD: 'food-dropped',
         BUBBLES_SCENARIO_FORK: 'scenario-fork',
         BUBBLES_SCENARIO_SPOON: 'scenario-spoon',
@@ -306,6 +308,7 @@ var dq = (function($, window, undefined) {
             refs.$window.on(configs.clickEvent, app.resetInactCounter);
             
             $('.logo').on({click: app.reload});
+            $('.trash').on({click: game.addTrash});
            
             refs.$newGameButton.on({click: game.startNewGame});
             $('.' + buttons.START_TRIAL + ', .' + buttons.SKIP_TRIAL).on({click: function() {
@@ -627,6 +630,9 @@ var dq = (function($, window, undefined) {
             refs.$spoon.show();
             refs.$scenario.show();
 
+            $('.hud .toggle').removeClass('freeze');
+            game.skipMeal = false;
+
             if (game.running) {
                 refs.$menu.show();
                 
@@ -661,15 +667,10 @@ var dq = (function($, window, undefined) {
 
                 if (addChart) {
 
-                    log('YAY');
-
-                
                     specs = $(el).data('specs');
                     specs.label = specs.label.replace('<br>',' ');
 
-
-                    log(specs);
-
+                    // log(specs);
 
                     // q&d
                     if (specs.label.indexOf('small') > 0) specs.bigbg = true;
@@ -691,7 +692,7 @@ var dq = (function($, window, undefined) {
             });
 
             if (showSpecific) {
-                refs.$plate.find('.food .chart').delay(2000).fadeOut(500, function() { log('remove .food .chart'); $(this).remove(); });
+                // refs.$plate.find('.food .chart').delay(2000).fadeOut(500, function() { log('remove .food .chart'); $(this).remove(); });
             }
             
             //  catch mouse down
@@ -922,7 +923,10 @@ var dq = (function($, window, undefined) {
                 barchart.activate();
                 // app.generateChart();
                 barchart.showHud();
-                window.setTimeout(function() { $('.hud .toggle').trigger('click', {show: 'chart'}); }, 300);
+
+                if (!game.skipMeal) {
+                    window.setTimeout(function() { $('.hud .toggle').trigger('click', {show: 'chart'}); }, 300);
+                } 
             }, 150);
         }
     }
@@ -1027,6 +1031,8 @@ var dq = (function($, window, undefined) {
         toggle: function(target, dataObj) {
             log('barchart toggle');
             log(dataObj);
+
+            if (game.skipMeal) return;
 
             //  toggle click triggered in scenario.hide()
             if (!!dataObj) {
@@ -1524,11 +1530,13 @@ var dq = (function($, window, undefined) {
         game.lastSound = undefined;
         refs.$piechart.empty();
         barchart.deactivate();
+        game.skipMeal = false;
 
         // refs.$foodstack.empty();
         debug.printObject({});
         
         $('.navi-container > div.freeze').removeClass('freeze');
+        $('.hud .toggle').removeClass('freeze');
 
         game.addPlate();
         
@@ -1536,6 +1544,15 @@ var dq = (function($, window, undefined) {
         $('.navi-container .' + game.constants.DEFAULT_TAB).trigger(configs.clickEvent, 'no-sound');
 
         barchart.reset();
+
+        $('.trash').removeClass('onstage');
+
+        if (game.platesCounter > 0 && (game.platesCounter % 4) === 0 || true ) {
+            log('game.platesCounter: ' + game.platesCounter);
+            setTimeout(function() { 
+                if (game.running) $('.trash').addClass('onstage'); 
+            }, 7000 + Math.round(Math.random() * 5000)); 
+        }
 
         //  temp
         // barchart.showHud();
@@ -1691,6 +1708,52 @@ var dq = (function($, window, undefined) {
         }
     }
 
+    game.addTrash = function() {
+        log('addTrash');
+
+        var foodCatsAry = ['veggies','sides','animals','fruit','fastfood'],
+            foodCat = foodCatsAry[helper.getRandomNumber(foodCatsAry.length)],
+            foodID = helper.getRandomNumber(app.json.avFood[foodCat].length),
+            html = '', obj = {},
+            $newFood;
+
+        log('foodCat: ' + foodCat);
+        log('foodID: ' + foodID);
+        // log(app.json.avFood[foodCat][foodID]);
+
+        game.skipMeal = true;
+        obj = app.json.avFood[foodCat][foodID];
+        obj.foodCat = foodCat;
+        obj.bgHorPos = foodID;
+        obj.c02 = 0;
+
+        log(obj);
+
+        obj.x = '40px';
+        obj.y = '40px';
+
+        html += '<div class="trash food" style="left: ' + obj.x + '; top: ' + obj.y + '; background-position: 0 0; background-image: url(./img/svg/onplate/' + obj.foodCat + '/' + obj.bgHorPos + '.svg);"></div>';
+
+        refs.$plate.append(html);
+
+
+        //  trigger bubble
+
+        $('.hud .toggle').addClass('freeze');
+
+        $newFood = $('.trash.food');
+        $newFood.data('specs', obj);
+
+        game.addFood(obj, undefined);
+        game.mealMix[foodCat]++;
+        game.checkFoodMix();
+        game.checkMealVals($newFood);
+
+        $('.trash').removeClass('onstage');
+
+        setTimeout(cutlery.trigger, 10, game.BUBBLES_TRASHFOOD);
+    }
+
     game.finishGame = function(mode) {
         log('finishGame');
         game.running = false;
@@ -1705,6 +1768,11 @@ var dq = (function($, window, undefined) {
 
     game.addMealToGallery = function(vals, lost, ratio) {
         log('addMealToGallery');
+
+        //  used trash, dont add to gallery!
+        if (game.skipMeal) {
+            return;
+        }
 
         for (var i = 0; i < game.currentMeal.length; i++) {
             game.currentMeal[i].x = game.currentMeal[i].$target.css('left');
@@ -1857,6 +1925,8 @@ var dq = (function($, window, undefined) {
         },
         
         stopDragging: function() {
+
+            log('------------stopDragging----------');
             
             var onPlate = dragfood.calcDistance(true),
                 foodID = 'food-' + game.meals.length + '-' + game.foodCounter,
@@ -1879,8 +1949,8 @@ var dq = (function($, window, undefined) {
             if (onPlate) {
                 log('on plate');
 
-                game.addFood(specs, $newFood);
-                // game.addToFoodstack(specs, $newFood);
+                // game.addFood(specs, $newFood);
+               
 
                 $newFood.data('specs', specs);
                 dragfood.setOffPlateVals($newFood,dq.refs.$dragfood.css('left'), dq.refs.$dragfood.css('top'));
@@ -1891,6 +1961,7 @@ var dq = (function($, window, undefined) {
                     $(this).addClass('inactive');
                 }
                 
+                game.addFood(specs, $newFood);
                 game.mealMix[specs.foodCat]++;
                 game.checkFoodMix();
                 game.checkMealVals($newFood);
@@ -2265,6 +2336,7 @@ var dq = (function($, window, undefined) {
                 case game.BUBBLES_TRIAL_WON:
                 case game.BUBBLES_TRIAL_LOST:
                 case game.BUBBLES_SHOWCHART:
+                case game.BUBBLES_TRASHFOOD:
                     
                     if (cutlery.chatid === app.json.expressions[bubblemode][0].length) {
                         cutlery.chatid = 0;

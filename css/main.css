@@ -438,6 +438,11 @@ video {
     z-index: 101;
 }
 
+.diagramm.freeze {
+    opacity: .4;
+    pointer-events: none;
+}
+
 .hud-new {
     position: absolute;
     top: 625px;
@@ -839,13 +844,21 @@ video {
     z-index: 100;
 }
 
-.trash {
+.icon.trash {
+    position: absolute;
     width: 70px;
     height: 108px;
-    right: -30px;
-    bottom: 23px;
+    right: -80px;
+    bottom: 120px;
     background-position: -662px -9px;
-    z-index: 100;
+    z-index: 100000;
+    /*border: 1px solid red;*/
+    transition: margin 1.5s ease-out;
+}
+
+
+.trash.onstage {
+    margin-right: 15%;
 }
 
 .gallery {

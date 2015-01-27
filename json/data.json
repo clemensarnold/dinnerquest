@@ -216,6 +216,11 @@
                 {"standard": "standard", "showNext": -1, "exp": "L02,G02", "txt": "G02;Klick zuerst auf die oberste Zutat", "bgid": 0}
             ]
         ],
+        "trash-food": [
+            [
+                {"standard": "standard", "showNext": -1, "exp": "L02,G02", "txt": "G02;You got lucky my friend. No CO2!", "bgid": 0}
+            ]
+        ],
         "trial-won": [
             [
                 {"standard": "standard", "showNext": 4000, "exp": "L01,G01", "txt": "M01;Super, du bist ein Naturtalent! Trotzdem solltest du wissen, dass bestimmte Lebensmittel sehr viel CO2 verursachen.", "bgid": 0}
