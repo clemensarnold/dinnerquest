@@ -50,8 +50,21 @@ var helper = {
     },
 
     convertToKG: function(gram) {
-        var kg = gram / 1000;
-        return kg;
+        var kg = gram / 1000,
+            strg = '';
+
+        // kg = helper.roundNumber(kg, 2);
+        log('convert / kg: ' + kg);
+        
+        strg = kg.toString();
+
+        if (strg.length > 4) {
+            strg = strg.substring(0,4);
+        }
+
+        strg = strg.replace('.',',');
+
+        return strg;
     },
     
     isInArray: function(arg, ary) {
