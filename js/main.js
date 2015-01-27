@@ -692,7 +692,7 @@ var dq = (function($, window, undefined) {
             });
 
             if (showSpecific) {
-                // refs.$plate.find('.food .chart').delay(2000).fadeOut(500, function() { log('remove .food .chart'); $(this).remove(); });
+                refs.$plate.find('.food .chart').delay(2000).fadeOut(500, function() { log('remove .food .chart'); $(this).remove(); });
             }
             
             //  catch mouse down
