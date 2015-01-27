@@ -304,7 +304,7 @@ video {
     /*border: 1px solid lime;*/
     opacity: 0;
     background: url(./../img/scenario/picframe.png);
-    transition: opacity 0.4s ease-out;
+    transition: opacity 0.3s ease-out;
     -webkit-transform: rotate(-5deg);
     padding: 25px 25px;
 }
@@ -484,7 +484,7 @@ video {
     /*border: 1px dotted grey;*/
     z-index: 5;
     text-align: center;
-    transition: opacity 0.4s ease-out 0s;
+    transition: opacity 0.3s ease-out 0s;
 }
 
 .hud .btn-wrapper {

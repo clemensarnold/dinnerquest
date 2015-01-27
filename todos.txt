@@ -1,8 +1,18 @@
-. leiste mit Zutaten unten: links bei scroller ist anders Maskiert als Rechts (wenn zutaten raus. einheitlich die Linke Animation mit ins transparente ladende Maske. 
+FRAGEN
+. Stand Introvideo?
+
+
+
+DONE
 . nach Polaroid soll Diagramm kommen dicht Essensansicht.
+. leiste mit Zutaten unten: links bei scroller ist anders Maskiert als Rechts (wenn zutaten raus. einheitlich die Linke Animation mit ins transparente ladende Maske. 
+. Polaroid bleibt liegen bei ABOUT seite (wenn man von Teller auf about klickt)
+
+
+
 . Text Sprechblasen schneller bzw in kürzeren Abständen. (Generelle Einstellung, kann ruhig um die hälfte kürzer sein das Intervall)
 . Klick zuerst auf die oberste Zutat > Einbau der Logik für diese Bubble
-. Polaroid bleibt liegen bei ABOUT seite (wenn man von Teller auf about klickt)
+
 . dinnerqest logo = home button , funktioniert noch nicht
 . Galerie: Kommastellencheck
 

@@ -108,6 +108,7 @@ var dq = (function($, window, undefined) {
         $activePage: undefined,
         currentTemplate: undefined,
         BUBBLES_NEWGAME: 'new-game',
+        BUBBLES_SHOWCHART: 'show-chart',
         BUBBLES_DROPPED_FOOD: 'food-dropped',
         BUBBLES_SCENARIO_FORK: 'scenario-fork',
         BUBBLES_SCENARIO_SPOON: 'scenario-spoon',
@@ -348,6 +349,16 @@ var dq = (function($, window, undefined) {
             }
 
             app.renderTemplate(defaultTemplate);
+
+
+            //  tmp code
+            /*
+            setTimeout(function() {
+                barchart.activate();
+                barchart.render();
+                setTimeout(cutlery.trigger, 10, game.BUBBLES_SHOWCHART);
+            }, 3000);
+            */
             
         },
 
@@ -813,15 +824,15 @@ var dq = (function($, window, undefined) {
 
     scenario = {
 
-        // SHOW_DELAY: 3000,
-        // HIDE_DELAY: 12000,
-        // SPOON_DELAY: 3000,
-        // FORK_DELAY: 8000,
+        SHOW_DELAY: 3000,
+        HIDE_DELAY: 12000,
+        SPOON_DELAY: 3000,
+        FORK_DELAY: 8000,
 
-        SHOW_DELAY: 1,
-        HIDE_DELAY: 5000,
-        SPOON_DELAY: 3,
-        FORK_DELAY: 8,
+        // SHOW_DELAY: 1,
+        // HIDE_DELAY: 2000,
+        // SPOON_DELAY: 3,
+        // FORK_DELAY: 8,
 
         render: function() {
             log('scenario.render');
@@ -882,12 +893,11 @@ var dq = (function($, window, undefined) {
 
             
             setTimeout(function() {
-                // app.generateChart();
-                window.setTimeout(barchart.showHud, 100);
-                // window.setTimeout(function() { $('.hud .toggle').trigger('click'); }, 500);
                 barchart.activate();
-            }, 500);
-            /**/
+                // app.generateChart();
+                barchart.showHud();
+                window.setTimeout(function() { $('.hud .toggle').trigger('click', {show: 'chart'}); }, 300);
+            }, 150);
         }
     }
 
@@ -896,6 +906,7 @@ var dq = (function($, window, undefined) {
         active: false,
         $el: $('.barchart-container'),
         $mask: $('#barchart .mask'),
+        triggerBubble: true,
 
         calcBarHeight: function(val) {
             var height, normHeight = 350, maxHeight = 500, minHeight = 30,
@@ -909,6 +920,12 @@ var dq = (function($, window, undefined) {
         render: function() {
 
             log('-----barchart render-----');
+
+            //  only once
+            if (barchart.triggerBubble) {
+                barchart.triggerBubble = false;
+                setTimeout(cutlery.trigger, 10, game.BUBBLES_SHOWCHART);
+            }
 
             var that = barchart,
                 html = '', result = '',
@@ -944,6 +961,9 @@ var dq = (function($, window, undefined) {
                 //  bar
                 $target.find('.bar').css({background: data[i].color, height: that.calcBarHeight(data[i].c02)});
 
+                //  q&d
+                data[i].label = data[i].label.replace('<br>',' ');
+
                 //  label
                 text = data[i].serving + ' g ' + data[i].label + '<br><font class="small">' + helper.convertToKG(data[i].c02) + ' kg CO<sub>2</sub></font>';
                 $target.find('p').html(text);
@@ -978,8 +998,15 @@ var dq = (function($, window, undefined) {
             refs.$barchart.addClass('hidden');
         },
 
-        toggle: function() {
+        toggle: function(target, dataObj) {
             log('barchart toggle');
+            log(dataObj);
+
+            //  toggle click triggered in scenario.hide()
+            if (!!dataObj) {
+                log('force barchart');
+                barchart.active = false;
+            }
 
             var $p = $(this).find('p'),
                 label = $p.data('label');
@@ -991,6 +1018,9 @@ var dq = (function($, window, undefined) {
             if (barchart.active) {
                 refs.$plate.find('.food').show();
                 barchart.hide();
+
+                //  only once would be enough actually
+                app.generateChart();
 
             } else {
                 refs.$plate.find('.food').hide();
@@ -2206,12 +2236,13 @@ var dq = (function($, window, undefined) {
                 case game.BUBBLES_TRIAL_START:
                 case game.BUBBLES_TRIAL_WON:
                 case game.BUBBLES_TRIAL_LOST:
+                case game.BUBBLES_SHOWCHART:
                     
                     if (cutlery.chatid === app.json.expressions[bubblemode][0].length) {
                         cutlery.chatid = 0;
                         hideBubble = true;
 
-                        if (bubblemode !== game.BUBBLES_TRIAL_START) {
+                        if (bubblemode === game.BUBBLES_TRIAL_WON || bubblemode === game.BUBBLES_TRIAL_LOST) {
                             app.stopTrialMode();
                         }
 
