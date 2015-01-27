@@ -865,6 +865,8 @@ var dq = (function($, window, undefined) {
 
             scenarioNr = helper.getRandomNumber(app.json.scenarios.length);
 
+            scenarioNr = 4;
+            scenarioMood = 'positive';
 
             log('scenarioNr: ' + scenarioNr);
             
