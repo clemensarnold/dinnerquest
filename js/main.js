@@ -64,6 +64,7 @@ var dq = (function($, window, undefined) {
         FB_SHARE: 'fb-share'
     },
     game = {
+        contentPageVisible: false,
         visitorid: NaN,
         mealindex: 0, // used in barchart.render
         firstvisit: false,
@@ -582,6 +583,8 @@ var dq = (function($, window, undefined) {
         
         showContentPage: function(pagetype) {
             log('showContentPage');
+            game.contentPageVisible = true;
+
             $('html').addClass('overflow');
 
             if (pagetype === 'gallery') dq.gallery.render();
@@ -599,11 +602,14 @@ var dq = (function($, window, undefined) {
             refs.$menu.hide();
             refs.$hud.addClass('hidden');
 
+            refs.$scenario.hide();
+
             $('.logo, #newGameButton, .meal-check, .trash').hide();
         },
         
         hideContentPage: function(pagetype) {
             log('hideContentPage: ' + pagetype);
+            game.contentPageVisible = false;
 
             $('html').removeClass('overflow');
             // $('#' + pagetype).removeClass('visible');
@@ -615,6 +621,7 @@ var dq = (function($, window, undefined) {
             refs.$barchart.show();
             refs.$fork.show();
             refs.$spoon.show();
+            refs.$scenario.show();
 
             if (game.running) {
                 refs.$menu.show();
@@ -844,6 +851,9 @@ var dq = (function($, window, undefined) {
             log('game.lost: ' + game.lost);
 
             scenarioNr = helper.getRandomNumber(app.json.scenarios.length);
+
+
+            log('scenarioNr: ' + scenarioNr);
             
             var dataObj = app.json.scenarios[scenarioNr][scenarioMood];
             scenario.dataObj = dataObj;
@@ -1033,7 +1043,11 @@ var dq = (function($, window, undefined) {
 
         showHud: function() {
             // refs.$plates.addClass('collapse border-bottom');
-            refs.$hud.removeClass('hidden');
+
+            if (!game.contentPageVisible) {
+                refs.$hud.removeClass('hidden');
+            }
+
             setTimeout(function() { refs.$hud.removeClass('transparent'); }, 500);
         },
 
