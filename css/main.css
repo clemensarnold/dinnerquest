@@ -839,7 +839,7 @@ video {
     width: 139px;
     height: 100px;
     left: 5px;
-    top: -185px;
+    top: 12px;
     background-position: 2px 2px;
     z-index: 100;
 }
@@ -854,6 +854,16 @@ video {
     z-index: 100000;
     /*border: 1px solid red;*/
     transition: margin 1.5s ease-out;
+}
+
+.misc-icons-wrapper {
+    width: 1024px;
+    height: 1px;
+    /*border: 1px dotted grey; */
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    margin-left: -512px;
 }
 
 
@@ -893,7 +903,7 @@ video {
 }
 
 .gallery, .info, .sound {
-    top: -185px;
+    top: 5px;
 }
 
 .info.close,

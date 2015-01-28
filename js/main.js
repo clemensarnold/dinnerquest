@@ -1547,13 +1547,16 @@ var dq = (function($, window, undefined) {
 
         $('.trash').removeClass('onstage');
 
-        if (game.platesCounter > 0 && (game.platesCounter % 4) === 0 || true ) {
-            log('game.platesCounter: ' + game.platesCounter);
-            setTimeout(function() { 
-                if (game.running) $('.trash').addClass('onstage'); 
-            }, 7000 + Math.round(Math.random() * 5000)); 
-        }
 
+        if (!game.trialmode) {
+            if (game.platesCounter > 0 && (game.platesCounter % 4) === 0 || true ) {
+                log('game.platesCounter: ' + game.platesCounter);
+                setTimeout(function() { 
+                    if (game.running) $('.trash').addClass('onstage'); 
+                }, 7000 + Math.round(Math.random() * 5000)); 
+            }
+        }
+        
         //  temp
         // barchart.showHud();
     },
