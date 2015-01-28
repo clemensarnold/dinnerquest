@@ -310,13 +310,13 @@ video {
 }
 
 .scenario p {
-    padding: 7px 0 0;
+    padding: 8px 0 0;
     color: #231f20;
     /*border: 1px solid;*/
-    width: 322px;
+    width: 335px;
     font-family: 'gloria_hallelujahregular', 'Arial', Sans-Serif;
-    font-size: 21px;
-    line-height: 22px;
+    font-size: 19px;
+    line-height: 23px;
 }
 
 .img-wrapper {
