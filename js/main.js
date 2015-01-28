@@ -112,6 +112,7 @@ var dq = (function($, window, undefined) {
         BUBBLES_NEWGAME: 'new-game',
         BUBBLES_SHOWCHART: 'show-chart',
         BUBBLES_TRASHFOOD: 'trash-food',
+        BUBBLES_TRASHONSTAGE: 'trash-onstage',
         BUBBLES_DROPPED_FOOD: 'food-dropped',
         BUBBLES_SCENARIO_FORK: 'scenario-fork',
         BUBBLES_SCENARIO_SPOON: 'scenario-spoon',
@@ -845,8 +846,8 @@ var dq = (function($, window, undefined) {
 
         SHOW_DELAY: 1500,
         HIDE_DELAY: 11000,
-        SPOON_DELAY: 2000,
-        FORK_DELAY: 5000,
+        SPOON_DELAY: 7000, // 2000
+        FORK_DELAY: 4000, // 5000
         visible: false,
 
         // SHOW_DELAY: 1,
@@ -954,7 +955,8 @@ var dq = (function($, window, undefined) {
             //  only once
             if (barchart.triggerBubble) {
                 barchart.triggerBubble = false;
-                setTimeout(cutlery.trigger, 10, game.BUBBLES_SHOWCHART);
+                cutlery.resetChat();
+                setTimeout(cutlery.trigger, 600, game.BUBBLES_SHOWCHART);
             }
 
             var that = barchart,
@@ -1532,6 +1534,8 @@ var dq = (function($, window, undefined) {
         barchart.deactivate();
         game.skipMeal = false;
 
+        barchart.triggerBubble = true;
+
         // refs.$foodstack.empty();
         debug.printObject({});
         
@@ -1547,12 +1551,14 @@ var dq = (function($, window, undefined) {
 
         $('.trash').removeClass('onstage');
 
-
         if (!game.trialmode) {
             if (game.platesCounter > 0 && (game.platesCounter % 4) === 0 || true ) {
                 log('game.platesCounter: ' + game.platesCounter);
                 setTimeout(function() { 
-                    if (game.running) $('.trash').addClass('onstage'); 
+                    if (game.running) {
+                        $('.trash').addClass('onstage'); 
+                        setTimeout(cutlery.trigger, 1650, game.BUBBLES_TRASHONSTAGE);
+                    }
                 }, 7000 + Math.round(Math.random() * 5000)); 
             }
         }
@@ -1739,7 +1745,6 @@ var dq = (function($, window, undefined) {
 
         refs.$plate.append(html);
 
-
         //  trigger bubble
 
         $('.hud .toggle').addClass('freeze');
@@ -1754,13 +1759,15 @@ var dq = (function($, window, undefined) {
 
         $('.trash').removeClass('onstage');
 
-        setTimeout(cutlery.trigger, 10, game.BUBBLES_TRASHFOOD);
+        // setTimeout(cutlery.trigger, 10, game.BUBBLES_TRASHFOOD);
+        setTimeout(cutlery.trigger, 10, game.BUBBLES_DROPPED_FOOD, obj['msg-dropped']);
     }
 
     game.finishGame = function(mode) {
         log('finishGame');
         game.running = false;
         refs.$menu.fadeOut();
+        $('.trash').removeClass('onstage');
 
         if (mode === 'skip-scenario') {
             scenario.hide();
@@ -2265,6 +2272,12 @@ var dq = (function($, window, undefined) {
                 case game.BUBBLES_FREEZE_VEGGIES:
                     rid = helper.getRandomNumber(app.json.expressions[bubblemode][0].length);
                     bubbleData = app.json.expressions[bubblemode][0][rid];
+
+                    // used meal out of trash
+                    if (game.skipMeal) {
+                        rid = helper.getRandomNumber(app.json.expressions[bubblemode][1].length);
+                        bubbleData = app.json.expressions[bubblemode][1][rid];
+                    }
                     break;
                 
                 case game.BUBBLES_POSITIVE:
@@ -2340,9 +2353,10 @@ var dq = (function($, window, undefined) {
                 case game.BUBBLES_TRIAL_LOST:
                 case game.BUBBLES_SHOWCHART:
                 case game.BUBBLES_TRASHFOOD:
+                case game.BUBBLES_TRASHONSTAGE:
                     
                     if (cutlery.chatid === app.json.expressions[bubblemode][0].length) {
-                        cutlery.chatid = 0;
+                        cutlery.resetChat();
                         hideBubble = true;
 
                         if (bubblemode === game.BUBBLES_TRIAL_WON || bubblemode === game.BUBBLES_TRIAL_LOST) {
@@ -2371,6 +2385,10 @@ var dq = (function($, window, undefined) {
 
             if (hideBubble) cutlery.hideBubble();
             else cutlery.setExpression(bubbleData, bubblemode);
+        },
+
+        resetChat: function() {
+            cutlery.chatid = 0;
         },
         
         setExpression: function(bubbleData, bubblemode) {

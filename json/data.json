@@ -77,7 +77,7 @@
         },      
         "showbubble_delay": 100,
         "hidebubble_delay": 2000,
-        "hidebubble_delay_scenario": 2750
+        "hidebubble_delay_scenario": 3200
     },
     
     "sounds": {
@@ -156,6 +156,9 @@
                 {"standard": "standard", "exp": "L02,G02", "txt": "M;Das war eine Wucht! Rundum satt!", "bgid": 2},
                 {"standard": "standard", "exp": "L01,G01", "txt": "M;Yummy! I got love in my tummy.", "bgid": 3},
                 {"standard": "standard", "exp": "L03,G03", "txt": "M;Pumperlgsund und Pappsatt.", "bgid": 4}
+            ],
+            [
+                {"standard": "standard", "exp": "L01,G01", "txt": "M;Cool, geschafft! Aber rechne nicht damit, dass du immer etwas im Müll findest.", "bgid": 0}
             ]
         ],
         "positive": [
@@ -213,12 +216,18 @@
         ],
         "show-chart": [
             [
-                {"standard": "standard", "showNext": -1, "exp": "L02,G02", "txt": "G02;Klick zuerst auf die oberste Zutat", "bgid": 0}
+                {"standard": "standard", "showNext": 2500, "exp": "L02,G02", "txt": "G02;Klick zuerst auf die oberste Zutat, die hat’s in sich.", "bgid": 0},
+                {"standard": "standard", "showNext": 2500, "exp": "L02,G02", "txt": "M02;Schau dir auch die Zutaten mit den kleineren Balken an - davon kannst du mehr essen.", "bgid": 0}
             ]
         ],
         "trash-food": [
             [
                 {"standard": "standard", "showNext": -1, "exp": "L02,G02", "txt": "G02;You got lucky my friend. No CO2!", "bgid": 0}
+            ]
+        ],
+        "trash-onstage": [
+            [
+                {"standard": "standard", "showNext": -1, "exp": "L02,G02", "txt": "M02;Oh, so ein Zufall! Fisch’ was aus dem Müll und schau was passiert.", "bgid": 0}
             ]
         ],
         "trial-won": [
