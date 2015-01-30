@@ -157,6 +157,8 @@
             <audio class="btn-audio snd dropped-food" preload="auto"><source src="./media/sound-final/gameplay/FoodTothePlate.mp3" type="audio/mpeg" /></audio>
             <audio class="btn-audio snd restock-food" preload="auto"><source src="./media/sound-final/gameplay/FoodBackToMenu.mp3" type="audio/mpeg" /></audio>
             <audio class="btn-audio snd select-dish" preload="auto"><source src="./media/sound-final/gameplay/SelectDish.mp3" type="audio/mpeg" /></audio>
+            <audio class="btn-audio snd recycle-food" preload="auto"><source src="./media/sound-final/gameplay/Recycle.mp3" type="audio/mpeg" /></audio>
+            <audio class="btn-audio snd show-bubble" preload="auto"><source src="./media/sound-final/gameplay/BubblePop2.mp3" type="audio/mpeg" /></audio>
 
 
             
@@ -168,8 +170,10 @@
             <audio class="btn-audio snd snoring" loop><source src="./media/sound/snoring.mp3" type="audio/mpeg" /></audio>
         </div>
         <div id="videocontainer" class="hidden transparent">
-            <video id="intro-video" width="1024" height="768" _autoplay _controls>
-                <source src="./media/video/dq.mp4" type="video/mp4">
+            <!-- <video id="intro-video" width="1024" height="768" _autoplay controls> -->
+            <video id="intro-video" width="100%" height="100%" _autoplay _controls>
+                <!-- <source src="./media/video/dq.mp4" type="video/mp4"> -->
+                <source src="./media/video/DinnerquestIntro_20150129.mp4" type="video/mp4">
             </video>
         </div>
 

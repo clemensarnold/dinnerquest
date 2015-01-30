@@ -1,5 +1,48 @@
-FRAGEN
-. Stand Introvideo?
+Cooper Lt BT
+
+
+
+
+
+Text-Ergänzungen:
+
+
+
+
+wenn ein Teller mit Dumpster Icon fertig ist (noch vor dem Übergang zum Szenario)
+Messer: Cool, geschafft! Aber rechne nicht damit, dass du immer etwas im Müll findest.
+
+
+
+
+
+
+Teller fertig, Übergang zu Szenario, dann:
+zuerst Gabel: Ah, das ist ja völlig übertrieben. (bzw. je nach Szenario siehe dinnerquest_Konsequenzen.docx)
+Messer: Schau dir doch mal die schlimmsten Zutaten an. (bzw. je nach Szenario siehe dinnerquest_Konsequenzen.docx)
+
+
+
+
+Übergang zu Diagramm-Ansicht, dann: 
+(recht schnell hintereinander)
+Gabel: Klick zuerst auf die oberste Zutat, die hat’s in sich.
+Messer: Schau dir auch die Zutaten mit den kleineren Balken an - davon kannst du mehr essen.
+
+
+
+
+
+
+
+
+
+
+
+
+
+TODOS
+. Bubble-Sound einbauen
 
 
 
@@ -9,16 +52,17 @@ DONE
 . Polaroid bleibt liegen bei ABOUT seite (wenn man von Teller auf about klickt)
 . Klick zuerst auf die oberste Zutat > Einbau der Logik für diese Bubble
 . Galerie: Kommastellencheck
-
-
-
 . Text Sprechblasen schneller bzw in kürzeren Abständen. (Generelle Einstellung, kann ruhig um die hälfte kürzer sein das Intervall)
+
 . dinnerqest logo = home button , funktioniert noch nicht
 
 
 
 RECYCLING
-. müllwagen soll - (jeder vierte spielsession) einrollen vom rechten Bildschirmrand. bei klick kommt eine eine per zufalssgenerator bestimmte Zutat die man auf das Teller schieben kann (diese Zutat hat 0 CO2) Text. du hast Glück! - 
+. müllwagen soll - (jeder vierte spielsession) einrollen vom rechten Bildschirmrand
+. bei klick kommt eine eine per zufalssgenerator bestimmte Zutat die man auf das Teller schieben kann (diese Zutat hat 0 CO2) 
+Text. du hast Glück! - 
+
 In der Galerie soll das mülltonnensimbol auch erscheinen. Dieses Teller aus Galerieansicht streichen, kommt nicht vor weil verzerrend.  Diagrammansicht gibts nicht, Button deaktiviert (halbtransparent) 2 Sprechblasen erklären den Sonderfall
 
 

@@ -45,6 +45,8 @@ var dq = (function($, window, undefined) {
         'success': $('.snd.success')[0],
         'failed': $('.snd.failed')[0],
         'new-game': $('.snd.new-game')[0],
+        'recycle-food': $('.snd.recycle-food')[0],
+        'show-bubble': $('.snd.show-bubble')[0],
         'snoring': $('.snd.snoring')[0],
         'first-intro': $('.snd.first-intro')[0],
         'standard-click': $('.snd.standard-click')[0],
@@ -175,7 +177,9 @@ var dq = (function($, window, undefined) {
         SUCCESS: "success",
         SCENARIO: "scenario",
         FIRST_INTRO: "first-intro",
-        STANDARD_CLICK: "standard-click"
+        STANDARD_CLICK: "standard-click",
+        RECYCLE_FOOD: "recycle-food",
+        SHOW_BUBBLE: "show-bubble"
     };
     
     game.sounds = [
@@ -1672,7 +1676,7 @@ var dq = (function($, window, undefined) {
         if (gameOver) {
 
             if (game.trialmode) {
-                setTimeout(cutlery.trigger, 1000, tooMuchC02 ? game.BUBBLES_TRIAL_LOST : game.BUBBLES_TRIAL_WON);
+                setTimeout(cutlery.trigger, 20, tooMuchC02 ? game.BUBBLES_TRIAL_LOST : game.BUBBLES_TRIAL_WON);
 
             } else {
                 game.finishGame();
@@ -1729,6 +1733,8 @@ var dq = (function($, window, undefined) {
         log('foodCat: ' + foodCat);
         log('foodID: ' + foodID);
         // log(app.json.avFood[foodCat][foodID]);
+
+        app.playSound(sounds.RECYCLE_FOOD);
 
         game.skipMeal = true;
         obj = app.json.avFood[foodCat][foodID];
@@ -2369,7 +2375,9 @@ var dq = (function($, window, undefined) {
                     bubbleData = app.json.expressions[bubblemode][0][cutlery.chatid];
                     cutlery.chatid++;
 
-                    if (bubbleData.showNext > 0) cutlery.triggerNextBubble(bubbleData.showNext, bubblemode);
+                    if (bubbleData) {
+                        if (bubbleData.showNext > 0) cutlery.triggerNextBubble(bubbleData.showNext, bubblemode);
+                    }
                     break;
             }
             
@@ -2380,8 +2388,8 @@ var dq = (function($, window, undefined) {
                 cutlery.bubblemode = bubbleData.standard;
             }
 
-            // log(bubbleData);
-            // log(bubblemode);
+            log(bubbleData);
+            log(bubblemode);
 
             if (hideBubble) cutlery.hideBubble();
             else cutlery.setExpression(bubbleData, bubblemode);
@@ -2422,6 +2430,8 @@ var dq = (function($, window, undefined) {
             log('showBubble');
             // log('bubbleData');
             // log(cutlery.bubbleData);
+
+            // app.playSound(sounds.SHOW_BUBBLE);
             
             var vertOffset = (!!cutlery.bubbleData.standard) ? 300 : 150;
             

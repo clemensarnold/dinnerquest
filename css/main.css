@@ -184,10 +184,10 @@ body.table-cloth {
 }
 
 video {
-    position: absolute;
+/*    position: absolute;
     bottom: -1px;
     left: 50%;
-    margin-left: -512px;
+    margin-left: -512px;*/
 }
 
 /* ==========================================================================
@@ -1147,7 +1147,8 @@ video {
     padding: 0;
     cursor: pointer;
     float: left;
-    background-image: url(./../img/svg/av-food.svg);
+    /*background-image: url(./../img/svg/av-food.svg);*/
+    background-image: url(./../img/svg/av-food-final.png);
     opacity: 0;
     /*border: 1px solid;*/
     position: relative;
@@ -1412,7 +1413,7 @@ body.hidesvg g {
     width: 100px;
     margin-top: 0px !important;
     z-index: 1;
-    font-family: 'Cooper Lt BT', 'Arial', Sans-Serif;
+    font-family: 'Cooper Lt BT', 'cooper_md_btmedium', 'Arial', Sans-Serif;
     font-weight: bold;
     transition: opacity 0.4s ease-out 0.4s;
     /*border: 1px solid;*/
@@ -1422,7 +1423,7 @@ body.hidesvg g {
 .barchart p.lost {
     position: absolute;
     z-index: 1;
-    font-family: 'Cooper Lt BT', 'Arial', Sans-Serif;
+    font-family: 'Cooper Lt BT', 'cooper_md_btmedium', 'Arial', Sans-Serif;
     font-weight: bold;
     color: #938980;
 }
