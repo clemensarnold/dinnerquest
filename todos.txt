@@ -1,38 +1,23 @@
-Cooper Lt BT
+
+Mülltonne:
+zutat nicht automatisch aufs Teller sondern kommt klein vor den grünen Pfeil, und kann dann vom user auf das teller geschoben werden.
+
+FERTIG Button bei Probeteller / wenn man zb nur Weintrauben gegessen hat
+
+Bubble Design: Illustrator Datei Set Design - mehrere Varianten von Sprechblasen wäre im Illustrator, bitte einbauen 2-3 Stk.
+
+neue und finales Intro ohne logo ist hochgeladen, einbauen.
 
 
 
 
+FIREFOX hat einige Bugs!
+Galerieteller werden gross angezeigt FF 35, 36 Mac und PC, fixen.
+manchmal friert auf FF das Teller ohne dass man den abschliessen kann.
+Manchmal verschwindet sockelleiste 
+Firefox ordentlich Testen
 
-Text-Ergänzungen:
-
-
-
-
-wenn ein Teller mit Dumpster Icon fertig ist (noch vor dem Übergang zum Szenario)
-Messer: Cool, geschafft! Aber rechne nicht damit, dass du immer etwas im Müll findest.
-
-
-
-
-
-
-Teller fertig, Übergang zu Szenario, dann:
-zuerst Gabel: Ah, das ist ja völlig übertrieben. (bzw. je nach Szenario siehe dinnerquest_Konsequenzen.docx)
-Messer: Schau dir doch mal die schlimmsten Zutaten an. (bzw. je nach Szenario siehe dinnerquest_Konsequenzen.docx)
-
-
-
-
-Übergang zu Diagramm-Ansicht, dann: 
-(recht schnell hintereinander)
-Gabel: Klick zuerst auf die oberste Zutat, die hat’s in sich.
-Messer: Schau dir auch die Zutaten mit den kleineren Balken an - davon kannst du mehr essen.
-
-
-
-
-
+-- 
 
 
 

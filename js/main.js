@@ -147,7 +147,7 @@ var dq = (function($, window, undefined) {
         STATS: false,
         CHECK_INACTIVITY: false,
         RELOAD_ON_INACTIVE: false,
-        SOUNDS: true,
+        SOUNDS: false,
         SKIP_INTRO: false,
         SKIP_TRIAL: false,
         SKIP_VIDEO: false,
@@ -766,9 +766,10 @@ var dq = (function($, window, undefined) {
             //if (whichSound === 'new-game') return;
             //log('playSound / whichSound: ' + whichSound);
             
-            refs[whichSound].pause();
-            refs[whichSound].currentTime = 0;
-            
+            if (refs[whichSound]) {
+                refs[whichSound].pause();
+                refs[whichSound].currentTime = 0;
+            }
 
             setTimeout(function() { refs[whichSound].play(); }, delay);
 

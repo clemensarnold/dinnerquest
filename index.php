@@ -173,7 +173,8 @@
             <!-- <video id="intro-video" width="1024" height="768" _autoplay controls> -->
             <video id="intro-video" width="100%" height="100%" _autoplay _controls>
                 <!-- <source src="./media/video/dq.mp4" type="video/mp4"> -->
-                <source src="./media/video/DinnerquestIntro_20150129.mp4" type="video/mp4">
+                <!-- <source src="./media/video/DinnerquestIntro_20150129.mp4" type="video/mp4"> -->
+                <source src="./media/video/intro-final.mp4" type="video/mp4">
             </video>
         </div>
 
@@ -184,9 +185,7 @@
         <script src="js/vendor/throttle-1.1.js"></script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
-        <script src="js/gallery.js"></script>        
+        <script src="js/gallery.js"></script>
         <script src="js/vendor/stats.js"></script>
-        <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script> 
-
     </body>
 </html>
