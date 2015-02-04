@@ -295,7 +295,7 @@ var dq = (function($, window, undefined) {
             helper.setFbLink($('.' + buttons.FB_SHARE), window.location.href);
             
             if (constants.DEV) {
-                refs.$window.on({keydown: this.keyDownListener});
+                // refs.$window.on({keydown: this.keyDownListener});
             }
             
             $('.navi-container > div').on(configs.clickEvent, function() {
@@ -442,7 +442,9 @@ var dq = (function($, window, undefined) {
             
             $('#intro-video')[0].pause();
             refs.$videocontainer.addClass('hidden');
-            setTimeout(app.startGame, 1000);
+
+            clearTimeout(app.startGameTO);
+            app.startGameTO = setTimeout(app.startGame, 1000);
         },
         
         checkInactivity: function() {
@@ -500,6 +502,8 @@ var dq = (function($, window, undefined) {
 
         stopTrialMode: function() {
             log('stopTrialMode');
+
+            if (!game.trialmode) return;
 
             game.trialmode = false;
 
@@ -754,8 +758,8 @@ var dq = (function($, window, undefined) {
         
         playSound: function(whichSound, delay) {
 
-            log('playSound / whichSound: ' + whichSound);
-            log('playSound / delay: ' + delay);
+            // log('playSound / whichSound: ' + whichSound);
+            // log('playSound / delay: ' + delay);
 
             var delay = delay || 0;
             
@@ -771,14 +775,15 @@ var dq = (function($, window, undefined) {
                 refs[whichSound].currentTime = 0;
             }
 
-            setTimeout(function() { refs[whichSound].play(); }, delay);
+            clearTimeout(app.playSoundTO);
+            app.playSoundTO = setTimeout(function() { refs[whichSound].play(); }, delay);
 
             game.lastSound = whichSound;
         },
         
         stopSound: function(trigger) {
             
-            log('stopSound / trigger: ' + trigger);
+            // log('stopSound / trigger: ' + trigger);
             
             if (game.lastSound) {
                 refs[game.lastSound].pause();
@@ -1677,7 +1682,8 @@ var dq = (function($, window, undefined) {
         if (gameOver) {
 
             if (game.trialmode) {
-                setTimeout(cutlery.trigger, 20, tooMuchC02 ? game.BUBBLES_TRIAL_LOST : game.BUBBLES_TRIAL_WON);
+                clearTimeout(app.finishTrialModeTO);
+                app.finishTrialModeTO = setTimeout(cutlery.trigger, 20, tooMuchC02 ? game.BUBBLES_TRIAL_LOST : game.BUBBLES_TRIAL_WON);
 
             } else {
                 game.finishGame();
@@ -2222,12 +2228,14 @@ var dq = (function($, window, undefined) {
         
         showBubbleTO: NaN,
         hideBubbleTO: NaN,
+        triggerNextTO: NaN,
         showDelay: NaN,
         hideDelay: NaN,
         hideDelayScenario: NaN,
         bubblemode: undefined,
         bubbleData: {},
         chatid: 0,
+        chatid_trialover: 0,
         SHOW_BUBBLETXT: true,
         
         trigger: function(bubblemode, msg) {
@@ -2356,8 +2364,6 @@ var dq = (function($, window, undefined) {
                     break;
 
                 case game.BUBBLES_TRIAL_START:
-                case game.BUBBLES_TRIAL_WON:
-                case game.BUBBLES_TRIAL_LOST:
                 case game.BUBBLES_SHOWCHART:
                 case game.BUBBLES_TRASHFOOD:
                 case game.BUBBLES_TRASHONSTAGE:
@@ -2365,11 +2371,6 @@ var dq = (function($, window, undefined) {
                     if (cutlery.chatid === app.json.expressions[bubblemode][0].length) {
                         cutlery.resetChat();
                         hideBubble = true;
-
-                        if (bubblemode === game.BUBBLES_TRIAL_WON || bubblemode === game.BUBBLES_TRIAL_LOST) {
-                            app.stopTrialMode();
-                        }
-
                         break;
                     }
                     
@@ -2377,20 +2378,47 @@ var dq = (function($, window, undefined) {
                     cutlery.chatid++;
 
                     if (bubbleData) {
-                        if (bubbleData.showNext > 0) cutlery.triggerNextBubble(bubbleData.showNext, bubblemode);
+                        if (bubbleData.showNext > 0) {
+                            cutlery.triggerNextBubble(bubbleData.showNext, bubblemode);
+                        }
                     }
                     break;
+
+
+                case game.BUBBLES_TRIAL_WON:
+                case game.BUBBLES_TRIAL_LOST:
+
+                    if (cutlery.chatid_trialover === app.json.expressions[bubblemode][0].length) {
+                        cutlery.resetChatTrialOver();
+                        hideBubble = true;
+                        app.stopTrialMode();
+                        break;
+                    }
+                    
+                    bubbleData = app.json.expressions[bubblemode][0][cutlery.chatid_trialover];
+                    cutlery.chatid_trialover++;
+
+                    if (bubbleData) {
+                        if (bubbleData.showNext > 0) {
+                            cutlery.triggerNextBubble(bubbleData.showNext, bubblemode);
+                        }
+                    }
+
+                    break;
+
             }
             
             cutlery.bubbleData = bubbleData;
             cutlery.bubblemode = bubblemode;
 
+            // log('------bubbleData-------');
+            // log(bubbleData);
+            // log('------bubblemode-------');
+            // log(bubblemode);
+
             if (!!bubbleData.standard) {
                 cutlery.bubblemode = bubbleData.standard;
             }
-
-            log(bubbleData);
-            log(bubblemode);
 
             if (hideBubble) cutlery.hideBubble();
             else cutlery.setExpression(bubbleData, bubblemode);
@@ -2398,6 +2426,10 @@ var dq = (function($, window, undefined) {
 
         resetChat: function() {
             cutlery.chatid = 0;
+        },
+
+        resetChatTrialOver: function() {
+            cutlery.chatid_trialover = 0;
         },
         
         setExpression: function(bubbleData, bubblemode) {
@@ -2423,7 +2455,8 @@ var dq = (function($, window, undefined) {
         },
 
         triggerNextBubble: function(delay, mode) {
-            setTimeout(cutlery.trigger, delay, mode);
+            clearTimeout(cutlery.triggerNextTO);
+            cutlery.triggerNextTO = setTimeout(cutlery.trigger, delay, mode);
         },
         
         showBubble: function() {
