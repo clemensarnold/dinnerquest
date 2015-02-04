@@ -454,19 +454,66 @@ video {
     text-align: center;
 }
 
-.hud-new .button,
+.hud-new .button1,
 .hud .button {
-    background: #199151;
     display: inline-block;
-    padding: 1em 2em;
-    cursor: pointer;
-    opacity: 0;
-    transition: background 0.3s ease-out 0s;
+    width: 215px;
+    height: 45px;
+    right: 410px; 
+    background-position: -550px 174px;
+    background-image: url(./../img/svg/icons-2.svg);
+    z-index: 101;
 }
 
-.hud-new .button:hover,
+.hud-new .button2,
+.hud .button {
+    display: inline-block;
+    width: 215px;
+    height: 45px;
+    right: 500px; 
+    background-position: -780px 174px;
+    background-image: url(./../img/svg/icons-2.svg);
+    z-index: 101;
+}
+
+.hud-new .button1:hover,
 .hud .button:hover {
-    background: #22ab62;
+    width: 215px;
+    height: 45px;
+    right: 410px; 
+    background-position: -550px 120px;
+    background-image: url(./../img/svg/icons-2.svg);
+    z-index: 101;
+}
+
+.hud-new .button2:hover,
+.hud .button:hover {
+    width: 215px;
+    height: 45px;
+    right: 410px; 
+    background-position: -780px 120px;
+    background-image: url(./../img/svg/icons-2.svg);
+    z-index: 101;
+}
+
+.hud-new .button1:active,
+.hud .button:active {
+    width: 215px;
+    height: 45px;
+    right: 410px; 
+    background-position: -550px 73px;
+    background-image: url(./../img/svg/icons-2.svg);
+    z-index: 101;
+}
+
+.hud-new .button2:active,
+.hud .button:active {
+    width: 215px;
+    height: 45px;
+    right: 410px; 
+    background-position: -780px 73px;
+    background-image: url(./../img/svg/icons-2.svg);
+    z-index: 101;
 }
 
 .hud-new .button.show {
@@ -482,7 +529,7 @@ video {
 
 .hud {
     position: absolute;
-    top: 605px;
+    top: 650px;
     left: 0;
     width: 1024px;
     height: 100px;
@@ -994,11 +1041,11 @@ video {
    ========================================================================== */
 
 .intro-container {
-    width: 550px;
-    height: 550px;
+    width: 600px;
+    height: 600px;
     position: absolute;
     /*top: -28px;*/
-    top: 12px;
+    top: -34px;
     left: -5px;
     z-index: 2;
 }
@@ -1008,8 +1055,8 @@ video {
     top: 0;
     left: 0;
     background: url(./../img/svg/intro.png) no-repeat;
-    width: 550px;
-    height: 550px;
+    width: 600px;
+    height: 600px;
     opacity: 0;
 }
 

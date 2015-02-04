@@ -87,8 +87,8 @@
                     <div class="bubble"></div>
                 </div>
                 <div class="hud-new">
-                    <div class="button start-trial hidden" data-label="kennenlernen"><p>spiel starten</p></div>
-                    <div class="button skip-trial hidden"><p>gleich spielen</p></div>
+                    <div class="button1 start-trial hidden"></div>
+                    <div class="button2 skip-trial hidden"></div>
                     <div class="button show-chart hidden"><p>diagramm</p></div>
                 </div>
 
