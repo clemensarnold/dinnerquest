@@ -156,7 +156,7 @@
 
 
             <!-- <audio class="btn-audio snd dropped-food" preload="auto"><source src="./media/sound-new/ClickZutatGehtAufTeller.wav" type="audio/mpeg" /></audio> -->
-            <audio class="btn-audio snd dropped-food" preload="auto"><source src="./media/sound-final/gameplay/FoodTothePlate.mp3" type="audio/mpeg" /></audio>
+            <audio class="btn-audio snd dropped-food" preload="auto"><source src="./media/sound-final/gameplay/FoodOnThePlate1.mp3" type="audio/mpeg" /></audio>
             <audio class="btn-audio snd restock-food" preload="auto"><source src="./media/sound-final/gameplay/FoodBackToMenu.mp3" type="audio/mpeg" /></audio>
             <audio class="btn-audio snd select-dish" preload="auto"><source src="./media/sound-final/gameplay/SelectDish.mp3" type="audio/mpeg" /></audio>
             <audio class="btn-audio snd recycle-food" preload="auto"><source src="./media/sound-final/gameplay/Recycle.mp3" type="audio/mpeg" /></audio>

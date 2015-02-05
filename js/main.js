@@ -99,7 +99,7 @@ var dq = (function($, window, undefined) {
             WAKEUP_EXP: "L01,G01",
             FADEIN_SPEED: 500,
             FADEOUT_SPEED: 500,
-            SHOWBUBBLE_DELAY: 500
+            SHOWBUBBLE_DELAY: 250
         },
         currentFoodCat: undefined,
         currentMeal: [],
@@ -1697,7 +1697,8 @@ var dq = (function($, window, undefined) {
                 if (tooMuchC02) {
                     // lost
                     log('---------- lost ----------');
-                    cutlery.trigger(game.BUBBLES_FAILED);
+                    // cutlery.trigger(game.BUBBLES_FAILED);
+                    setTimeout(cutlery.trigger, game.constants.SHOWBUBBLE_DELAY, game.BUBBLES_FAILED);
                     refs.$mealCheck.addClass('failed');
                     
                     // setTimeout(storm.start, startAniDelay);
@@ -1708,7 +1709,8 @@ var dq = (function($, window, undefined) {
                     // won
                     log('---------- won ----------');
                     game.lost = false;
-                    cutlery.trigger(game.BUBBLES_SUCCESS);
+                    // cutlery.trigger(game.BUBBLES_SUCCESS);
+                    setTimeout(cutlery.trigger, game.constants.BUBBLES_SUCCESS, game.BUBBLES_FAILED);
                     // setTimeout(confettis.init, startAniDelay);
 
                     // tmp: 22012015
@@ -2473,22 +2475,38 @@ var dq = (function($, window, undefined) {
             var data = cutlery.bubbleData,
                 backgroundPosition = '0px ' + -vertOffset * data.bgid + 'px',
                 $ref = (data.txt.split(';')[0].indexOf('G') >= 0) ? refs.$forkBub: refs.$spoonBub,
-                hideBubbleDelay = scenario.visible ? cutlery.hideDelayScenario : cutlery.hideDelay;
+                hideBubbleDelay = scenario.visible ? cutlery.hideDelayScenario : cutlery.hideDelay,
+                bubbleTxt = data.txt.substr(data.txt.indexOf(';') + 1);
+
+                // bubbleTxt = 'Ups, das ging daneben! Du musst wissen: Bestimmte Lebensmittel verursachen sehr viel CO2.';
 
             if (cutlery.bubbleData.standard) {
-                backgroundPosition = '0 0';
-                if (data.txt.split(';')[0].indexOf('M') >= 0) backgroundPosition = '0 -300px';
+
+                vertOffset = 0;
+
+                if (bubbleTxt.length > 60) vertOffset = -300;
+                if (bubbleTxt.length > 80) vertOffset = -600;
+
+                backgroundPosition = '0 ' + vertOffset +'px';
+                // if (data.txt.split(';')[0].indexOf('M') >= 0) backgroundPosition = '0 -300px';
+                if (data.txt.split(';')[0].indexOf('M') >= 0) backgroundPosition = '-500px ' + vertOffset +'px';
+
+                log('backgroundPosition: ' + backgroundPosition);
+
             }
 
             //  debug
             if (cutlery.SHOW_BUBBLETXT) {
-                $ref.html('<p>' + data.txt.substr(data.txt.indexOf(';') + 1) + '</p>');
+                $ref.html('<p>' + bubbleTxt + '</p>');
             }
             
             $ref.css({backgroundPosition: backgroundPosition});
             
             $ref.removeClass().addClass('bubble visible');
             $ref.addClass(cutlery.bubblemode);
+
+            if (bubbleTxt.length > 60 && bubbleTxt.length <= 80) $ref.addClass('midsize');
+            if (bubbleTxt.length > 80) $ref.addClass('bigsize');
             
             clearTimeout(cutlery.hideBubbleTO);
 

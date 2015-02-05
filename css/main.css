@@ -801,7 +801,8 @@ video {
     top: 0;
     left: 0;
     width: 340px;
-    height: 195px; 
+    /*height: 200px; */
+    height: 240px; 
     z-index: 2000;
     /*border: 1px solid;*/
     opacity: 0;
@@ -813,16 +814,55 @@ video {
     font-size: 20px;
     line-height: 24px;
     color: #333;
-    width: 290px;
+    /*width: 290px;*/
     /*border: 1px solid;*/
 }
 
-.fork .bubble p {
-    margin: 30px 0 0 26px;
+.bubble.trial-start,
+.bubble.standard {
+    background-image: url(./../img/svg/bubbles/standard.svg);
+    background-image: url(./../img/svg/bubbles/standard-final.svg);
+    /*border: 1px dotted red;*/
+    display: table;
+    vertical-align: middle;
+
 }
 
+.bubble.standard p {
+    /*background: rgba(100,100,100,.5);*/
+    display: table-cell;
+    vertical-align: top;
+}
+
+.fork .bubble p {
+    /*margin: 30px 0 0 26px;*/
+}
+
+.fork .bubble p,
 .spoon .bubble p {
-    margin: 29px 0 0 26px;
+    /*margin: 29px 0 0 26px;*/
+    padding: 67px 30px 0 28px;
+    /*border: 1px solid;*/
+}
+
+.fork .bubble.bigsize {
+    top: -125px !important;
+}
+
+.spoon .bubble.bigsize {
+    top: -98px !important;
+}
+
+.bubble.midsize p {
+    /*margin: 29px 0 0 26px;*/
+    padding: 67px 30px 0 28px;
+    color: red;
+}
+
+.bubble.bigsize p {
+    /*margin: 29px 0 0 26px;*/
+    padding: 75px 30px 0 28px;
+    color: lime;
 }
 
 .bubble.new-game {
@@ -857,33 +897,28 @@ video {
     background-image: url(./../img/svg/bubbles/trial-lost.svg);
 }
 
-.bubble.trial-start,
-.bubble.standard {
-    background-image: url(./../img/svg/bubbles/standard.svg);
-}
-
 .bubble.visible {
     opacity: 1;
 }
 
-.spoon .bubble {
+/*.spoon .bubble {
     top: -60px;
     left: -160px;
-}
+}*/
 
 .spoon .bubble.standard {
-    top: -50px;
-    left: -290px;
+    top: -70px;
+    left: -250px;
 }
 
-.fork .bubble {
+/*.fork .bubble {
     top: -50px;
     left: -80px;
-}
+}*/
 
 .fork .bubble.standard {
-    top: -60px;
-    left: -50px;
+    top: -68px;
+    left: -10px;
 }
 
 .logo {
