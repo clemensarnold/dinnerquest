@@ -483,7 +483,7 @@ video {
     width: 215px;
     height: 45px;
     right: 410px; 
-    background-position: -550px 120px;
+    background-position: -550px 119px;
     background-image: url(./../img/svg/icons-2.svg);
     z-index: 101;
 }
@@ -493,7 +493,7 @@ video {
     width: 215px;
     height: 45px;
     right: 410px; 
-    background-position: -780px 120px;
+    background-position: -780px 119px;
     background-image: url(./../img/svg/icons-2.svg);
     z-index: 101;
 }
