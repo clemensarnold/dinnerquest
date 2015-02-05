@@ -774,8 +774,8 @@ var dq = (function($, window, undefined) {
             if (refs[whichSound]) {
                 refs[whichSound].pause();
 
-                log('---time-----');
-                log(refs[whichSound].currentTime);
+                // log('---time-----');
+                // log(refs[whichSound].currentTime);
 
                 if (refs[whichSound].currentTime) refs[whichSound].currentTime = 0;
             }
@@ -1016,6 +1016,11 @@ var dq = (function($, window, undefined) {
                 $target.find('p').html(text);
 
                 bottomOff += $($el).find('.bar').height();
+
+
+                if (i%2 === 1) {
+                    $target.find('p').addClass('left');
+                }
             });
 
             $('.barchart-container .item').on({click: function() {

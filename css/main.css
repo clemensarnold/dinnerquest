@@ -1596,7 +1596,7 @@ body.hidesvg g {
     /*border-radius: 50%;*/
     position: absolute;
     bottom: 73px;
-    left: 40px;
+    left: -80px; /*40px*/
     width: 700px;
     height: 0;
     /*height: 0;*/
@@ -1612,7 +1612,7 @@ body.hidesvg g {
 
 #barchart .co2-limit {
     position: absolute;
-    left: 102px;
+    left: 222px;
     bottom: 350px;
     border-bottom: 3px dotted #ee4f39;
     height: 3px;
@@ -1630,7 +1630,7 @@ body.hidesvg g {
 .barchart-container {
     position: absolute;
     bottom: 0;
-    left: 130px;
+    left: 250px;
 }
 
 #barchart .result {
@@ -1695,6 +1695,17 @@ body.hidesvg g {
 
 .barchart-container p .small {
     font-size: 14px;
+}
+
+.barchart-container p.left {
+    /*color: lime;*/
+    left: -220px;
+    /*left: auto;*/
+    /*right: 200px;*/
+    background-image: url(./../img/svg/chart-label-left.svg);
+    background-position: right 0;
+    padding: 12px 62px 10px 15px;
+    /*border: 1px solid;*/
 }
 
 /* == piechart ====================================================== */
