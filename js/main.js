@@ -2521,7 +2521,7 @@ var dq = (function($, window, undefined) {
         
         hideBubble: function() {
             log('hideBubble'); 
-            return;
+            // return;
             refs.$spoonBub.removeClass('visible');
             refs.$forkBub.removeClass('visible');
         },
