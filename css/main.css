@@ -1048,7 +1048,7 @@ video {
     position: absolute;
     /*top: -28px;*/
     top: -34px;
-    left: -5px;
+    left: -20px;
     z-index: 2;
 }
 
@@ -1284,13 +1284,13 @@ video {
 
 .menu-btn.prev {
     left: 0px;
-    background-position: 442px 35px;
+    background-position: 442px 24px;
     /*background: blue;*/
 }
 
 .menu-btn.next {
     right: 0px;
-    background-position: 400px 35px;
+    background-position: 400px 24px;
 }
 
 .menu-btn.active {
