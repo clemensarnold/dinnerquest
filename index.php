@@ -151,7 +151,9 @@
             <!-- <audio class="btn-audio snd change-tab" preload="auto"><source src="./media/sound/change_tab.mp3" type="audio/mpeg" /></audio> -->
             <!-- <audio class="btn-audio snd dropped-food" preload="auto"><source src="./media/sound/food_on_plate.mp3" type="audio/mpeg" /></audio> -->
 
-            <audio class="btn-audio snd change-tab" preload="auto"><source src="./media/sound-new/KaregorieAuswahlHolz.wav" type="audio/mpeg" /></audio>
+            <audio class="btn-audio snd change-tab" preload="auto"><source src="./media/sound-final/gameplay/Schild2.mp3" type="audio/mpeg" /></audio>
+
+
 
             <!-- <audio class="btn-audio snd dropped-food" preload="auto"><source src="./media/sound-new/ClickZutatGehtAufTeller.wav" type="audio/mpeg" /></audio> -->
             <audio class="btn-audio snd dropped-food" preload="auto"><source src="./media/sound-final/gameplay/FoodTothePlate.mp3" type="audio/mpeg" /></audio>

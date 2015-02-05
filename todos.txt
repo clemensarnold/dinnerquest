@@ -1,23 +1,52 @@
 
-Mülltonne:
-zutat nicht automatisch aufs Teller sondern kommt klein vor den grünen Pfeil, und kann dann vom user auf das teller geschoben werden.
-
-FERTIG Button bei Probeteller / wenn man zb nur Weintrauben gegessen hat
-
-Bubble Design: Illustrator Datei Set Design - mehrere Varianten von Sprechblasen wäre im Illustrator, bitte einbauen 2-3 Stk.
-
-neue und finales Intro ohne logo ist hochgeladen, einbauen.
 
 
 
 
-FIREFOX hat einige Bugs!
+
+
+
+
+M: Erdbeeren Winter -> gleiches Symbol wie Tiefkühlerbsen einfügen (Schneekristall)
+M: Sockelleiste höher damit Nahrungsmittelicons nicht mit Text überschneiden (bsp Pizza)
+M: Jeder Name (Zutat) muss mit Grossbuchstabe an, anpassen.
+M: Infoseite: finale Version wurde als PNG auf Basecamp hochgeladen, einbauen.
+M: neue und finales Intro ohne logo ist hochgeladen, einbauen.
+M: Burger. hat CO2 Wert von 8,76 Kg (!), das sollten 0,876 sein.
+M: TELLERGALERIE Schild ist alt. neues Design in Illustrator.
+M: Buttons auf Startseite haben keinen Schatten, die sollten aussehen wir jende 3 unter der Auswertung, ändern.
+
+M/C: Bubble Design: Illustrator Datei Set Design - mehrere Varianten von Sprechblasen wäre im Illustrator, bitte einbauen 2-3 Stk.
+
+C: Sounds:
+"auf den Teller legen” sound ist nicht der richtige. Finaler Sound auf sounds29.zip (Basecamp)
+
+Bubblesound: bubble pop 2 einbauen
+
+C: FIREFOX hat einige Bugs!
 Galerieteller werden gross angezeigt FF 35, 36 Mac und PC, fixen.
 manchmal friert auf FF das Teller ohne dass man den abschliessen kann.
 Manchmal verschwindet sockelleiste 
 Firefox ordentlich Testen
 
--- 
+FREEZE (keine Änderungen mehr): Mülltonne: zutat nicht automatisch aufs Teller sondern kommt klein vor den grünen Pfeil, und kann dann vom user auf das teller geschoben werden.
+
+
+FERTIG Button bei Probeteller / wenn man zb nur Weintrauben gegessen hat
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -98,7 +98,8 @@ var dq = (function($, window, undefined) {
             SNORE_EXP: "L04,G12",
             WAKEUP_EXP: "L01,G01",
             FADEIN_SPEED: 500,
-            FADEOUT_SPEED: 500
+            FADEOUT_SPEED: 500,
+            SHOWBUBBLE_DELAY: 500
         },
         currentFoodCat: undefined,
         currentMeal: [],
@@ -147,7 +148,7 @@ var dq = (function($, window, undefined) {
         STATS: false,
         CHECK_INACTIVITY: false,
         RELOAD_ON_INACTIVE: false,
-        SOUNDS: false,
+        SOUNDS: true,
         SKIP_INTRO: false,
         SKIP_TRIAL: false,
         SKIP_VIDEO: false,
@@ -1773,7 +1774,7 @@ var dq = (function($, window, undefined) {
         $('.trash').removeClass('onstage');
 
         // setTimeout(cutlery.trigger, 10, game.BUBBLES_TRASHFOOD);
-        setTimeout(cutlery.trigger, 10, game.BUBBLES_DROPPED_FOOD, obj['msg-dropped']);
+        setTimeout(cutlery.trigger, game.constants.SHOWBUBBLE_DELAY, game.BUBBLES_DROPPED_FOOD, obj['msg-dropped']);
     }
 
     game.finishGame = function(mode) {
@@ -1997,7 +1998,7 @@ var dq = (function($, window, undefined) {
 
                     //  bubble
                     if (!game.trialmode) {
-                        setTimeout(cutlery.trigger, 10, game.BUBBLES_DROPPED_FOOD, specs['msg-dropped']);
+                        setTimeout(cutlery.trigger, game.constants.SHOWBUBBLE_DELAY, game.BUBBLES_DROPPED_FOOD, specs['msg-dropped']);
                     }
                 }
                 
@@ -2465,7 +2466,7 @@ var dq = (function($, window, undefined) {
             // log('bubbleData');
             // log(cutlery.bubbleData);
 
-            // app.playSound(sounds.SHOW_BUBBLE);
+            app.playSound(sounds.SHOW_BUBBLE);
             
             var vertOffset = (!!cutlery.bubbleData.standard) ? 300 : 150;
             
