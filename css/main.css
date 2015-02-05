@@ -304,7 +304,6 @@ video {
     /*border: 1px solid lime;*/
     opacity: 0;
     background: url(./../img/scenario/picframe.png);
-    transition: opacity 0.3s ease-out;
     -webkit-transform: rotate(-5deg);
     -moz-transform: rotate(-5deg);
     transform: rotate(-5deg);
@@ -328,6 +327,7 @@ video {
 }
 
 .scenario.show {
+    transition: opacity 3s ease-out;
     opacity: 1;
 }
 

@@ -773,7 +773,11 @@ var dq = (function($, window, undefined) {
             
             if (refs[whichSound]) {
                 refs[whichSound].pause();
-                refs[whichSound].currentTime = 0;
+
+                log('---time-----');
+                log(refs[whichSound].currentTime);
+
+                if (refs[whichSound].currentTime) refs[whichSound].currentTime = 0;
             }
 
             clearTimeout(app.playSoundTO);
