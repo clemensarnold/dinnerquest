@@ -1581,7 +1581,7 @@ body.hidesvg g {
     border-bottom: 3px dotted #ee4f39;
     height: 3px;
     width: 200px;
-    z-index: 10;
+    z-index: 1001;
 }
 
 .co2-limit p {
