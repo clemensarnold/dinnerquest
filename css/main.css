@@ -1370,7 +1370,7 @@ body.hidesvg g {
     position: absolute;
     top: 170px;
     left: 150px;
-    height: 50px;
+    height: 71px;
     color: #3d4c57;
     /*border: 1px solid grey;*/
     background-image: url(./../img/svg/chart-bg.svg);
@@ -1382,13 +1382,14 @@ body.hidesvg g {
     /*font-family: "Marker Felt", serif !important;*/
     font-weight: normal !important;
     padding: 8px 0 0 12px;
-    color: #fff;
+    color: #405e6b;
     text-align: left;
 }
 
 .big-chart {
     width: 222px;
-    background-position: left -68px; 
+    /*background-position: left -68px;*/
+    background-position: 0px -75px; 
 }
 
 .normal-chart {
