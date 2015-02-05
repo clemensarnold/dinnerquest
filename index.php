@@ -174,9 +174,8 @@
         <div id="videocontainer" class="hidden transparent">
             <!-- <video id="intro-video" width="1024" height="768" _autoplay controls> -->
             <video id="intro-video" width="100%" height="100%" _autoplay _controls>
-                <!-- <source src="./media/video/dq.mp4" type="video/mp4"> -->
-                <!-- <source src="./media/video/DinnerquestIntro_20150129.mp4" type="video/mp4"> -->
                 <source src="./media/video/intro-final.mp4" type="video/mp4">
+                <source src="./media/video/intro-final.webm" type="video/webm">
             </video>
         </div>
 
