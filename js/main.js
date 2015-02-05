@@ -2482,7 +2482,7 @@ var dq = (function($, window, undefined) {
                 hideBubbleDelay = scenario.visible ? cutlery.hideDelayScenario : cutlery.hideDelay,
                 bubbleTxt = data.txt.substr(data.txt.indexOf(';') + 1);
 
-                // bubbleTxt = 'Ups, das ging daneben! Du musst wissen: Bestimmte Lebensmittel verursachen sehr viel CO2.';
+                // bubbleTxt = 'Eine Tomate aus dem beheizten Gewächshaus hat den gleichen CO2 Fußabdruck wie 16 Freilandtomaten.';
 
             if (cutlery.bubbleData.standard) {
 
@@ -2521,7 +2521,7 @@ var dq = (function($, window, undefined) {
         
         hideBubble: function() {
             log('hideBubble'); 
-            // return;
+            return;
             refs.$spoonBub.removeClass('visible');
             refs.$forkBub.removeClass('visible');
         },
