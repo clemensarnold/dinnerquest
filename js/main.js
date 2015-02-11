@@ -5,7 +5,7 @@ var dq = (function($, window, undefined) {
     var refs = {
         $window: $(window),
         $document: $(document),
-        $body: $('body'),
+        $body: $('body'),------ won -------
         $dragfood: undefined,
         // $plates: $('#plates'),
         $plates: $('#plates .plate-mask'),
@@ -1719,7 +1719,7 @@ var dq = (function($, window, undefined) {
                     log('---------- won ----------');
                     game.lost = false;
                     // cutlery.trigger(game.BUBBLES_SUCCESS);
-                    setTimeout(cutlery.trigger, game.constants.BUBBLES_SUCCESS, game.BUBBLES_FAILED);
+                    setTimeout(cutlery.trigger, game.constants.SHOWBUBBLE_DELAY, game.BUBBLES_SUCCESS);
                     // setTimeout(confettis.init, startAniDelay);
 
                     // tmp: 22012015
