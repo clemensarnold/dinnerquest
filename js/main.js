@@ -5,7 +5,7 @@ var dq = (function($, window, undefined) {
     var refs = {
         $window: $(window),
         $document: $(document),
-        $body: $('body'),------ won -------
+        $body: $('body'),
         $dragfood: undefined,
         // $plates: $('#plates'),
         $plates: $('#plates .plate-mask'),
