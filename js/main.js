@@ -221,9 +221,10 @@ var dq = (function($, window, undefined) {
             
             //  check for repeating visitors
             if (!docCookies.getItem("dq-visitorid")) {
-                docCookies.setItem("dq-visitorid", Date.now(), new Date(2015, 1, 31));
+                docCookies.setItem("dq-visitorid", Date.now(), new Date(2016, 1, 31));
                 game.firstvisit = true;
             }
+
             game.visitorid = docCookies.getItem("dq-visitorid");
 
             app.init();
