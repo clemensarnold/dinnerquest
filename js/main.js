@@ -47,9 +47,15 @@ var dq = (function($, window, undefined) {
         'new-game': $('.snd.new-game')[0],
         'recycle-food': $('.snd.recycle-food')[0],
         'show-bubble': $('.snd.show-bubble')[0],
+        'show-bubble-fork': $('.snd.show-bubble-fork')[0],
+        'show-bubble-spoon': $('.snd.show-bubble-spoon')[0],
+        'gameover-won': $('.snd.gameover-won')[0],
+        'gameover-lost': $('.snd.gameover-lost')[0],
         'snoring': $('.snd.snoring')[0],
         'first-intro': $('.snd.first-intro')[0],
         'standard-click': $('.snd.standard-click')[0],
+        'playbtn-click': $('.snd.playbtn-click')[0],
+        'menubtn-click': $('.snd.menubtn-click')[0],
         'scenario': $('.snd.scenario')[0]
     },
     configs = {
@@ -89,7 +95,7 @@ var dq = (function($, window, undefined) {
             // FOODITEMS_VERTOFF_BIG: {veggies: 0, sides: NaN, animals: NaN},
             FOOD_CATS: ['veggies', 'sides', 'animals', 'fruit', 'fastfood'],
             FOOD_BGVERT_OFF: {veggies: 0, sides: 1, animals: 2},
-            DEFAULT_TAB: 'veggies', 
+            DEFAULT_TAB: 'animals', 
             FOOD_BIG_DIMS: 450,
             CUTLERY_HOROFF: 120,
             RADIUS_INNER: 0,
@@ -99,7 +105,10 @@ var dq = (function($, window, undefined) {
             WAKEUP_EXP: "L01,G01",
             FADEIN_SPEED: 500,
             FADEOUT_SPEED: 500,
-            SHOWBUBBLE_DELAY: 250
+            SHOWBUBBLE_DELAY: 250,
+            HIDE_FOODINFO: 3000, // match with json: hidebubble_delay
+            GREEN: '#95D944',
+            RED: '#ED705A'
         },
         currentFoodCat: undefined,
         currentMeal: [],
@@ -179,13 +188,21 @@ var dq = (function($, window, undefined) {
         SCENARIO: "scenario",
         FIRST_INTRO: "first-intro",
         STANDARD_CLICK: "standard-click",
+        PLAYBTN_CLICK: "playbtn-click",
+        MENUBTN_CLICK: "menubtn-click",
         RECYCLE_FOOD: "recycle-food",
-        SHOW_BUBBLE: "show-bubble"
+        SHOW_BUBBLE: "show-bubble",
+        SHOW_BUBBLE_FORK: "show-bubble-fork",
+        SHOW_BUBBLE_SPOON: "show-bubble-spoon",
+        GAMEOVER_LOST: "gameover-lost",
+        GAMEOVER_WON: "gameover-won"
     };
     
     game.sounds = [
         {selector: '.navi-container > div', whichSound: sounds.CHANGE_TAB}, 
-        {selector: '.standard', whichSound: sounds.STANDARD_CLICK}
+        {selector: '.standard', whichSound: sounds.STANDARD_CLICK},
+        {selector: '.playbtn-sound', whichSound: sounds.PLAYBTN_CLICK},
+        {selector: '.menubtn-sound', whichSound: sounds.MENUBTN_CLICK}
     ];
     
     $(function() {
@@ -225,6 +242,7 @@ var dq = (function($, window, undefined) {
                 game.firstvisit = true;
             }
 
+            game.firstvisit = true;
             game.visitorid = docCookies.getItem("dq-visitorid");
 
             app.init();
@@ -295,12 +313,14 @@ var dq = (function($, window, undefined) {
 
             //  set FB Link
             helper.setFbLink($('.' + buttons.FB_SHARE), window.location.href);
+            helper.setFbLink($('.js-fbshare'), window.location.href);
             
             if (constants.DEV) {
                 // refs.$window.on({keydown: this.keyDownListener});
             }
             
-            $('.navi-container > div').on(configs.clickEvent, function() {
+            $('.navi-container > div').on(configs.clickEvent, function(e) {
+
                 if (game.freezeTab[$(this).data('foodcat')]) return;
                 
                 game.currentFoodCat = game.constants.FOOD_CATS[$(this).data('foodcat')];
@@ -317,10 +337,16 @@ var dq = (function($, window, undefined) {
             $('.logo').on({click: app.reload});
             $('.trash').on({click: game.addTrash});
            
-            refs.$newGameButton.on({click: game.startNewGame});
+            refs.$newGameButton.on({click: function() {
+                // game.startNewGame();
+                setTimeout(game.startNewGame, 650);
+            }});
+            $('.myplates').on({click: function() { $('.gallery.icon').trigger('click'); }});
+
+
             $('.' + buttons.START_TRIAL + ', .' + buttons.SKIP_TRIAL).on({click: function() {
 
-                app.playSound(sounds.STANDARD_CLICK);
+                app.playSound(sounds.PLAYBTN_CLICK);
                 game.trialmode = !$(this).hasClass(buttons.SKIP_TRIAL);
                 intro.hide();
 
@@ -359,7 +385,7 @@ var dq = (function($, window, undefined) {
             //  init sounds
             for (var i = 0; i < game.sounds.length; i++) {
                 $(game.sounds[i].selector).data('whichSound', game.sounds[i].whichSound).on(configs.clickEvent, function(e, mode) {
-                    if (mode !== 'no-sound') app.playSound($(this).data('whichSound'));
+                    if (mode !== 'no-sound' && !$(this).hasClass('no-sound')) app.playSound($(this).data('whichSound'));
                 });
             }
 
@@ -403,8 +429,8 @@ var dq = (function($, window, undefined) {
             nextActive = (app.foodMenuObj.currentID < lastID);
             prevActive = (app.foodMenuObj.currentID > 0);
 
-            $('.menu-btn.prev').toggleClass('active', prevActive);
-            $('.menu-btn.next').toggleClass('active', nextActive);
+            $('.menu-btn.prev').toggleClass('active', prevActive).toggleClass('no-sound', !prevActive);
+            $('.menu-btn.next').toggleClass('active', nextActive).toggleClass('no-sound', !nextActive);
         },
         
         setFoodArys: function() {
@@ -430,6 +456,11 @@ var dq = (function($, window, undefined) {
             $('#intro-video').on({ended: app.finishVideo });
 
             $('#intro-video')[0].play();
+
+            $('.js-skipvideo').on({click: function() { 
+                log('js-skipvideo');
+                refs.$videocontainer.trigger('click');
+            }});
         },
 
         showGameButtons: function() {
@@ -703,7 +734,7 @@ var dq = (function($, window, undefined) {
             });
 
             if (showSpecific) {
-                refs.$plate.find('.food .chart').delay(2000).fadeOut(500, function() { log('remove .food .chart'); $(this).remove(); });
+                refs.$plate.find('.food .chart').delay(game.constants.HIDE_FOODINFO).fadeOut(500, function() { log('remove .food .chart'); $(this).remove(); });
             }
             
             //  catch mouse down
@@ -760,8 +791,8 @@ var dq = (function($, window, undefined) {
         
         playSound: function(whichSound, delay) {
 
-            // log('playSound / whichSound: ' + whichSound);
-            // log('playSound / delay: ' + delay);
+            log('playSound / whichSound: ' + whichSound);
+            log('playSound / delay: ' + delay);
 
             var delay = delay || 0;
             
@@ -860,7 +891,7 @@ var dq = (function($, window, undefined) {
 
     scenario = {
 
-        SHOW_DELAY: 1500,
+        SHOW_DELAY: 2000, // 1500
         HIDE_DELAY: 11000,
         SPOON_DELAY: 7000, // 2000
         FORK_DELAY: 4000, // 5000
@@ -956,11 +987,15 @@ var dq = (function($, window, undefined) {
         triggerBubble: true,
 
         calcBarHeight: function(val) {
-            var height, normHeight = 350, maxHeight = 500, minHeight = 30,
+            var height, normHeight = 352, maxHeight = 500, minHeight = 30,
             height = Math.round((val / 700) * normHeight);
 
-            if (height > maxHeight) height = maxHeight;
+            // if (height > maxHeight) height = maxHeight;
             if (height < minHeight) height = minHeight;
+
+
+            // height = normHeight;
+
             return height;
         },
 
@@ -992,22 +1027,35 @@ var dq = (function($, window, undefined) {
             }
             that.$el.empty().append(html);
 
-            var zIndexCounter = 1000;
+            var zIndexCounter = 1000,
+                futureHeight = 0,
+                barHeight = 0,
+                maxFutureHeight = 485;
 
             $('.barchart-container .item').each(function(i, $el) {
 
                 $target = $($el);
                 $target.data('data', data[i]);
 
-                log(data[i]);
+                // log(data[i]);
 
                 co2 += data[i].c02;
 
                 //  row
                 $target.css({zIndex: zIndexCounter - i, bottom: bottomOff});
 
+                data[i].color = game.constants.GREEN;
+                if (co2 >= game.co2_max) data[i].color = game.constants.RED;
+
                 //  bar
-                $target.find('.bar').css({background: data[i].color, height: that.calcBarHeight(data[i].c02)});
+                barHeight = that.calcBarHeight(data[i].c02);
+                futureHeight = bottomOff + barHeight;
+                //  cap height
+                if (futureHeight > maxFutureHeight) barHeight = maxFutureHeight - bottomOff;
+
+
+
+                $target.find('.bar').css({background: data[i].color, height: barHeight});
 
                 //  q&d
                 data[i].label = data[i].label.replace('<br>',' ');
@@ -1017,7 +1065,6 @@ var dq = (function($, window, undefined) {
                 $target.find('p').html(text);
 
                 bottomOff += $($el).find('.bar').height();
-
 
                 if (i%2 === 1) {
                     $target.find('p').addClass('left');
@@ -1034,8 +1081,13 @@ var dq = (function($, window, undefined) {
             // result = '<p><font class="big">1.4</font> kg CO<sub>2</sub></p>';
             $('#barchart .result').html(result);
 
+            if (co2 >= game.co2_max) $('#barchart .result').addClass('lost');
+
             refs.$barchart.addClass('show').removeClass('_hidden');
             that.$mask.addClass('expand');
+
+            // remove border-top
+            $('.barchart-container .item .bar:last').css('border', 'none');
         },
 
         hide: function() {
@@ -1492,14 +1544,19 @@ var dq = (function($, window, undefined) {
 
             delay += buttonDelay;
 
-            setTimeout(hud.showButton, delay, buttons.START_TRIAL);
 
-            if (!game.firstvisit) {
+            if (game.firstvisit) {
+                setTimeout(hud.showButton, delay, buttons.START_TRIAL);
+            }
+            else {
                 setTimeout(hud.showButton, delay, buttons.SKIP_TRIAL);
-                $('.' + buttons.START_TRIAL + ' p').text('kennenlernen');
+                $('.' + buttons.SKIP_TRIAL).removeClass('button2').addClass('button1');
+                //  25.05.2015: only one button
+                // $('.' + buttons.START_TRIAL + ' p').text('kennenlernen');
             }
 
-            app.playSound(sounds.FIRST_INTRO);
+            app.playSound(sounds.FIRST_INTRO, 900);
+
         },
 
         hide: function() {
@@ -1572,6 +1629,7 @@ var dq = (function($, window, undefined) {
 
         $('.trash').removeClass('onstage');
 
+        /* removed trash 22.05.2015
         if (!game.trialmode) {
             if (game.platesCounter > 0 && (game.platesCounter % 4) === 0 || true ) {
                 log('game.platesCounter: ' + game.platesCounter);
@@ -1583,6 +1641,7 @@ var dq = (function($, window, undefined) {
                 }, 7000 + Math.round(Math.random() * 5000)); 
             }
         }
+        */
         
         //  temp
         // barchart.showHud();
@@ -1697,6 +1756,7 @@ var dq = (function($, window, undefined) {
                 app.finishTrialModeTO = setTimeout(cutlery.trigger, 20, tooMuchC02 ? game.BUBBLES_TRIAL_LOST : game.BUBBLES_TRIAL_WON);
 
             } else {
+                
                 game.finishGame();
 
                 //  app.generateChart(); //  after scenario
@@ -1729,6 +1789,8 @@ var dq = (function($, window, undefined) {
 
                     refs.$plates.append('<div class="ring"></div>');
                 }
+
+                setTimeout(app.playSound, 1200, tooMuchC02 ? sounds.GAMEOVER_LOST : sounds.GAMEOVER_WON);
 
                 $target = undefined;
 
@@ -2477,18 +2539,21 @@ var dq = (function($, window, undefined) {
             log('showBubble');
             // log('bubbleData');
             // log(cutlery.bubbleData);
-
-            app.playSound(sounds.SHOW_BUBBLE);
             
             var vertOffset = (!!cutlery.bubbleData.standard) ? 300 : 150;
             
             var data = cutlery.bubbleData,
                 backgroundPosition = '0px ' + -vertOffset * data.bgid + 'px',
                 $ref = (data.txt.split(';')[0].indexOf('G') >= 0) ? refs.$forkBub: refs.$spoonBub,
+                soundstrg = (data.txt.split(';')[0].indexOf('G') >= 0) ? sounds.SHOW_BUBBLE_FORK : sounds.SHOW_BUBBLE_SPOON,
                 hideBubbleDelay = scenario.visible ? cutlery.hideDelayScenario : cutlery.hideDelay,
                 bubbleTxt = data.txt.substr(data.txt.indexOf(';') + 1);
 
                 // bubbleTxt = 'Eine Tomate aus dem beheizten Gewächshaus hat den gleichen CO2 Fußabdruck wie 16 Freilandtomaten.';
+
+
+            // app.playSound(sounds.SHOW_BUBBLE);
+            app.playSound(soundstrg);
 
             if (cutlery.bubbleData.standard) {
 

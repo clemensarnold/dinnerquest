@@ -36,6 +36,7 @@ dq.gallery = {
                 $(el).find('.crossed').addClass('hidden');
                 // $(el).find('.red').removeClass('hidden');
                 $(el).find('p').addClass('lost');
+                $(this).addClass('lost');
             }
 
             // log('ratio: ' + data[i].stats.ratio);

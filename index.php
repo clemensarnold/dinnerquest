@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>DINNER Quest</title>
+        <title>Dinner Quest</title>
         <meta name="description" content="">
             
         <meta name="apple-touch-fullscreen" content="YES" />
@@ -94,10 +94,10 @@
 
                 <div class="hud hidden transparent">
                     <div class="btn-wrapper">
-                        <a target="_blank" href="" class="fb-share icon standard" data-pagetype="fb-share"></a>
-                        <div class="toggle btnn small diagramm icon standard"><p data-label="ESSENSANSICHT">DIAGRAMM</p></div>
-                        <div class="start-new-game continue icon standard" data-pagetype="continue"></div>
-                        
+                        <a target="_blank" href="" class="fb-share icon hidden" data-pagetype="fb-share"></a>
+                        <div class="toggle btnn small diagramm icon menubtn-sound"><p data-label="DIAGRAMM">ESSENSANSICHT</p></div>
+                        <div class="start-new-game continue icon playbtn-sound" data-pagetype="continue"></div>
+                        <div class="myplates icon btnn menubtn-sound"><p>MEINE TELLER</p></div>
                     </div>
                 </div>
                 <div id="plates">
@@ -108,14 +108,13 @@
                 <div id="chart">
                     <!-- <div id="newGameButton"></div> -->
                 </div>
-                
-
             </div>
         </div>
 
 
         <div class="misc-icons-wrapper">
             <div class="logo icon transparent"></div>
+            <a target="_blank" href="" class="fbshare icon transparent standard js-fbshare" title="Share on Facebook">f</a>
             <div class="gallery icon transparent standard" data-pagetype="gallery"></div>
             <div class="info icon transparent standard" data-pagetype="infopage"></div>
             <div class="sound icon transparent standard" data-pagetype="sound"></div>
@@ -128,9 +127,10 @@
             <div class="menu-wrapper down">
                 <div class="menu-container">
                     <div class="navi-container">
+                        <div data-foodcat="2" class="animals"></div>
                         <div data-foodcat="0" class="veggies"></div>
                         <div data-foodcat="1" class="sides"></div>
-                        <div data-foodcat="2" class="animals"></div>
+                        
                         <div data-foodcat="3" class="fruit"></div>
                         <div data-foodcat="4" class="fastfood"></div>
                     </div>
@@ -144,8 +144,10 @@
         </div>
         
         <div id="audiocontainer">
-            <audio class="btn-audio snd first-intro" preload="auto"><source src="./media/sound-final/intro/IntroFoodOnPlate.mp3" type="audio/mpeg" /></audio>
+            <audio class="btn-audio snd first-intro" preload="auto"><source src="./media/sound-final/intro/Dinnerquest-Intro.mp3" type="audio/mpeg" /></audio>
             <audio class="btn-audio snd standard-click" preload="auto"><source src="./media/sound-final/clicks-highlights/ClickGeneral.mp3" type="audio/mpeg" /></audio>
+            <audio class="btn-audio snd playbtn-click" preload="auto"><source src="./media/sound-final/clicks-highlights/PlayButton.mp3" type="audio/mpeg" /></audio>
+            <audio class="btn-audio snd menubtn-click" preload="auto"><source src="./media/sound-final/clicks-highlights/MenuClick.mp3" type="audio/mpeg" /></audio>
 
 
             <!-- <audio class="btn-audio snd change-tab" preload="auto"><source src="./media/sound/change_tab.mp3" type="audio/mpeg" /></audio> -->
@@ -161,22 +163,32 @@
             <audio class="btn-audio snd select-dish" preload="auto"><source src="./media/sound-final/gameplay/SelectDish.mp3" type="audio/mpeg" /></audio>
             <audio class="btn-audio snd recycle-food" preload="auto"><source src="./media/sound-final/gameplay/Recycle.mp3" type="audio/mpeg" /></audio>
             <audio class="btn-audio snd show-bubble" preload="auto"><source src="./media/sound-final/gameplay/BubblePop2.mp3" type="audio/mpeg" /></audio>
-
-
-            
-
-
+            <audio class="btn-audio snd show-bubble-fork" preload="auto"><source src="./media/sound-final/gameplay/fork.mp3" type="audio/mpeg" /></audio>
+            <audio class="btn-audio snd show-bubble-spoon" preload="auto"><source src="./media/sound-final/gameplay/spoon.mp3" type="audio/mpeg" /></audio>
+            <audio class="btn-audio snd gameover-won" preload="auto"><source src="./media/sound-final/gameplay/success.mp3" type="audio/mpeg" /></audio>
+            <audio class="btn-audio snd gameover-lost" preload="auto"><source src="./media/sound-final/gameplay/fail.mp3" type="audio/mpeg" /></audio>
             <audio class="btn-audio snd failed"><source src="./media/sound/failed.mp3" type="audio/mpeg" /></audio>
             <audio class="btn-audio snd success"><source src="./media/sound/success.mp3" type="audio/mpeg" /></audio>
             <audio class="btn-audio snd new-game" preload="auto"><source src="./media/sound/new_game.mp3" type="audio/mpeg" /></audio>
-            <audio class="btn-audio snd snoring" loop><source src="./media/sound/snoring.mp3" type="audio/mpeg" /></audio>
+            <!-- <audio class="btn-audio snd snoring" loop><source src="./media/sound/snoring.mp3" type="audio/mpeg" /></audio> -->
         </div>
         <div id="videocontainer" class="hidden transparent">
+
+            <div class="videohud">
+                <div class="btn-wrapper">
+                    <div class="skipvideo js-skipvideo icon btnn menubtn-sound"><p>WEITER</p></div>
+                </div>
+            </div>
+
             <!-- <video id="intro-video" width="1024" height="768" _autoplay controls> -->
             <video id="intro-video" width="100%" height="100%" _autoplay _controls>
                 <source src="./media/video/intro-final.mp4" type="video/mp4">
                 <source src="./media/video/intro-final.webm" type="video/webm">
             </video>
+
+
+
+            
         </div>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -188,5 +200,9 @@
         <script src="js/main.js"></script>
         <script src="js/gallery.js"></script>
         <script src="js/vendor/stats.js"></script>
+
+
+        <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+        
     </body>
 </html>

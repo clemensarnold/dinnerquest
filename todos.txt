@@ -1,4 +1,66 @@
+1015
 
+
+
+.meine teller oranger button
+. essensansicht / 
+
+
+
+
+
+[x] BESTECKTexte überarbeiten. Es komm ein neue file. KONSEQUENZEN das wir einbauen/ändern
+[x] Müllcontainer komplett löschen, versteht man nicht
+[x] ZUTATEn PFEILE wenns nichts zu scollen gibt, keine Pfeile, nicht ausgebleichte
+[x] FAST FOOD an erster Stelle, nicht GEMÜSE bzw Reihenfolge der Tabs (TIERISCHES   GEMÜSE BEILOAGEN  OBST FAST FOO)
+[x] INTRO button statt kennelernen; umbenennen in “START" > Logik-Änderung: immer nur ein Button ("start"), ab dem zweiten Besuch werden Trial Mode und Video übersprungen
+[x] TELLER: ZUTAT- beschreibung von Zutat und info soll länger stehen bleiben (um ca 2 sek) (hidebubble_delay, HIDE_FOODINFO) 
+[x] Textfenster mit ZAHL info Summe ZAHL kg CO2 nicht beige sondern GRÜN 8unter 0m7) unter ROT über 0,7 > auch in Galerie
+[x] ESSENSANSICHT / DIAGRAMMANSICHT tauschen
+
+
+[ ] Bitte bei den Credits folgenden Text zufügen: All sounds courtesy of Soughtaftersounds.com.
+
+
+[-]Erbebnisansicht TELLER, alles über 0,7 kg ist ROT Farbinfo zu Zutaten raus, weisser Trennbalken, über 0,7 kg rot
+Die Farbcodierung der Zutaten fliegt raus, wir miachen nur einen weisssen, 1px dicken trennbalken zwischen den Zutaten aber alle Zutaten haben die gleiche Farbe. 
+> Red bar over 0.7
+
+
+[tbd] balken in der Telleransicht darf nicht bis zum Broser gehen, muss vorher aufhören (5 pixel vor Unterkante Browser)
+
+
+
+[tbd] SHARE button zu wichtig positioniert. share button sollte oben seon, GALERIE sollte unten stehen, wording "MEINE  TELLER"
+layout für share button oben
+layout für "meine teller" unten (welche farbe soll der btn haben)
+umstellung bedeutet, dass man seine teller nur mehr am spielende einblenden kann, außerdem brauchts einen back-button aus dem gallery-mode. ernsthaft?
+
+
+
+
+
+[ ] TELLER: ZUTAT- beschreibung klick der zutat wieder kommen für 3 Sekunden. 
+[ ] Skip Intro Button während INTROFILM, wording “WEITER"
+[ ] Bei alten Browsern; Warnhinweis: Diese App läöuft auf IE9+ bitte aktuellen Browser installieren. (für Ministerium, die sponsoren das PRojekt)
+[ ]IE9 Anpassungen
+
+
+
+[-] statt WEITERSPIELEN "NOCHMAL SPIELEN" (text noch nicht outlined, button-breite noch zu optimieren)
+
+
+
+Gesamt 18,75 h
+
+
+
+
+
+
+
+
+> Chartma
 
 
 

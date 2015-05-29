@@ -445,6 +445,36 @@ video {
     pointer-events: none;
 }
 
+
+.myplates {
+    width: 191px;
+    height: 45px;
+    right: 211px; 
+    background-position: -5px 211px;
+    z-index: 101;
+}
+
+.myplates:hover {
+    width: 191px;
+    height: 45px;
+    background-position: -5px 104px;
+    z-index: 101;
+}
+
+.skipvideo {
+    width: 191px;
+    height: 45px; 
+    background-position: -5px 211px;
+    z-index: 101;
+    position: static !important;
+}
+
+.skipvideo:hover {
+    width: 191px;
+    height: 45px;
+    background-position: -5px 104px;
+}
+
 .hud-new {
     position: absolute;
     top: 625px;
@@ -465,6 +495,7 @@ video {
     background-position: -550px 174px;
     background-image: url(./../img/svg/icons-2.svg);
     z-index: 101;
+    cursor: pointer;
 }
 
 .hud-new .button2,
@@ -476,6 +507,7 @@ video {
     background-position: -780px 174px;
     background-image: url(./../img/svg/icons-2.svg);
     z-index: 101;
+    cursor: pointer;
 }
 
 .hud-new .button1:hover,
@@ -541,13 +573,13 @@ video {
     transition: opacity 0.3s ease-out 0s;
 }
 
-.hud .btn-wrapper {
+.hud .btn-wrapper, .videohud .btn-wrapper {
     margin: 0 auto;
     display: inline-block;
     text-align: center;
 }
 
-.hud .button {
+.hud .button, .videohud .button {
     opacity: 1;
     display: inline-block;
     margin-right: 20px;
@@ -568,6 +600,19 @@ video {
     background: #2b82d9;
 }
 
+#videocontainer .videohud {
+    top: auto;
+    bottom: 150px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    /*border: 1px dotted grey;*/
+    z-index: 5;
+    text-align: center;
+    position: absolute;
+    transition: opacity 0.3s ease-out 0s;
+}
+
 .meal-check {
     width: 50px; height: 50px;
     /*background: #009370;*/
@@ -581,6 +626,7 @@ video {
     background-image: url(./../img/svg/icons.svg);
     pointer-events: none;
 }
+
 
 
 /*.hud p {
@@ -967,12 +1013,10 @@ video {
     transition: background 0.3s ease-out;
 }
 
-
-
 .info {
     width: 55px;
     height: 49px;
-    right: 40px; 
+    right: 42px; 
     background-position: -142px 2px;
     z-index: 101;
 }
@@ -980,7 +1024,7 @@ video {
 .sound {
     width: 52px;
     height: 49px;
-    right: -20px; 
+    right: -6px; 
     background-position: -424px -1px;
     z-index: 101;
 }
@@ -989,7 +1033,7 @@ video {
     background-position: -469px -1px;
 }
 
-.gallery, .info, .sound {
+.gallery, .info, .sound, .fbshare {
     top: 5px;
 }
 
@@ -1006,7 +1050,24 @@ video {
     cursor: pointer;
     position: absolute;
     background-image: url(./../img/svg/icons-2.svg);
-    /*border: 1px solid black;*/
+    /*background: #000;*/
+    /*border: 1px dotted grey;*/
+}
+
+.fbshare {
+    width: 34px;
+    height: 35px;
+    right: 162px;
+    top: 10px;
+    /*font-family: Arial;*/
+    font-size: 19px;
+    z-index: 101;
+    /*background: #3b5998;*/
+    border: 4px solid #fff;
+    color: #fff;
+    background-image: none;
+    text-decoration: none;
+    padding: 3px 0 0 10px;
 }
 
 .meal-check {
@@ -1310,10 +1371,10 @@ video {
     width: 45px;
     height: 127px;
     /*background: grey;*/
-    cursor: pointer;
+
     position: absolute;
     top: 0px;
-    opacity: 0.4;
+    opacity: 0;
     background-image: url(./../img/svg/icons-2.svg);
 }
 
@@ -1330,6 +1391,7 @@ video {
 
 .menu-btn.active {
     opacity: 1;
+    cursor: pointer;
 }
 
 .food-container.inactive {
@@ -1469,6 +1531,10 @@ body.hidesvg g {
     background-size: 100% 45%;
 }
 
+#gallery .dish-wrapper.lost {
+    background-image: url(./../img/svg/gallery-bottom-2-lost.svg);
+}
+
 #gallery .dish-wrapper.last-in-row { 
     margin-right: 0; 
 }
@@ -1498,7 +1564,8 @@ body.hidesvg g {
 
 .barchart p {
     /*font-family: "Marker Felt", serif;*/
-    color: #938980;
+    /*color: #938980; /*938980*/
+    color: #fff;
     position: absolute;
     top: 220px;
     top: 225px;
@@ -1510,7 +1577,6 @@ body.hidesvg g {
     font-weight: bold;
     transition: opacity 0.4s ease-out 0.4s;
     /*border: 1px solid;*/
-
 }
 
 .barchart p.lost {
@@ -1518,7 +1584,8 @@ body.hidesvg g {
     z-index: 1;
     font-family: 'Cooper Lt BT', 'cooper_md_btmedium', 'Arial', Sans-Serif;
     font-weight: bold;
-    color: #938980;
+    /*color: #ED705A;*/
+    color: #fff;
 }
 
 #gallery .crossed {
@@ -1607,7 +1674,8 @@ body.hidesvg g {
 }
 
 #barchart .mask.expand {
-    height: 650px;
+    /*height: 650px;*/
+    height: 800px;
 }
 
 #barchart .co2-limit {
@@ -1634,7 +1702,7 @@ body.hidesvg g {
 }
 
 #barchart .result {
-    background: #e0d4c3;
+    background: #95D944; /*ED705A, #e0d4c3, 95D944*/
     width: 235px;
     height: 65px;
     position: absolute;
@@ -1645,8 +1713,13 @@ body.hidesvg g {
     box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.4);
 }
 
+#barchart .result.lost {
+    background: #ED705A;
+}
+
 #barchart .result p {
-    color: #775b43;
+    /*color: #775b43;*/
+    color: #fff;
     text-align: center;
     padding-top: 0px;
     font-size: 18px;
@@ -1668,6 +1741,7 @@ body.hidesvg g {
     width: 150px;
     cursor: pointer;
     box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 0.4);
+    border-top: 1px solid #fff;
     /*height: 110px;*/
     /*border: 1px solid black;*/
     /*position: absolute;*/
@@ -1897,6 +1971,13 @@ path.color1 {
 
 .clearfix {
     *zoom: 1;
+}
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
 /* ==========================================================================
