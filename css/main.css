@@ -1585,8 +1585,8 @@ body.hidesvg g {
     margin-top: 0px !important;
     z-index: 1;
     font-family: 'Cooper Lt BT', 'cooper_md_btmedium', 'Arial', Sans-Serif;
-    font-weight: bold;
-    transition: opacity 0.4s ease-out 0.4s;
+    font-weight: normal;
+    /*transition: opacity 0.4s ease-out 0.4s;*/
     /*border: 1px solid;*/
 }
 
@@ -1594,7 +1594,7 @@ body.hidesvg g {
     position: absolute;
     z-index: 1;
     font-family: 'Cooper Lt BT', 'cooper_md_btmedium', 'Arial', Sans-Serif;
-    font-weight: bold;
+    font-weight: normal;
     /*color: #ED705A;*/
     color: #fff;
 }
@@ -1620,7 +1620,7 @@ body.hidesvg g {
     width: 30px;
     height: 60px;
     position: absolute;
-    bottom: 12px;
+    bottom: 0;
     left: 0;
     background: #95D944;
     z-index: -1;
@@ -1632,7 +1632,7 @@ body.hidesvg g {
     width: 30px;
     height: 160px;
     position: absolute;
-    bottom: 72px;
+    bottom: 60px;
     left: 0;
     background: #ED705A;
     z-index: -1;
@@ -1640,7 +1640,7 @@ body.hidesvg g {
 
 .barchart .chartmask {
     position: absolute;
-    bottom: 0;
+    bottom: 13px;
     right: 0;
     width: 40px;
     height: 0;
@@ -1734,6 +1734,7 @@ body.hidesvg g {
     text-align: center;
     padding-top: 0px;
     font-size: 18px;
+    margin-top: -3px;
 }
 
 #barchart .result p .big {

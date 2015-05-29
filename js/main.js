@@ -172,7 +172,7 @@ var dq = (function($, window, undefined) {
         START_GAME: 750
     },
     templates = ['INTRO', 'TRIAL','VIDEO','GAME','SCENARIO'],
-    defaultTemplate = templates[3], 
+    defaultTemplate = templates[0], 
     sounds = {
         DROPPED_FOOD: 'dropped-food',
         RESTOCK_FOOD: 'restock-food',
@@ -1086,7 +1086,7 @@ var dq = (function($, window, undefined) {
             // result = '<p><font class="big">1.4</font> kg CO<sub>2</sub></p>';
             $('#barchart .result').html(result);
 
-            if (co2 >= game.co2_max) $('#barchart .result').addClass('lost');
+            $('#barchart .result').toggleClass('lost', (co2 >= game.co2_max));
 
             refs.$barchart.addClass('show').removeClass('_hidden');
             that.$mask.addClass('expand');
@@ -1117,6 +1117,7 @@ var dq = (function($, window, undefined) {
             //  toggle click triggered in scenario.hide()
             if (!!dataObj) {
                 log('force barchart');
+                $(this).find('p').data('label', 'ESSENSANSICHT').text('DIAGRAMM');
                 barchart.active = false;
             }
 
