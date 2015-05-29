@@ -172,7 +172,7 @@ var dq = (function($, window, undefined) {
         START_GAME: 750
     },
     templates = ['INTRO', 'TRIAL','VIDEO','GAME','SCENARIO'],
-    defaultTemplate = templates[0], 
+    defaultTemplate = templates[3], 
     sounds = {
         DROPPED_FOOD: 'dropped-food',
         RESTOCK_FOOD: 'restock-food',
@@ -449,13 +449,15 @@ var dq = (function($, window, undefined) {
         initVideo: function() {
 
             log('initVideo');
-
-            // init video
-            refs.$videocontainer.removeClass('transparent hidden');
+            
             refs.$videocontainer.on({click: app.finishVideo});
-            $('#intro-video').on({ended: app.finishVideo });
 
+            $('#intro-video').on({ended: app.finishVideo });
             $('#intro-video')[0].play();
+
+            setTimeout(function() { 
+                refs.$videocontainer.removeClass('transparent').addClass('playing');
+            }, 450);
 
             $('.js-skipvideo').on({click: function() { 
                 log('js-skipvideo');
@@ -474,7 +476,7 @@ var dq = (function($, window, undefined) {
             app.showGameButtons();
             
             $('#intro-video')[0].pause();
-            refs.$videocontainer.addClass('hidden');
+            refs.$videocontainer.addClass('hidden').removeClass('playing');
 
             clearTimeout(app.startGameTO);
             app.startGameTO = setTimeout(app.startGame, 1000);
@@ -1012,7 +1014,7 @@ var dq = (function($, window, undefined) {
 
             var that = barchart,
                 html = '', result = '',
-                hSnippet = '<div class="item"><div class="bar"></div><p></p></div>',
+                hSnippet = '<div class="item"><div class="extrabar"></div><div class="bar"></div><p></p></div>',
                 bottomOff = 0, $target, text = '',
                 co2 = 0,
                 data = game.meals[game.mealindex].ingredients;
@@ -1045,7 +1047,10 @@ var dq = (function($, window, undefined) {
                 $target.css({zIndex: zIndexCounter - i, bottom: bottomOff});
 
                 data[i].color = game.constants.GREEN;
-                if (co2 >= game.co2_max) data[i].color = game.constants.RED;
+                if (co2 >= game.co2_max) {
+                    data[i].color = game.constants.RED;
+                    $target.find('.extrabar').css({height: Math.round(352 - bottomOff)});
+                }
 
                 //  bar
                 barHeight = that.calcBarHeight(data[i].c02);
@@ -2339,7 +2344,7 @@ var dq = (function($, window, undefined) {
 
                     cutexpr = scenario.dataObj['txt-spoon'].split(';')[0] + ',' + scenario.dataObj['txt-fork'][0];
 
-                    bubbleData = {standard: "standard", exp: cutexpr, txt: msg, bgid: 0};
+                    bubbleData = {standard: "standard", exp: cutexpr, txt: msg, bgid: 0, nosound: true};
                     break;
 
                 case game.BUBBLES_NEWGAME:
@@ -2553,7 +2558,7 @@ var dq = (function($, window, undefined) {
 
 
             // app.playSound(sounds.SHOW_BUBBLE);
-            app.playSound(soundstrg);
+            if (!cutlery.bubbleData.nosound) app.playSound(soundstrg);
 
             if (cutlery.bubbleData.standard) {
 

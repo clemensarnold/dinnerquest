@@ -173,10 +173,19 @@ body.table-cloth {
 
 #videocontainer {
     position: absolute;
-    z-index: 2000;
+    pointer-events: none;
+    z-index: -1;
     width: 100%;
     height: 100%;
-    transition: opacity 0.4s ease-out;
+    /*transition: opacity 0.4s ease-out;*/
+    /*border: 1px solid red;*/
+    opacity: 0;
+}
+
+#videocontainer.playing {
+    pointer-events: all;
+    z-index: 2000;
+    opacity: 1;
 }
 
 #audiocontainer {
@@ -602,7 +611,8 @@ video {
 
 #videocontainer .videohud {
     top: auto;
-    bottom: 150px;
+    /*bottom: 150px;*/
+    bottom: 34px;
     left: 0;
     width: 100%;
     height: 100px;
@@ -784,13 +794,14 @@ video {
    border: 2px solid rgba(243,40,44,1);
 }
 
-.plate.desktop_off {
+
+/*.plate.desktop_off {
     transition: border 0.3s ease-out;
     border: 2px dotted rgba(243,40,44,0);
-}
+}*/
 
 .plate.desktop.drop {
-    border: 2px dotted rgba(243,40,44,1);
+    border: 2px solid rgba(243,40,44,1);
 }
 
 .plate-mask {
@@ -1747,6 +1758,16 @@ body.hidesvg g {
     /*position: absolute;*/
     /*bottom: 0;*/
     /*left: 0;*/
+}
+
+.barchart-container .extrabar {
+    width: 150px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 0;
+    background: #95D944;
+    pointer-events: none;
 }
 
 .barchart-container p {

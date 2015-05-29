@@ -95,7 +95,7 @@
                 <div class="hud hidden transparent">
                     <div class="btn-wrapper">
                         <a target="_blank" href="" class="fb-share icon hidden" data-pagetype="fb-share"></a>
-                        <div class="toggle btnn small diagramm icon menubtn-sound"><p data-label="DIAGRAMM">ESSENSANSICHT</p></div>
+                        <div class="toggle btnn small diagramm icon menubtn-sound"><p data-label="ESSENSANSICHT">DIAGRAMM</p></div>
                         <div class="start-new-game continue icon playbtn-sound" data-pagetype="continue"></div>
                         <div class="myplates icon btnn menubtn-sound"><p>MEINE TELLER</p></div>
                     </div>
@@ -172,7 +172,7 @@
             <audio class="btn-audio snd new-game" preload="auto"><source src="./media/sound/new_game.mp3" type="audio/mpeg" /></audio>
             <!-- <audio class="btn-audio snd snoring" loop><source src="./media/sound/snoring.mp3" type="audio/mpeg" /></audio> -->
         </div>
-        <div id="videocontainer" class="hidden transparent">
+        <div id="videocontainer" class="transparent">
 
             <div class="videohud">
                 <div class="btn-wrapper">
@@ -185,10 +185,6 @@
                 <source src="./media/video/intro-final.mp4" type="video/mp4">
                 <source src="./media/video/intro-final.webm" type="video/webm">
             </video>
-
-
-
-            
         </div>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -203,6 +199,6 @@
 
 
         <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-        
+
     </body>
 </html>
