@@ -173,15 +173,13 @@
             <!-- <audio class="btn-audio snd snoring" loop><source src="./media/sound/snoring.mp3" type="audio/mpeg" /></audio> -->
         </div>
         <div id="videocontainer" class="transparent">
-
             <div class="videohud">
                 <div class="btn-wrapper">
                     <div class="skipvideo js-skipvideo icon btnn menubtn-sound"><p>WEITER</p></div>
                 </div>
             </div>
 
-            <!-- <video id="intro-video" width="1024" height="768" _autoplay controls> -->
-            <video id="intro-video" width="100%" height="100%" _autoplay _controls>
+            <video id="intro-video" width="100%" height="100%" _autoplay _controls poster="./img/png/videobg-feature.png">
                 <source src="./media/video/intro-final.mp4" type="video/mp4">
                 <source src="./media/video/intro-final.webm" type="video/webm">
             </video>

@@ -174,12 +174,17 @@ body.table-cloth {
 #videocontainer {
     position: absolute;
     pointer-events: none;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-    /*transition: opacity 0.4s ease-out;*/
+    /*z-index: -1;*/
+    width: 102%;
+    height: 102%;
+  
+    z-index: 10000;
     /*border: 1px solid red;*/
+    /*pointer-events: all;*/
+    
     opacity: 0;
+    /*pointer-events: all;*/
+    background: #7FBBD5;
 }
 
 #videocontainer.playing {
@@ -1640,7 +1645,7 @@ body.hidesvg g {
 
 .barchart .chartmask {
     position: absolute;
-    bottom: 13px;
+    bottom: 12px;
     right: 0;
     width: 40px;
     height: 0;

@@ -154,10 +154,10 @@ var dq = (function($, window, undefined) {
     confettis = {},
     constants = {
         DEV: true,
-        STATS: false,
+        STATS: true,
         CHECK_INACTIVITY: false,
         RELOAD_ON_INACTIVE: false,
-        SOUNDS: true,
+        SOUNDS: false,
         SKIP_INTRO: false,
         SKIP_TRIAL: false,
         SKIP_VIDEO: false,
@@ -207,10 +207,6 @@ var dq = (function($, window, undefined) {
     
     $(function() {
 
-        if (location.hash === '#game') {
-            defaultTemplate = templates[3];
-        }
-        
         helper.initMisc();
 
         configs.menuAtTop = (location.hash.indexOf('at-top') >= 0)
@@ -391,16 +387,7 @@ var dq = (function($, window, undefined) {
 
             app.renderTemplate(defaultTemplate);
 
-
-            //  tmp code
-            /*
-            setTimeout(function() {
-                barchart.activate();
-                barchart.render();
-                setTimeout(cutlery.trigger, 10, game.BUBBLES_SHOWCHART);
-            }, 3000);
-            */
-            
+            // app.initVideo();
         },
 
         scrollFoodMenu: function(arg) {
@@ -452,12 +439,14 @@ var dq = (function($, window, undefined) {
             
             refs.$videocontainer.on({click: app.finishVideo});
 
-            $('#intro-video').on({ended: app.finishVideo });
+            $('#intro-video').on({ended: app.finishVideo});
+            
+            // tmp
             $('#intro-video')[0].play();
 
             setTimeout(function() { 
                 refs.$videocontainer.removeClass('transparent').addClass('playing');
-            }, 450);
+            }, 2000);
 
             $('.js-skipvideo').on({click: function() { 
                 log('js-skipvideo');

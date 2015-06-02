@@ -1,10 +1,19 @@
-1015
+0820
+
+dq.app.playSound('first-intro');
+
+. delete videocointaner in finishVideo
+
+
+. favicon
+. fb preview
+
 
 
 
 .meine teller oranger button
-. essensansicht / 
 
+[ ] Bitte bei den Credits folgenden Text zufügen: All sounds courtesy of Soughtaftersounds.com.
 
 
 
@@ -17,17 +26,27 @@
 [x] TELLER: ZUTAT- beschreibung von Zutat und info soll länger stehen bleiben (um ca 2 sek) (hidebubble_delay, HIDE_FOODINFO) 
 [x] Textfenster mit ZAHL info Summe ZAHL kg CO2 nicht beige sondern GRÜN 8unter 0m7) unter ROT über 0,7 > auch in Galerie
 [x] ESSENSANSICHT / DIAGRAMMANSICHT tauschen
+[x] balken in der Telleransicht darf nicht bis zum Broser gehen, muss vorher aufhören (5 pixel vor Unterkante Browser)
+[ ] Skip Intro Button während INTROFILM, wording “WEITER"
 
 
-[ ] Bitte bei den Credits folgenden Text zufügen: All sounds courtesy of Soughtaftersounds.com.
+
+
+[-]Erbebnisansicht TELLER, alles über 0,7 kg ist ROT Farbinfo zu Zutaten raus, weisser Trennbalken, über 0,7 kg rot
+[-] statt WEITERSPIELEN "NOCHMAL SPIELEN" (text noch nicht outlined, button-breite noch zu optimieren)
+
+
+
+
+
+
+
+
 
 
 [-]Erbebnisansicht TELLER, alles über 0,7 kg ist ROT Farbinfo zu Zutaten raus, weisser Trennbalken, über 0,7 kg rot
 Die Farbcodierung der Zutaten fliegt raus, wir miachen nur einen weisssen, 1px dicken trennbalken zwischen den Zutaten aber alle Zutaten haben die gleiche Farbe. 
 > Red bar over 0.7
-
-
-[tbd] balken in der Telleransicht darf nicht bis zum Broser gehen, muss vorher aufhören (5 pixel vor Unterkante Browser)
 
 
 
@@ -41,13 +60,13 @@ umstellung bedeutet, dass man seine teller nur mehr am spielende einblenden kann
 
 
 [ ] TELLER: ZUTAT- beschreibung klick der zutat wieder kommen für 3 Sekunden. 
-[ ] Skip Intro Button während INTROFILM, wording “WEITER"
+
 [ ] Bei alten Browsern; Warnhinweis: Diese App läöuft auf IE9+ bitte aktuellen Browser installieren. (für Ministerium, die sponsoren das PRojekt)
 [ ]IE9 Anpassungen
 
 
 
-[-] statt WEITERSPIELEN "NOCHMAL SPIELEN" (text noch nicht outlined, button-breite noch zu optimieren)
+
 
 
 
