@@ -154,10 +154,10 @@ var dq = (function($, window, undefined) {
     confettis = {},
     constants = {
         DEV: true,
-        STATS: true,
+        STATS: false,
         CHECK_INACTIVITY: false,
         RELOAD_ON_INACTIVE: false,
-        SOUNDS: false,
+        SOUNDS: true,
         SKIP_INTRO: false,
         SKIP_TRIAL: false,
         SKIP_VIDEO: false,
@@ -386,8 +386,6 @@ var dq = (function($, window, undefined) {
             }
 
             app.renderTemplate(defaultTemplate);
-
-            // app.initVideo();
         },
 
         scrollFoodMenu: function(arg) {
@@ -440,13 +438,11 @@ var dq = (function($, window, undefined) {
             refs.$videocontainer.on({click: app.finishVideo});
 
             $('#intro-video').on({ended: app.finishVideo});
-            
-            // tmp
             $('#intro-video')[0].play();
 
             setTimeout(function() { 
                 refs.$videocontainer.removeClass('transparent').addClass('playing');
-            }, 2000);
+            }, 1000);
 
             $('.js-skipvideo').on({click: function() { 
                 log('js-skipvideo');
@@ -536,7 +532,7 @@ var dq = (function($, window, undefined) {
             refs.$spoon.hide();
             refs.$plates.fadeOut();
 
-            setTimeout(app.initVideo, 1500);
+            setTimeout(app.initVideo, 1000);
         },
         
         isLabelAlreadyInCurrentFood: function (label) {
@@ -1550,7 +1546,7 @@ var dq = (function($, window, undefined) {
                 // $('.' + buttons.START_TRIAL + ' p').text('kennenlernen');
             }
 
-            app.playSound(sounds.FIRST_INTRO, 900);
+            app.playSound(sounds.FIRST_INTRO, 1050);
 
         },
 
