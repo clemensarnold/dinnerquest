@@ -2,9 +2,11 @@
 
 dq.app.playSound('first-intro');
 
-. delete videocointaner in finishVideo
 
-
+. touch-bug snd time
+. scroll-bug
+. restock food after tab-change
+. optimise svg!!!
 . favicon
 . fb preview
 
@@ -27,7 +29,7 @@ dq.app.playSound('first-intro');
 [x] Textfenster mit ZAHL info Summe ZAHL kg CO2 nicht beige sondern GRÜN 8unter 0m7) unter ROT über 0,7 > auch in Galerie
 [x] ESSENSANSICHT / DIAGRAMMANSICHT tauschen
 [x] balken in der Telleransicht darf nicht bis zum Broser gehen, muss vorher aufhören (5 pixel vor Unterkante Browser)
-[ ] Skip Intro Button während INTROFILM, wording “WEITER"
+[x] Skip Intro Button während INTROFILM, wording “WEITER"
 
 
 

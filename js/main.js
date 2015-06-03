@@ -870,7 +870,6 @@ var dq = (function($, window, undefined) {
 
             $.get(svgPath, function(data) {
                 var xmlString = (new XMLSerializer()).serializeToString(data);
-
                 svg.$foodOnPlate.append(xmlString);
             });
         }
@@ -1094,8 +1093,9 @@ var dq = (function($, window, undefined) {
         },
 
         toggle: function(target, dataObj) {
-            log('barchart toggle');
+            log('---barchart toggle---');
             log(dataObj);
+            log('game.skipMeal:' + game.skipMeal);
 
             if (game.skipMeal) return;
 
@@ -1669,6 +1669,9 @@ var dq = (function($, window, undefined) {
 
     game.removeFood = function($target) {
 
+        log('game.removeFood / $target');
+        log($target);
+
         var label = $target.data('specs').label;
 
         for (var i = 0; i < game.currentMeal.length; i++) {
@@ -1966,12 +1969,17 @@ var dq = (function($, window, undefined) {
         droppClassAdded: false,
 
         removeFromPlate: function($ref, extraparam) {
+
+            log('removeFromPlate');
+            log('$ref');
+            log($ref);
+
             var onPlate = false,
                 $foodref = extraparam === 'clicked' ? $ref : $(this);
+
                 // foodStackID = $foodref.data('foodStackID');
             
             refs.$body.removeClass('hidesvg');
-
 
             refs.$dragfood = $foodref;
             onPlate = dragfood.calcDistance(true);
@@ -1983,8 +1991,7 @@ var dq = (function($, window, undefined) {
             // log('onPlate: ' + onPlate);
 
             if (onPlate) {
-
-                log('--- APPEND ON PLATE ----');  
+                log('onPlate > $plate.append');
                 dragfood.setOffPlateVals($foodref,$foodref.css('left'), $foodref.css('top'));
 
                 dragfood.setOnPlateVals($foodref);
@@ -1993,7 +2000,8 @@ var dq = (function($, window, undefined) {
                 dragfood.setDroppableStatus(false);
 
             } else {
-                game.removeFood($(this));
+                // game.removeFood($(this));
+                game.removeFood($foodref);
             }
         },
 
@@ -2007,16 +2015,17 @@ var dq = (function($, window, undefined) {
             log('setOnPlateVals');
             log('target-offleft: ' + $target.offset().left);
             log('plate-offleft: ' + refs.$plate.offset().left);
+            log('target-offtop: ' + $target.offset().top);
+            log('plate-offtop: ' + refs.$plate.offset().top);
 
             $target.css({left: $target.offset().left - dq.refs.$plate.offset().left, top: $target.offset().top - dq.refs.$plate.offset().top});
-            log($target.css('left'));
-            log($target.css('right'));
+            log('target-css-left: ' + $target.css('left'));
+            log('target-css-top: ' + $target.css('top'));
         },
         
         stopDragging: function() {
-
             log('------------stopDragging----------');
-            
+
             var onPlate = dragfood.calcDistance(true),
                 foodID = 'food-' + game.meals.length + '-' + game.foodCounter,
                 foodHTML = '<div class="food" id="' + foodID + '"></div>',
@@ -2032,15 +2041,10 @@ var dq = (function($, window, undefined) {
             
             // game.foodCounter++;
             $newFood.css({left: left - dq.refs.$plate.offset().left, top: top - dq.refs.$plate.offset().top});
-            
             dragfood.setBackground($newFood, specs);
         
             if (onPlate) {
-                log('on plate');
-
-                // game.addFood(specs, $newFood);
-               
-
+                log('onPlate');
                 $newFood.data('specs', specs);
                 dragfood.setOffPlateVals($newFood,dq.refs.$dragfood.css('left'), dq.refs.$dragfood.css('top'));
                 // $newFood.data('foodStackID', game.currentMeal.length);
@@ -2055,9 +2059,7 @@ var dq = (function($, window, undefined) {
                 game.checkFoodMix();
                 game.checkMealVals($newFood);
 
-
                 if (game.running) {
-                    
                     //  cutlery
                     // cutlery.setExpression(specs);
 
@@ -2068,40 +2070,38 @@ var dq = (function($, window, undefined) {
                 }
                 
                 // debug.printObject(specs);
-                debug.printObject(game.calcMealVals(game.currentMeal), true);
+                // debug.printObject(game.calcMealVals(game.currentMeal), true);
 
-                //  food clickstart
-                $newFood.on(configs.clickEvent, function(e, triggered) { 
+                log('configs.clickEvent: ' + configs.clickEvent);
+                log('configs.clickEventEnd: ' + configs.clickEventEnd);
 
-                    log('START: move-food-on-plate');
-
-                    //  if triggerd by foodstack-btn
-                    if (triggered) {
-                        $(this).fadeOut(constants.FADE_OUT, function() { $(this).remove(); });
-                       
-                    } else {
-
-                        log('--- APPEND OFF PLATE ----');
-                        refs.$foodCont.append($(this));
-                        $(this).css({left: $(this).data('offplate-left'), top: $(this).data('offplate-top')});
-                    }             
+                $newFood.on(configs.clickEvent, function(e) {
+                    log('-----start: move-food-on-plate > $foodCont.append------');
+                    refs.$foodCont.append($(this));
+                    log('offplate-left: ' + $(this).data('offplate-left'));
+                    log('offplate-top: ' + $(this).data('offplate-top'));
+                    $(this).css({left: $(this).data('offplate-left'), top: $(this).data('offplate-top')});
                 });
 
-                 //  food clickend
                 $newFood.on(configs.clickEventEnd, function(e) { 
-                    log('END: move-food-on-plate');  
+                    log('----END: move-food-on-plate > $foodCont.append------');
                     dragfood.removeFromPlate($(this), 'clicked');
                 });
 
                 // $newFood.draggable();
                 $newFood.draggable({
-                    start: function(e, ui) {
+                    _start: function(e, ui) {
+                        log('-----drag-start-----');
                         refs.$dragfood = ui.helper;
                         refs.$dragfood.addClass('dragged');
                         // $(this).addClass('hidesvg');
                         refs.$body.addClass('hidesvg');
                     },
-                    stop: dragfood.removeFromPlate
+                    _stop: function() {
+                        log('-----drag-stop-----');
+                        dragfood.removeFromPlate();
+                    }
+                    // stop: dragfood.removeFromPlate
                     // drag: $.throttle(300, dragfood.calcDistance)
                 });
                 
@@ -2307,7 +2307,7 @@ var dq = (function($, window, undefined) {
         trigger: function(bubblemode, msg) {
             
             log('trigger / bubblemode: ' + bubblemode);
-            log('trigger / msg: ' + msg);
+            // log('trigger / msg: ' + msg);
             
             var arrayID = NaN, rid = NaN, bubbleData = {}, worstFood = '', bestFood = '',
                 exprAry = [], bgIDsAry = [], bgid = NaN,
@@ -2556,9 +2556,7 @@ var dq = (function($, window, undefined) {
                 backgroundPosition = '0 ' + vertOffset +'px';
                 // if (data.txt.split(';')[0].indexOf('M') >= 0) backgroundPosition = '0 -300px';
                 if (data.txt.split(';')[0].indexOf('M') >= 0) backgroundPosition = '-500px ' + vertOffset +'px';
-
-                log('backgroundPosition: ' + backgroundPosition);
-
+                // log('backgroundPosition: ' + backgroundPosition);
             }
 
             //  debug
@@ -2623,9 +2621,3 @@ var dq = (function($, window, undefined) {
 
 }(jQuery, window));
 
-/*
- * New Sounds in Use
- * .gameplay/FoodTothePlate.mp3
- * 
- * 
- */

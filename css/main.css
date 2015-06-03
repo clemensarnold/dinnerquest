@@ -1012,7 +1012,7 @@ video {
     top: 15px;
     left: 50%;
     margin-left: -512px;
-    z-index: 20000;
+    z-index: 100;
 }
 
 
