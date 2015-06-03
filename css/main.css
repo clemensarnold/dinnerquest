@@ -146,7 +146,8 @@ html {
 }
 
 html.overflow {
-    overflow: visible;
+    /*overflow: visible;*/
+    overflow-y: auto;
 }
 
 html, body, #overlays {
@@ -755,13 +756,14 @@ video {
 
 #infopage {
     width: 1024px;
-    height: 2420px;
+    height: 2479px;
     position: absolute;
     top: 0;
     left: 50%;
     margin-left: -512px;
     display: none;
     background-image: url(./../img/DinnerQuest_infoseite.png);
+    background-repeat: no-repeat;
 }
 
 #infopage.visible {
@@ -770,7 +772,7 @@ video {
 
 #continueButton {
     position: absolute;
-    left: calc(48% - 190px / 2);
+    left: calc(48% - 196px / 2);
     bottom: 30px;
     width: 238px;
     height: 50px;

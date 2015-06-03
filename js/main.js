@@ -172,7 +172,7 @@ var dq = (function($, window, undefined) {
         START_GAME: 750
     },
     templates = ['INTRO', 'TRIAL','VIDEO','GAME','SCENARIO'],
-    defaultTemplate = templates[0], 
+    defaultTemplate = templates[3], 
     sounds = {
         DROPPED_FOOD: 'dropped-food',
         RESTOCK_FOOD: 'restock-food',
