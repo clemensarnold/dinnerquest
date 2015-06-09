@@ -176,8 +176,12 @@ body.table-cloth {
     position: absolute;
     pointer-events: none;
     /*z-index: -1;*/
-    width: 102%;
-    height: 102%;
+    
+    /*width: 102%;*/
+    /*height: 102%;*/
+
+    width: 100%;
+    height: 100%;
   
     z-index: 10000;
     /*border: 1px solid red;*/
@@ -1025,7 +1029,7 @@ video {
 .gallery {
     width: 55px;
     height: 49px;
-    right: 98px; 
+    right: 104px; 
     background-position: -204px -46px;
     z-index: 101;
     transition: background 0.3s ease-out;
@@ -1034,7 +1038,7 @@ video {
 .info {
     width: 55px;
     height: 49px;
-    right: 42px; 
+    right: 48px; 
     background-position: -142px 2px;
     z-index: 101;
 }
@@ -1042,7 +1046,7 @@ video {
 .sound {
     width: 52px;
     height: 49px;
-    right: -6px; 
+    right: 0; 
     background-position: -424px -1px;
     z-index: 101;
 }
@@ -1171,9 +1175,20 @@ video {
     top: 0;
     left: 0;
     background: url(./../img/svg/intro.png) no-repeat;
+    /*background: url(./../img/svg/intro-optim.svg) no-repeat;*/
+    /*background: url(./../img/svg/intro-final.svg) no-repeat;*/
+    /*background: url(./../img/svg/intro-retina.png) no-repeat;*/
+    /*background-size: 50% 50%;*/
     width: 600px;
     height: 600px;
     opacity: 0;
+    /*display: none;*/
+    transition: opacity 0.3s ease-out 0s;
+}
+
+.intro-container > div.display {
+    /*display: block;*/
+    opacity: 1;
 }
 
 .intro-container > div:nth-child(2) { background-position:  -600px    0px; }
@@ -1652,7 +1667,7 @@ body.hidesvg g {
     width: 40px;
     height: 0;
     overflow: hidden;
-    transition: height 0.4s ease-out;
+    transition: height 0.3s ease-out;
 }
 
 /* == main barchart ====================================================== */

@@ -27,7 +27,7 @@
         ],
         "animals": [
             {"label": "Lachsfilet", "color": "#e8a180", "serving": 50, "kcal": 71, "c02": 200, "exp": "L07,G09", "chart": "183, 110", "bigbg": false, "msg-chart": "M04;Lachs ist immer ein guter Fang! Und schmeckt lecker.", "msg-dropped": "G04;Lachs geht immer!"},
-            {"label": "Schweineschnitzel", "color": "#e8a180", "serving": 160, "kcal": 448, "c02": 1600, "exp": "L07,G09", "chart": "183, 110", "bigbg": true, "msg-chart": "M04;Lachs ist immer ein guter Fang! Und schmeckt lecker.", "msg-dropped": "G02;Schnitzel - urgut!"},
+            {"label": "Schweineschnitzel", "color": "#e8a180", "serving": 160, "kcal": 448, "c02": 1600, "exp": "L07,G09", "chart": "183, 110", "bigbg": true, "msg-chart": "M04;Der gute Geschmack hat wohl leider seinen Preis!", "msg-dropped": "G02;Schnitzel - urgut!"},
             {"label": "Ei", "color": "#fbdb53", "serving": 50, "kcal": 80.5, "c02": 130, "exp": "L05,G09", "chart": "125, 130", "bigbg": false, "msg-chart": "M08;Ob Freiland-Ei oder Käfighaltung macht einen großen Unterschied.", "msg-dropped": "M06;Auch hier gibt es Unterschiede - aufpassen!"},
             {"label": "Rind normal", "color": "#e8877f", "serving": 45, "kcal": 86.85, "c02": 1150, "exp": "L09,G11", "chart": "160, 130", "bigbg": false, "msg-chart": "M09;Rinder brauchen viel Futter und Platz - das macht sich bemerkbar!", "msg-dropped": "M06;Tofu wäre eine schlaue Alternative..."},
             {"label": "Rind bio", "color": "#e8877f", "serving": 45, "kcal": 86.85, "c02": 770, "exp": "L09,G11", "chart": "160, 130", "bigbg": false, "msg-chart": "M09;Rinder brauchen viel Futter und Platz - das macht sich bemerkbar!", "msg-dropped": "M08;Immerhin vom Biobauern..."},

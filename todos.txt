@@ -1,4 +1,7 @@
-0820
+0930
+
+.fb-share raus
+.remove cookie on home link
 
 dq.app.playSound('first-intro');
 

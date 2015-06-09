@@ -42,7 +42,7 @@ dq.gallery = {
             // log('ratio: ' + data[i].stats.ratio);
 
             greenRatio = data[i].stats.ratio;
-            maskHeight = Math.round(72 * greenRatio);
+            maskHeight = Math.round(61 * greenRatio); // 72
 
             $(el).data('maskHeight', maskHeight).delay(1000 + i * 200).queue(function() {
                 $(this).find('.chartmask').css({height: $(this).data('maskHeight')});
@@ -65,9 +65,9 @@ dq.gallery = {
             $(el).data('index', i);
         });
 
-        $('.dish-wrapper').on({click: function() {
-            $('.gallery.icon').trigger('click');
+        $('.dish-wrapper').on('click', function() {
+            $('.gallery.icon').trigger(dq.configs.clickEvent);
             dq.game.renderMeal($(this).data('data'), $(this).data('index'));
-        }});
+        });
     }
 }

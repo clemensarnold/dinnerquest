@@ -9,18 +9,18 @@
         <title>Dinner Quest</title>
         <meta name="description" content="">
             
-        <meta name="apple-touch-fullscreen" content="YES" />
+        <!-- <meta name="apple-touch-fullscreen" content="YES" /> -->
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="HandheldFriendly" content="true" />
         <meta http-equiv="x-rim-auto-match" content="none" />
             
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, minimal-ui">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
 
         <meta property="og:title" content="Dinnerquest">
         <meta property="og:description" content="Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.">
-        <meta property="og:image" content="http://havefunwashing.net/dq/v2/fb-share.jpg"/>
+        <meta property="og:image" content="http://havefunwashing.net/dq/v3/fb-share.jpg"/>
 
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
@@ -40,11 +40,11 @@
     </head>
     <body>
 
-        <div id="anitest">
+<!--         <div id="anitest">
             <div class="bolt2 one hidden"></div>
             <div class="bolt2 two hidden"></div>
             <div class="bolt2 three hidden"></div>
-        </div>
+        </div> -->
         
         <div id="performance-boost"><p></p></div>
         
@@ -114,13 +114,13 @@
 
         <div class="misc-icons-wrapper">
             <div class="logo icon transparent"></div>
-            <a target="_blank" href="" class="fbshare icon transparent standard js-fbshare" title="Share on Facebook">f</a>
+            <a target="_blank" href="" class="fbshare icon transparent standard js-fbshare hidden" title="Share on Facebook">f</a>
             <div class="gallery icon transparent standard" data-pagetype="gallery"></div>
             <div class="info icon transparent standard" data-pagetype="infopage"></div>
             <div class="sound icon transparent standard" data-pagetype="sound"></div>
         </div>
 
-         <div class="trash icon transparent _hidden"></div>
+        <!-- <div class="trash icon transparent hidden"></div> -->
         
         <!-- .menu-wrapper -->
         <div class="menu-mask">
@@ -148,29 +148,15 @@
             <audio class="btn-audio snd standard-click" preload="auto"><source src="./media/sound-final/clicks-highlights/ClickGeneral.mp3" type="audio/mpeg" /></audio>
             <audio class="btn-audio snd playbtn-click" preload="auto"><source src="./media/sound-final/clicks-highlights/PlayButton.mp3" type="audio/mpeg" /></audio>
             <audio class="btn-audio snd menubtn-click" preload="auto"><source src="./media/sound-final/clicks-highlights/MenuClick.mp3" type="audio/mpeg" /></audio>
-
-
-            <!-- <audio class="btn-audio snd change-tab" preload="auto"><source src="./media/sound/change_tab.mp3" type="audio/mpeg" /></audio> -->
-            <!-- <audio class="btn-audio snd dropped-food" preload="auto"><source src="./media/sound/food_on_plate.mp3" type="audio/mpeg" /></audio> -->
-
             <audio class="btn-audio snd change-tab" preload="auto"><source src="./media/sound-final/gameplay/Schild2.mp3" type="audio/mpeg" /></audio>
-
-
-
-            <!-- <audio class="btn-audio snd dropped-food" preload="auto"><source src="./media/sound-new/ClickZutatGehtAufTeller.wav" type="audio/mpeg" /></audio> -->
             <audio class="btn-audio snd dropped-food" preload="auto"><source src="./media/sound-final/gameplay/FoodOnThePlate1.mp3" type="audio/mpeg" /></audio>
             <audio class="btn-audio snd restock-food" preload="auto"><source src="./media/sound-final/gameplay/FoodBackToMenu.mp3" type="audio/mpeg" /></audio>
             <audio class="btn-audio snd select-dish" preload="auto"><source src="./media/sound-final/gameplay/SelectDish.mp3" type="audio/mpeg" /></audio>
-            <audio class="btn-audio snd recycle-food" preload="auto"><source src="./media/sound-final/gameplay/Recycle.mp3" type="audio/mpeg" /></audio>
-            <audio class="btn-audio snd show-bubble" preload="auto"><source src="./media/sound-final/gameplay/BubblePop2.mp3" type="audio/mpeg" /></audio>
             <audio class="btn-audio snd show-bubble-fork" preload="auto"><source src="./media/sound-final/gameplay/fork.mp3" type="audio/mpeg" /></audio>
             <audio class="btn-audio snd show-bubble-spoon" preload="auto"><source src="./media/sound-final/gameplay/spoon.mp3" type="audio/mpeg" /></audio>
             <audio class="btn-audio snd gameover-won" preload="auto"><source src="./media/sound-final/gameplay/success.mp3" type="audio/mpeg" /></audio>
             <audio class="btn-audio snd gameover-lost" preload="auto"><source src="./media/sound-final/gameplay/fail.mp3" type="audio/mpeg" /></audio>
-            <audio class="btn-audio snd failed"><source src="./media/sound/failed.mp3" type="audio/mpeg" /></audio>
-            <audio class="btn-audio snd success"><source src="./media/sound/success.mp3" type="audio/mpeg" /></audio>
-            <audio class="btn-audio snd new-game" preload="auto"><source src="./media/sound/new_game.mp3" type="audio/mpeg" /></audio>
-            <!-- <audio class="btn-audio snd snoring" loop><source src="./media/sound/snoring.mp3" type="audio/mpeg" /></audio> -->
+            <audio class="btn-audio snd new-game" preload="auto"><source src="./media/sound-final/new_game.mp3" type="audio/mpeg" /></audio>
         </div>
         <div id="videocontainer" class="transparent">
             <div class="videohud">
@@ -185,15 +171,19 @@
             </video>
         </div>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
-        <script src="js/vendor/jquery-ui-1.10.4.min.js"></script>
+        
+        <script src="js/vendor/jquery-2.1.4.min.js"></script>
+
+
+
+        <!-- <script src="js/vendor/jquery-ui-1.10.4.min.js"></script> -->
+        <script src="js/vendor/jquery-ui-latest.min.js"></script>
         <script src="js/vendor/jquery.ui.touch-punch.min.js"></script>
         <script src="js/vendor/throttle-1.1.js"></script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
         <script src="js/gallery.js"></script>
-        <script src="js/vendor/stats.js"></script>
+        <!-- <script src="js/vendor/stats.js"></script> -->
 
     </body>
 </html>

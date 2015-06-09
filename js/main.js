@@ -55,8 +55,7 @@ var dq = (function($, window, undefined) {
         'first-intro': $('.snd.first-intro')[0],
         'standard-click': $('.snd.standard-click')[0],
         'playbtn-click': $('.snd.playbtn-click')[0],
-        'menubtn-click': $('.snd.menubtn-click')[0],
-        'scenario': $('.snd.scenario')[0]
+        'menubtn-click': $('.snd.menubtn-click')[0]
     },
     configs = {
         isTouch: 'ontouchstart' in window,
@@ -172,7 +171,7 @@ var dq = (function($, window, undefined) {
         START_GAME: 750
     },
     templates = ['INTRO', 'TRIAL','VIDEO','GAME','SCENARIO'],
-    defaultTemplate = templates[3], 
+    defaultTemplate = templates[0], 
     sounds = {
         DROPPED_FOOD: 'dropped-food',
         RESTOCK_FOOD: 'restock-food',
@@ -238,10 +237,10 @@ var dq = (function($, window, undefined) {
                 game.firstvisit = true;
             }
 
-            game.firstvisit = true;
+            // game.firstvisit = true;
             game.visitorid = docCookies.getItem("dq-visitorid");
 
-            app.init();
+            setTimeout(app.init, 1500);
 
             $.ajax({
                 type: 'POST',
@@ -330,15 +329,18 @@ var dq = (function($, window, undefined) {
             
             refs.$window.on(configs.clickEvent, app.resetInactCounter);
             
-            $('.logo').on({click: app.reload});
-            $('.trash').on({click: game.addTrash});
+            $('.logo').on(configs.clickEvent, app.reload);
+            // $('.trash').on({click: game.addTrash});
            
-            refs.$newGameButton.on({click: function() {
+            refs.$newGameButton.on(configs.clickEvent, function() {
                 // game.startNewGame();
                 setTimeout(game.startNewGame, 650);
-            }});
-            $('.myplates').on({click: function() { $('.gallery.icon').trigger('click'); }});
-
+            });
+            $('.myplates').on(configs.clickEvent, function() {
+                $('.gallery.icon').trigger(configs.clickEvent);
+                configs.freezeGalleryIcon = true;
+                window.setTimeout(function() { configs.freezeGalleryIcon = false; }, 1500);
+            });
 
             $('.' + buttons.START_TRIAL + ', .' + buttons.SKIP_TRIAL).on({click: function() {
 
@@ -351,7 +353,11 @@ var dq = (function($, window, undefined) {
                 game.trialmode ? setTimeout(app.startGame, delay) : setTimeout(app.finishVideo, delay);
             }});
             
-            $('.info.icon, .gallery.icon').on({click: function() {
+            $('.info.icon, .gallery.icon').on(configs.clickEvent, function() {
+
+                if (configs.freezeGalleryIcon) return;
+
+
                 var pagetype = $(this).data('pagetype');
 
                 if (storm.stormOn) return;
@@ -363,9 +369,9 @@ var dq = (function($, window, undefined) {
                 }
 
                 $('#' + pagetype).hasClass('visible') ? app.hideContentPage(pagetype) : app.showContentPage(pagetype);
-            }});
+            });
 
-            $('.sound').click(function () {
+            $('.sound').on(configs.clickEvent, function () {
                 $(this).toggleClass('off', constants.SOUNDS);
                 constants.SOUNDS = !constants.SOUNDS;
             });
@@ -375,8 +381,9 @@ var dq = (function($, window, undefined) {
                 app.hideContentPage("infopage");
             }});
 
-            $('.hud .toggle').on({click: barchart.toggle});
-            $('.menu-btn').on({click: app.scrollFoodMenu});
+            // $('.hud .toggle').on({click: barchart.toggle});
+            $('.hud .toggle').on(configs.clickEvent, barchart.toggle);
+            $('.menu-btn').on(configs.clickEvent, app.scrollFoodMenu);
 
             //  init sounds
             for (var i = 0; i < game.sounds.length; i++) {
@@ -393,7 +400,7 @@ var dq = (function($, window, undefined) {
 
             var prev = $(this).hasClass('prev'),
                 marginLeft = NaN,
-                itemWidth = 120,
+                itemWidth = configs.isTouch ? 102 : 120,
                 lastID = NaN,
                 prevActive = false,
                 nextActive = false;
@@ -413,6 +420,10 @@ var dq = (function($, window, undefined) {
 
             nextActive = (app.foodMenuObj.currentID < lastID);
             prevActive = (app.foodMenuObj.currentID > 0);
+
+            log('lastID: ' + lastID);
+            log('app.foodMenuObj.currentID: ' + app.foodMenuObj.currentID);
+
 
             $('.menu-btn.prev').toggleClass('active', prevActive).toggleClass('no-sound', !prevActive);
             $('.menu-btn.next').toggleClass('active', nextActive).toggleClass('no-sound', !nextActive);
@@ -435,7 +446,7 @@ var dq = (function($, window, undefined) {
 
             log('initVideo');
             
-            refs.$videocontainer.on({click: app.finishVideo});
+            refs.$videocontainer.on(configs.clickEvent, app.finishVideo);
 
             $('#intro-video').on({ended: app.finishVideo});
             $('#intro-video')[0].play();
@@ -444,14 +455,14 @@ var dq = (function($, window, undefined) {
                 refs.$videocontainer.removeClass('transparent').addClass('playing');
             }, 1000);
 
-            $('.js-skipvideo').on({click: function() { 
+            $('.js-skipvideo').on(configs.clickEvent, function() { 
                 log('js-skipvideo');
-                refs.$videocontainer.trigger('click');
-            }});
+                refs.$videocontainer.trigger(configs.clickEvent);
+            });
         },
 
         showGameButtons: function() {
-            $('.logo, .info, .gallery, .sound, .trash, .transparent').removeClass('transparent');
+            $('.logo, .info, .gallery, .sound, .transparent').removeClass('transparent');
         },
         
         finishVideo: function() {
@@ -515,7 +526,7 @@ var dq = (function($, window, undefined) {
 
 
             $('.logo').removeClass('transparent');
-            $('.trash').removeClass('transparent');
+            // $('.trash').removeClass('transparent');
             
             // setTimeout(app.clearSounds, 900);
         },
@@ -576,7 +587,8 @@ var dq = (function($, window, undefined) {
                 specs.foodCat = game.currentFoodCat;
                 specs.bgHorPos = i;
                 
-                if (!app.isLabelAlreadyInCurrentFood(specs.label)) {
+                // if (!app.isLabelAlreadyInCurrentFood(specs.label)) {
+                if (true) {
                     $(el).css({backgroundPosition: -i * $(el).width() + 'px ' + vertOff + 'px'}).
                     data('specs', specs).addClass('visible');
 
@@ -608,6 +620,11 @@ var dq = (function($, window, undefined) {
                 } else {
                     $(el).css("visibility", "hidden");
                 }
+
+                if (app.isLabelAlreadyInCurrentFood(specs.label)) {
+                    $(el).addClass('inactive');
+                }
+
             });
 
             app.scrollFoodMenu('no-change');
@@ -669,7 +686,7 @@ var dq = (function($, window, undefined) {
                 refs.$hud.removeClass('hidden');
             }
 
-            $('.logo, #newGameButton, .meal-check, .trash').show();
+            $('.logo, #newGameButton, .meal-check').show();
         },
         
         convertGrammToKG: function (gramm) {
@@ -749,6 +766,7 @@ var dq = (function($, window, undefined) {
         },
         
         reload: function() {
+            docCookies.removeItem("dq-visitorid");
             location.reload();
         },
         
@@ -861,6 +879,9 @@ var dq = (function($, window, undefined) {
 
     svg = {
 
+        xmlserializer: new XMLSerializer(),
+        xmlString: '',
+
         $foodOnPlate: undefined,
 
         loadSVG: function($newFoodRef, specs) {
@@ -869,8 +890,8 @@ var dq = (function($, window, undefined) {
             svg.$foodOnPlate = $newFoodRef;
 
             $.get(svgPath, function(data) {
-                var xmlString = (new XMLSerializer()).serializeToString(data);
-                svg.$foodOnPlate.append(xmlString);
+                svg.xmlString = svg.xmlserializer.serializeToString(data);
+                svg.$foodOnPlate.append(svg.xmlString);
             });
         }
     }
@@ -911,7 +932,7 @@ var dq = (function($, window, undefined) {
             log(dataObj);
 
             $('.scenario img').attr('src', './img/scenario/' + dataObj.img);
-            $('.scenario p').text(dataObj.txt);
+            $('.scenario p').html(dataObj.txt);
 
             scenario.initSound(dataObj.sound);
             app.playSound(sounds.SCENARIO, 500);
@@ -928,13 +949,24 @@ var dq = (function($, window, undefined) {
         },
 
         initSound: function(sound) {
-            var html = '<audio class="btn-audio snd scenario" preload="auto"><source src="./media/sound-final/scenarios/'+ sound + '" type="audio/mpeg" /></audio>';
             
+            if ($('.snd.scenario').length === 0) {
+                log('add scenario sound');
+                var html = '<audio class="btn-audio snd scenario" preload="auto"><source id="mp3Source" type="audio/mpeg" /></audio>';
+                // $('.snd.scenario').remove();
+                refs.$audiocontainer.append(html);
+            } else {
+                log('reset scenario sound');
+            }
 
-            $('.snd.scenario').remove();
-            refs.$audiocontainer.append(html);
-
+            $('#mp3Source').attr('src','./media/sound-final/scenarios/'+ sound);
             refs['scenario'] = $('.snd.scenario')[0];
+            refs['scenario'].pause();
+            refs['scenario'].load();
+
+            // if ($("#js-videoplayer").length >= 1) { // unload video
+            // $("#js-videoplayer").first().attr('src','')
+            // }
             
             // log(html);
             
@@ -951,7 +983,6 @@ var dq = (function($, window, undefined) {
             refs.$scenario.removeClass('show').delay(500).queue(function(){ 
                 $(this).addClass('hidden').dequeue();
             });
-
             
             setTimeout(function() {
                 barchart.activate();
@@ -959,9 +990,9 @@ var dq = (function($, window, undefined) {
                 barchart.showHud();
 
                 if (!game.skipMeal) {
-                    window.setTimeout(function() { $('.hud .toggle').trigger('click', {show: 'chart'}); }, 300);
+                    window.setTimeout(function() { $('.hud .toggle').trigger(configs.clickEvent, {show: 'chart'}); }, 30); // 300
                 } 
-            }, 150);
+            }, 40); //150
         }
     }
 
@@ -1515,7 +1546,7 @@ var dq = (function($, window, undefined) {
         clearplate: false,
 
         init: function() {
-            var delays = [1000, 200, 200, 200, 200, 200, 200],
+            var delays = [2500, 200, 200, 200, 200, 200, 200],
                 buttonDelay = 1000,
                 delay = 0,
                 html = '';
@@ -1530,7 +1561,8 @@ var dq = (function($, window, undefined) {
 
             $('.intro-container > div').each(function(i, el) {
                 delay += delays[i];
-                $(el).delay(delay).fadeTo(constants.FADEIN_SPEED, 1);
+                // $(el).delay(delay).fadeTo(constants.FADEIN_SPEED, 1);
+                $(el).delay(delay).queue(function() { $(this).addClass('display'); });
             });
 
             delay += buttonDelay;
@@ -1546,8 +1578,7 @@ var dq = (function($, window, undefined) {
                 // $('.' + buttons.START_TRIAL + ' p').text('kennenlernen');
             }
 
-            app.playSound(sounds.FIRST_INTRO, 1050);
-
+            app.playSound(sounds.FIRST_INTRO, delays[0] + 80);
         },
 
         hide: function() {
@@ -1681,7 +1712,7 @@ var dq = (function($, window, undefined) {
             }
         }
 
-        //  resock in food menu
+        //  restock in food menu
         $(dq.refs.$foodCont.children()[$target.data('specs').bgHorPos]).removeClass('inactive');
         app.playSound(sounds.RESTOCK_FOOD);
 
@@ -2611,6 +2642,7 @@ var dq = (function($, window, undefined) {
         app: app,
         gallery: gallery,
         game: game,
+        configs: configs,
         barchart: barchart,
         piechart: piechart,
         cutlery: cutlery,
